@@ -3,5 +3,6 @@
 .env.prod
 .env.dev
 .vscode
+coverage
 
 .vercel

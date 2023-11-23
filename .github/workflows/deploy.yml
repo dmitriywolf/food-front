@@ -23,6 +23,20 @@ jobs:
         run: npm run lint
       - name: Check format
         run: npm run format
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Unit test
+        run: npm run test
   build:
     needs: lint
     runs-on: ubuntu-latest
