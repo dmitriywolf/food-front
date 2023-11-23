@@ -11,8 +11,6 @@ export function buildPlugins({
   paths,
   isDev,
 }: BuildOptions): webpack.WebpackPluginInstance[] {
-  const dotenvFilename = isDev ? '.env.development' : '.env.production';
-
   const plugins = [
     new HTMLWebpackPlugin({
       template: `${paths.html}/index.html`,
@@ -23,7 +21,7 @@ export function buildPlugins({
       chunkFilename: 'css/[name].[contenthash:8].css',
     }),
     new Dotenv({
-      path: `${paths.env}/${dotenvFilename}`,
+      path: paths.env,
     }),
   ];
 

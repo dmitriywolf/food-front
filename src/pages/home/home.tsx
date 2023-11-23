@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { DEBUG, SERVER_URL } from 'common/constants';
+import { SERVER_URL } from 'common/constants';
 
 function MainPage() {
   const { t } = useTranslation();
@@ -7,8 +7,8 @@ function MainPage() {
   return (
     <div>
       {t('main_page')} {t('main_page')} {t('main_page')}
-      <p>is debug {DEBUG}</p>
       <p>server {SERVER_URL}</p>
+      <p>server {process.env.TEST_ENV}</p>
     </div>
   );
 }
