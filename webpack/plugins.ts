@@ -3,6 +3,7 @@ import HTMLWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import Dotenv from 'dotenv-webpack';
 
 import { type BuildOptions } from './types/config';
 
@@ -10,6 +11,8 @@ export function buildPlugins({
   paths,
   isDev,
 }: BuildOptions): webpack.WebpackPluginInstance[] {
+  const dotenvFilename = isDev ? '.env.development' : '.env.production';
+
   const plugins = [
     new HTMLWebpackPlugin({
       template: `${paths.html}/index.html`,
@@ -19,8 +22,8 @@ export function buildPlugins({
       filename: 'css/[name].[contenthash:8].css',
       chunkFilename: 'css/[name].[contenthash:8].css',
     }),
-    new webpack.DefinePlugin({
-      ENV_IS_DEV: JSON.stringify(isDev),
+    new Dotenv({
+      path: `${paths.env}/${dotenvFilename}`,
     }),
   ];
 

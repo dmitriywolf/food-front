@@ -9,6 +9,7 @@ export default (env: BuildEnv): webpack.Configuration => {
     src: path.resolve(__dirname, 'src'),
     html: path.resolve(__dirname, 'public'),
     dist: path.resolve(__dirname, 'dist'),
+    env: path.resolve(__dirname),
   };
 
   const mode = env.mode ?? 'development';
