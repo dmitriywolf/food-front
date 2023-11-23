@@ -8,7 +8,6 @@ function MainPage() {
     <div>
       {t('main_page')} {t('main_page')} {t('main_page')}
       <p>server {SERVER_URL}</p>
-      <p>server {process.env.TEST_ENV}</p>
     </div>
   );
 }

@@ -21,7 +21,7 @@ export function buildPlugins({
       chunkFilename: 'css/[name].[contenthash:8].css',
     }),
     new Dotenv({
-      path: paths.env,
+      path: `${paths.env}${isDev ? '.dev' : '.prod'}`,
       systemvars: true,
     }),
   ];
