@@ -22,6 +22,7 @@ export function buildPlugins({
     }),
     new Dotenv({
       path: paths.env,
+      systemvars: true,
     }),
   ];
 
