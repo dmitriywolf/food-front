@@ -24,6 +24,7 @@ jobs:
       - name: Check format
         run: npm run format
   unit:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -38,7 +39,7 @@ jobs:
       - name: Unit test
         run: npm run test
   build:
-    needs: lint
+    needs: unit
     runs-on: ubuntu-latest
     steps:
       - name: Get code
