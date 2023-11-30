@@ -1,9 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { HomePage } from 'pages/home';
 import { NotFoundPage } from 'pages/notFound';
-import { ROUTES } from 'common/constants';
+import { ROUTES } from 'config/constants';
 
-import { RootLayout } from 'layouts';
+import { RootLayout } from 'layouts/rootLayout';
 
 export const appRouter = () =>
   createBrowserRouter([

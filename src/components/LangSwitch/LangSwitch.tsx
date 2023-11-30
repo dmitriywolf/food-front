@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { ActionIcon } from '@mantine/core';
+import { Button } from '@mantine/core';
+import { IconWorld } from '@tabler/icons-react';
 
 export default function LangSwitch() {
   const { t, i18n } = useTranslation();
@@ -9,13 +10,13 @@ export default function LangSwitch() {
   };
 
   return (
-    <ActionIcon
+    <Button
       onClick={toggle}
-      variant='default'
-      size='xl'
-      aria-label='Toggle language'
+      variant='transparent'
+      rightSection={<IconWorld size={14} />}
+      color='secondary'
     >
       {t('lang')}
-    </ActionIcon>
+    </Button>
   );
 }

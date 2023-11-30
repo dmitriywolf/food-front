@@ -45,6 +45,7 @@ module.exports = {
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'prettier/prettier': 'error',
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
-    'react-hooks/exhaustive-deps': 'error', // Checks effect dependencies
+    'react-hooks/exhaustive-deps': 'error', // Checks effect dependencies,
+    "no-nested-ternary": "off"
   },
 };

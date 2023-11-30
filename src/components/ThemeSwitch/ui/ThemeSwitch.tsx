@@ -4,7 +4,7 @@ import {
   useComputedColorScheme,
 } from '@mantine/core';
 import { IconSun, IconMoon } from '@tabler/icons-react';
-import cx from 'clsx';
+
 import classes from './styles.module.scss';
 
 export default function ThemeSwitch() {
@@ -19,11 +19,14 @@ export default function ThemeSwitch() {
     <ActionIcon
       onClick={() => setColorScheme(isLightTheme ? 'dark' : 'light')}
       variant='default'
-      size='xl'
+      size='lg'
       aria-label='Toggle color scheme'
     >
-      <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />
-      <IconMoon className={cx(classes.icon, classes.dark)} stroke={1.5} />
+      {isLightTheme ? (
+        <IconMoon className={classes.icon} stroke={1.5} />
+      ) : (
+        <IconSun className={classes.icon} stroke={1.5} />
+      )}
     </ActionIcon>
   );
 }

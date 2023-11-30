@@ -1,1 +1,1 @@
-export { default as ThemeSwitch } from './ThemeSwitch';
+export { default as ThemeSwitch } from './ui/ThemeSwitch';

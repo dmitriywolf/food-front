@@ -24,7 +24,10 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
         },
       },
       'sass-loader',
-      'postcss-loader',
+      {
+        loader: 'postcss-loader',
+        options: { postcssOptions: { parser: 'postcss-scss' } },
+      },
     ],
   };
 

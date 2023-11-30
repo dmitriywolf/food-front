@@ -1,3 +1,11 @@
-export * from './ErrorPage';
-export * from './LangSwitch';
-export * from './ThemeSwitch';
+export { ErrorPage } from './ErrorPage';
+export { LangSwitch } from './LangSwitch';
+export { ThemeSwitch } from './ThemeSwitch';
+export { Header } from './Header';
+export { Footer } from './Footer';
+export { Logo } from './Logo';
+export { MainMenu } from './MainMenu';
+export { AuthMenu } from './AuthMenu';
+export { Intro } from './Intro';
+export { JobHolders } from './JobHolders';
+export { Socials } from './Socials';

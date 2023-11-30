@@ -12,6 +12,7 @@ export function buildWebpackConfig(
 
   return {
     mode,
+    target: 'browserslist',
     entry: paths.entry,
     output: {
       filename: '[name].[contenthash].js',
