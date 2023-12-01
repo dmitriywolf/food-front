@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Box, Stack } from '@mantine/core';
 import { Header, Footer } from 'components';
-import classes from './RootLayout.module.scss';
+import classes from './Layout.module.scss';
 
 export default function RootLayout() {
   return (
