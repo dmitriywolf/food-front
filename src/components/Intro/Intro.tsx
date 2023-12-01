@@ -13,21 +13,15 @@ export default function Intro() {
           align='center'
           justify='center'
           gap={rem(24)}
-          className={classes.introInner}
+          pt={rem(200)}
+          pb={rem(72)}
+          className={classes.inner}
         >
-          <Title order={1} c='white' maw={rem(800)} ta='center'>
-            {t('find_a_dream_jobs_in_ukraine')}
-          </Title>
-          <Text c='secondary' maw={rem(600)} fz={rem(20)} ta='center'>
-            {t('when_you_re_searching_for_a_job')}
-          </Text>
+          <Title order={1}>{t('find_a_dream_jobs_in_ukraine')}</Title>
+          <Text c='secondary'>{t('when_you_re_searching_for_a_job')}</Text>
           <Group>
-            <Text c='green' fz={rem(20)}>
-              21,701,403
-            </Text>
-            <Text c='white' maw={rem(600)} fz={rem(20)} ta='center'>
-              {t('total_jobs_posted')}
-            </Text>
+            <Text c='green'>21,701,403</Text>
+            <Text>{t('total_jobs_posted')}</Text>
           </Group>
         </Stack>
       </Container>

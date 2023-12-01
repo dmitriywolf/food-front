@@ -1,22 +1,11 @@
-import {
-  Container,
-  Stack,
-  Group,
-  Title,
-  Button,
-  Flex,
-  Text,
-  Box,
-  SimpleGrid,
-  rem,
-} from '@mantine/core';
-import { ROUTES } from 'config/constants';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Container, Stack, Flex, Text, Box, Group, rem } from '@mantine/core';
+import { ThemeSwitch, LangSwitch } from 'components';
 
-import { Socials, Logo } from 'components';
+import FooterMenu from './FooterMenu';
 
 import classes from './Footer.module.scss';
+// import FooterTop from './FooterTop';
 
 export default function RootFooter() {
   const { t } = useTranslation();
@@ -24,34 +13,16 @@ export default function RootFooter() {
   return (
     <Box component='footer' className={classes.footer}>
       <Container size='responsive'>
-        <Stack gap={rem(52)}>
-          {/* Footer top */}
-          <Group justify='space-between'>
-            <Title className={classes.footerTopTitle} order={2}>
-              {t('are_you_interested_in_boosting_your_career')}?
-            </Title>
-            <Link to={ROUTES.LOGIN}>
-              <Button>{t('login_to_community')}</Button>
-            </Link>
-          </Group>
+        <Stack gap={rem(32)}>
+          {/* <FooterTop /> */}
 
-          {/* Footer Center */}
-          <SimpleGrid
-            className={classes.footerCenter}
-            cols={5}
-            spacing={rem(88)}
-          >
-            <Stack gap={rem(32)}>
-              <Logo />
-              <Socials />
-            </Stack>
-
-            {/* <FooterMenu /> */}
-          </SimpleGrid>
-
-          {/* Copyright */}
-          <Flex className={classes.copyright}>
+          <Flex className={classes.menu}>
             <Text>@2023 {t('all_rights_reserved')}</Text>
+            <FooterMenu />
+            <Group>
+              <ThemeSwitch />
+              <LangSwitch />
+            </Group>
           </Flex>
         </Stack>
       </Container>

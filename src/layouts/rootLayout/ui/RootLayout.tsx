@@ -1,15 +1,16 @@
 import { Outlet } from 'react-router-dom';
+import { Box, Stack } from '@mantine/core';
 import { Header, Footer } from 'components';
-import classes from './styles.module.scss';
+import classes from './RootLayout.module.scss';
 
 export default function RootLayout() {
   return (
-    <section className={classes.layout}>
+    <Stack className={classes.layout}>
       <Header />
-      <main>
+      <Box component='main' className={classes.main}>
         <Outlet />
-      </main>
+      </Box>
       <Footer />
-    </section>
+    </Stack>
   );
 }

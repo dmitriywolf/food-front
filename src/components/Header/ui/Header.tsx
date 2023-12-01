@@ -1,25 +1,19 @@
-import {
-  // ThemeSwitch,
-  Logo,
-  MainMenu,
-  AuthMenu,
-} from 'components';
-import { Container, Flex, rem } from '@mantine/core';
+import { Logo, MainMenu, AuthMenu } from 'components';
+import { Container, Flex, Box, rem } from '@mantine/core';
 import classes from './Header.module.scss';
 
 export default function Header() {
   return (
-    <header className={classes.header}>
+    <Box component='header' className={classes.header}>
       <Container size='responsive'>
-        <Flex align='center' className={classes.headerInner}>
+        <Flex className={classes.inner}>
           <Logo />
           <MainMenu />
           <Flex gap={rem(18)} align='center'>
             <AuthMenu />
-            {/* <ThemeSwitch /> */}
           </Flex>
         </Flex>
       </Container>
-    </header>
+    </Box>
   );
 }

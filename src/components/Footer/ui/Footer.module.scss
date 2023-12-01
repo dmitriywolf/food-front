@@ -1,20 +1,11 @@
 .footer {
-  padding-top: rem(100);
+  padding-top: rem(32px);
 }
 
-.footerTopTitle {
-  max-width: rem(550);
-  font-size: rem(36px);
-  line-height: 1.15;
-}
-
-.footerCenter {
-  padding-top: rem(52px);
+.menu {
+  justify-content: space-between;
+  align-items: center;
+  padding: rem(24) 0;
   border-top: 1px solid var(--mantine-color-dark-4);
 }
 
-.copyright {
-  justify-content: center;
-  padding: rem(32) 0;
-  border-top: 1px solid var(--mantine-color-dark-4);
-}

@@ -1,12 +1,14 @@
-import { Intro, JobHolders } from 'components';
+import { Intro, FeaturedCompanies, FeaturedJobs } from 'components';
+import { Stack, rem } from '@mantine/core';
 
-function MainPage() {
+function HomePage() {
   return (
-    <>
+    <Stack gap={rem(72)}>
       <Intro />
-      <JobHolders />
-    </>
+      <FeaturedCompanies />
+      <FeaturedJobs />
+    </Stack>
   );
 }
 
-export default MainPage;
+export default HomePage;

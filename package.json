@@ -1,5 +1,5 @@
 {
-  "name": "food-front",
+  "name": "jobmagazine-front",
   "version": "1.0.0",
   "description": "Job magazine",
   "main": "index.js",
@@ -8,7 +8,6 @@
     "build": "webpack --env mode=production",
     "build:dev": "webpack --env mode=development",
     "preview": "webpack serve --env mode=production",
-    "lint:editorconfig": "editorconfig-checker",
     "lint": "eslint \"**/*.{ts,tsx}\"",
     "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix",
     "format": "prettier ./src --check",
@@ -42,7 +41,6 @@
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.8.1",
     "dotenv-webpack": "^8.0.1",
-    "editorconfig-checker": "^5.1.2",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.1.0",

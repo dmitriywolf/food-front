@@ -1,15 +1,15 @@
 import { Outlet } from 'react-router-dom';
-import classes from './styles.module.scss';
+import { Box, Stack } from '@mantine/core';
+import { Footer } from 'components';
+import classes from './AuthLayout.module.scss';
 
 export default function AuthLayout() {
   return (
-    <div>
-      {/* <Header /> */}
-      <main>
+    <Stack className={classes.layout}>
+      <Box component='main' className={classes.main}>
         <Outlet />
-      </main>
-
-      {/* <Footer /> */}
-    </div>
+      </Box>
+      <Footer />
+    </Stack>
   );
 }

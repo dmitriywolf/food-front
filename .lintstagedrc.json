@@ -1,6 +1,5 @@
 {
   "*.{ts,tsx}": [
-    "npm run lint:editorconfig",
     "npm run lint:fix",
     "npm run format:fix"
   ]

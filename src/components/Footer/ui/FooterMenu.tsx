@@ -1,111 +1,37 @@
+import { Flex, rem } from '@mantine/core';
+import { Link } from 'react-router-dom';
+import { ROUTES } from 'config/constants';
 import { useTranslation } from 'react-i18next';
-import { Stack, Text, Anchor, rem } from '@mantine/core';
 
 export default function FooterMenu() {
   const { t } = useTranslation();
 
-  const configMenu = [
+  const menuConfig = [
     {
-      key: t('bookings_support'),
-      links: [
-        {
-          title: 'COVID-19',
-          href: '/',
-        },
-        {
-          title: t('help_center'),
-          href: '/',
-        },
-        {
-          title: t('support'),
-          href: '/',
-        },
-        {
-          title: t('trust_safety'),
-          href: '/',
-        },
-      ],
+      value: t('about_us'),
+      href: ROUTES.aboutUs,
     },
     {
-      key: t('community'),
-      links: [
-        {
-          title: t('against_discrimination'),
-          href: '/',
-        },
-        {
-          title: t('invite_friends'),
-          href: '/',
-        },
-        {
-          title: t('gift_cards'),
-          href: '/',
-        },
-      ],
+      value: t('contacts'),
+      href: ROUTES.contacts,
     },
     {
-      key: t('about'),
-      links: [
-        {
-          title: t('how_it_works'),
-          href: '/',
-        },
-        {
-          title: t('careers'),
-          href: '/',
-        },
-        {
-          title: t('about_us'),
-          href: '/',
-        },
-        {
-          title: t('media'),
-          href: '/',
-        },
-      ],
+      value: t('conditions'),
+      href: ROUTES.conditions,
     },
     {
-      key: t('Become an employer'),
-      links: [
-        {
-          title: t('post_your_job'),
-          href: '/',
-        },
-        {
-          title: t('business_account'),
-          href: '/',
-        },
-        {
-          title: t('resource_center'),
-          href: '/',
-        },
-      ],
+      value: t('faq'),
+      href: ROUTES.faq,
     },
   ];
 
   return (
-    <>
-      {configMenu.map((el) => (
-        <Stack key={el.key} gap={rem(40)}>
-          <Text fz={rem(18)} lh={rem(20)}>
-            {el.key}
-          </Text>
-          <Stack gap={rem(24)}>
-            {el.links.map((item) => (
-              <Anchor
-                key={item.title}
-                href={item.href}
-                target='_blank'
-                fz={rem(16)}
-                lh={rem(20)}
-                c='secondary'
-              >
-                {item.title}
-              </Anchor>
-            ))}
-          </Stack>
-        </Stack>
+    <Flex gap={rem(12)}>
+      {menuConfig.map(({ value, href }) => (
+        <Link key={value} to={href}>
+          {value}
+        </Link>
       ))}
-    </>
+    </Flex>
   );
 }
