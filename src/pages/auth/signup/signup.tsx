@@ -1,8 +1,7 @@
-// import { Intro, FeaturedCompanies, FeaturedJobs } from 'components';
-// import { Stack, rem } from '@mantine/core';
+import { SignUp } from 'features/auth';
 
 function SignupPage() {
-  return <>Sigup page</>;
+  return <SignUp />;
 }
 
 export default SignupPage;

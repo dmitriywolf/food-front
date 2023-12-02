@@ -4,6 +4,7 @@ import { NotFoundPage } from 'pages/notFound';
 import { SigninPage } from 'pages/auth/signin';
 import { SignupPage } from 'pages/auth/signup';
 import { ForgotPasswordPage } from 'pages/auth/forgotPassword';
+import { ResetPasswordPage } from 'pages/auth/resetPassword';
 import { ConfirmEmailPage } from 'pages/auth/confirmEmail';
 import { StatisticsPage } from 'pages/statistics';
 import { JobsPage } from 'pages/jobs';
@@ -104,6 +105,14 @@ export const appRouter = () =>
           element: (
             <AuthGuard>
               <ForgotPasswordPage />
+            </AuthGuard>
+          ),
+        },
+        {
+          path: ROUTES.resetPassword,
+          element: (
+            <AuthGuard>
+              <ResetPasswordPage />
             </AuthGuard>
           ),
         },

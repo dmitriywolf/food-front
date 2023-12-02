@@ -46,6 +46,7 @@ module.exports = {
     'prettier/prettier': 'error',
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'error', // Checks effect dependencies,
-    "no-nested-ternary": "off"
+    "no-nested-ternary": "off",
+    "react/jsx-props-no-spreading": "warn"
   },
 };

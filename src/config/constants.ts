@@ -10,6 +10,7 @@ export const ROUTES = {
   signup: '/auth/signup',
   confirmEmail: '/auth/confirm-email/:token',
   forgotPassword: '/auth/forgot-password',
+  resetPassword: '/auth/reset-password/:token',
   companies: '/companies',
   company: '/companies/:companyid',
   jobs: '/jobs',

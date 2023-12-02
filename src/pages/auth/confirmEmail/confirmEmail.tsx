@@ -1,12 +1,7 @@
-// import { Intro, FeaturedCompanies, FeaturedJobs } from 'components';
-import { Center } from '@mantine/core';
+import { ConfirmEmail } from 'features/auth';
 
 function ConfirmEmailPage() {
-  return (
-    <Center>
-      <p>Confirm email</p>
-    </Center>
-  );
+  return <ConfirmEmail />;
 }
 
 export default ConfirmEmailPage;

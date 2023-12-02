@@ -1,8 +1,7 @@
-// import { Intro, FeaturedCompanies, FeaturedJobs } from 'components';
-// import { Stack, rem } from '@mantine/core';
+import { ForgotPassword } from 'features/auth';
 
 function ForgotPasswordPage() {
-  return <>ForgotPasswordPage</>;
+  return <ForgotPassword />;
 }
 
 export default ForgotPasswordPage;
