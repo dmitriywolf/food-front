@@ -14,6 +14,7 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
 import { IconLock } from '@tabler/icons-react';
+import { signup } from '../../authSlice';
 
 import { signUpSchema } from './schema';
 

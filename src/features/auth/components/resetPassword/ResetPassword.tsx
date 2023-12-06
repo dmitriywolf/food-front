@@ -2,19 +2,18 @@ import { useTranslation } from 'react-i18next';
 import { Text } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'config/constants';
-import AuthTemplate from '../ui/AuthTemplate';
-import SignUpForm from './SignUpForm';
+import AuthTemplate from '../AuthTemplate';
+import ResetPasswordForm from './ResetPasswordForm';
 
-export default function SignUp() {
+export default function ResetPassword() {
   const { t } = useTranslation();
 
   return (
-    <AuthTemplate title={t('signup')}>
+    <AuthTemplate title={t('reset_password')}>
       <Text>
-        {t('have_you_already_have_an_account')} ?{' '}
         <Link to={ROUTES.signin}>{t('signin')}</Link>
       </Text>
-      <SignUpForm />
+      <ResetPasswordForm />
     </AuthTemplate>
   );
 }

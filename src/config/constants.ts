@@ -19,5 +19,12 @@ export const ROUTES = {
   notFound: '*',
 };
 
+export const API_PATHS = {
+  signup: '/auth/reguster',
+  login: 'auth/login',
+};
+
 export const DEBUG = process.env.DEBUG === 'true';
-export const SERVER_URL = process.env.API_URL;
+export const API_URL = `${process.env.API_URL}/api`;
+
+export const TOKEN_LOCALSTORAGE_KEY = 'token';

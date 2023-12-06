@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Text } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'config/constants';
-import AuthTemplate from '../ui/AuthTemplate';
+import AuthTemplate from '../AuthTemplate';
 import ForgotPasswordForm from './ForgotPasswordForm';
 
 export default function ForgotPassword() {
