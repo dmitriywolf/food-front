@@ -10,7 +10,7 @@ import {
 } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ROUTES } from 'config/constants';
+import { ROUTES } from 'shared/routes';
 
 export default function JobsList() {
   const { t } = useTranslation();

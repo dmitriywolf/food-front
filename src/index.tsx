@@ -1,8 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import 'config/i18n';
 import '@mantine/core/styles.css';
-import App from 'app';
+import '@mantine/notifications/styles.css';
+import 'shared/i18n';
+import App from 'app/app';
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 

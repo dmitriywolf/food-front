@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ROUTES } from 'config/constants';
+import { ROUTES } from 'shared/routes';
 import { Box, Text } from '@mantine/core';
 
 import classes from './Logo.module.scss';

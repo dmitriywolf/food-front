@@ -1,6 +1,6 @@
 import { Flex, rem } from '@mantine/core';
 import { Link } from 'react-router-dom';
-import { ROUTES } from 'config/constants';
+import { ROUTES } from 'shared/routes';
 import { useTranslation } from 'react-i18next';
 
 export default function FooterMenu() {

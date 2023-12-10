@@ -1,4 +1,4 @@
-import { ForgotPassword } from 'features/auth';
+import { ForgotPassword } from 'features/user';
 
 function ForgotPasswordPage() {
   return <ForgotPassword />;

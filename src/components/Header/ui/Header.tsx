@@ -1,5 +1,6 @@
-import { Logo, MainMenu, AuthMenu } from 'components';
+import { Logo, MainMenu } from 'components';
 import { Container, Flex, Box, rem } from '@mantine/core';
+import { AuthMenu } from 'features/user';
 import classes from './Header.module.scss';
 
 export default function Header() {

@@ -1,7 +1,7 @@
 import { Group, Title, Button } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { ROUTES } from 'config/constants';
+import { ROUTES } from 'shared/routes';
 
 export default function FooterTop() {
   const { t } = useTranslation();

@@ -1,4 +1,4 @@
-import { SignIn } from 'features/auth';
+import { SignIn } from 'features/user';
 
 function SigninPage() {
   return <SignIn />;

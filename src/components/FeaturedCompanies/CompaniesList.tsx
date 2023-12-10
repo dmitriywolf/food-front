@@ -1,7 +1,7 @@
 import { Title, Card, Text, Button, Group, Badge } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { ROUTES } from 'config/constants';
+import { ROUTES } from 'shared/routes';
 import { IconStarFilled } from '@tabler/icons-react';
 
 export default function CompaniesList() {

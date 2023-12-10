@@ -1,6 +1,6 @@
 import { Box, Stack, Container, Button, Title, Text } from '@mantine/core';
 import { Link } from 'react-router-dom';
-import { ROUTES } from 'config/constants';
+import { ROUTES } from 'shared/routes';
 import { useTranslation } from 'react-i18next';
 import JobsSimpleFilter from './JobsSimpleFilter';
 
