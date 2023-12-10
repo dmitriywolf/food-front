@@ -5,7 +5,7 @@ import { notifications } from '@mantine/notifications';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { ROUTES } from 'shared/routes';
 import { AuthTemplate } from 'components';
-import { fetchLogin } from '../service';
+import { userLogin } from '../service';
 import { selectIsLoading } from '../userSlice';
 
 import SignInForm from './SignInForm';
@@ -21,13 +21,12 @@ export default function SignIn() {
     const { email, password } = values;
 
     try {
-      await dispatch(fetchLogin({ email, password })).unwrap();
+      await dispatch(userLogin({ email, password })).unwrap();
     } catch (error: unknown) {
-      const { message } = error as Error;
       notifications.show({
         color: 'red',
         title: 'Sign in error',
-        message,
+        message: error as string,
       });
     }
   };

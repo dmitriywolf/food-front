@@ -3,10 +3,19 @@ import { Box, Button, Stack, PasswordInput, rem } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
 import { IconLock } from '@tabler/icons-react';
+import type { ResetPasswordFormValues } from './types';
 
 import { resetPasswordSchema } from './schema';
 
-export default function ResetPasswordForm() {
+type ResetPasswordFormProps = {
+  submit: (values: ResetPasswordFormValues) => void;
+  isSubmitting: boolean;
+};
+
+export default function ResetPasswordForm({
+  submit,
+  isSubmitting,
+}: ResetPasswordFormProps) {
   const [visible, { toggle }] = useDisclosure(false);
   const [visibleConfirm, { toggle: toggleConfirm }] = useDisclosure(false);
 
@@ -25,11 +34,7 @@ export default function ResetPasswordForm() {
   );
 
   return (
-    <Box
-      component='form'
-      w='100%'
-      onSubmit={form.onSubmit((values) => console.log(values))}
-    >
+    <Box component='form' w='100%' onSubmit={form.onSubmit(submit)}>
       <Stack gap={12}>
         <PasswordInput
           label={t('new_password')}
@@ -47,7 +52,9 @@ export default function ResetPasswordForm() {
           onVisibilityChange={toggleConfirm}
           {...form.getInputProps('confirmPassword')}
         />
-        <Button type='submit'>{t('change_password')}</Button>
+        <Button type='submit' disabled={isSubmitting}>
+          {t('change_password')}
+        </Button>
       </Stack>
     </Box>
   );

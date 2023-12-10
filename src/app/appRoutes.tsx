@@ -16,7 +16,7 @@ import { ContactsPage } from 'pages/about/contacts';
 import { ConditionsPage } from 'pages/about/conditions';
 import { FaqPage } from 'pages/about/faq';
 import { ROUTES } from 'shared/routes';
-import { AuthGuard } from 'features/user';
+import { AuthGuard, GuestGuard } from 'features/user';
 import { RootLayout } from 'layouts/rootLayout';
 import { AuthLayout } from 'layouts/authLayout';
 
@@ -59,7 +59,11 @@ export const appRouter = () =>
         },
         {
           path: ROUTES.profile,
-          element: <ProfilePage />,
+          element: (
+            <GuestGuard>
+              <ProfilePage />
+            </GuestGuard>
+          ),
         },
         // About pages
         {

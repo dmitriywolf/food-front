@@ -1,49 +1,44 @@
-import { useCallback, useEffect, useState } from 'react';
-import { Title, Button } from '@mantine/core';
-import { Link, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useCallback, useEffect } from 'react';
+import { Title } from '@mantine/core';
+import { useNavigate, useParams } from 'react-router-dom';
+import { notifications } from '@mantine/notifications';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { ROUTES } from 'shared/routes';
 import { PageLoader } from 'components';
-import { fetchVerifyEmail } from '../service';
-import { selectIsLoading } from '../userSlice';
+import { userVerifyEmail } from '../service';
+import { selectIsLoading, selectError } from '../userSlice';
 
 export default function VerifyEmail() {
-  const [confirmResult, setConfirmResult] = useState('');
-  const [isSuccess, setIsSuccess] = useState(false);
-
-  const { token = '' } = useParams();
-
-  const { t } = useTranslation();
+  const { code = '' } = useParams();
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector(selectIsLoading);
 
-  const verifyAccountHandler = useCallback(async () => {
+  const isLoading = useAppSelector(selectIsLoading);
+  const verifyError = useAppSelector(selectError);
+
+  const verifyHandler = useCallback(async () => {
     try {
-      const data = await dispatch(fetchVerifyEmail({ token })).unwrap();
-      setIsSuccess(true);
-      setConfirmResult(data.message);
+      const data = await dispatch(userVerifyEmail({ code })).unwrap();
+
+      notifications.show({
+        color: 'green',
+        title: 'Verify email',
+        message: data.message,
+      });
+      navigate(ROUTES.signin);
     } catch (error: unknown) {
-      const { message } = error as Error;
-      setConfirmResult(message);
+      console.log('Error', error);
     }
-  }, [dispatch, token]);
+  }, [dispatch, navigate, code]);
 
   useEffect(() => {
-    verifyAccountHandler();
-  }, [verifyAccountHandler]);
+    verifyHandler();
+  }, [verifyHandler]);
 
-  return isLoading ? (
-    <PageLoader />
-  ) : (
-    <>
-      <Title>{confirmResult}</Title>
-      {isSuccess && (
-        <Link to={ROUTES.signin}>
-          <Button>{t('signin')}</Button>
-        </Link>
-      )}
-    </>
-  );
+  if (isLoading) return <PageLoader />;
+
+  if (verifyError) return <Title>{verifyError}</Title>;
+
+  return null;
 }

@@ -4,87 +4,86 @@ import { API_PATHS } from 'shared/api/paths';
 import API from 'shared/api/service';
 import type { RootState } from 'store/appStore';
 import { TOKEN_LOCALSTORAGE_KEY } from 'shared/constants';
-import { setItemLS } from 'utils';
 import type {
   RegisterDataType,
   LoginDataType,
   VerifyEmailDataType,
   ForgotPasswordDataType,
+  ResetPasswordDataType,
 } from './types';
 
-export const fetchRegister = createAsyncThunk(
+export const userRegister = createAsyncThunk(
   '@@user/register',
   async (registerData: RegisterDataType, { rejectWithValue }) => {
     try {
       const { data } = await API.post(API_PATHS.register, registerData);
 
       return data;
-    } catch (error) {
-      // Попадает в action.payload
+    } catch (error: unknown) {
       if (error instanceof AxiosError) {
-        return rejectWithValue(error.response?.data);
+        if (error.response && error.response.data) {
+          return rejectWithValue(error.response.data.message);
+        }
       }
 
       if (error instanceof Error) {
-        return rejectWithValue(error);
+        return rejectWithValue(error.message);
       }
 
-      return rejectWithValue({ message: 'Failed signup.' });
+      return rejectWithValue('Failed user register');
     }
   },
 );
 
-export const fetchLogin = createAsyncThunk(
-  '@@user/signin',
+export const userLogin = createAsyncThunk(
+  '@@user/login',
   async (loginData: LoginDataType, { rejectWithValue }) => {
     try {
       const { data } = await API.post(API_PATHS.login, loginData);
-
       const { user, token } = data;
 
-      setItemLS(TOKEN_LOCALSTORAGE_KEY, token);
-
+      localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, token);
       return user;
-    } catch (error) {
-      // Попадает в action.payload
+    } catch (error: unknown) {
       if (error instanceof AxiosError) {
-        return rejectWithValue(error.response?.data);
+        if (error.response && error.response.data) {
+          return rejectWithValue(error.response.data.message);
+        }
       }
 
       if (error instanceof Error) {
-        return rejectWithValue(error);
+        return rejectWithValue(error.message);
       }
 
-      return rejectWithValue({ message: 'Failed signin.' });
+      return rejectWithValue('Failed user login');
     }
   },
 );
 
-export const fetchVerifyEmail = createAsyncThunk(
+export const userVerifyEmail = createAsyncThunk(
   '@@user/verifyEmail',
   async (verifyData: VerifyEmailDataType, { rejectWithValue }) => {
     try {
       const { data } = await API.post(API_PATHS.verifyEmail, verifyData);
       return data;
     } catch (error) {
-      // Попадает в action.payload
       if (error instanceof AxiosError) {
-        return rejectWithValue(error.response?.data);
+        if (error.response && error.response.data) {
+          return rejectWithValue(error.response.data.message);
+        }
       }
 
       if (error instanceof Error) {
-        return rejectWithValue(error);
+        return rejectWithValue(error.message);
       }
 
-      return rejectWithValue({ message: 'Failed account activation' });
+      return rejectWithValue('Failed user verify email');
     }
   },
   {
     condition: (_, { getState }) => {
       const { user } = getState() as RootState;
-
-      if (user.status === 'loading') {
-        // Already fetched or in progress, don't need to re-fetch
+      if (user.loading) {
         return false;
       }
       return true;
@@ -92,7 +91,7 @@ export const fetchVerifyEmail = createAsyncThunk(
   },
 );
 
-export const fetchForgotPassword = createAsyncThunk(
+export const userForgotPassword = createAsyncThunk(
   '@@user/forgotPassword',
   async (forgotPasswordData: ForgotPasswordDataType, { rejectWithValue }) => {
     try {
@@ -102,16 +101,42 @@ export const fetchForgotPassword = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      // Попадает в action.payload
       if (error instanceof AxiosError) {
-        return rejectWithValue(error.response?.data);
+        if (error.response && error.response.data) {
+          return rejectWithValue(error.response.data.message);
+        }
       }
 
       if (error instanceof Error) {
-        return rejectWithValue(error);
+        return rejectWithValue(error.message);
       }
 
-      return rejectWithValue({ message: 'Failed forgot password' });
+      return rejectWithValue('Failed user forgot password');
+    }
+  },
+);
+
+export const userResetPassword = createAsyncThunk(
+  '@@user/resetPassword',
+  async (resetPasswordData: ResetPasswordDataType, { rejectWithValue }) => {
+    try {
+      const { data } = await API.post(
+        API_PATHS.resetPassword,
+        resetPasswordData,
+      );
+      return data;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response && error.response.data) {
+          return rejectWithValue(error.response.data.message);
+        }
+      }
+
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+
+      return rejectWithValue('Failed user forgot password');
     }
   },
 );

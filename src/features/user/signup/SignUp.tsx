@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { AuthTemplate } from 'components';
-import { fetchRegister } from '../service';
+import { userRegister } from '../service';
 import { selectIsLoading } from '../userSlice';
 
 import SignUpForm from './SignUpForm';
@@ -25,16 +25,15 @@ export default function SignUp() {
 
     try {
       const data = await dispatch(
-        fetchRegister({ firstName, lastName, email, password }),
+        userRegister({ firstName, lastName, email, password }),
       ).unwrap();
+
       setSuccessRegister(data.message);
     } catch (error: unknown) {
-      const { message } = error as Error;
-
       notifications.show({
         color: 'red',
         title: 'Sign up error',
-        message,
+        message: error as string,
       });
     }
   };

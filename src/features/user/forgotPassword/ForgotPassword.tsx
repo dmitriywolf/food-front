@@ -6,7 +6,7 @@ import { ROUTES } from 'shared/routes';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { AuthTemplate } from 'components';
 import { selectIsLoading } from '../userSlice';
-import { fetchForgotPassword } from '../service';
+import { userForgotPassword } from '../service';
 import type { ForgotPasswordFormValues } from './types';
 
 import ForgotPasswordForm from './ForgotPasswordForm';
@@ -21,13 +21,18 @@ export default function ForgotPassword() {
     const { email } = values;
 
     try {
-      await dispatch(fetchForgotPassword({ email })).unwrap();
+      const data = await dispatch(userForgotPassword({ email })).unwrap();
+
+      notifications.show({
+        color: 'green',
+        title: 'Forgot password',
+        message: data.message,
+      });
     } catch (error: unknown) {
-      const { message } = error as Error;
       notifications.show({
         color: 'red',
-        title: 'Forgot password error',
-        message,
+        title: 'Forgot password',
+        message: error as string,
       });
     }
   };

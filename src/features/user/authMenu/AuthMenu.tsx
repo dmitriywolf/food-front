@@ -2,10 +2,8 @@ import { Button, Flex, rem } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { IconLogin2, IconUserPlus, IconLogout } from '@tabler/icons-react';
 import { ROUTES } from 'shared/routes';
-import { TOKEN_LOCALSTORAGE_KEY } from 'shared/constants';
 import { Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
-import { removeItemLS } from 'utils';
 import { selectIsAuthorized, logout } from '../userSlice';
 
 export default function AuthMenu() {
@@ -16,7 +14,6 @@ export default function AuthMenu() {
 
   const logoutHandler = () => {
     dispatch(logout());
-    removeItemLS(TOKEN_LOCALSTORAGE_KEY);
   };
 
   return (
