@@ -20,6 +20,7 @@ export default function ResetPassword() {
   const isLoading = useAppSelector(selectIsLoading);
 
   const submitHanlder = async (values: ResetPasswordFormValues) => {
+    if (!code) return;
     const { newPassword } = values;
 
     try {

@@ -18,6 +18,8 @@ export default function VerifyEmail() {
   const verifyError = useAppSelector(selectError);
 
   const verifyHandler = useCallback(async () => {
+    if (!code) return;
+
     try {
       const data = await dispatch(userVerifyEmail({ code })).unwrap();
 

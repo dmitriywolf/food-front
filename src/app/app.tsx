@@ -4,8 +4,9 @@ import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import { Provider } from 'react-redux';
 import { store } from 'store/appStore';
+import { Authorization } from 'features/user';
 import { PageLoader } from 'components';
-import { ErrorBoundary } from './providers/ErrorBoundary';
+import { ErrorBoundary } from './ErrorBoundary';
 import { theme } from './theme';
 import { appRouter } from './appRoutes';
 
@@ -13,8 +14,9 @@ export default function App() {
   return (
     <Provider store={store}>
       <MantineProvider theme={theme}>
-        <Notifications position='top-right' />
         <ErrorBoundary>
+          <Authorization />
+          <Notifications position='top-right' />
           <Suspense fallback={<PageLoader />}>
             <RouterProvider router={appRouter()} />
           </Suspense>

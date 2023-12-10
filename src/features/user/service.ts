@@ -140,3 +140,24 @@ export const userResetPassword = createAsyncThunk(
     }
   },
 );
+
+export const userGetProfile = createAsyncThunk(
+  '@@user/getProfile',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await API.get(API_PATHS.getMe);
+      return data.user;
+    } catch (error: unknown) {
+      return rejectWithValue('Failed get profile');
+    }
+  },
+  {
+    condition: (_, { getState }) => {
+      const { user } = getState() as RootState;
+      if (user.loading) {
+        return false;
+      }
+      return true;
+    },
+  },
+);

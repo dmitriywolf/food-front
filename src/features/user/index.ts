@@ -1,3 +1,4 @@
+export { Authorization } from './authorization';
 export { AuthMenu } from './authMenu';
 export { AuthGuard } from './authGuard';
 export { GuestGuard } from './guestGuard';

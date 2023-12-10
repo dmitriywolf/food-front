@@ -7,6 +7,7 @@ import {
   userVerifyEmail,
   userForgotPassword,
   userResetPassword,
+  userGetProfile,
 } from './service';
 
 import type { UserDataType } from './types';
@@ -32,6 +33,9 @@ const authSlice = createSlice({
       state.loading = false;
       state.userData = null;
       state.error = null;
+    },
+    setUser: (state, { payload }) => {
+      state.userData = payload;
     },
   },
   extraReducers: (builder) => {
@@ -96,12 +100,23 @@ const authSlice = createSlice({
       })
       .addCase(userResetPassword.fulfilled, (state) => {
         state.loading = false;
+      })
+      // GET PROFILE
+      .addCase(userGetProfile.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(userGetProfile.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(userGetProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userData = action.payload;
       });
   },
 });
 
 // Actions
-export const { logout } = authSlice.actions;
+export const { logout, setUser } = authSlice.actions;
 
 // Selectors
 export const selectUser = (state: RootState) => state.user.userData;
