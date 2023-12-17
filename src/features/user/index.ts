@@ -7,5 +7,7 @@ export { SignUp } from './signup';
 export { VerifyEmail } from './verifyEmail';
 export { ForgotPassword } from './forgotPassword';
 export { ResetPassword } from './resetPassword';
+export { ProfileMenu } from './profileMenu';
+export { ProfileInfo } from './profileInfo';
 
 export { default as userSlice } from './userSlice';

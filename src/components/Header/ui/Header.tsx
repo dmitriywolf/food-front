@@ -1,6 +1,6 @@
 import { Logo, MainMenu } from 'components';
 import { Container, Flex, Box, rem } from '@mantine/core';
-import { AuthMenu } from 'features/user';
+import { AuthMenu, ProfileMenu } from 'features/user';
 import classes from './Header.module.scss';
 
 export default function Header() {
@@ -12,6 +12,7 @@ export default function Header() {
           <MainMenu />
           <Flex gap={rem(18)} align='center'>
             <AuthMenu />
+            <ProfileMenu />
           </Flex>
         </Flex>
       </Container>

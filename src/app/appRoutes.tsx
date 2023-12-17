@@ -21,7 +21,7 @@ import { RootLayout } from 'layouts/rootLayout';
 import { AuthLayout } from 'layouts/authLayout';
 
 import { ErrorPage } from 'components';
-import ProfilePage from 'pages/profile/profile';
+import { ProfilePage } from 'pages/my/profile';
 
 export const appRouter = () =>
   createBrowserRouter([
@@ -58,7 +58,7 @@ export const appRouter = () =>
           element: <CompaniesPage />,
         },
         {
-          path: ROUTES.profile,
+          path: ROUTES.my,
           element: (
             <GuestGuard>
               <ProfilePage />

@@ -3,6 +3,7 @@ type RegisterDataType = {
   lastName: string;
   email: string;
   password: string;
+  role: string;
 };
 
 type LoginDataType = {
@@ -27,6 +28,7 @@ type UserDataType = {
   firstName: string;
   lastName: string;
   email: string;
+  image: string;
 };
 
 export type {

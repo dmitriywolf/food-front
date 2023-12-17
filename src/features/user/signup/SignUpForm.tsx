@@ -9,13 +9,15 @@ import {
   Checkbox,
   UnstyledButton,
   Modal,
+  Radio,
+  Group,
   rem,
 } from '@mantine/core';
 
 import { useDisclosure } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
 import { IconLock } from '@tabler/icons-react';
-
+import { ROLES } from 'shared/constants';
 import type { SignUpFormValues } from './types';
 import { signUpSchema } from './schema';
 
@@ -33,6 +35,7 @@ export default function SignUpForm({ submit, isSubmitting }: SignupFormType) {
 
   const form = useForm<SignUpFormValues>({
     initialValues: {
+      role: ROLES.jobSeeker,
       firstName: '',
       lastName: '',
       email: '',
@@ -51,6 +54,16 @@ export default function SignUpForm({ submit, isSubmitting }: SignupFormType) {
     <>
       <Box component='form' w='100%' onSubmit={form.onSubmit(submit)}>
         <Stack gap={12}>
+          <Radio.Group
+            name='role'
+            value={form.values.role}
+            onChange={(value) => form.setFieldValue('role', value)}
+          >
+            <Group justify='center'>
+              <Radio value={ROLES.jobSeeker} label='I am job seeker' />
+              <Radio value={ROLES.employer} label='I am employer' />
+            </Group>
+          </Radio.Group>
           <TextInput
             label={t('first_name')}
             placeholder={t('first_name')}

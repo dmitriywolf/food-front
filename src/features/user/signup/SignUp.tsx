@@ -21,11 +21,11 @@ export default function SignUp() {
   const isLoading = useAppSelector(selectIsLoading);
 
   const signupHanlder = async (values: SignUpFormValues) => {
-    const { firstName, lastName, email, password } = values;
+    const { firstName, lastName, email, password, role } = values;
 
     try {
       const data = await dispatch(
-        userRegister({ firstName, lastName, email, password }),
+        userRegister({ firstName, lastName, email, password, role }),
       ).unwrap();
 
       setSuccessRegister(data.message);

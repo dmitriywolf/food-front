@@ -4,7 +4,7 @@ export const ROUTES = {
   contacts: '/about-us/contacts',
   conditions: '/about-us/conditions',
   faq: '/about-us/faq',
-  profile: '/profile',
+  my: '/my',
   signin: '/auth/signin',
   signup: '/auth/signup',
   verifyEmail: '/auth/verify-email/:code',
