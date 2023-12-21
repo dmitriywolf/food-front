@@ -10,6 +10,8 @@ import type {
   VerifyEmailDataType,
   ForgotPasswordDataType,
   ResetPasswordDataType,
+  EditSeekerData,
+  EditEmployerData,
 } from './types';
 
 export const userRegister = createAsyncThunk(
@@ -159,5 +161,57 @@ export const userGetProfile = createAsyncThunk(
       }
       return true;
     },
+  },
+);
+
+export const userEditSeeker = createAsyncThunk(
+  '@@user/editSeeker',
+  async (editSeekerData: EditSeekerData, { rejectWithValue }) => {
+    const { id, ...seekerData } = editSeekerData;
+    try {
+      const { data } = await API.patch(
+        `${API_PATHS.seekers}/${id}`,
+        seekerData,
+      );
+      return data.user;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        if (error.response && error.response.data) {
+          return rejectWithValue(error.response.data.message);
+        }
+      }
+
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+
+      return rejectWithValue('Failed seker update');
+    }
+  },
+);
+
+export const userEditEmployer = createAsyncThunk(
+  '@@user/editEmployer',
+  async (editEmployerData: EditEmployerData, { rejectWithValue }) => {
+    const { id, ...emplyerData } = editEmployerData;
+    try {
+      const { data } = await API.patch(
+        `${API_PATHS.employers}/${id}`,
+        emplyerData,
+      );
+      return data.user;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        if (error.response && error.response.data) {
+          return rejectWithValue(error.response.data.message);
+        }
+      }
+
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+
+      return rejectWithValue('Failed employer update');
+    }
   },
 );

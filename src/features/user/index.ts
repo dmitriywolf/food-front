@@ -1,13 +1,17 @@
-export { Authorization } from './authorization';
-export { AuthMenu } from './authMenu';
-export { AuthGuard } from './authGuard';
-export { GuestGuard } from './guestGuard';
-export { SignIn } from './signin';
-export { SignUp } from './signup';
-export { VerifyEmail } from './verifyEmail';
-export { ForgotPassword } from './forgotPassword';
-export { ResetPassword } from './resetPassword';
-export { ProfileMenu } from './profileMenu';
-export { ProfileInfo } from './profileInfo';
+// AUTH
+export { Authorization } from './auth/authorization';
+export { AuthMenu } from './auth/authMenu';
+export { AuthGuard } from './auth/authGuard';
+export { GuestGuard } from './auth/guestGuard';
+export { SignIn } from './auth/signin';
+export { SignUp } from './auth/signup';
+export { VerifyEmail } from './auth/verifyEmail';
+export { ForgotPassword } from './auth/forgotPassword';
+export { ResetPassword } from './auth/resetPassword';
+
+// PROFILE
+export { ProfileMenu } from './profile/profileMenu';
+export { EditSeekerProfile } from './profile/seeker';
+export { EditEmployerProfile } from './profile/employer';
 
 export { default as userSlice } from './userSlice';

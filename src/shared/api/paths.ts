@@ -4,5 +4,7 @@ export const API_PATHS = {
   verifyEmail: 'auth/verify-email',
   forgotPassword: 'auth/forgot-password',
   resetPassword: 'auth/reset-password',
-  getMe: 'me/',
+  getMe: 'auth/me',
+  seekers: 'seekers',
+  employers: 'employers',
 };

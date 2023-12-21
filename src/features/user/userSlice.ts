@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'store/appStore';
-import { TOKEN_LOCALSTORAGE_KEY } from 'shared/constants';
+import { ROLES, TOKEN_LOCALSTORAGE_KEY } from 'shared/constants';
 import {
   userRegister,
   userLogin,
@@ -8,6 +8,8 @@ import {
   userForgotPassword,
   userResetPassword,
   userGetProfile,
+  userEditSeeker,
+  userEditEmployer,
 } from './service';
 
 import type { UserDataType } from './types';
@@ -15,7 +17,7 @@ import type { UserDataType } from './types';
 interface IUserState {
   loading: boolean;
   error: string | null;
-  userData: UserDataType | null;
+  userData: UserDataType;
 }
 
 const initialState: IUserState = {
@@ -24,7 +26,7 @@ const initialState: IUserState = {
   userData: null,
 };
 
-const authSlice = createSlice({
+const userSlice = createSlice({
   name: '@@user',
   initialState,
   reducers: {
@@ -111,19 +113,43 @@ const authSlice = createSlice({
       .addCase(userGetProfile.fulfilled, (state, action) => {
         state.loading = false;
         state.userData = action.payload;
+      })
+      // EDIT SEEKER
+      .addCase(userEditSeeker.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(userEditSeeker.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(userEditSeeker.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userData = action.payload;
+      })
+      // EDIT EMPLOYER
+      .addCase(userEditEmployer.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(userEditEmployer.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(userEditEmployer.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userData = action.payload;
       });
   },
 });
 
 // Actions
-export const { logout, setUser } = authSlice.actions;
+export const { logout, setUser } = userSlice.actions;
 
 // Selectors
 export const selectUser = (state: RootState) => state.user.userData;
-
 export const selectIsAuthorized = (state: RootState) => !!state.user.userData;
 export const selectIsLoading = (state: RootState) => state.user.loading;
 export const selectError = (state: RootState) => state.user.error;
 
+export const selectIsAdmin = (state: RootState) =>
+  state.user.userData?.role === ROLES.admin;
+
 // Reducer
-export default authSlice.reducer;
+export default userSlice.reducer;

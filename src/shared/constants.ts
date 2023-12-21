@@ -4,7 +4,7 @@ export const API_URL = `${process.env.API_URL}/api`;
 export const TOKEN_LOCALSTORAGE_KEY = 'token';
 
 export const ROLES = {
-  jobSeeker: 'job-seeker',
-  employer: 'employer',
-  admin: 'admin',
+  seeker: 'Seeker',
+  employer: 'Employer',
+  admin: 'Admin',
 };
