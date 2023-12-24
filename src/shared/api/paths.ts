@@ -11,4 +11,5 @@ export const API_PATHS = {
   topEmployers: 'employers/top', // companies
   resumes: 'resumes',
   jobs: 'jobs',
+  topJobs: 'jobs/top',
 };

@@ -1,11 +1,25 @@
-// import { Intro, FeaturedCompanies, FeaturedJobs } from 'components';
-import { Stack, rem } from '@mantine/core';
+import { useEffect } from 'react';
+import { Box, Container, Stack, Title } from '@mantine/core';
+import { JobsList } from 'features/jobs';
+import { getJobs } from 'features/jobs/services';
+import { useAppDispatch } from 'store/hooks';
 
 function JobsPage() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getJobs());
+  }, [dispatch]);
+
   return (
-    <Stack gap={rem(72)}>
-      <p>Jobs</p>
-    </Stack>
+    <Box component='section'>
+      <Container size='responsive'>
+        <Stack gap={32}>
+          <Title>All jobs</Title>
+          <JobsList />
+        </Stack>
+      </Container>
+    </Box>
   );
 }
 

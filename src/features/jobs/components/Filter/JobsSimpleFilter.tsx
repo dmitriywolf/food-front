@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import { Stack, Group, Button } from '@mantine/core';
-import JobsList from './JobsList';
 
 export default function JobsSimpleFilter() {
   const { t } = useTranslation();
@@ -13,7 +12,6 @@ export default function JobsSimpleFilter() {
         <Button variant='outline'>{t('part_time')}</Button>
         <Button variant='outline'>{t('internship')}</Button>
       </Group>
-      <JobsList />
     </Stack>
   );
 }

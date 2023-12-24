@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'store/appStore';
-import { getCompanies, getTopCompanies, getCompanyById } from './services';
+import { IJob } from 'features/jobs/types';
+import {
+  getCompanies,
+  getTopCompanies,
+  getCompanyById,
+  getCompanyJobsById,
+} from './services';
 
 import type { ICompany } from './types';
 
@@ -11,7 +17,7 @@ interface ICompaniesState {
   topCompanies: ICompany[];
   currentCompany: {
     data: ICompany | null;
-    jobs: [];
+    jobs: IJob[];
   };
 }
 
@@ -70,18 +76,32 @@ const companiesSlice = createSlice({
       .addCase(getCompanyById.fulfilled, (state, action) => {
         state.loading = false;
         state.currentCompany.data = action.payload;
+      })
+      // GET COMPANY JOBS
+      .addCase(getCompanyJobsById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getCompanyJobsById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(getCompanyJobsById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentCompany.jobs = action.payload;
       });
   },
 });
 
 // Selectors
-export const selectAllCompanies = (state: RootState) => state.company.companies;
+export const selectAllCompanies = (state: RootState) =>
+  state.companies.companies;
 export const selectTopCompanies = (state: RootState) =>
-  state.company.topCompanies;
+  state.companies.topCompanies;
 export const selectCurrentCompany = (state: RootState) =>
-  state.company.currentCompany;
+  state.companies.currentCompany;
 
-export const selectIsLoading = (state: RootState) => state.company.loading;
+export const selectIsLoading = (state: RootState) => state.companies.loading;
 
 // Reducer
 export default companiesSlice.reducer;

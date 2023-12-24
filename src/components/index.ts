@@ -7,6 +7,5 @@ export { Logo } from './Logo';
 export { MainMenu } from './MainMenu';
 export { Intro } from './Intro';
 export { PageLoader } from './PageLoader';
-export { FeaturedJobs } from './FeaturedJobs';
 export { StillWork } from './StillWork';
 export { AuthTemplate } from './AuthTemplate';

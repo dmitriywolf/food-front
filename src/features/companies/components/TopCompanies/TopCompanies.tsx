@@ -19,7 +19,6 @@ import {
   selectTopCompanies,
   selectIsLoading,
 } from 'features/companies/companiesSlice';
-import { getTopCompanies } from 'features/companies/services';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 export default function TopCompanies() {
@@ -29,10 +28,6 @@ export default function TopCompanies() {
 
   const topCompanies = useAppSelector(selectTopCompanies);
   const isLoading = useAppSelector(selectIsLoading);
-
-  useEffect(() => {
-    dispatch(getTopCompanies());
-  }, [dispatch]);
 
   return (
     <Box component='section'>

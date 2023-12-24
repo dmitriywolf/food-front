@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Container, Stack, Title } from '@mantine/core';
-import { getCompanyById } from 'features/companies/services';
+import { Box, Container, Stack } from '@mantine/core';
+import {
+  getCompanyById,
+  getCompanyJobsById,
+} from 'features/companies/services';
 import { useAppDispatch } from 'store/hooks';
-import { CompanyInfo } from 'features/companies/components/CompanyInfo';
+import { CompanyDetails } from 'features/companies';
 
 function CompanyPage() {
   const { companyid } = useParams();
@@ -12,14 +15,14 @@ function CompanyPage() {
 
   useEffect(() => {
     dispatch(getCompanyById(companyid!));
+    dispatch(getCompanyJobsById(companyid!));
   }, [dispatch, companyid]);
 
   return (
     <Box component='section'>
       <Container size='responsive'>
         <Stack gap={32}>
-          <Title>Company page</Title>
-          <CompanyInfo />
+          <CompanyDetails />
         </Stack>
       </Container>
     </Box>
