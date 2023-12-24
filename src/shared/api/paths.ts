@@ -6,10 +6,13 @@ export const API_PATHS = {
   resetPassword: 'auth/reset-password',
   getMe: 'auth/me',
 
-  seekers: 'seekers',
+  seekers: 'seekers', // candidates
+
   employers: 'employers', // companies
   topEmployers: 'employers/top', // companies
+
   resumes: 'resumes',
+
   jobs: 'jobs',
   topJobs: 'jobs/top',
 };

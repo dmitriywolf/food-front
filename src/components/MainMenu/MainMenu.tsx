@@ -12,12 +12,8 @@ export default function MainMenu() {
       href: ROUTES.jobs,
     },
     {
-      key: 'Find developer',
-      href: ROUTES.jobs,
-    },
-    {
-      key: t('statistics'),
-      href: ROUTES.statistics,
+      key: 'Find candidates',
+      href: ROUTES.candidates,
     },
   ];
 

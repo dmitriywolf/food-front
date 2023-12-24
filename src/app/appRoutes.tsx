@@ -6,7 +6,7 @@ import { SignupPage } from 'pages/auth/signup';
 import { ForgotPasswordPage } from 'pages/auth/forgotPassword';
 import { ResetPasswordPage } from 'pages/auth/resetPassword';
 import { VerifyEmailPage } from 'pages/auth/verifyEmail';
-import { StatisticsPage } from 'pages/statistics';
+// import { StatisticsPage } from 'pages/statistics';
 import { JobsPage } from 'pages/jobs';
 import { JobPage } from 'pages/job';
 import { CompanyPage } from 'pages/company';
@@ -14,6 +14,8 @@ import { CompaniesPage } from 'pages/companies';
 import { AboutUsPage } from 'pages/about/aboutUs';
 import { ContactsPage } from 'pages/about/contacts';
 import { ConditionsPage } from 'pages/about/conditions';
+import { CandidatesPage } from 'pages/candidates';
+import { CandidatePage } from 'pages/candidate';
 import { FaqPage } from 'pages/about/faq';
 import { ROUTES } from 'shared/routes';
 import { AuthGuard, GuestGuard } from 'features/user';
@@ -33,10 +35,10 @@ export const appRouter = () =>
           path: ROUTES.home,
           element: <HomePage />,
         },
-        {
-          path: ROUTES.statistics,
-          element: <StatisticsPage />,
-        },
+        // {
+        //   path: ROUTES.statistics,
+        //   element: <StatisticsPage />,
+        // },
         {
           path: ROUTES.job,
           element: <JobPage />,
@@ -56,6 +58,14 @@ export const appRouter = () =>
         {
           path: ROUTES.companies,
           element: <CompaniesPage />,
+        },
+        {
+          path: ROUTES.candidates,
+          element: <CandidatesPage />,
+        },
+        {
+          path: ROUTES.candidate,
+          element: <CandidatePage />,
         },
         {
           path: ROUTES.profile,

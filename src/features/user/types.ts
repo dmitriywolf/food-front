@@ -24,6 +24,22 @@ type ResetPasswordDataType = {
   password: string;
 };
 
+// type IResume = {
+//   _id: string;
+//   owner: ISeeker;
+//   position: string;
+//   category: string;
+//   skills: string[];
+//   workExperience: number;
+//   salaryExpectations: number;
+//   country: string;
+//   city: string;
+//   relocation: boolean;
+//   englishLevel: string;
+//   summary: string;
+//   employmentOptions: string;
+// };
+
 interface IAccount {
   _id: string;
   firstName: string;
@@ -42,7 +58,7 @@ interface ISeeker extends IAccount {
   telegram: string;
   github: string;
   portfolio: string;
-  resume: string;
+  resume: IResume;
 }
 
 interface IEmployer extends IAccount {
