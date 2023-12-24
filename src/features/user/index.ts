@@ -11,7 +11,11 @@ export { ResetPassword } from './auth/resetPassword';
 
 // PROFILE
 export { ProfileMenu } from './profile/profileMenu';
-export { EditSeekerProfile } from './profile/seeker';
-export { EditEmployerProfile } from './profile/employer';
+export { EditSeekerProfile, EditSeekerResume } from './profile/seeker';
+export {
+  EditEmployerProfile,
+  AddEditVacancy,
+  EmployerVacancies,
+} from './profile/employer';
 
 export { default as userSlice } from './userSlice';

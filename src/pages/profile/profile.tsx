@@ -9,7 +9,13 @@ import {
 import { useAppSelector } from 'store/hooks';
 import { ROLES } from 'shared/constants';
 import { selectUser } from 'features/user/userSlice';
-import { EditSeekerProfile, EditEmployerProfile } from 'features/user';
+import {
+  EditSeekerProfile,
+  EditEmployerProfile,
+  EditSeekerResume,
+  AddEditVacancy,
+  EmployerVacancies,
+} from 'features/user';
 
 const SEEKER_TABS = {
   profile: 'profile',
@@ -19,7 +25,7 @@ const SEEKER_TABS = {
 
 function SeekerTabs() {
   return (
-    <Tabs defaultValue={SEEKER_TABS.profile}>
+    <Tabs defaultValue={SEEKER_TABS.profile} keepMounted={false}>
       <Tabs.List>
         <Tabs.Tab value={SEEKER_TABS.profile} leftSection={<IconUserScan />}>
           Profile
@@ -37,7 +43,9 @@ function SeekerTabs() {
       <Tabs.Panel value={SEEKER_TABS.profile}>
         <EditSeekerProfile />
       </Tabs.Panel>
-      <Tabs.Panel value={SEEKER_TABS.resume}>My resume</Tabs.Panel>
+      <Tabs.Panel value={SEEKER_TABS.resume}>
+        <EditSeekerResume />
+      </Tabs.Panel>
       <Tabs.Panel value={SEEKER_TABS.applications}>Applications</Tabs.Panel>
     </Tabs>
   );
@@ -45,32 +53,39 @@ function SeekerTabs() {
 
 const EMPLOYER_TABS = {
   profile: 'profile',
-  company: 'company',
   vacancies: 'vacancies',
+  addVacancy: 'addVacancy',
 };
 
 function EmployersTabs() {
   return (
-    <Tabs defaultValue={EMPLOYER_TABS.profile}>
+    <Tabs defaultValue={EMPLOYER_TABS.profile} keepMounted={false}>
       <Tabs.List>
         <Tabs.Tab value={EMPLOYER_TABS.profile} leftSection={<IconUserScan />}>
           Profile
         </Tabs.Tab>
-        <Tabs.Tab value={EMPLOYER_TABS.company} leftSection={<IconBuilding />}>
-          Company
-        </Tabs.Tab>
         <Tabs.Tab
           value={EMPLOYER_TABS.vacancies}
+          leftSection={<IconBuilding />}
+        >
+          My Vacancies
+        </Tabs.Tab>
+        <Tabs.Tab
+          value={EMPLOYER_TABS.addVacancy}
           leftSection={<IconListCheck />}
         >
-          Vacancies
+          Add vacancy
         </Tabs.Tab>
       </Tabs.List>
       <Tabs.Panel value={EMPLOYER_TABS.profile}>
         <EditEmployerProfile />
       </Tabs.Panel>
-      <Tabs.Panel value={EMPLOYER_TABS.company}>Company</Tabs.Panel>
-      <Tabs.Panel value={EMPLOYER_TABS.vacancies}>Vacancies</Tabs.Panel>
+      <Tabs.Panel value={EMPLOYER_TABS.vacancies}>
+        <EmployerVacancies />
+      </Tabs.Panel>
+      <Tabs.Panel value={EMPLOYER_TABS.addVacancy}>
+        <AddEditVacancy />
+      </Tabs.Panel>
     </Tabs>
   );
 }

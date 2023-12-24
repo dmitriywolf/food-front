@@ -53,7 +53,8 @@ interface IEmployer extends IAccount {
     webSite: string;
     douPage: string;
     logo: string;
-    eployeesCount: number;
+    employeesCount: number;
+    summary: string;
   };
 }
 
@@ -80,6 +81,69 @@ type EditEmployerData = {
   linkedin: string;
 };
 
+interface IResume {
+  _id: string;
+  owner: string;
+  position: string;
+  category: string;
+  skills: string[];
+  workExperience: number;
+  salaryExpectations: number;
+  country: string;
+  city: string;
+  relocation: boolean;
+  englishLevel: string;
+  summary: string;
+  employmentOptions: string;
+}
+
+type EditResumeType = {
+  id: string;
+  position: string;
+  category: string;
+  // skills: string[];
+  workExperience: number;
+  salaryExpectations: number;
+  country: string;
+  city: string;
+  relocation: boolean;
+  englishLevel: string;
+  summary: string;
+  employmentOptions: string;
+};
+
+type AddVacancyType = {
+  title: string;
+  category: string;
+  domain: string;
+  workExperience: number;
+  experienceLevel: string;
+  salaryFrom: number;
+  country: string;
+  city: string;
+  englishLevel: string;
+  summary: string;
+  companyType: string;
+  employmentOptions: string;
+};
+
+interface IVacancy {
+  _id: string;
+  author: string;
+  title: string;
+  category: string;
+  domain: string;
+  workExperience: number;
+  experienceLevel: string;
+  salaryFrom: number;
+  country: string;
+  city: string;
+  englishLevel: string;
+  summary: string;
+  companyType: string;
+  employmentOptions: string;
+}
+
 export type {
   RegisterDataType,
   LoginDataType,
@@ -91,4 +155,8 @@ export type {
   UserDataType,
   EditSeekerData,
   EditEmployerData,
+  IResume,
+  EditResumeType,
+  AddVacancyType,
+  IVacancy,
 };

@@ -5,4 +5,8 @@ export type EditEmployerProfileFormValues = {
   phone: string;
   linkedin: string;
   userPosition: string;
+  name: string;
+  webSite: string;
+  douPage: string;
+  employeesCount: number;
 };

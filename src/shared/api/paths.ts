@@ -5,6 +5,10 @@ export const API_PATHS = {
   forgotPassword: 'auth/forgot-password',
   resetPassword: 'auth/reset-password',
   getMe: 'auth/me',
+
   seekers: 'seekers',
-  employers: 'employers',
+  employers: 'employers', // companies
+  topEmployers: 'employers/top', // companies
+  resumes: 'resumes',
+  jobs: 'jobs',
 };

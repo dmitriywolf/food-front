@@ -10,20 +10,28 @@ import {
   userGetProfile,
   userEditSeeker,
   userEditEmployer,
+  getResume,
+  editResume,
+  addVacancy,
+  getVacancies,
 } from './service';
 
-import type { UserDataType } from './types';
+import type { UserDataType, IResume, IVacancy } from './types';
 
 interface IUserState {
   loading: boolean;
   error: string | null;
   userData: UserDataType;
+  seekerResume: IResume | null;
+  employerVacancies: IVacancy[];
 }
 
 const initialState: IUserState = {
   loading: false,
   error: null,
   userData: null,
+  seekerResume: null,
+  employerVacancies: [],
 };
 
 const userSlice = createSlice({
@@ -135,6 +143,50 @@ const userSlice = createSlice({
       .addCase(userEditEmployer.fulfilled, (state, action) => {
         state.loading = false;
         state.userData = action.payload;
+      })
+      // GET SEEKER RESUME
+      .addCase(getResume.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getResume.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(getResume.fulfilled, (state, action) => {
+        state.loading = false;
+        state.seekerResume = action.payload;
+      })
+      // EDIT SEEKER RESUME
+      .addCase(editResume.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(editResume.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(editResume.fulfilled, (state, action) => {
+        state.loading = false;
+        state.seekerResume = action.payload;
+      })
+      // ADD_VACANCY
+      .addCase(addVacancy.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addVacancy.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(addVacancy.fulfilled, (state, action) => {
+        state.loading = false;
+        state.employerVacancies.push(action.payload);
+      })
+      // GET Vacancies
+      .addCase(getVacancies.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getVacancies.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(getVacancies.fulfilled, (state, action) => {
+        state.loading = false;
+        state.employerVacancies = action.payload;
       });
   },
 });
@@ -147,6 +199,9 @@ export const selectUser = (state: RootState) => state.user.userData;
 export const selectIsAuthorized = (state: RootState) => !!state.user.userData;
 export const selectIsLoading = (state: RootState) => state.user.loading;
 export const selectError = (state: RootState) => state.user.error;
+export const selectResume = (state: RootState) => state.user.seekerResume;
+export const selectVacancies = (state: RootState) =>
+  state.user.employerVacancies;
 
 export const selectIsAdmin = (state: RootState) =>
   state.user.userData?.role === ROLES.admin;

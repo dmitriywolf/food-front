@@ -25,15 +25,43 @@ export default function EditEmployerProfile() {
       email: profile?.email || '',
       phone: profile?.phone || '',
       linkedin: profile?.linkedin || '',
+      name: profile?.company?.name || '',
+      webSite: profile?.company?.webSite || '',
+      douPage: profile?.company?.douPage || '',
+      employeesCount: profile?.company?.employeesCount || 0,
     },
     validate: zodResolver(employerProfileSchema),
   });
 
   const onSubmit = async (values: EditEmployerProfileFormValues) => {
+    const {
+      userPosition,
+      firstName,
+      lastName,
+      phone,
+      linkedin,
+      name,
+      webSite,
+      douPage,
+      employeesCount,
+    } = values;
+
+    const data = {
+      userPosition,
+      firstName,
+      lastName,
+      phone,
+      linkedin,
+      company: {
+        name,
+        webSite,
+        douPage,
+        employeesCount,
+      },
+    };
+
     try {
-      await dispatch(
-        userEditEmployer({ id: profile?._id, ...values }),
-      ).unwrap();
+      await dispatch(userEditEmployer({ id: profile?._id, ...data })).unwrap();
 
       notifications.show({
         color: 'green',
@@ -84,6 +112,27 @@ export default function EditEmployerProfile() {
               label='LinkedIn'
               placeholder='https://'
               {...form.getInputProps('linkedin')}
+            />
+            {/* Company */}
+            <TextInput
+              label='Company name'
+              placeholder='Company name'
+              {...form.getInputProps('name')}
+            />
+            <TextInput
+              label='Company website'
+              placeholder='Web site'
+              {...form.getInputProps('webSite')}
+            />
+            <TextInput
+              label='Company Dou Page'
+              placeholder='Dou page'
+              {...form.getInputProps('douPage')}
+            />
+            <TextInput
+              label='Count of emploees'
+              placeholder='Count of emploees '
+              {...form.getInputProps('eployeesCount')}
             />
             <Button type='submit' disabled={isLoading}>
               Save changes
