@@ -1,1 +1,1 @@
-export { default as EditSeekerResume } from './EditSeekerResume';
+// export { default as EditSeekerResume } from './EditSeekerResume';

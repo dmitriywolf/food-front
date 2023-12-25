@@ -6,7 +6,6 @@ import { SignupPage } from 'pages/auth/signup';
 import { ForgotPasswordPage } from 'pages/auth/forgotPassword';
 import { ResetPasswordPage } from 'pages/auth/resetPassword';
 import { VerifyEmailPage } from 'pages/auth/verifyEmail';
-// import { StatisticsPage } from 'pages/statistics';
 import { JobsPage } from 'pages/jobs';
 import { JobPage } from 'pages/job';
 import { CompanyPage } from 'pages/company';
@@ -23,7 +22,7 @@ import { RootLayout } from 'layouts/rootLayout';
 import { AuthLayout } from 'layouts/authLayout';
 
 import { ErrorPage } from 'components';
-import { ProfilePage } from 'pages/profile';
+import { AccountPage } from 'pages/account';
 
 export const appRouter = () =>
   createBrowserRouter([
@@ -35,10 +34,6 @@ export const appRouter = () =>
           path: ROUTES.home,
           element: <HomePage />,
         },
-        // {
-        //   path: ROUTES.statistics,
-        //   element: <StatisticsPage />,
-        // },
         {
           path: ROUTES.job,
           element: <JobPage />,
@@ -68,10 +63,10 @@ export const appRouter = () =>
           element: <CandidatePage />,
         },
         {
-          path: ROUTES.profile,
+          path: ROUTES.account,
           element: (
             <GuestGuard>
-              <ProfilePage />
+              <AccountPage />
             </GuestGuard>
           ),
         },

@@ -1,2 +1,2 @@
 export { EditSeekerProfile } from './EditSeekerProfile';
-export { EditSeekerResume } from './EditSeekerResume';
+// export { EditSeekerResume } from './EditSeekerResume';

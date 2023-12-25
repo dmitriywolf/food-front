@@ -8,7 +8,8 @@ export const ROUTES = {
   faq: '/about-us/faq',
 
   // profile
-  profile: '/profile',
+  account: '/account/:tab',
+  profile: '/account/profile',
 
   // auth
   signin: '/auth/signin',
@@ -24,9 +25,6 @@ export const ROUTES = {
   // jobs
   jobs: '/jobs',
   job: '/jobs/:jobid',
-
-  // resumes
-  resumes: '/resumes',
 
   // candidates
   candidates: '/candidates',

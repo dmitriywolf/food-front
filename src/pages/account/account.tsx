@@ -6,13 +6,14 @@ import {
   IconReportAnalytics,
   IconListCheck,
 } from '@tabler/icons-react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAppSelector } from 'store/hooks';
 import { ROLES } from 'shared/constants';
 import { selectUser } from 'features/user/userSlice';
 import {
   EditSeekerProfile,
   EditEmployerProfile,
-  EditSeekerResume,
+  // EditSeekerResume,
   AddEditVacancy,
   EmployerVacancies,
 } from 'features/user';
@@ -24,8 +25,15 @@ const SEEKER_TABS = {
 };
 
 function SeekerTabs() {
+  const navigate = useNavigate();
+  const { profileTab } = useParams();
+
   return (
-    <Tabs defaultValue={SEEKER_TABS.profile} keepMounted={false}>
+    <Tabs
+      defaultValue={SEEKER_TABS.profile}
+      value={profileTab}
+      onChange={(value) => navigate(`/account/${value}`)}
+    >
       <Tabs.List>
         <Tabs.Tab value={SEEKER_TABS.profile} leftSection={<IconUserScan />}>
           Profile
@@ -43,9 +51,9 @@ function SeekerTabs() {
       <Tabs.Panel value={SEEKER_TABS.profile}>
         <EditSeekerProfile />
       </Tabs.Panel>
-      <Tabs.Panel value={SEEKER_TABS.resume}>
+      {/* <Tabs.Panel value={SEEKER_TABS.resume}>
         <EditSeekerResume />
-      </Tabs.Panel>
+      </Tabs.Panel> */}
       <Tabs.Panel value={SEEKER_TABS.applications}>Applications</Tabs.Panel>
     </Tabs>
   );
@@ -90,7 +98,7 @@ function EmployersTabs() {
   );
 }
 
-function ProfilePage() {
+function AccountPage() {
   const user = useAppSelector(selectUser);
 
   return (
@@ -106,4 +114,4 @@ function ProfilePage() {
   );
 }
 
-export default ProfilePage;
+export default AccountPage;
