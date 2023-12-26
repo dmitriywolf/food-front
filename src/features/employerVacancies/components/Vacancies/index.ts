@@ -1,1 +1,1 @@
-// export { default as EmployerVacancies } from './Vacancies';
+export { default as Vacancies } from './Vacancies';

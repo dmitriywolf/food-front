@@ -3,9 +3,7 @@ import { Box, Tabs, Container, Stack, Title } from '@mantine/core';
 import {
   IconFileCv,
   IconUserScan,
-  IconBuilding,
   IconEdit,
-  // IconReportAnalytics,
   IconListCheck,
 } from '@tabler/icons-react';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
@@ -13,7 +11,7 @@ import { ROLES } from 'shared/constants';
 import { selectUser } from 'features/user/userSlice';
 import { SeekerProfile, EmployerProfile } from 'features/user';
 import { Resume, getResume, selectResume } from 'features/resume';
-import { Vacancy } from 'features/employerVacancies';
+import { Vacancy, Vacancies, getVacancies } from 'features/employerVacancies';
 import { ISeekerAccount } from 'features/types';
 
 const SEEKER_TABS = {
@@ -71,18 +69,24 @@ const EMPLOYER_TABS = {
 function EmployersTabs() {
   const [tab, setTab] = useState<string | null>(EMPLOYER_TABS.profile);
 
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getVacancies());
+  }, [dispatch]);
+
   return (
     <Tabs value={tab} onChange={setTab}>
       <Tabs.List mb={24}>
         <Tabs.Tab value={EMPLOYER_TABS.profile} leftSection={<IconUserScan />}>
           Profile
         </Tabs.Tab>
-        {/* <Tabs.Tab
+        <Tabs.Tab
           value={EMPLOYER_TABS.vacancies}
-          leftSection={<IconBuilding />}
+          leftSection={<IconListCheck />}
         >
-          My Vacancies
-        </Tabs.Tab> */}
+          Vacancies
+        </Tabs.Tab>
         <Tabs.Tab value={EMPLOYER_TABS.vacancy} leftSection={<IconEdit />}>
           Create/Edit Vacancy
         </Tabs.Tab>
@@ -90,8 +94,8 @@ function EmployersTabs() {
       {
         {
           [EMPLOYER_TABS.profile]: <EmployerProfile />,
+          [EMPLOYER_TABS.vacancies]: <Vacancies />,
           [EMPLOYER_TABS.vacancy]: <Vacancy />,
-          // [EMPLOYER_TABS.vacancies]: <EmployerVacancies />,
         }[tab!]
       }
     </Tabs>

@@ -18,6 +18,7 @@ import {
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { notifications } from '@mantine/notifications';
+import { formatDT } from 'shared/utils';
 import { selectIsLoading, selectResume } from '../../resumeSlice';
 import { editResume } from '../../services';
 
@@ -83,13 +84,12 @@ export default function Resume() {
   };
 
   const isResume = createdAt !== updatedAt;
-  const updatedDate = new Date(updatedAt);
 
   return (
     <Stack gap={24}>
       <Group justify='end'>
         {isResume && (
-          <Badge color='gray'>Last updated: {updatedDate.toUTCString()}</Badge>
+          <Badge color='tomato'>Updated: {formatDT(updatedAt)}</Badge>
         )}
         <Badge color={isPublished ? 'green' : 'gray'}>
           {isPublished ? 'Published' : 'Hidden'}

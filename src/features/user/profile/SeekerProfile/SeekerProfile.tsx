@@ -21,6 +21,7 @@ import {
   IconBrandTelegram,
 } from '@tabler/icons-react';
 import { notifications } from '@mantine/notifications';
+import { formatDT } from 'shared/utils';
 import { selectUser, selectIsLoading } from '../../userSlice';
 import { userEditSeeker } from '../../service';
 
@@ -70,14 +71,13 @@ export default function SeekerProfile() {
   };
 
   const isResume = seeker?.createdAt !== seeker?.updatedAt;
-  const updatedDate = new Date(seeker?.updatedAt);
   const isActiveSearch = !!seeker?.searchStatus;
 
   return (
     <Stack gap={24}>
       <Group justify='end'>
         {isResume && (
-          <Badge color='gray'>Last updated: {updatedDate.toUTCString()}</Badge>
+          <Badge color='tomato'>Updated: {formatDT(seeker?.updatedAt)}</Badge>
         )}
         <Badge color={isActiveSearch ? 'green' : 'gray'}>
           {isActiveSearch ? 'Active search' : 'Passive search'}

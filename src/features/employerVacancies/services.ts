@@ -28,11 +28,9 @@ export const createVacancy = createAsyncThunk(
 
 export const getVacancies = createAsyncThunk(
   '@@employerVacancies/getVacancies',
-  async (authorId: string, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const { data } = await API.get(`${API_PATHS.jobs}/user/${authorId}`);
-
-      console.log('Jemployer vaccancies', data.jobs);
+      const { data } = await API.get(`${API_PATHS.jobs}/employer/all`);
       return data.jobs;
     } catch (error: unknown) {
       if (error instanceof AxiosError) {

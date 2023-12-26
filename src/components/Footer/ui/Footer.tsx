@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Container, Stack, Flex, Text, Box, Group, rem } from '@mantine/core';
 import { ThemeSwitch, LangSwitch } from 'components';
 
-import FooterMenu from './FooterMenu';
+// import FooterMenu from './FooterMenu';
 
 import classes from './Footer.module.scss';
 // import FooterTop from './FooterTop';
@@ -17,9 +17,9 @@ export default function RootFooter() {
           {/* <FooterTop /> */}
 
           <Flex className={classes.menu}>
-            <Text>@2023 {t('all_rights_reserved')}</Text>
-            <FooterMenu />
-            <Group>
+            <Text>@2024 {t('all_rights_reserved')}</Text>
+            {/* <FooterMenu /> */}
+            <Group gap={8}>
               <ThemeSwitch />
               <LangSwitch />
             </Group>
