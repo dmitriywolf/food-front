@@ -1,3 +1,3 @@
-export { EditEmployerProfile } from './EditEmployerProfile';
+// export { EditEmployerProfile } from './EditEmployerProfile';
 export { AddEditVacancy } from './AddVacancy';
 export { EmployerVacancies } from './Vacancies';

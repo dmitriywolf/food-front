@@ -1,6 +1,8 @@
-export type EditSeekerProfileFormValues = {
+export type SeekerProfileFormValues = {
+  searchStatus: boolean;
   firstName: string;
   lastName: string;
+  avatar: string;
   email: string;
   phone: string;
   linkedin: string;

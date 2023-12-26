@@ -14,12 +14,14 @@ import {
   getVacancies,
 } from './service';
 
-import type { UserDataType, IVacancy } from './types';
+import type { IVacancy } from './types';
+
+import { ISeekerAccount, IEmployerAccount } from '../types';
 
 interface IUserState {
   loading: boolean;
   error: string | null;
-  userData: UserDataType;
+  userData: ISeekerAccount | IEmployerAccount | null;
   employerVacancies: IVacancy[];
 }
 
@@ -140,28 +142,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.userData = action.payload;
       })
-      // GET SEEKER RESUME
-      // .addCase(getResume.pending, (state) => {
-      //   state.loading = true;
-      // })
-      // .addCase(getResume.rejected, (state) => {
-      //   state.loading = false;
-      // })
-      // .addCase(getResume.fulfilled, (state, action) => {
-      //   state.loading = false;
-      //   state.seekerResume = action.payload;
-      // })
-      // // EDIT SEEKER RESUME
-      // .addCase(editResume.pending, (state) => {
-      //   state.loading = true;
-      // })
-      // .addCase(editResume.rejected, (state) => {
-      //   state.loading = false;
-      // })
-      // .addCase(editResume.fulfilled, (state, action) => {
-      //   state.loading = false;
-      //   state.seekerResume = action.payload;
-      // })
+
       // ADD_VACANCY
       .addCase(addVacancy.pending, (state) => {
         state.loading = true;

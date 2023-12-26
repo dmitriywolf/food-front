@@ -8,9 +8,11 @@ interface IAccount {
   phone: string;
   linkedin: string;
   role: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-interface ISeeker extends IAccount {
+interface ISeekerAccount extends IAccount {
   searchStatus: boolean;
   skype: string;
   telegram: string;
@@ -19,7 +21,7 @@ interface ISeeker extends IAccount {
   resume: string;
 }
 
-interface IEmployer extends IAccount {
+interface IEmployerAccount extends IAccount {
   userPosition: string;
   companyName: string;
   companyHiresCount: number;
@@ -35,7 +37,7 @@ interface IResume {
   owner: string;
   position: string;
   category: string;
-  skills: string[];
+  skills: string;
   workExperience: number;
   salaryExpectations: number;
   country: string;
@@ -46,6 +48,7 @@ interface IResume {
   employmentOptions: string;
   createdAt: string;
   updatedAt: string;
+  isPublished: boolean;
 }
 
-export { IAccount, ISeeker, IEmployer, IResume };
+export { IAccount, ISeekerAccount, IEmployerAccount, IResume };

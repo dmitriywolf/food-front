@@ -1,11 +1,32 @@
 import { z } from 'zod';
-import { i18n } from 'shared/i18n';
 
 export const resumeSchema = z.object({
-  // firstName: z.string().min(2, {
-  //   message: i18n.t('sv_first_name_should_have_at_least_2_letters'),
-  // }),
-  // lastName: z.string().min(2, {
-  //   message: i18n.t('sv_last_name_should_have_at_least_2_letters'),
-  // }),
+  position: z.string().min(3, {
+    message: 'At least 3 letters',
+  }),
+  category: z.string().min(3, {
+    message: 'At least 3 letters',
+  }),
+  skills: z.string().min(3, {
+    message: 'At least 3 letters',
+  }),
+  workExperience: z.number(),
+  salaryExpectations: z.number(),
+  country: z.string().min(3, {
+    message: 'At least 3 letters',
+  }),
+  city: z.string().min(3, {
+    message: 'At least 3 letters',
+  }),
+  relocation: z.boolean(),
+  englishLevel: z.string().min(2, {
+    message: 'At least 2 letters',
+  }),
+  summary: z.string().min(8, {
+    message: 'At least 8 letters',
+  }),
+  employmentOptions: z.string().min(3, {
+    message: 'At least 3 letters',
+  }),
+  isPublished: z.boolean(),
 });

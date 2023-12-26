@@ -4,20 +4,20 @@ import {
   IconFileCv,
   IconUserScan,
   IconBuilding,
-  IconReportAnalytics,
+  // IconReportAnalytics,
   IconListCheck,
 } from '@tabler/icons-react';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { ROLES } from 'shared/constants';
 import { selectUser } from 'features/user/userSlice';
 import {
-  EditSeekerProfile,
-  EditEmployerProfile,
+  SeekerProfile,
+  // EditEmployerProfile,
   AddEditVacancy,
   EmployerVacancies,
 } from 'features/user';
 import { Resume, getResume, selectResume } from 'features/resume';
-import { ISeeker } from 'features/types';
+import { ISeekerAccount } from 'features/types';
 
 const SEEKER_TABS = {
   profile: 'profile',
@@ -30,7 +30,7 @@ function SeekerTabs() {
   const dispatch = useAppDispatch();
 
   const resume = useAppSelector(selectResume);
-  const user = useAppSelector(selectUser) as unknown as ISeeker;
+  const user = useAppSelector(selectUser) as unknown as ISeekerAccount;
 
   useEffect(() => {
     if (!resume._id) {
@@ -56,7 +56,7 @@ function SeekerTabs() {
       </Tabs.List>
       {
         {
-          [SEEKER_TABS.profile]: <EditSeekerProfile />,
+          [SEEKER_TABS.profile]: <SeekerProfile />,
           [SEEKER_TABS.resume]: <Resume />,
           // [SEEKER_TABS.applications]: <p>Applications</p>,
         }[tab!]
@@ -91,9 +91,9 @@ function EmployersTabs() {
           Add vacancy
         </Tabs.Tab>
       </Tabs.List>
-      <Tabs.Panel value={EMPLOYER_TABS.profile}>
+      {/* <Tabs.Panel value={EMPLOYER_TABS.profile}>
         <EditEmployerProfile />
-      </Tabs.Panel>
+      </Tabs.Panel> */}
       <Tabs.Panel value={EMPLOYER_TABS.vacancies}>
         <EmployerVacancies />
       </Tabs.Panel>

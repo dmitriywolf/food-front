@@ -78,8 +78,10 @@ type UserDataType = ISeeker | IEmployer | null;
 
 type EditSeekerData = {
   id: string;
+  searchStatus: boolean;
   firstName: string;
   lastName: string;
+  avatar: string;
   phone: string;
   linkedin: string;
   github: string;

@@ -15,7 +15,7 @@ const DEFAULT_RESUME_DATA = {
   owner: '',
   position: '',
   category: '',
-  skills: [],
+  skills: '',
   workExperience: 0,
   salaryExpectations: 0,
   country: '',
@@ -26,6 +26,7 @@ const DEFAULT_RESUME_DATA = {
   employmentOptions: '',
   createdAt: '',
   updatedAt: '',
+  isPublished: false,
 };
 
 const initialState: IResumeState = {

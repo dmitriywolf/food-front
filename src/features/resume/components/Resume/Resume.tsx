@@ -5,9 +5,17 @@ import {
   Stack,
   Button,
   Checkbox,
+  NumberInput,
+  Textarea,
   Group,
   Text,
+  Badge,
 } from '@mantine/core';
+import {
+  IconMapPinFilled,
+  IconMapPin,
+  IconLanguage,
+} from '@tabler/icons-react';
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { notifications } from '@mantine/notifications';
@@ -25,6 +33,7 @@ export default function Resume() {
     _id,
     position,
     category,
+    skills,
     workExperience,
     salaryExpectations,
     country,
@@ -33,7 +42,9 @@ export default function Resume() {
     englishLevel,
     summary,
     employmentOptions,
+    createdAt,
     updatedAt,
+    isPublished,
   } = useAppSelector(selectResume);
   const isLoading = useAppSelector(selectIsLoading);
 
@@ -41,6 +52,7 @@ export default function Resume() {
     initialValues: {
       position,
       category,
+      skills,
       workExperience,
       salaryExpectations,
       country,
@@ -49,6 +61,7 @@ export default function Resume() {
       englishLevel,
       summary,
       employmentOptions,
+      isPublished,
     },
     validate: zodResolver(resumeSchema),
   });
@@ -70,32 +83,56 @@ export default function Resume() {
     }
   };
 
+  const isResume = createdAt !== updatedAt;
   const updatedDate = new Date(updatedAt);
 
   return (
     <Stack gap={24}>
-      <Text>Last Updated: {updatedDate.toUTCString()}</Text>
-
+      <Group justify='end'>
+        {isResume && (
+          <Badge color='gray'>Last updated: {updatedDate.toUTCString()}</Badge>
+        )}
+        <Badge color={isPublished ? 'green' : 'gray'}>
+          {isPublished ? 'Published' : 'Hidden'}
+        </Badge>
+      </Group>
       <Card shadow='sm' padding='md' radius='md' withBorder>
         <Box component='form' w='100%' onSubmit={onSubmit(submitHandler)}>
           <Stack gap={12}>
             <TextInput label='Position' {...getInputProps('position')} />
-            <TextInput label='Category' {...getInputProps('category')} />
+
             <TextInput
-              label='Work experience'
+              label='Category (Frontend/Backend/Devops..)'
+              {...getInputProps('category')}
+            />
+
+            <NumberInput
+              label='Work experience (years)'
+              suffix=' years'
+              hideControls
               {...getInputProps('workExperience')}
             />
-            <TextInput
-              label='Salary expectations'
+
+            <NumberInput
+              label='Salary expectations (in $)'
+              prefix='$ '
+              hideControls
+              allowDecimal={false}
               {...getInputProps('salaryExpectations')}
             />
+            <TextInput label='Skills' {...getInputProps('skills')} />
 
             <TextInput
               label='Country of residence'
+              leftSection={<IconMapPinFilled size={16} />}
               {...getInputProps('country')}
             />
 
-            <TextInput label='City' {...getInputProps('city')} />
+            <TextInput
+              label='City'
+              leftSection={<IconMapPin size={16} />}
+              {...getInputProps('city')}
+            />
 
             <Checkbox
               label='Relocation'
@@ -103,18 +140,25 @@ export default function Resume() {
             />
 
             <TextInput
-              label='English level'
+              label='English level (A2/B1/B2/C1/C2)'
+              leftSection={<IconLanguage size={16} />}
               {...getInputProps('englishLevel')}
             />
 
-            <TextInput label='Summary' {...getInputProps('summary')} />
+            <Textarea label='Summary' {...getInputProps('summary')} />
+
             <TextInput
-              label='Employment options'
+              label='Employment options (Office/Remote)'
               {...getInputProps('employmentOptions')}
             />
 
+            <Checkbox
+              label='Publish my resume'
+              {...getInputProps('isPublished', { type: 'checkbox' })}
+            />
+
             <Button type='submit' disabled={isLoading}>
-              Update resume
+              {isResume ? 'Update resume' : 'Create resume'}
             </Button>
           </Stack>
         </Box>
