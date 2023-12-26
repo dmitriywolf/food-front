@@ -18,8 +18,8 @@ function HomePage() {
   return (
     <Stack gap={rem(72)}>
       <Intro />
-      <TopCompanies />
-      <TopJobs />
+      {/* <TopCompanies />
+      <TopJobs /> */}
     </Stack>
   );
 }

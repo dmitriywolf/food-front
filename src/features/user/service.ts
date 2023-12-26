@@ -12,7 +12,6 @@ import type {
   ResetPasswordDataType,
   EditSeekerData,
   EditEmployerData,
-  AddVacancyType,
 } from './types';
 
 export const userRegister = createAsyncThunk(
@@ -213,52 +212,6 @@ export const userEditEmployer = createAsyncThunk(
       }
 
       return rejectWithValue('Failed employer update');
-    }
-  },
-);
-
-export const addVacancy = createAsyncThunk(
-  '@@user/addVacancy',
-  async (vacancyData: AddVacancyType, { rejectWithValue }) => {
-    try {
-      const { data } = await API.post(API_PATHS.jobs, vacancyData);
-      return data.job;
-    } catch (error: unknown) {
-      if (error instanceof AxiosError) {
-        if (error.response && error.response.data) {
-          return rejectWithValue(error.response.data.message);
-        }
-      }
-
-      if (error instanceof Error) {
-        return rejectWithValue(error.message);
-      }
-
-      return rejectWithValue('Failed Edit Resume');
-    }
-  },
-);
-
-export const getVacancies = createAsyncThunk(
-  '@@user/getEmployerVacancies',
-  async (authorId: string, { rejectWithValue }) => {
-    try {
-      const { data } = await API.get(`${API_PATHS.jobs}/user/${authorId}`);
-
-      console.log('JOBS', data.jobs);
-      return data.jobs;
-    } catch (error: unknown) {
-      if (error instanceof AxiosError) {
-        if (error.response && error.response.data) {
-          return rejectWithValue(error.response.data.message);
-        }
-      }
-
-      if (error instanceof Error) {
-        return rejectWithValue(error.message);
-      }
-
-      return rejectWithValue('Failed getUser Resume');
     }
   },
 );

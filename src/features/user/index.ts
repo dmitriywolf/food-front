@@ -10,10 +10,8 @@ export { ForgotPassword } from './auth/forgotPassword';
 export { ResetPassword } from './auth/resetPassword';
 
 // PROFILE
-export { ProfileMenu } from './profile/profileMenu';
+export { ProfileMenu } from './profile/ProfileMenu';
 export { SeekerProfile } from './profile/SeekerProfile';
 export { EmployerProfile } from './profile/EmployerProfile';
-
-export { AddEditVacancy, EmployerVacancies } from './profile/employer';
 
 export { default as userSlice } from './userSlice';

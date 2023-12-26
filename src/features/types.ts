@@ -51,4 +51,26 @@ interface IResume {
   isPublished: boolean;
 }
 
-export { IAccount, ISeekerAccount, IEmployerAccount, IResume };
+interface IVacancy {
+  _id: string;
+  author: string;
+  title: string;
+  category: string;
+  domain: string;
+  skills: string;
+  workExperience: number;
+  experienceLevel: string;
+  salaryRange: string;
+  country: string;
+  city: string;
+  englishLevel: string;
+  summary: string;
+  companyType: string;
+  employmentOptions: string;
+  viewsCount: number;
+  applicationsCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export { IAccount, ISeekerAccount, IEmployerAccount, IResume, IVacancy };

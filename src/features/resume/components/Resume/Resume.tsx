@@ -8,7 +8,6 @@ import {
   NumberInput,
   Textarea,
   Group,
-  Text,
   Badge,
 } from '@mantine/core';
 import {
@@ -148,7 +147,7 @@ export default function Resume() {
             <Textarea label='Summary' {...getInputProps('summary')} />
 
             <TextInput
-              label='Employment options (Office/Remote)'
+              label='Employment options (Office/Remote/Part-time)'
               {...getInputProps('employmentOptions')}
             />
 

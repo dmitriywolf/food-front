@@ -4,19 +4,16 @@ import {
   IconFileCv,
   IconUserScan,
   IconBuilding,
+  IconEdit,
   // IconReportAnalytics,
   IconListCheck,
 } from '@tabler/icons-react';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { ROLES } from 'shared/constants';
 import { selectUser } from 'features/user/userSlice';
-import {
-  SeekerProfile,
-  EmployerProfile,
-  AddEditVacancy,
-  EmployerVacancies,
-} from 'features/user';
+import { SeekerProfile, EmployerProfile } from 'features/user';
 import { Resume, getResume, selectResume } from 'features/resume';
+import { Vacancy } from 'features/employerVacancies';
 import { ISeekerAccount } from 'features/types';
 
 const SEEKER_TABS = {
@@ -68,7 +65,7 @@ function SeekerTabs() {
 const EMPLOYER_TABS = {
   profile: 'profile',
   vacancies: 'vacancies',
-  addVacancy: 'addVacancy',
+  vacancy: 'vacancy',
 };
 
 function EmployersTabs() {
@@ -80,24 +77,21 @@ function EmployersTabs() {
         <Tabs.Tab value={EMPLOYER_TABS.profile} leftSection={<IconUserScan />}>
           Profile
         </Tabs.Tab>
-        <Tabs.Tab
+        {/* <Tabs.Tab
           value={EMPLOYER_TABS.vacancies}
           leftSection={<IconBuilding />}
         >
           My Vacancies
-        </Tabs.Tab>
-        <Tabs.Tab
-          value={EMPLOYER_TABS.addVacancy}
-          leftSection={<IconListCheck />}
-        >
-          Add vacancy
+        </Tabs.Tab> */}
+        <Tabs.Tab value={EMPLOYER_TABS.vacancy} leftSection={<IconEdit />}>
+          Create/Edit Vacancy
         </Tabs.Tab>
       </Tabs.List>
       {
         {
           [EMPLOYER_TABS.profile]: <EmployerProfile />,
-          [EMPLOYER_TABS.addVacancy]: <AddEditVacancy />,
-          [EMPLOYER_TABS.vacancies]: <EmployerVacancies />,
+          [EMPLOYER_TABS.vacancy]: <Vacancy />,
+          // [EMPLOYER_TABS.vacancies]: <EmployerVacancies />,
         }[tab!]
       }
     </Tabs>

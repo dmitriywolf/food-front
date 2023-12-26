@@ -10,11 +10,7 @@ import {
   userGetProfile,
   userEditSeeker,
   userEditEmployer,
-  addVacancy,
-  getVacancies,
 } from './service';
-
-import type { IVacancy } from './types';
 
 import { ISeekerAccount, IEmployerAccount } from '../types';
 
@@ -22,14 +18,12 @@ interface IUserState {
   loading: boolean;
   error: string | null;
   userData: ISeekerAccount | IEmployerAccount | null;
-  employerVacancies: IVacancy[];
 }
 
 const initialState: IUserState = {
   loading: false,
   error: null,
   userData: null,
-  employerVacancies: [],
 };
 
 const userSlice = createSlice({
@@ -141,29 +135,6 @@ const userSlice = createSlice({
       .addCase(userEditEmployer.fulfilled, (state, action) => {
         state.loading = false;
         state.userData = action.payload;
-      })
-
-      // ADD_VACANCY
-      .addCase(addVacancy.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(addVacancy.rejected, (state) => {
-        state.loading = false;
-      })
-      .addCase(addVacancy.fulfilled, (state, action) => {
-        state.loading = false;
-        state.employerVacancies.push(action.payload);
-      })
-      // GET Vacancies
-      .addCase(getVacancies.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getVacancies.rejected, (state) => {
-        state.loading = false;
-      })
-      .addCase(getVacancies.fulfilled, (state, action) => {
-        state.loading = false;
-        state.employerVacancies = action.payload;
       });
   },
 });
@@ -176,9 +147,6 @@ export const selectUser = (state: RootState) => state.user.userData;
 export const selectIsAuthorized = (state: RootState) => !!state.user.userData;
 export const selectIsLoading = (state: RootState) => state.user.loading;
 export const selectError = (state: RootState) => state.user.error;
-// export const selectResume = (state: RootState) => state.user.seekerResume;
-export const selectVacancies = (state: RootState) =>
-  state.user.employerVacancies;
 
 export const selectIsAdmin = (state: RootState) =>
   state.user.userData?.role === ROLES.admin;
