@@ -12,7 +12,7 @@ import { ROLES } from 'shared/constants';
 import { selectUser } from 'features/user/userSlice';
 import {
   SeekerProfile,
-  // EditEmployerProfile,
+  EmployerProfile,
   AddEditVacancy,
   EmployerVacancies,
 } from 'features/user';
@@ -72,9 +72,11 @@ const EMPLOYER_TABS = {
 };
 
 function EmployersTabs() {
+  const [tab, setTab] = useState<string | null>(EMPLOYER_TABS.profile);
+
   return (
-    <Tabs defaultValue={EMPLOYER_TABS.profile}>
-      <Tabs.List>
+    <Tabs value={tab} onChange={setTab}>
+      <Tabs.List mb={24}>
         <Tabs.Tab value={EMPLOYER_TABS.profile} leftSection={<IconUserScan />}>
           Profile
         </Tabs.Tab>
@@ -91,15 +93,13 @@ function EmployersTabs() {
           Add vacancy
         </Tabs.Tab>
       </Tabs.List>
-      {/* <Tabs.Panel value={EMPLOYER_TABS.profile}>
-        <EditEmployerProfile />
-      </Tabs.Panel> */}
-      <Tabs.Panel value={EMPLOYER_TABS.vacancies}>
-        <EmployerVacancies />
-      </Tabs.Panel>
-      <Tabs.Panel value={EMPLOYER_TABS.addVacancy}>
-        <AddEditVacancy />
-      </Tabs.Panel>
+      {
+        {
+          [EMPLOYER_TABS.profile]: <EmployerProfile />,
+          [EMPLOYER_TABS.addVacancy]: <AddEditVacancy />,
+          [EMPLOYER_TABS.vacancies]: <EmployerVacancies />,
+        }[tab!]
+      }
     </Tabs>
   );
 }
@@ -111,7 +111,9 @@ function AccountPage() {
     <Box component='section'>
       <Container size='responsive'>
         <Stack gap={24} py={24}>
-          <Title>My Account</Title>
+          <Title>
+            Account: {user?.firstName} {user?.lastName}
+          </Title>
           {user?.role === ROLES.seeker && <SeekerTabs />}
           {user?.role === ROLES.employer && <EmployersTabs />}
         </Stack>

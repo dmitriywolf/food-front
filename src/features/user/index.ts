@@ -12,10 +12,8 @@ export { ResetPassword } from './auth/resetPassword';
 // PROFILE
 export { ProfileMenu } from './profile/profileMenu';
 export { SeekerProfile } from './profile/SeekerProfile';
-export {
-  // EditEmployerProfile,
-  AddEditVacancy,
-  EmployerVacancies,
-} from './profile/employer';
+export { EmployerProfile } from './profile/EmployerProfile';
+
+export { AddEditVacancy, EmployerVacancies } from './profile/employer';
 
 export { default as userSlice } from './userSlice';
