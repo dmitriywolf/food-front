@@ -7,13 +7,31 @@ import { IResume } from '../types';
 interface IResumeState {
   loading: boolean;
   error: string | null;
-  resume: IResume | null;
+  resume: IResume;
 }
+
+const DEFAULT_RESUME_DATA = {
+  _id: '',
+  owner: '',
+  position: '',
+  category: '',
+  skills: [],
+  workExperience: 0,
+  salaryExpectations: 0,
+  country: '',
+  city: '',
+  relocation: false,
+  englishLevel: '',
+  summary: '',
+  employmentOptions: '',
+  createdAt: '',
+  updatedAt: '',
+};
 
 const initialState: IResumeState = {
   loading: false,
   error: null,
-  resume: null,
+  resume: DEFAULT_RESUME_DATA,
 };
 
 const resumeSlice = createSlice({

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Box, Tabs, Container, Stack, Title } from '@mantine/core';
 import {
   IconFileCv,
@@ -6,55 +7,60 @@ import {
   IconReportAnalytics,
   IconListCheck,
 } from '@tabler/icons-react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useAppSelector } from 'store/hooks';
+import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { ROLES } from 'shared/constants';
 import { selectUser } from 'features/user/userSlice';
 import {
   EditSeekerProfile,
   EditEmployerProfile,
-  // EditSeekerResume,
   AddEditVacancy,
   EmployerVacancies,
 } from 'features/user';
+import { Resume, getResume, selectResume } from 'features/resume';
+import { ISeeker } from 'features/types';
 
 const SEEKER_TABS = {
   profile: 'profile',
   resume: 'resume',
-  applications: 'applications',
+  // applications: 'applications',
 };
 
 function SeekerTabs() {
-  const navigate = useNavigate();
-  const { profileTab } = useParams();
+  const [tab, setTab] = useState<string | null>(SEEKER_TABS.profile);
+  const dispatch = useAppDispatch();
+
+  const resume = useAppSelector(selectResume);
+  const user = useAppSelector(selectUser) as unknown as ISeeker;
+
+  useEffect(() => {
+    if (!resume._id) {
+      dispatch(getResume(user?.resume));
+    }
+  }, [user?.resume, dispatch, resume]);
 
   return (
-    <Tabs
-      defaultValue={SEEKER_TABS.profile}
-      value={profileTab}
-      onChange={(value) => navigate(`/account/${value}`)}
-    >
-      <Tabs.List>
+    <Tabs value={tab} onChange={setTab}>
+      <Tabs.List mb={24}>
         <Tabs.Tab value={SEEKER_TABS.profile} leftSection={<IconUserScan />}>
           Profile
         </Tabs.Tab>
         <Tabs.Tab value={SEEKER_TABS.resume} leftSection={<IconFileCv />}>
           Resume
         </Tabs.Tab>
-        <Tabs.Tab
+        {/* <Tabs.Tab
           value={SEEKER_TABS.applications}
           leftSection={<IconReportAnalytics />}
         >
           My applications
-        </Tabs.Tab>
+        </Tabs.Tab> */}
       </Tabs.List>
-      <Tabs.Panel value={SEEKER_TABS.profile}>
-        <EditSeekerProfile />
-      </Tabs.Panel>
-      {/* <Tabs.Panel value={SEEKER_TABS.resume}>
-        <EditSeekerResume />
-      </Tabs.Panel> */}
-      <Tabs.Panel value={SEEKER_TABS.applications}>Applications</Tabs.Panel>
+      {
+        {
+          [SEEKER_TABS.profile]: <EditSeekerProfile />,
+          [SEEKER_TABS.resume]: <Resume />,
+          // [SEEKER_TABS.applications]: <p>Applications</p>,
+        }[tab!]
+      }
     </Tabs>
   );
 }
@@ -67,7 +73,7 @@ const EMPLOYER_TABS = {
 
 function EmployersTabs() {
   return (
-    <Tabs defaultValue={EMPLOYER_TABS.profile} keepMounted={false}>
+    <Tabs defaultValue={EMPLOYER_TABS.profile}>
       <Tabs.List>
         <Tabs.Tab value={EMPLOYER_TABS.profile} leftSection={<IconUserScan />}>
           Profile
@@ -104,7 +110,7 @@ function AccountPage() {
   return (
     <Box component='section'>
       <Container size='responsive'>
-        <Stack gap={32}>
+        <Stack gap={24} py={24}>
           <Title>My Account</Title>
           {user?.role === ROLES.seeker && <SeekerTabs />}
           {user?.role === ROLES.employer && <EmployersTabs />}

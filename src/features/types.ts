@@ -16,7 +16,7 @@ interface ISeeker extends IAccount {
   telegram: string;
   github: string;
   portfolio: string;
-  resume: IResume;
+  resume: string;
 }
 
 interface IEmployer extends IAccount {
@@ -44,6 +44,8 @@ interface IResume {
   englishLevel: string;
   summary: string;
   employmentOptions: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export { IAccount, ISeeker, IEmployer, IResume };

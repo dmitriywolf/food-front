@@ -7,9 +7,8 @@ export const ROUTES = {
   conditions: '/about-us/conditions',
   faq: '/about-us/faq',
 
-  // profile
-  account: '/account/:tab',
-  profile: '/account/profile',
+  // account
+  account: '/account',
 
   // auth
   signin: '/auth/signin',

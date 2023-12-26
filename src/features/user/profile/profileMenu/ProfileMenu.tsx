@@ -19,7 +19,7 @@ export default function ProfileMenu() {
   if (isAuthorized) {
     return (
       <Group>
-        <Link to={ROUTES.profile}>
+        <Link to={ROUTES.account}>
           <Group>
             <Avatar src={user?.avatar} />
             <Text>
