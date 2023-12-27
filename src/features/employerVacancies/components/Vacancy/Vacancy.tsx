@@ -15,57 +15,99 @@ import {
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { notifications } from '@mantine/notifications';
-import { selectIsLoading } from '../../employerVacanciesSlice';
-import { createVacancy } from '../../services';
+import {
+  selectIsLoading,
+  selectCurrentVacancy,
+} from '../../employerVacanciesSlice';
+import { createVacancy, updateVacancy } from '../../services';
 import { vacancySchema } from './schema';
 
 import type { VacancyFormValues } from './types';
 
+const INITIAL_VALUES = {
+  title: '',
+  category: '',
+  domain: '',
+  skills: '',
+  workExperience: 0,
+  experienceLevel: '',
+  salaryRange: '',
+  country: '',
+  city: '',
+  englishLevel: '',
+  summary: '',
+  companyType: '',
+  employmentOptions: '',
+};
+
 export default function Vacancy() {
   const dispatch = useAppDispatch();
+
+  const vacancy = useAppSelector(selectCurrentVacancy);
   const isLoading = useAppSelector(selectIsLoading);
 
-  const { onSubmit, getInputProps, reset } = useForm<VacancyFormValues>({
-    initialValues: {
-      title: '',
-      category: '',
-      domain: '',
-      skills: '',
-      workExperience: 0,
-      experienceLevel: '',
-      salaryRange: '',
-      country: '',
-      city: '',
-      englishLevel: '',
-      summary: '',
-      companyType: '',
-      employmentOptions: '',
-    },
+  const { onSubmit, getInputProps, setValues } = useForm<VacancyFormValues>({
+    initialValues: vacancy._id
+      ? {
+          title: vacancy.title,
+          category: vacancy.category,
+          domain: vacancy.domain,
+          skills: vacancy.skills,
+          workExperience: vacancy.workExperience,
+          experienceLevel: vacancy.experienceLevel,
+          salaryRange: vacancy.salaryRange,
+          country: vacancy.country,
+          city: vacancy.city,
+          englishLevel: vacancy.englishLevel,
+          summary: vacancy.summary,
+          companyType: vacancy.companyType,
+          employmentOptions: vacancy.employmentOptions,
+        }
+      : INITIAL_VALUES,
     validate: zodResolver(vacancySchema),
   });
 
   const submitHandler = async (values: VacancyFormValues) => {
-    try {
-      await dispatch(createVacancy(values)).unwrap();
-      reset();
-      notifications.show({
-        color: 'green',
-        title: 'Create vacancy',
-        message: 'Vacancy created',
-      });
-    } catch (error: unknown) {
-      notifications.show({
-        color: 'red',
-        title: 'Create vacncy',
-        message: error as string,
-      });
+    if (vacancy._id) {
+      const updateData = { _id: vacancy._id, ...values };
+      try {
+        await dispatch(updateVacancy(updateData)).unwrap();
+        setValues(INITIAL_VALUES);
+        notifications.show({
+          color: 'green',
+          title: 'Update vacancy',
+          message: 'Vacancy updated',
+        });
+      } catch (error: unknown) {
+        notifications.show({
+          color: 'red',
+          title: 'Update vacncy',
+          message: error as string,
+        });
+      }
+    } else {
+      try {
+        await dispatch(createVacancy(values)).unwrap();
+        setValues(INITIAL_VALUES);
+        notifications.show({
+          color: 'green',
+          title: 'Create vacancy',
+          message: 'Vacancy created',
+        });
+      } catch (error: unknown) {
+        notifications.show({
+          color: 'red',
+          title: 'Create vacncy',
+          message: error as string,
+        });
+      }
     }
   };
 
   return (
     <Box component='section'>
       <Card shadow='sm' padding='md' radius='md' withBorder>
-        <Box component='form' w='100%' onSubmit={onSubmit(submitHandler)}>
+        <Box component='form' onSubmit={onSubmit(submitHandler)}>
           <Stack gap={12}>
             <TextInput label='Vacancy title' {...getInputProps('title')} />
 
@@ -131,7 +173,7 @@ export default function Vacancy() {
               {...getInputProps('employmentOptions')}
             />
             <Button type='submit' disabled={isLoading}>
-              Create vacancy
+              {vacancy._id ? 'Update vacancy' : 'Create vacancy'}
             </Button>
           </Stack>
         </Box>

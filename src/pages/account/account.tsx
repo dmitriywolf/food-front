@@ -94,7 +94,9 @@ function EmployersTabs() {
       {
         {
           [EMPLOYER_TABS.profile]: <EmployerProfile />,
-          [EMPLOYER_TABS.vacancies]: <Vacancies />,
+          [EMPLOYER_TABS.vacancies]: (
+            <Vacancies setVacancyTab={() => setTab(EMPLOYER_TABS.vacancy)} />
+          ),
           [EMPLOYER_TABS.vacancy]: <Vacancy />,
         }[tab!]
       }

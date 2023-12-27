@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'store/appStore';
-import { getVacancies, createVacancy } from './services';
+import { getVacancies, createVacancy, updateVacancy } from './services';
 
 import { IVacancy } from '../types';
 
 interface IEmployerVacanciesState {
   loading: boolean;
   error: string | null;
-  editedVacancy: IVacancy;
+  currentVacancy: IVacancy;
   vacancies: IVacancy[];
 }
 
@@ -36,14 +36,20 @@ const DEFAULT_VACANCY_DATA = {
 const initialState: IEmployerVacanciesState = {
   loading: false,
   error: null,
-  editedVacancy: DEFAULT_VACANCY_DATA,
+  currentVacancy: DEFAULT_VACANCY_DATA,
   vacancies: [],
 };
 
 const employerVacanciesSlice = createSlice({
-  name: '@@resume',
+  name: '@@employerVacancies',
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentVacancy: (state, { payload }) => {
+      state.currentVacancy = state.vacancies.find(
+        (vac) => vac._id === payload,
+      ) as IVacancy;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // ADD VACANCY
@@ -56,6 +62,21 @@ const employerVacanciesSlice = createSlice({
       .addCase(createVacancy.fulfilled, (state, action) => {
         state.loading = false;
         state.vacancies.push(action.payload);
+      })
+      // EDIT VACANCY
+      .addCase(updateVacancy.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateVacancy.rejected, (state) => {
+        state.loading = false;
+        state.currentVacancy = DEFAULT_VACANCY_DATA;
+      })
+      .addCase(updateVacancy.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.currentVacancy = DEFAULT_VACANCY_DATA;
+        state.vacancies = state.vacancies.map((vac) =>
+          vac?._id === payload._id ? payload : vac,
+        );
       })
       // GET VACANCIES
       .addCase(getVacancies.pending, (state) => {
@@ -72,13 +93,17 @@ const employerVacanciesSlice = createSlice({
 });
 
 // Actions
+export const { setCurrentVacancy } = employerVacanciesSlice.actions;
 
 // Selectors
 export const selectIsLoading = (state: RootState) =>
   state.employerVacancies.loading;
+
 export const selectError = (state: RootState) => state.employerVacancies.error;
-export const selectEditedVacancy = (state: RootState) =>
-  state.employerVacancies.editedVacancy;
+
+export const selectCurrentVacancy = (state: RootState) =>
+  state.employerVacancies.currentVacancy;
+
 export const selectVacancies = (state: RootState) =>
   state.employerVacancies.vacancies;
 

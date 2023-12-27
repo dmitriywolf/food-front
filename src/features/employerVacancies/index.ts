@@ -11,6 +11,6 @@ export { getVacancies, createVacancy } from './services';
 export {
   selectIsLoading,
   selectError,
-  selectEditedVacancy,
+  selectCurrentVacancy,
   selectVacancies,
 } from './employerVacanciesSlice';

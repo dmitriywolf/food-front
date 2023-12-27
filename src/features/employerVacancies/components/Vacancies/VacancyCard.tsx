@@ -19,12 +19,11 @@ import { IVacancy } from '../../../types';
 
 type VacancyCardProps = {
   vacancy: IVacancy;
+  onEdit: () => void;
 };
 
-export default function VacancyCard({ vacancy }: VacancyCardProps) {
+export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
   const {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    _id,
     applicationsCount,
     category,
     city,
@@ -57,23 +56,23 @@ export default function VacancyCard({ vacancy }: VacancyCardProps) {
         <Group gap={8}>
           <Badge>{domain}</Badge>
           <Badge color='grape'>{category}</Badge>
-          <Badge color='cyan'>{companyType}</Badge>
-          <Badge color='green'>{employmentOptions}</Badge>
-          <Badge color='pink'>English: {englishLevel}</Badge>
-        </Group>
-        <Group>
+          <Badge color='teal'>{companyType}</Badge>
+          <Badge color='teal'>{employmentOptions}</Badge>
+          <Badge color='pink'>Eng: {englishLevel}</Badge>
           <Badge
             color='teal'
             leftSection={<IconChartArrowsVertical size={16} />}
           >
-            Level: {experienceLevel}
+            {experienceLevel}
           </Badge>
-          <Badge color='indigo'>Experience: {workExperience} years</Badge>
+          <Badge color='indigo'>{workExperience} years</Badge>
+          <Badge color='blue' leftSection={<IconMapPinFilled size={16} />}>
+            {country}, {city}
+          </Badge>
         </Group>
-        <Badge color='blue' leftSection={<IconMapPinFilled size={16} />}>
-          {country}, {city}
-        </Badge>
+
         <Group gap={4}>
+          <Text>Skills: </Text>
           {skills.split(', ').map((item) => (
             <Badge key={item} color='teal'>
               {item}
@@ -87,7 +86,12 @@ export default function VacancyCard({ vacancy }: VacancyCardProps) {
             <Text>Applications: {applicationsCount}</Text>
           </Group>
           <Group>
-            <ActionIcon variant='subtle' color='red' aria-label='Edit vacancy'>
+            <ActionIcon
+              variant='subtle'
+              color='red'
+              aria-label='Edit vacancy'
+              onClick={onEdit}
+            >
               <IconEdit style={{ width: rem(24), height: rem(24) }} />
             </ActionIcon>
           </Group>
