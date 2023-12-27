@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { IconLogout } from '@tabler/icons-react';
-import { Group, Avatar, ActionIcon, Text } from '@mantine/core';
+import { Group, Avatar, ActionIcon, Text, Anchor } from '@mantine/core';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { ROUTES } from 'shared/routes';
 
@@ -19,15 +19,25 @@ export default function ProfileMenu() {
   if (isAuthorized) {
     return (
       <Group>
-        <Link to={ROUTES.account}>
+        <Anchor
+          c='dimmed'
+          component={Link}
+          to={ROUTES.account}
+          underline='never'
+        >
           <Group>
             <Avatar src={user?.avatar} />
             <Text>
               {user?.firstName} {user?.lastName}
             </Text>
           </Group>
-        </Link>
-        <ActionIcon onClick={logoutHandler} size='lg' aria-label='Log out'>
+        </Anchor>
+        <ActionIcon
+          onClick={logoutHandler}
+          variant='transparent'
+          size='md'
+          aria-label='Log out'
+        >
           <IconLogout />
         </ActionIcon>
       </Group>

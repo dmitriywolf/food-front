@@ -73,4 +73,31 @@ interface IVacancy {
   updatedAt: string;
 }
 
-export { IAccount, ISeekerAccount, IEmployerAccount, IResume, IVacancy };
+interface ICompany {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  emailVerified: boolean;
+  avatar: string;
+  phone: string;
+  linkedin: string;
+  createdAt: string;
+  userPosition: string;
+  companyName: string;
+  companyHiresCount: number;
+  companyWebSite: string;
+  companyDouPage: string;
+  companyLogo: string;
+  companyEmployeesCount: number;
+  companyDescription: string;
+}
+
+export {
+  IAccount,
+  ISeekerAccount,
+  IEmployerAccount,
+  IResume,
+  IVacancy,
+  ICompany,
+};

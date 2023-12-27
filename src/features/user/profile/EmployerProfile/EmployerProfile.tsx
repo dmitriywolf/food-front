@@ -20,9 +20,9 @@ import {
   IconBuilding,
 } from '@tabler/icons-react';
 import { useForm, zodResolver } from '@mantine/form';
-import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { notifications } from '@mantine/notifications';
+import { formatDT } from 'shared/utils';
 import { selectUser, selectIsLoading } from '../../userSlice';
 import { userEditEmployer } from '../../service';
 
@@ -31,8 +31,6 @@ import { employerProfileSchema } from './schema';
 import type { IEmployerAccount } from '../../../types';
 
 export default function EmployerProfile() {
-  const { t } = useTranslation();
-
   const dispatch = useAppDispatch();
 
   const employer = useAppSelector(selectUser) as IEmployerAccount;
@@ -78,12 +76,10 @@ export default function EmployerProfile() {
     }
   };
 
-  const updatedDate = new Date(employer?.updatedAt);
-
   return (
     <Stack gap={24}>
       <Group justify='end'>
-        <Badge color='gray'>Last updated: {updatedDate.toUTCString()}</Badge>
+        <Badge color='gray'>Updated: {formatDT(employer?.updatedAt)}</Badge>
       </Group>
 
       <Card shadow='sm' padding='md' radius='md' withBorder>

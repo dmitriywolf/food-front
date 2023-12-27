@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { Intro } from 'components';
-import { TopCompanies } from 'features/companies';
+// import { TopCompanies } from 'features/companies';
 import { TopJobs } from 'features/jobs';
 import { Stack, rem } from '@mantine/core';
-import { getTopCompanies } from 'features/companies/services';
+// import { getTopCompanies } from 'features/companies/services';
 import { getTopJobs } from 'features/jobs/services';
 import { useAppDispatch } from 'store/hooks';
 
@@ -11,7 +11,7 @@ function HomePage() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getTopCompanies());
+    // dispatch(getTopCompanies());
     dispatch(getTopJobs());
   }, [dispatch]);
 

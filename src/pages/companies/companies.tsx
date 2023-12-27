@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Box, Container, Stack, Title } from '@mantine/core';
-import { CompaniesList } from 'features/companies';
-import { getCompanies } from 'features/companies/services';
+import { Companies, getCompanies } from 'features/companies';
 import { useAppDispatch } from 'store/hooks';
 
 function CompaniesPage() {
@@ -14,9 +13,9 @@ function CompaniesPage() {
   return (
     <Box component='section'>
       <Container size='responsive'>
-        <Stack gap={32}>
-          <Title>All companies</Title>
-          <CompaniesList />
+        <Stack gap={24} py={24}>
+          <Title>Companies</Title>
+          <Companies />
         </Stack>
       </Container>
     </Box>

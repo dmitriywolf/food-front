@@ -1,0 +1,18 @@
+.imgWrap {
+  position: relative;
+}
+
+.avatarWrap {
+  position: absolute;
+  bottom: rem(12);
+  right: rem(20);
+  align-items: center;
+  gap: rem(8);
+
+  p {
+    padding: rem(0) rem(8);
+    border-radius: rem(8);
+    background-color: black;
+    color: antiquewhite;
+  }
+}
