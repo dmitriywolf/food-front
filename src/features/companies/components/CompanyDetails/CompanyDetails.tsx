@@ -1,91 +1,130 @@
-// import React from 'react';
-// import { useAppSelector } from 'store/hooks';
-// import {
-//   Box,
-//   Container,
-//   Button,
-//   Title,
-//   SimpleGrid,
-//   Card,
-//   Text,
-//   Group,
-//   Badge,
-//   Stack,
-//   Flex,
-//   Avatar,
-//   Anchor,
-// } from '@mantine/core';
-// import { ROUTES } from 'shared/routes';
-// import { Link } from 'react-router-dom';
-// import { selectCurrentCompany } from 'features/companies/companiesSlice';
+import {
+  Title,
+  Card,
+  Text,
+  Group,
+  Badge,
+  Grid,
+  Stack,
+  Flex,
+  Anchor,
+  Image,
+  SimpleGrid,
+} from '@mantine/core';
+import { formatDT } from 'shared/utils';
+import {
+  IconUserPlus,
+  IconWorldWww,
+  IconBuilding,
+  IconUsers,
+  IconMailFilled,
+  IconBrandLinkedin,
+} from '@tabler/icons-react';
+import { useAppSelector } from 'store/hooks';
+import { selectCurrentCompany } from '../../companiesSlice';
 
-// export default function CompanyDetails() {
-//   const companyData = useAppSelector(selectCurrentCompany);
+export default function CompanyDetails() {
+  const { data } = useAppSelector(selectCurrentCompany);
 
-//   const { data, jobs } = companyData;
+  const {
+    avatar,
+    createdAt,
+    firstName,
+    lastName,
+    linkedin,
+    email,
+    emailVerified,
+    companyDescription,
+    companyDouPage,
+    companyEmployeesCount,
+    companyHiresCount,
+    companyLogo,
+    companyName,
+    companyWebSite,
+  } = data;
 
-//   return (
-//     <Stack>
-//       <Group>
-//         <Card shadow='sm' padding='md' radius='md' withBorder>
-//           <Avatar />
-//           <Text>{data?.userPosition}</Text>
-//           <Text>{data?.email}</Text>
-//           <Text>
-//             {data?.firstName} - {data?.lastName}
-//           </Text>
-//           <Anchor>{data?.linkedin}</Anchor>
-//           <Text>{data?.phone}</Text>
-//         </Card>
+  return (
+    <Grid columns={4}>
+      <Grid.Col span={3}>
+        <Card shadow='sm' padding='md' radius='md' withBorder>
+          <Card.Section>
+            <Image src={companyLogo} w='100%' h={250} />
+          </Card.Section>
+          <Stack gap={24} pt={24}>
+            <Title ta='center'>{companyName}</Title>
 
-//         <Card shadow='sm' padding='md' radius='md' withBorder>
-//           <Avatar />
-//           <Text>{data?.company.name}</Text>
-//           <Anchor>{data?.company.webSite}</Anchor>
-//           <Anchor>{data?.company.douPage}</Anchor>
-//           <Text>{data?.company.employeesCount}</Text>
-//         </Card>
-//       </Group>
+            <SimpleGrid cols={2} spacing={24}>
+              <Stack gap={12}>
+                <Flex gap={8}>
+                  <IconUsers />
+                  <Text>{companyEmployeesCount} employers</Text>
+                </Flex>
 
-//       <Stack>
-//         {jobs.map(
-//           ({
-//             _id,
-//             title,
-//             category,
-//             country,
-//             salaryFrom,
-//             englishLevel,
-//             summary,
-//           }) => (
-//             <Card key={_id} shadow='sm' padding='md' radius='md' withBorder>
-//               <Flex>
-//                 <Group>
-//                   <Title order={4}>{title}</Title>
+                {companyHiresCount && (
+                  <Flex gap={8}>
+                    <IconUserPlus />
+                    <Text>Hires: {companyHiresCount}</Text>
+                  </Flex>
+                )}
 
-//                   <Text size='sm' c='dimmed'>
-//                     {country}
-//                   </Text>
-//                   <Text size='sm' c='dimmed'>
-//                     {category}
-//                   </Text>
+                <Flex gap={8}>
+                  <IconBuilding />
+                  <Text>Added: {formatDT(createdAt)}</Text>
+                </Flex>
+              </Stack>
 
-//                   <Group>
-//                     {salaryFrom}
-//                     <Badge color='pink' variant='light'>
-//                       {englishLevel}
-//                     </Badge>
-//                   </Group>
-//                   <Text>{summary}</Text>
-//                 </Group>
-//                 <Link to={`${ROUTES.jobs}/${_id}`}>
-//                   <Button>See details</Button>
-//                 </Link>
-//               </Flex>
-//             </Card>
-//           ),
-//         )}
-//       </Stack>
-//     </Stack>
-//   );
-// }
+              <Stack gap={12}>
+                <Flex gap={8}>
+                  <IconWorldWww />
+                  <Anchor href={companyWebSite} c='teal'>
+                    Company site
+                  </Anchor>
+                </Flex>
+                <Flex gap={8}>
+                  <IconWorldWww />
+                  <Anchor href={companyDouPage} c='teal'>
+                    Dou page
+                  </Anchor>
+                </Flex>
+              </Stack>
+            </SimpleGrid>
+
+            <Text>{companyDescription}</Text>
+          </Stack>
+        </Card>
+      </Grid.Col>
+
+      <Grid.Col span={1}>
+        <Card shadow='sm' padding='md' radius='md' withBorder>
+          <Card.Section>
+            <Image src={avatar} w='100%' h={250} />
+          </Card.Section>
+          <Stack gap={24} pt={24}>
+            <Group>
+              <Title order={2}>
+                {firstName} {lastName}
+              </Title>
+              <Badge color={emailVerified ? 'teal' : 'pink'}>
+                {emailVerified ? 'Verified' : 'Unverified'}
+              </Badge>
+            </Group>
+            <Group>
+              <Flex gap={8}>
+                <IconMailFilled />
+                <Anchor href={`mailto:${email}`} c='teal'>
+                  Mail me
+                </Anchor>
+              </Flex>
+              <Flex gap={8}>
+                <IconBrandLinkedin />
+                <Anchor href={linkedin} c='teal'>
+                  LinkedIn
+                </Anchor>
+              </Flex>
+            </Group>
+          </Stack>
+        </Card>
+      </Grid.Col>
+    </Grid>
+  );
+}
