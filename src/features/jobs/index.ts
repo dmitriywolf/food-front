@@ -1,5 +1,12 @@
+// slice
 export { default as jobsSlice } from './jobsSlice';
 
-export { default as JobsList } from './components/JobsList/JobsList';
-export { default as TopJobs } from './components/TopJobs/TopJobs';
-export { default as JobDetails } from './components/JobDetails/JobDetailes';
+// components
+export { Jobs } from './components/Jobs';
+// export { JobDetails } from './components/JobDetails';
+
+// service
+export { getJobs, getJobById } from './services';
+
+// selectors
+export { selectJobs } from './jobsSlice';

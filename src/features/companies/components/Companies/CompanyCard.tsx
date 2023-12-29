@@ -4,13 +4,12 @@ import {
   Group,
   Badge,
   Image,
-  Anchor,
   Stack,
   Flex,
   Avatar,
 } from '@mantine/core';
 import { formatDT } from 'shared/utils';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
 import { ICompany } from '../../../types';
 import classes from './CompanyCard.module.scss';
@@ -28,16 +27,26 @@ export default function CompanyCard({ company }: CompanyCardProps) {
     firstName,
     lastName,
     companyDescription,
-    companyDouPage,
     companyEmployeesCount,
     companyHiresCount,
     companyLogo,
     companyName,
-    companyWebSite,
   } = company;
 
+  const navigate = useNavigate();
+
+  const navigateHandler = () => {
+    navigate(`${ROUTES.companies}/${_id}`);
+  };
+
   return (
-    <Card shadow='sm' padding='lg' radius='md' withBorder>
+    <Card
+      shadow='sm'
+      padding='lg'
+      radius='md'
+      withBorder
+      onClick={navigateHandler}
+    >
       <Card.Section className={classes.imgWrap}>
         <Image src={companyLogo} w='100%' h={250} />
         <Flex className={classes.avatarWrap}>
@@ -50,9 +59,9 @@ export default function CompanyCard({ company }: CompanyCardProps) {
 
       <Stack gap={12} mt='xs'>
         <Group justify='space-between'>
-          <Anchor component={Link} to={`${ROUTES.companies}/${_id}`} c='cyan'>
-            <Text fw={500}>{companyName}</Text>
-          </Anchor>
+          <Text size='md' c='cyan' fw={500}>
+            {companyName}
+          </Text>
           {companyHiresCount && <Badge color='pink'>Has hires</Badge>}
         </Group>
 
@@ -61,18 +70,9 @@ export default function CompanyCard({ company }: CompanyCardProps) {
           <Badge color='cyan'>Added: {formatDT(createdAt)}</Badge>
         </Group>
 
-        <Text size='sm' c='dimmed'>
+        <Text size='sm' c='dimmed' ta='justify'>
           {companyDescription}
         </Text>
-
-        <Group align='center'>
-          <Anchor c='cyan' size='sm' href={companyWebSite} target='_blank'>
-            Website
-          </Anchor>
-          <Anchor c='cyan' size='sm' href={companyDouPage} target='_blank'>
-            Dou page
-          </Anchor>
-        </Group>
       </Stack>
     </Card>
   );

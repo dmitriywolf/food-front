@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { Box, Container, Stack, Title } from '@mantine/core';
-import { JobsList } from 'features/jobs';
-import { getJobs } from 'features/jobs/services';
 import { useAppDispatch } from 'store/hooks';
+import { getJobs, Jobs } from 'features/jobs';
 
 function JobsPage() {
   const dispatch = useAppDispatch();
@@ -14,9 +13,9 @@ function JobsPage() {
   return (
     <Box component='section'>
       <Container size='responsive'>
-        <Stack gap={32}>
-          <Title>All jobs</Title>
-          <JobsList />
+        <Stack gap={24} py={24}>
+          <Title>Jobs</Title>
+          <Jobs />
         </Stack>
       </Container>
     </Box>

@@ -95,7 +95,7 @@ interface ICompany {
 
 type IJob = {
   _id: string;
-  author: IEmployerAccount;
+  author: string | ICompany;
   title: string;
   category: string;
   domain: string;
@@ -109,8 +109,10 @@ type IJob = {
   summary: string;
   companyType: string;
   employmentOptions: string;
+  viewsCount: number;
   applicationsCount: number;
-  applications: string[];
+  createdAt: string;
+  updatedAt: string;
 };
 
 export {

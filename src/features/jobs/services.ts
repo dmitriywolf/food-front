@@ -46,25 +46,3 @@ export const getJobs = createAsyncThunk(
     }
   },
 );
-
-export const getTopJobs = createAsyncThunk(
-  '@@jobs/getTopJobs',
-  async (_, { rejectWithValue }) => {
-    try {
-      const { data } = await API.get(API_PATHS.topJobs);
-      return data.jobs;
-    } catch (error: unknown) {
-      if (error instanceof AxiosError) {
-        if (error.response && error.response.data) {
-          return rejectWithValue(error.response.data.message);
-        }
-      }
-
-      if (error instanceof Error) {
-        return rejectWithValue(error.message);
-      }
-
-      return rejectWithValue('Failed get top jobs');
-    }
-  },
-);

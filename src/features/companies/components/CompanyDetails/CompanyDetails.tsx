@@ -19,6 +19,7 @@ import {
   IconUsers,
   IconMailFilled,
   IconBrandLinkedin,
+  IconPhone,
 } from '@tabler/icons-react';
 import { useAppSelector } from 'store/hooks';
 import { selectCurrentCompany } from '../../companiesSlice';
@@ -32,6 +33,7 @@ export default function CompanyDetails() {
     firstName,
     lastName,
     linkedin,
+    phone,
     email,
     emailVerified,
     companyDescription,
@@ -67,10 +69,12 @@ export default function CompanyDetails() {
                   </Flex>
                 )}
 
-                <Flex gap={8}>
-                  <IconBuilding />
-                  <Text>Added: {formatDT(createdAt)}</Text>
-                </Flex>
+                {createdAt && (
+                  <Flex gap={8}>
+                    <IconBuilding />
+                    <Text>Added: {formatDT(createdAt)}</Text>
+                  </Flex>
+                )}
               </Stack>
 
               <Stack gap={12}>
@@ -115,12 +119,22 @@ export default function CompanyDetails() {
                   Mail me
                 </Anchor>
               </Flex>
-              <Flex gap={8}>
-                <IconBrandLinkedin />
-                <Anchor href={linkedin} c='teal'>
-                  LinkedIn
-                </Anchor>
-              </Flex>
+              {linkedin && (
+                <Flex gap={8}>
+                  <IconBrandLinkedin />
+                  <Anchor href={linkedin} c='teal'>
+                    LinkedIn
+                  </Anchor>
+                </Flex>
+              )}
+              {phone && (
+                <Flex gap={8}>
+                  <IconPhone />
+                  <Anchor href={`tel:${phone}`} c='teal'>
+                    Call
+                  </Anchor>
+                </Flex>
+              )}
             </Group>
           </Stack>
         </Card>

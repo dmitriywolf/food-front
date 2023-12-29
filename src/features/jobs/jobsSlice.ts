@@ -1,23 +1,44 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'store/appStore';
-import { getJobs, getTopJobs, getJobById } from './services';
+import { getJobs, getJobById } from './services';
 
-import type { IJob } from './types';
+import { IJob } from '../types';
 
-interface IJobState {
+interface IJobsState {
   loading: boolean;
   error: string | null;
   jobs: IJob[];
-  topJobs: IJob[];
-  currentJob: IJob | null;
+  currentJob: IJob;
 }
 
-const initialState: IJobState = {
+const DEFAULT_JOB_DATA = {
+  _id: '',
+  author: '',
+  title: '',
+  category: '',
+  domain: '',
+  skills: '',
+  workExperience: 0,
+  experienceLevel: '',
+  salaryRange: '',
+  country: '',
+  city: '',
+  englishLevel: '',
+  summary: '',
+  companyType: '',
+  employmentOptions: '',
+  viewsCount: 0,
+  applicationsCount: 0,
+  applications: [],
+  createdAt: '',
+  updatedAt: '',
+};
+
+const initialState: IJobsState = {
   loading: false,
   error: null,
   jobs: [],
-  topJobs: [],
-  currentJob: null,
+  currentJob: DEFAULT_JOB_DATA,
 };
 
 const jobsSlice = createSlice({
@@ -39,19 +60,7 @@ const jobsSlice = createSlice({
         state.loading = false;
         state.jobs = action.payload;
       })
-      // GET TOP JOBS
-      .addCase(getTopJobs.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(getTopJobs.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      })
-      .addCase(getTopJobs.fulfilled, (state, action) => {
-        state.loading = false;
-        state.topJobs = action.payload;
-      })
+
       // GET JOB BY ID
       .addCase(getJobById.pending, (state) => {
         state.loading = true;
@@ -69,8 +78,7 @@ const jobsSlice = createSlice({
 });
 
 // Selectors
-export const selectAllJobs = (state: RootState) => state.jobs.jobs;
-export const selectTopJobs = (state: RootState) => state.jobs.topJobs;
+export const selectJobs = (state: RootState) => state.jobs.jobs;
 export const selectCurrentJob = (state: RootState) => state.jobs.currentJob;
 
 export const selectIsLoading = (state: RootState) => state.jobs.loading;
