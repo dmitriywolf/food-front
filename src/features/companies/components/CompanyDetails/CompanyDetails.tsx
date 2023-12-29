@@ -22,10 +22,11 @@ import {
   IconPhone,
 } from '@tabler/icons-react';
 import { useAppSelector } from 'store/hooks';
+import { JobCard } from 'features/jobs';
 import { selectCurrentCompany } from '../../companiesSlice';
 
 export default function CompanyDetails() {
-  const { data } = useAppSelector(selectCurrentCompany);
+  const { data, jobs } = useAppSelector(selectCurrentCompany);
 
   const {
     avatar,
@@ -96,8 +97,12 @@ export default function CompanyDetails() {
             <Text>{companyDescription}</Text>
           </Stack>
         </Card>
+        <Stack gap={12} pt={24}>
+          {jobs.map((job) => (
+            <JobCard key={job._id} job={job} />
+          ))}
+        </Stack>
       </Grid.Col>
-
       <Grid.Col span={1}>
         <Card shadow='sm' padding='md' radius='md' withBorder>
           <Card.Section>

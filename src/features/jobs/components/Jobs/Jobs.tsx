@@ -5,7 +5,7 @@ import {
   selectJobs,
   // selectIsLoading
 } from '../../jobsSlice';
-import JobCard from './JobCard';
+import { JobCard } from '../JobCard';
 
 export default function Jobs() {
   const jobs = useAppSelector(selectJobs);
