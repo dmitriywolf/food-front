@@ -30,7 +30,11 @@ export default function VerifyEmail() {
       });
       navigate(ROUTES.signin);
     } catch (error: unknown) {
-      console.log('Error', error);
+      notifications.show({
+        color: 'red',
+        title: 'Verify Email',
+        message: error as string,
+      });
     }
   }, [dispatch, navigate, code]);
 

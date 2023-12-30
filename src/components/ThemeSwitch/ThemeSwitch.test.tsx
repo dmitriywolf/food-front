@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 // import ThemeSwitch from './ThemeSwitch';
 
 describe('Theme switch', () => {

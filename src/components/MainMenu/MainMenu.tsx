@@ -1,11 +1,9 @@
 import { Anchor, Flex, rem } from '@mantine/core';
-import { useTranslation } from 'react-i18next';
+
 import { ROUTES } from 'shared/routes';
 import { Link } from 'react-router-dom';
 
 export default function MainMenu() {
-  const { t } = useTranslation();
-
   const configMenu = [
     {
       key: 'Companies',

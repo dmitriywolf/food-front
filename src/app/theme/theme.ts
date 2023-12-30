@@ -1,4 +1,4 @@
-import { createTheme, rem, MantineColorsTuple } from '@mantine/core';
+import { createTheme, MantineColorsTuple } from '@mantine/core';
 import { ContainerExt } from './components/Container/Container';
 
 const primary: MantineColorsTuple = [

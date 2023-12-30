@@ -1,17 +1,20 @@
-// AUTH
-export { Authorization } from './auth/authorization';
-export { AuthMenu } from './auth/authMenu';
-export { AuthGuard } from './auth/authGuard';
-export { GuestGuard } from './auth/guestGuard';
-export { SignIn } from './auth/signin';
-export { SignUp } from './auth/signup';
-export { VerifyEmail } from './auth/verifyEmail';
-export { ForgotPassword } from './auth/forgotPassword';
-export { ResetPassword } from './auth/resetPassword';
-
-// PROFILE
-export { ProfileMenu } from './profile/ProfileMenu';
-export { SeekerProfile } from './profile/SeekerProfile';
-export { EmployerProfile } from './profile/EmployerProfile';
-
+// slice
 export { default as userSlice } from './userSlice';
+
+// components
+export { Authorization } from './components/Authorization';
+export { AuthMenu } from './components/AuthMenu';
+export { AuthGuard } from './components/AuthGuard';
+export { GuestGuard } from './components/GuestGuard';
+export { SignIn } from './components/SignIn';
+export { SignUp } from './components/SignUp';
+export { VerifyEmail } from './components/VerifyEmail';
+export { ForgotPassword } from './components/ForgotPassword';
+export { ResetPassword } from './components/ResetPassword';
+export { ProfileMenu } from './components/ProfileMenu';
+export { SeekerProfile } from './components/SeekerProfile';
+export { EmployerProfile } from './components/EmployerProfile';
+
+// services
+
+// selectors
