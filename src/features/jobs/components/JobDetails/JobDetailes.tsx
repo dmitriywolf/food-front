@@ -1,63 +1,204 @@
-// import React from 'react';
-// import {
-//   Stack,
-//   Title,
-//   Text,
-//   Card,
-//   Avatar,
-//   Anchor,
-//   Button,
-// } from '@mantine/core';
-// import { useAppSelector } from 'store/hooks';
-// import { selectCurrentJob } from 'features/jobs/jobsSlice';
+import {
+  Title,
+  Card,
+  Text,
+  Group,
+  Badge,
+  Grid,
+  Stack,
+  Flex,
+  Anchor,
+  Image,
+} from '@mantine/core';
+import {
+  IconBuilding,
+  IconMailFilled,
+  IconBrandLinkedin,
+  IconPhone,
+  IconCoin,
+  IconMapPin,
+  IconSquareCheckFilled,
+  IconChartArrowsVertical,
+  IconLanguage,
+  IconChartInfographic,
+  IconChartCandle,
+  IconChartDonut4,
+  IconChartAreaFilled,
+} from '@tabler/icons-react';
+import { formatDT } from 'shared/utils';
+import { useAppSelector } from 'store/hooks';
+import { selectCurrentJob } from '../../jobsSlice';
+import { ICompany } from '../../../types';
 
-// export default function JobDetailes() {
-//   const jobData = useAppSelector(selectCurrentJob);
+export default function JobDetailes() {
+  const job = useAppSelector(selectCurrentJob);
 
-//   return (
-//     <Stack>
-//       <Title>
-//         {jobData?.title}
-//         <Text>${jobData?.salaryFrom}</Text>
-//       </Title>
-//       {/* Company */}
-//       <Card shadow='sm' padding='md' radius='md' withBorder>
-//         <Text>Company:</Text>
-//         <Avatar />
-//         <Text>{jobData?.author.company.name}</Text>
+  const {
+    applicationsCount,
+    author,
+    category,
+    city,
+    companyType,
+    country,
+    domain,
+    employmentOptions,
+    englishLevel,
+    experienceLevel,
+    salaryRange,
+    skills,
+    summary,
+    title,
+    updatedAt,
+    viewsCount,
+    workExperience,
+  } = job;
 
-//         <Text>
-//           {jobData?.author.firstName} {jobData?.author.lastName},{' '}
-//           {jobData?.author.userPosition}
-//         </Text>
-//         <Text>
-//           Company employees:
-//           {jobData?.author.company.employeesCount}
-//         </Text>
-//         <Text>
-//           Company website: <Anchor>{jobData?.author.company.webSite}</Anchor>
-//         </Text>
+  const {
+    avatar,
+    companyLogo,
+    companyName,
+    email,
+    phone,
+    userPosition,
+    emailVerified,
+    linkedin,
+    firstName,
+    lastName,
+  } = author as ICompany;
 
-//         <Text>
-//           DOU company page:: <Anchor>{jobData?.author.company.douPage}</Anchor>
-//         </Text>
-//       </Card>
+  return (
+    <Grid columns={4}>
+      <Grid.Col span={3}>
+        <Card shadow='sm' padding='md' radius='md' withBorder>
+          <Stack gap={12}>
+            <Flex align='center' justify='space-between'>
+              <Title>{title}</Title>
+              <Image src={companyLogo} w='100px' />
+            </Flex>
 
-//       {/* Job */}
-//       <Card shadow='sm' padding='md' radius='md' withBorder>
-//         <Text>Category: {jobData?.category}</Text>
-//         <Text>Applications Count: {jobData?.applicationsCount}</Text>
-//         <Text>
-//           Location: {jobData?.country}/{jobData?.city}
-//         </Text>
-//         <Text>Domain: {jobData?.domain}</Text>
-//         <Text>Options: {jobData?.employmentOptions}</Text>
-//         <Text>English level: {jobData?.englishLevel}</Text>
-//         <Text>Level: {jobData?.experienceLevel}</Text>
-//         <Text>Work Experience: {jobData?.workExperience}</Text>
-//         <Text>Summary: {jobData?.summary}</Text>
-//       </Card>
-//       <Button>Apply</Button>
-//     </Stack>
-//   );
-// }
+            <Flex gap={10} align='center'>
+              <IconCoin size={20} />
+              <Text fw='bold'>{salaryRange} $</Text>
+              {updatedAt && (
+                <Badge color='cyan'>Added: {formatDT(updatedAt)}</Badge>
+              )}
+            </Flex>
+
+            <Flex align='center' gap={24}>
+              <Flex gap={10} align='center'>
+                <IconBuilding size={20} />
+                <Text c='teal'>{companyName}</Text>
+              </Flex>
+
+              <Flex gap={10} align='center'>
+                <IconMapPin size={20} />
+                <Text>
+                  {country}, {city}
+                </Text>
+              </Flex>
+            </Flex>
+
+            <Flex align='center' gap={24}>
+              <Flex gap={10} align='center'>
+                <IconChartInfographic size={20} />
+                <Text>{companyType}</Text>
+              </Flex>
+
+              <Flex gap={10} align='center'>
+                <IconChartCandle size={20} />
+                <Text>{domain}</Text>
+              </Flex>
+
+              <Flex gap={10} align='center'>
+                <IconChartDonut4 size={20} />
+                <Text>{category}</Text>
+              </Flex>
+
+              <Flex gap={10} align='center'>
+                <IconChartAreaFilled size={20} />
+                <Text>{employmentOptions}</Text>
+              </Flex>
+            </Flex>
+
+            <Flex align='center' gap={24}>
+              <Flex gap={10} align='center'>
+                <IconSquareCheckFilled size={20} />
+                <Text>Experience: {workExperience} years</Text>
+              </Flex>
+
+              <Flex gap={10} align='center'>
+                <IconChartArrowsVertical size={20} />
+                <Text>{experienceLevel}</Text>
+              </Flex>
+
+              <Flex gap={10} align='center'>
+                <IconLanguage size={20} />
+                <Text>English: {englishLevel}</Text>
+              </Flex>
+            </Flex>
+
+            <Flex align='center' gap={24}>
+              <Text>Views: {viewsCount}</Text>
+
+              <Text>Applications count: {applicationsCount}</Text>
+            </Flex>
+
+            <Flex align='center' gap={12}>
+              {skills.split(', ').map((skill) => (
+                <Badge key={skill} color='cyan'>
+                  {skill}
+                </Badge>
+              ))}
+            </Flex>
+
+            <Text>{summary}</Text>
+          </Stack>
+        </Card>
+      </Grid.Col>
+
+      <Grid.Col span={1}>
+        {/* Потом вынести в отдельный компонент */}
+        <Card shadow='sm' padding='md' radius='md' withBorder>
+          <Card.Section>
+            <Image src={avatar} w='100%' h={250} />
+          </Card.Section>
+          <Stack gap={12} pt={24}>
+            <Group>
+              <Title order={2}>
+                {firstName} {lastName}
+              </Title>
+              <Badge color={emailVerified ? 'teal' : 'pink'}>
+                {emailVerified ? 'Verified' : 'Unverified'}
+              </Badge>
+            </Group>
+            <Text>{userPosition}</Text>
+            <Group>
+              <Flex gap={8}>
+                <IconMailFilled />
+                <Anchor href={`mailto:${email}`} c='teal'>
+                  Mail me
+                </Anchor>
+              </Flex>
+              {linkedin && (
+                <Flex gap={8}>
+                  <IconBrandLinkedin />
+                  <Anchor href={linkedin} c='teal'>
+                    LinkedIn
+                  </Anchor>
+                </Flex>
+              )}
+              {phone && (
+                <Flex gap={8}>
+                  <IconPhone />
+                  <Anchor href={`tel:${phone}`} c='teal'>
+                    Call
+                  </Anchor>
+                </Flex>
+              )}
+            </Group>
+          </Stack>
+        </Card>
+      </Grid.Col>
+    </Grid>
+  );
+}

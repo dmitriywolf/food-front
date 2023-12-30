@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Container, Stack } from '@mantine/core';
-import { getJobById } from 'features/jobs/services';
+import { getJobById, JobDetails } from 'features/jobs';
 import { useAppDispatch } from 'store/hooks';
-// import { JobDetails } from 'features/jobs';
 
 function JobPage() {
   const { jobid } = useParams();
@@ -17,9 +16,8 @@ function JobPage() {
   return (
     <Box component='section'>
       <Container size='responsive'>
-        <Stack gap={32}>
-          ..
-          {/* <JobDetails /> */}
+        <Stack gap={32} py={24}>
+          <JobDetails />
         </Stack>
       </Container>
     </Box>

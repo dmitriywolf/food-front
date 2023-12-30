@@ -35,6 +35,7 @@ export default function CompanyDetails() {
     lastName,
     linkedin,
     phone,
+    userPosition,
     email,
     emailVerified,
     companyDescription,
@@ -104,11 +105,12 @@ export default function CompanyDetails() {
         </Stack>
       </Grid.Col>
       <Grid.Col span={1}>
+        {/* Потом вынести в отдельный компонент */}
         <Card shadow='sm' padding='md' radius='md' withBorder>
           <Card.Section>
             <Image src={avatar} w='100%' h={250} />
           </Card.Section>
-          <Stack gap={24} pt={24}>
+          <Stack gap={12} pt={24}>
             <Group>
               <Title order={2}>
                 {firstName} {lastName}
@@ -117,6 +119,7 @@ export default function CompanyDetails() {
                 {emailVerified ? 'Verified' : 'Unverified'}
               </Badge>
             </Group>
+            <Text>{userPosition}</Text>
             <Group>
               <Flex gap={8}>
                 <IconMailFilled />
