@@ -3,6 +3,43 @@ import type { RootState } from 'store/appStore';
 import { ISeekerAccount } from '../types';
 import { getCandidates, getCandidateById } from './services';
 
+const DEFAULT_CANDIDATE_DATA = {
+  _id: '',
+  firstName: '',
+  lastName: '',
+  email: '',
+  emailVerified: false,
+  avatar: '',
+  phone: '',
+  linkedin: '',
+  createdAt: '',
+  updatedAt: '',
+  searchStatus: false,
+  skype: '',
+  telegram: '',
+  github: '',
+  role: '',
+  portfolio: '',
+  resume: {
+    _id: '',
+    owner: '',
+    position: '',
+    category: '',
+    skills: '',
+    workExperience: 0,
+    salaryExpectations: 0,
+    country: '',
+    city: '',
+    relocation: false,
+    englishLevel: '',
+    summary: '',
+    employmentOptions: '',
+    createdAt: '',
+    updatedAt: '',
+    isPublished: false,
+  },
+};
+
 interface ICandidatesState {
   loading: boolean;
   error: string | null;
@@ -14,7 +51,7 @@ const initialState: ICandidatesState = {
   loading: false,
   error: null,
   candidates: [],
-  currentCandidate: null,
+  currentCandidate: DEFAULT_CANDIDATE_DATA,
 };
 
 const candidatesSlice = createSlice({

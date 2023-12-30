@@ -137,21 +137,27 @@ export default function JobDetailes() {
               </Flex>
             </Flex>
 
+            <Flex direction='column' gap={8}>
+              <Text>Required skills:</Text>
+              <Flex align='center' gap={12}>
+                {skills.split(', ').map((skill) => (
+                  <Badge key={skill} color='cyan'>
+                    {skill}
+                  </Badge>
+                ))}
+              </Flex>
+            </Flex>
+
+            <Flex direction='column' gap={8}>
+              <Text>Description: </Text>
+              <Text>{summary}</Text>
+            </Flex>
+
             <Flex align='center' gap={24}>
               <Text>Views: {viewsCount}</Text>
 
               <Text>Applications count: {applicationsCount}</Text>
             </Flex>
-
-            <Flex align='center' gap={12}>
-              {skills.split(', ').map((skill) => (
-                <Badge key={skill} color='cyan'>
-                  {skill}
-                </Badge>
-              ))}
-            </Flex>
-
-            <Text>{summary}</Text>
           </Stack>
         </Card>
       </Grid.Col>
@@ -179,19 +185,23 @@ export default function JobDetailes() {
                   Mail me
                 </Anchor>
               </Flex>
-              {linkedin && (
-                <Flex gap={8}>
-                  <IconBrandLinkedin />
-                  <Anchor href={linkedin} c='teal'>
-                    LinkedIn
-                  </Anchor>
-                </Flex>
-              )}
+
               {phone && (
                 <Flex gap={8}>
                   <IconPhone />
                   <Anchor href={`tel:${phone}`} c='teal'>
                     Call
+                  </Anchor>
+                </Flex>
+              )}
+            </Group>
+
+            <Group>
+              {linkedin && (
+                <Flex gap={8}>
+                  <IconBrandLinkedin />
+                  <Anchor href={linkedin} c='teal'>
+                    LinkedIn
                   </Anchor>
                 </Flex>
               )}
