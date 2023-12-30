@@ -82,15 +82,15 @@ export const userVerifyEmail = createAsyncThunk(
       return rejectWithValue('Failed user verify email');
     }
   },
-  {
-    condition: (_, { getState }) => {
-      const { user } = getState() as RootState;
-      if (user.loading) {
-        return false;
-      }
-      return true;
-    },
-  },
+  // {
+  //   condition: (_, { getState }) => {
+  //     const { user } = getState() as RootState;
+  //     if (user.loading) {
+  //       return false;
+  //     }
+  //     return true;
+  //   },
+  // },
 );
 
 export const userForgotPassword = createAsyncThunk(
