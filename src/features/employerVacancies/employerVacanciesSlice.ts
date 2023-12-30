@@ -2,13 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'store/appStore';
 import { getVacancies, createVacancy, updateVacancy } from './services';
 
-import { IVacancy } from '../types';
+import { IJob } from '../types';
 
 interface IEmployerVacanciesState {
   loading: boolean;
   error: string | null;
-  currentVacancy: IVacancy;
-  vacancies: IVacancy[];
+  currentVacancy: IJob;
+  vacancies: IJob[];
 }
 
 const DEFAULT_VACANCY_DATA = {
@@ -27,8 +27,6 @@ const DEFAULT_VACANCY_DATA = {
   summary: '',
   companyType: '',
   employmentOptions: '',
-  viewsCount: 0,
-  applicationsCount: 0,
   createdAt: '',
   updatedAt: '',
 };
@@ -47,7 +45,7 @@ const employerVacanciesSlice = createSlice({
     setCurrentVacancy: (state, { payload }) => {
       state.currentVacancy = state.vacancies.find(
         (vac) => vac._id === payload,
-      ) as IVacancy;
+      ) as IJob;
     },
   },
   extraReducers: (builder) => {

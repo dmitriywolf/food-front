@@ -7,12 +7,7 @@ export const API_PATHS = {
   getMe: 'auth/me',
 
   seekers: 'seekers', // candidates
-
   employers: 'employers', // companies
-  topEmployers: 'employers/top', // companies
-
   resumes: 'resumes',
-
   jobs: 'jobs',
-  topJobs: 'jobs/top',
 };

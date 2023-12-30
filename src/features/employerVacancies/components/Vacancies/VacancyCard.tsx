@@ -15,16 +15,15 @@ import {
 } from '@tabler/icons-react';
 import { formatDT } from 'shared/utils';
 
-import { IVacancy } from '../../../types';
+import { IJob } from '../../../types';
 
 type VacancyCardProps = {
-  vacancy: IVacancy;
+  vacancy: IJob;
   onEdit: () => void;
 };
 
 export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
   const {
-    applicationsCount,
     category,
     city,
     country,
@@ -38,7 +37,6 @@ export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
     summary,
     title,
     updatedAt,
-    viewsCount,
     workExperience,
   } = vacancy;
 
@@ -81,10 +79,10 @@ export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
         </Group>
         <Text>{summary}</Text>
         <Group justify='space-between'>
-          <Group>
+          {/* <Group>
             <Text>Views: {viewsCount}</Text>
             <Text>Applications: {applicationsCount}</Text>
-          </Group>
+          </Group> */}
           <Group>
             <ActionIcon
               variant='subtle'

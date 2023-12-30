@@ -34,7 +34,6 @@ export default function JobDetailes() {
   const job = useAppSelector(selectCurrentJob);
 
   const {
-    applicationsCount,
     author,
     category,
     city,
@@ -49,7 +48,6 @@ export default function JobDetailes() {
     summary,
     title,
     updatedAt,
-    viewsCount,
     workExperience,
   } = job;
 
@@ -153,11 +151,11 @@ export default function JobDetailes() {
               <Text>{summary}</Text>
             </Flex>
 
-            <Flex align='center' gap={24}>
+            {/* <Flex align='center' gap={24}>
               <Text>Views: {viewsCount}</Text>
 
               <Text>Applications count: {applicationsCount}</Text>
-            </Flex>
+            </Flex> */}
           </Stack>
         </Card>
       </Grid.Col>
