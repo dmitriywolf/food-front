@@ -42,16 +42,9 @@ export default function JobCard({ job }: JobCardProps) {
   };
 
   return (
-    <Card
-      key={_id}
-      shadow='sm'
-      padding='md'
-      radius='md'
-      withBorder
-      onClick={navigateHandler}
-    >
+    <Card shadow='sm' padding='md' radius='md' onClick={navigateHandler}>
       <Flex justify='space-between' align='flex-start'>
-        <Stack gap={12}>
+        <Stack gap={8}>
           <Title order={3}>{title}</Title>
 
           <Flex gap={12} align='center'>

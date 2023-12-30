@@ -1,15 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'store/appStore';
-import { ISeeker } from 'features/user/types';
+import { ISeekerAccount } from '../types';
 import { getCandidates, getCandidateById } from './services';
-
-// import type { IResume } from './types';
 
 interface ICandidatesState {
   loading: boolean;
   error: string | null;
-  candidates: ISeeker[];
-  currentCandidate: ISeeker | null;
+  candidates: ISeekerAccount[];
+  currentCandidate: ISeekerAccount | null;
 }
 
 const initialState: ICandidatesState = {

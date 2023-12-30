@@ -29,7 +29,7 @@ function SeekerTabs() {
 
   useEffect(() => {
     if (!resume._id) {
-      dispatch(getResume(user?.resume));
+      dispatch(getResume(user?.resume as string));
     }
   }, [user?.resume, dispatch, resume]);
 

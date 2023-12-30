@@ -18,7 +18,7 @@ interface ISeekerAccount extends IAccount {
   telegram: string;
   github: string;
   portfolio: string;
-  resume: string;
+  resume: string | IResume;
 }
 
 interface IEmployerAccount extends IAccount {

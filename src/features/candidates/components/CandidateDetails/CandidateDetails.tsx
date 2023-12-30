@@ -1,7 +1,7 @@
 import React from 'react';
 import { Stack, Title, Text, Card, Avatar } from '@mantine/core';
 import { useAppSelector } from 'store/hooks';
-import { selectCurrentCandidate } from 'features/candidates/candidateSlice';
+import { selectCurrentCandidate } from '../../candidatesSlice';
 
 export default function CandidateDetails() {
   const candidate = useAppSelector(selectCurrentCandidate);
@@ -25,7 +25,7 @@ export default function CandidateDetails() {
       </Card>
       {/* Resume */}
       <Card shadow='sm' padding='md' radius='md' withBorder>
-        <Title>{candidate?.resume.position}</Title>
+        {/* <Title>{candidate?.resume.position}</Title>
         <Text>Salary expectation: ${candidate?.resume.salaryExpectations}</Text>
         <Text>Category: {candidate?.resume.category}</Text>
         <Text>
@@ -35,7 +35,7 @@ export default function CandidateDetails() {
         <Text>Work experience: {candidate?.resume.workExperience} years</Text>
         <Text>English level: {candidate?.resume.englishLevel}</Text>
         <Text>Options: {candidate?.resume.employmentOptions}</Text>
-        <Text>Summary: {candidate?.resume.summary}</Text>
+        <Text>Summary: {candidate?.resume.summary}</Text> */}
       </Card>
     </Stack>
   );

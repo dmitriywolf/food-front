@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { Box, Container, Stack, Title } from '@mantine/core';
 
-import { CandidatesList } from 'features/candidates';
-import { getCandidates } from 'features/candidates/services';
+import { getCandidates, Candidates } from 'features/candidates';
 import { useAppDispatch } from 'store/hooks';
 
 function CandidatesPage() {
@@ -15,9 +14,9 @@ function CandidatesPage() {
   return (
     <Box component='section'>
       <Container size='responsive'>
-        <Stack gap={32}>
-          <Title>All candadates</Title>
-          <CandidatesList />
+        <Stack gap={32} py={24}>
+          <Title>Candidates</Title>
+          <Candidates />
         </Stack>
       </Container>
     </Box>
