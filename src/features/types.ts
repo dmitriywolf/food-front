@@ -19,6 +19,7 @@ interface ISeekerAccount extends IAccount {
   github: string;
   portfolio: string;
   resume: string | IResume;
+  applications: IJob[];
 }
 
 interface IEmployerAccount extends IAccount {
@@ -71,7 +72,13 @@ interface ICompany {
   companyDescription: string;
 }
 
-type IJob = {
+interface IApplication {
+  _id: string;
+  firstName: string;
+  lastName: string;
+}
+
+interface IJob {
   _id: string;
   author: string | ICompany;
   title: string;
@@ -87,8 +94,41 @@ type IJob = {
   summary: string;
   companyType: string;
   employmentOptions: string;
+  viewsCount: number;
+  applications: string[];
   createdAt: string;
   updatedAt: string;
-};
+}
 
-export { IAccount, ISeekerAccount, IEmployerAccount, IResume, ICompany, IJob };
+interface IVacancy {
+  _id: string;
+  author: string | ICompany;
+  title: string;
+  category: string;
+  domain: string;
+  skills: string;
+  workExperience: number;
+  experienceLevel: string;
+  salaryRange: string;
+  country: string;
+  city: string;
+  englishLevel: string;
+  summary: string;
+  companyType: string;
+  employmentOptions: string;
+  viewsCount: number;
+  applications: IApplication[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export {
+  IAccount,
+  ISeekerAccount,
+  IEmployerAccount,
+  IResume,
+  ICompany,
+  IJob,
+  IVacancy,
+  IApplication,
+};

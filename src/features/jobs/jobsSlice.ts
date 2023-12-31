@@ -27,6 +27,8 @@ const DEFAULT_JOB_DATA = {
   summary: '',
   companyType: '',
   employmentOptions: '',
+  viewsCount: 0,
+  applications: [],
   createdAt: '',
   updatedAt: '',
 };

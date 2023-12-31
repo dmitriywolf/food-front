@@ -20,6 +20,7 @@ const DEFAULT_CANDIDATE_DATA = {
   github: '',
   role: '',
   portfolio: '',
+  applications: [],
   resume: {
     _id: '',
     owner: '',

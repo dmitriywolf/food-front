@@ -9,7 +9,13 @@ import {
   Title,
 } from '@mantine/core';
 import { formatDT } from 'shared/utils';
-import { IconCoin, IconMapPin, IconBuildingCastle } from '@tabler/icons-react';
+import {
+  IconCoin,
+  IconMapPin,
+  IconBuildingCastle,
+  IconEye,
+  IconUserPlus,
+} from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
 import { ICompany, IJob } from '../../../types';
@@ -31,6 +37,8 @@ export default function JobCard({ job }: JobCardProps) {
     summary,
     category,
     companyType,
+    applications,
+    viewsCount,
   } = job;
 
   const { companyLogo, companyName } = author as ICompany;
@@ -45,7 +53,18 @@ export default function JobCard({ job }: JobCardProps) {
     <Card shadow='sm' padding='md' radius='md' onClick={navigateHandler}>
       <Flex justify='space-between' align='flex-start'>
         <Stack gap={8}>
-          <Title order={3}>{title}</Title>
+          <Flex align='center' gap={24}>
+            <Title order={3}>{title}</Title>
+            <Flex gap={8}>
+              <IconEye size={20} />
+              {viewsCount}
+            </Flex>
+
+            <Flex gap={8}>
+              <IconUserPlus size={20} />
+              {applications.length}
+            </Flex>
+          </Flex>
 
           <Flex gap={12} align='center'>
             <IconCoin />

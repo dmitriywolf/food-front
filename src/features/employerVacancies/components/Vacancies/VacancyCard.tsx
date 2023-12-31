@@ -7,18 +7,23 @@ import {
   Badge,
   ActionIcon,
   rem,
+  Anchor,
+  Flex,
 } from '@mantine/core';
+import { Link } from 'react-router-dom';
 import {
   IconMapPinFilled,
   IconEdit,
   IconChartArrowsVertical,
+  IconUserSearch,
 } from '@tabler/icons-react';
+import { ROUTES } from 'shared/routes';
 import { formatDT } from 'shared/utils';
 
-import { IJob } from '../../../types';
+import { IVacancy } from '../../../types';
 
 type VacancyCardProps = {
-  vacancy: IJob;
+  vacancy: IVacancy;
   onEdit: () => void;
 };
 
@@ -38,6 +43,8 @@ export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
     title,
     updatedAt,
     workExperience,
+    viewsCount,
+    applications,
   } = vacancy;
 
   return (
@@ -79,10 +86,10 @@ export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
         </Group>
         <Text>{summary}</Text>
         <Group justify='space-between'>
-          {/* <Group>
+          <Group>
             <Text>Views: {viewsCount}</Text>
-            <Text>Applications: {applicationsCount}</Text>
-          </Group> */}
+            {/* <Text>Applications: {applicationsCount}</Text> */}
+          </Group>
           <Group>
             <ActionIcon
               variant='subtle'
@@ -94,6 +101,22 @@ export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
             </ActionIcon>
           </Group>
         </Group>
+
+        <Flex gap={8} direction='column'>
+          <Text>Applications: {applications.length}</Text>
+          {applications.map(({ _id, firstName, lastName }) => (
+            <Flex key={_id} gap={8}>
+              <IconUserSearch size={20} />
+              <Anchor
+                component={Link}
+                target='_blank'
+                to={`${ROUTES.candidates}/${_id}`}
+              >
+                {firstName} {lastName}
+              </Anchor>
+            </Flex>
+          ))}
+        </Flex>
       </Stack>
     </Card>
   );
