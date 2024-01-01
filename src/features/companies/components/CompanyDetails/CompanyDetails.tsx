@@ -10,8 +10,11 @@ import {
   Anchor,
   Image,
   SimpleGrid,
+  Breadcrumbs,
 } from '@mantine/core';
 import { formatDT } from 'shared/utils';
+import { Link } from 'react-router-dom';
+import { ROUTES } from 'shared/routes';
 import {
   IconUserPlus,
   IconWorldWww,
@@ -47,106 +50,119 @@ export default function CompanyDetails() {
     companyWebSite,
   } = data;
 
+  const items = [
+    { title: 'Companies', href: ROUTES.companies },
+    { title: companyName, href: '#' },
+  ].map((item) => (
+    <Anchor to={item.href} component={Link} key={item.title}>
+      {item.title}
+    </Anchor>
+  ));
+
   return (
-    <Grid columns={4}>
-      <Grid.Col span={3}>
-        <Card shadow='sm' padding='md' radius='md' withBorder>
-          <Card.Section>
-            <Image src={companyLogo} w='100%' h={250} />
-          </Card.Section>
-          <Stack gap={24} pt={24}>
-            <Title ta='center'>{companyName}</Title>
+    <Stack>
+      <Breadcrumbs>{items}</Breadcrumbs>
 
-            <SimpleGrid cols={2} spacing={24}>
-              <Stack gap={12}>
-                <Flex gap={8}>
-                  <IconUsers />
-                  <Text>{companyEmployeesCount} employers</Text>
-                </Flex>
+      <Grid columns={4}>
+        <Grid.Col span={3}>
+          <Card shadow='sm' padding='md' radius='md' withBorder>
+            <Card.Section>
+              <Image src={companyLogo} w='100%' h={250} />
+            </Card.Section>
+            <Stack gap={24} pt={24}>
+              <Title ta='center'>{companyName}</Title>
 
-                {companyHiresCount && (
+              <SimpleGrid cols={2} spacing={24}>
+                <Stack gap={12}>
                   <Flex gap={8}>
-                    <IconUserPlus />
-                    <Text>Hires: {companyHiresCount}</Text>
+                    <IconUsers />
+                    <Text>{companyEmployeesCount} employers</Text>
                   </Flex>
-                )}
 
-                {createdAt && (
+                  {companyHiresCount && (
+                    <Flex gap={8}>
+                      <IconUserPlus />
+                      <Text>Hires: {companyHiresCount}</Text>
+                    </Flex>
+                  )}
+
+                  {createdAt && (
+                    <Flex gap={8}>
+                      <IconBuilding />
+                      <Text>Added: {formatDT(createdAt)}</Text>
+                    </Flex>
+                  )}
+                </Stack>
+
+                <Stack gap={12}>
                   <Flex gap={8}>
-                    <IconBuilding />
-                    <Text>Added: {formatDT(createdAt)}</Text>
+                    <IconWorldWww />
+                    <Anchor href={companyWebSite} c='teal'>
+                      Company site
+                    </Anchor>
                   </Flex>
-                )}
-              </Stack>
+                  <Flex gap={8}>
+                    <IconWorldWww />
+                    <Anchor href={companyDouPage} c='teal'>
+                      Dou page
+                    </Anchor>
+                  </Flex>
+                </Stack>
+              </SimpleGrid>
 
-              <Stack gap={12}>
-                <Flex gap={8}>
-                  <IconWorldWww />
-                  <Anchor href={companyWebSite} c='teal'>
-                    Company site
-                  </Anchor>
-                </Flex>
-                <Flex gap={8}>
-                  <IconWorldWww />
-                  <Anchor href={companyDouPage} c='teal'>
-                    Dou page
-                  </Anchor>
-                </Flex>
-              </Stack>
-            </SimpleGrid>
-
-            <Text>{companyDescription}</Text>
-          </Stack>
-        </Card>
-        <Stack gap={12} pt={24}>
-          {jobs.map((job) => (
-            <JobCard key={job._id} job={job} />
-          ))}
-        </Stack>
-      </Grid.Col>
-      <Grid.Col span={1}>
-        {/* Потом вынести в отдельный компонент */}
-        <Card shadow='sm' padding='md' radius='md' withBorder>
-          <Card.Section>
-            <Image src={avatar} w='100%' h={250} />
-          </Card.Section>
+              <Text>{companyDescription}</Text>
+            </Stack>
+          </Card>
           <Stack gap={12} pt={24}>
-            <Group>
-              <Title order={2}>
-                {firstName} {lastName}
-              </Title>
-              <Badge color={emailVerified ? 'teal' : 'pink'}>
-                {emailVerified ? 'Verified' : 'Unverified'}
-              </Badge>
-            </Group>
-            <Text>{userPosition}</Text>
-            <Group>
-              <Flex gap={8}>
-                <IconMailFilled />
-                <Anchor href={`mailto:${email}`} c='teal'>
-                  Mail me
-                </Anchor>
-              </Flex>
-              {linkedin && (
-                <Flex gap={8}>
-                  <IconBrandLinkedin />
-                  <Anchor href={linkedin} c='teal'>
-                    LinkedIn
-                  </Anchor>
-                </Flex>
-              )}
-              {phone && (
-                <Flex gap={8}>
-                  <IconPhone />
-                  <Anchor href={`tel:${phone}`} c='teal'>
-                    Call
-                  </Anchor>
-                </Flex>
-              )}
-            </Group>
+            {jobs.map((job) => (
+              <JobCard key={job._id} job={job} />
+            ))}
           </Stack>
-        </Card>
-      </Grid.Col>
-    </Grid>
+        </Grid.Col>
+        <Grid.Col span={1}>
+          {/* Потом вынести в отдельный компонент */}
+          <Card shadow='sm' padding='md' radius='md' withBorder>
+            <Card.Section>
+              <Image src={avatar} w='100%' h={250} />
+            </Card.Section>
+            <Stack gap={12} pt={24}>
+              <Group>
+                <Title order={2}>
+                  {firstName} {lastName}
+                </Title>
+                <Badge color={emailVerified ? 'teal' : 'pink'}>
+                  {emailVerified ? 'Verified' : 'Unverified'}
+                </Badge>
+              </Group>
+              <Text>{userPosition}</Text>
+              <Group>
+                <Flex gap={8}>
+                  <IconMailFilled />
+                  <Anchor href={`mailto:${email}`} c='teal'>
+                    Mail me
+                  </Anchor>
+                </Flex>
+                {linkedin && (
+                  <Flex gap={8}>
+                    <IconBrandLinkedin />
+                    <Anchor href={linkedin} c='teal'>
+                      LinkedIn
+                    </Anchor>
+                  </Flex>
+                )}
+                {phone && (
+                  <Flex gap={8}>
+                    <IconPhone />
+                    <Anchor href={`tel:${phone}`} c='teal'>
+                      Call
+                    </Anchor>
+                  </Flex>
+                )}
+              </Group>
+            </Stack>
+          </Card>
+        </Grid.Col>
+      </Grid>
+    </Stack>
   );
 }

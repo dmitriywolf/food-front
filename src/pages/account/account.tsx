@@ -30,7 +30,7 @@ function SeekerTabs() {
   return (
     <>
       <Tabs value={navTab} onChange={(value) => navigate(value!)}>
-        <Tabs.List mb={24}>
+        <Tabs.List>
           <Tabs.Tab value={SEEKER_TABS.profile} leftSection={<IconUserScan />}>
             Profile
           </Tabs.Tab>
@@ -71,7 +71,7 @@ function EmployersTabs() {
   return (
     <>
       <Tabs value={navTab} onChange={(value) => navigate(value!)}>
-        <Tabs.List mb={24}>
+        <Tabs.List>
           <Tabs.Tab
             value={EMPLOYER_TABS.profile}
             leftSection={<IconUserScan />}
