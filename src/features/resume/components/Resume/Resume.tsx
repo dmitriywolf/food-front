@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Box,
   Card,
@@ -20,7 +21,7 @@ import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { notifications } from '@mantine/notifications';
 import { formatDT } from 'shared/utils';
 import { selectIsLoading, selectResume } from '../../resumeSlice';
-import { editResume } from '../../services';
+import { editResume, getMyResume } from '../../services';
 
 import type { IResumeFormValues } from './types';
 import { resumeSchema } from './schema';
@@ -84,6 +85,12 @@ export default function Resume() {
   };
 
   const isResume = createdAt !== updatedAt;
+
+  useEffect(() => {
+    if (!_id) {
+      dispatch(getMyResume());
+    }
+  }, [_id, dispatch]);
 
   return (
     <Stack gap={24}>

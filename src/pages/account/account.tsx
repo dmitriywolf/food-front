@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Box, Tabs, Container, Stack, Title } from '@mantine/core';
 import {
   IconFileCv,
@@ -7,105 +6,97 @@ import {
   IconListCheck,
   IconListTree,
 } from '@tabler/icons-react';
-import { useAppSelector, useAppDispatch } from 'store/hooks';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAppSelector } from 'store/hooks';
 import { ROLES } from 'shared/constants';
-import { getMyApplications, MyApplications } from 'features/jobs';
+import { Applications } from 'features/jobs';
 import { SeekerProfile, EmployerProfile, selectUser } from 'features/user';
-import { Resume, getResume, selectResume } from 'features/resume';
-import { Vacancy, Vacancies, getVacancies } from 'features/employerVacancies';
-import { ISeekerAccount } from 'features/types';
+import { Resume } from 'features/resume';
+import { Vacancy, Vacancies } from 'features/employerVacancies';
+import { ROUTES } from 'shared/routes';
 
 const SEEKER_TABS = {
-  profile: 'profile',
-  resume: 'resume',
-  applications: 'applications',
+  profile: ROUTES.profile,
+  resume: ROUTES.profileResume,
+  applications: ROUTES.profileApplications,
 };
 
 function SeekerTabs() {
-  const [tab, setTab] = useState<string | null>(SEEKER_TABS.profile);
-  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { tab } = useParams();
 
-  const resume = useAppSelector(selectResume);
-  const user = useAppSelector(selectUser) as unknown as ISeekerAccount;
-
-  useEffect(() => {
-    if (!resume._id) {
-      dispatch(getResume(user?.resume as string));
-    }
-  }, [user?.resume, dispatch, resume]);
-
-  useEffect(() => {
-    dispatch(getMyApplications());
-  }, [dispatch]);
+  const navTab = `${ROUTES.account}/${tab}`;
 
   return (
-    <Tabs value={tab} onChange={setTab}>
-      <Tabs.List mb={24}>
-        <Tabs.Tab value={SEEKER_TABS.profile} leftSection={<IconUserScan />}>
-          Profile
-        </Tabs.Tab>
-        <Tabs.Tab value={SEEKER_TABS.resume} leftSection={<IconFileCv />}>
-          Resume
-        </Tabs.Tab>
-        <Tabs.Tab
-          value={SEEKER_TABS.applications}
-          leftSection={<IconListTree />}
-        >
-          My applications
-        </Tabs.Tab>
-      </Tabs.List>
+    <>
+      <Tabs value={navTab} onChange={(value) => navigate(value!)}>
+        <Tabs.List mb={24}>
+          <Tabs.Tab value={SEEKER_TABS.profile} leftSection={<IconUserScan />}>
+            Profile
+          </Tabs.Tab>
+          <Tabs.Tab value={SEEKER_TABS.resume} leftSection={<IconFileCv />}>
+            Resume
+          </Tabs.Tab>
+          <Tabs.Tab
+            value={SEEKER_TABS.applications}
+            leftSection={<IconListTree />}
+          >
+            My applications
+          </Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
       {
         {
           [SEEKER_TABS.profile]: <SeekerProfile />,
           [SEEKER_TABS.resume]: <Resume />,
-          [SEEKER_TABS.applications]: <MyApplications />,
-        }[tab!]
+          [SEEKER_TABS.applications]: <Applications />,
+        }[navTab]
       }
-    </Tabs>
+    </>
   );
 }
 
 const EMPLOYER_TABS = {
-  profile: 'profile',
-  vacancies: 'vacancies',
-  vacancy: 'vacancy',
+  profile: ROUTES.profile,
+  vacancies: ROUTES.profileVacancies,
+  vacancy: ROUTES.profileAddEditVacancy,
 };
 
 function EmployersTabs() {
-  const [tab, setTab] = useState<string | null>(EMPLOYER_TABS.profile);
+  const navigate = useNavigate();
+  const { tab } = useParams();
 
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getVacancies());
-  }, [dispatch]);
+  const navTab = `${ROUTES.account}/${tab}`;
 
   return (
-    <Tabs value={tab} onChange={setTab}>
-      <Tabs.List mb={24}>
-        <Tabs.Tab value={EMPLOYER_TABS.profile} leftSection={<IconUserScan />}>
-          Profile
-        </Tabs.Tab>
-        <Tabs.Tab
-          value={EMPLOYER_TABS.vacancies}
-          leftSection={<IconListCheck />}
-        >
-          Vacancies
-        </Tabs.Tab>
-        <Tabs.Tab value={EMPLOYER_TABS.vacancy} leftSection={<IconEdit />}>
-          Create/Edit Vacancy
-        </Tabs.Tab>
-      </Tabs.List>
+    <>
+      <Tabs value={navTab} onChange={(value) => navigate(value!)}>
+        <Tabs.List mb={24}>
+          <Tabs.Tab
+            value={EMPLOYER_TABS.profile}
+            leftSection={<IconUserScan />}
+          >
+            Profile
+          </Tabs.Tab>
+          <Tabs.Tab
+            value={EMPLOYER_TABS.vacancies}
+            leftSection={<IconListCheck />}
+          >
+            Vacancies
+          </Tabs.Tab>
+          <Tabs.Tab value={EMPLOYER_TABS.vacancy} leftSection={<IconEdit />}>
+            Create/Edit Vacancy
+          </Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
       {
         {
           [EMPLOYER_TABS.profile]: <EmployerProfile />,
-          [EMPLOYER_TABS.vacancies]: (
-            <Vacancies setVacancyTab={() => setTab(EMPLOYER_TABS.vacancy)} />
-          ),
+          [EMPLOYER_TABS.vacancies]: <Vacancies />,
           [EMPLOYER_TABS.vacancy]: <Vacancy />,
-        }[tab!]
+        }[navTab]
       }
-    </Tabs>
+    </>
   );
 }
 

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'store/appStore';
-import { getResume, editResume } from './services';
+import { getMyResume, editResume } from './services';
 
 import { IResume } from '../types';
 
@@ -42,13 +42,13 @@ const resumeSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // GET
-      .addCase(getResume.pending, (state) => {
+      .addCase(getMyResume.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getResume.rejected, (state) => {
+      .addCase(getMyResume.rejected, (state) => {
         state.loading = false;
       })
-      .addCase(getResume.fulfilled, (state, action) => {
+      .addCase(getMyResume.fulfilled, (state, action) => {
         state.loading = false;
         state.resume = action.payload;
       })

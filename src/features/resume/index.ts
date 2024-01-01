@@ -4,7 +4,7 @@ export { default as resumeSlice } from './resumeSlice';
 export { Resume } from './components/Resume';
 
 // service
-export { getResume } from './services';
+export { getMyResume } from './services';
 
 // selectors
 export { selectResume } from './resumeSlice';

@@ -9,6 +9,17 @@ export const ROUTES = {
 
   // account
   account: '/account',
+  accountTabs: '/account/:tab',
+
+  profile: '/account/profile',
+
+  // seeker profile
+  profileResume: '/account/resume',
+  profileApplications: '/account/applications',
+
+  // employer profile
+  profileAddEditVacancy: '/account/add-edit-vacancy',
+  profileVacancies: '/account/vacancies',
 
   // auth
   signin: '/auth/signin',

@@ -11,7 +11,6 @@ export const rootReducer = combineReducers({
   user: userSlice,
   resume: resumeSlice,
   employerVacancies: employerVacanciesSlice,
-
   companies: companiesSlice,
   jobs: jobsSlice,
   candidates: candidatesSlice,

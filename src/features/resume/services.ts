@@ -4,11 +4,11 @@ import { API_PATHS } from 'shared/api/paths';
 import API from 'shared/api/service';
 import { IEditResume } from './types';
 
-export const getResume = createAsyncThunk(
-  '@@resume/getResume',
-  async (id: string, { rejectWithValue }) => {
+export const getMyResume = createAsyncThunk(
+  '@@resume/getMyResume',
+  async (_, { rejectWithValue }) => {
     try {
-      const { data } = await API.get(`${API_PATHS.resumes}/${id}`);
+      const { data } = await API.get(`${API_PATHS.resumes}/my/resume`);
       return data.resume;
     } catch (error: unknown) {
       if (error instanceof AxiosError) {

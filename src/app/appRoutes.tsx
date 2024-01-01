@@ -43,10 +43,6 @@ export const appRouter = () =>
           element: <JobsPage />,
         },
         {
-          path: ROUTES.jobs,
-          element: <JobsPage />,
-        },
-        {
           path: ROUTES.company,
           element: <CompanyPage />,
         },
@@ -63,7 +59,7 @@ export const appRouter = () =>
           element: <CandidatePage />,
         },
         {
-          path: ROUTES.account,
+          path: ROUTES.accountTabs,
           element: (
             <GuestGuard>
               <AccountPage />

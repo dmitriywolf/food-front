@@ -11,7 +11,7 @@ type AuthGuardProps = {
 export default function AuthGuard({ children }: AuthGuardProps) {
   const isAuthorized = useAppSelector(selectIsAuthorized);
 
-  if (isAuthorized) return <Navigate to={ROUTES.account} />;
+  if (isAuthorized) return <Navigate to={ROUTES.profile} />;
 
   return children;
 }

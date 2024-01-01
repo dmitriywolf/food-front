@@ -1,15 +1,24 @@
 import { Stack } from '@mantine/core';
+import { useEffect } from 'react';
 
-import { useAppSelector } from 'store/hooks';
+import { getMyApplications } from 'features/jobs';
+
+import { useAppSelector, useAppDispatch } from 'store/hooks';
 import {
   selectMyApplications,
   // selectIsLoading
 } from '../../jobsSlice';
 import { JobCard } from '../JobCard';
 
-export default function MyApplications() {
+export default function Applications() {
   const applications = useAppSelector(selectMyApplications);
   // const isLoading = useAppSelector(selectIsLoading);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getMyApplications());
+  }, [dispatch]);
 
   return (
     <Stack gap={24}>

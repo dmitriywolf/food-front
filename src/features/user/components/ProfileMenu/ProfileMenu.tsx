@@ -22,7 +22,7 @@ export default function ProfileMenu() {
         <Anchor
           c='dimmed'
           component={Link}
-          to={ROUTES.account}
+          to={ROUTES.profile}
           underline='never'
         >
           <Group>
