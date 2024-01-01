@@ -9,7 +9,9 @@ import {
   Flex,
   Anchor,
   Image,
+  Button,
 } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import {
   IconBuilding,
   IconMailFilled,
@@ -26,12 +28,18 @@ import {
   IconChartAreaFilled,
 } from '@tabler/icons-react';
 import { formatDT } from 'shared/utils';
-import { useAppSelector } from 'store/hooks';
+import { ROLES } from 'shared/constants';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { selectUser } from 'features/user';
 import { selectCurrentJob } from '../../jobsSlice';
+import { applyToJob } from '../../services';
 import { ICompany } from '../../../types';
 
 export default function JobDetailes() {
+  const dispatch = useAppDispatch();
+
   const job = useAppSelector(selectCurrentJob);
+  const user = useAppSelector(selectUser);
 
   const {
     author,
@@ -65,6 +73,28 @@ export default function JobDetailes() {
     firstName,
     lastName,
   } = author as ICompany;
+
+  const applyJobHandler = async () => {
+    if (user?._id) {
+      try {
+        await dispatch(applyToJob(job._id)).unwrap();
+        notifications.show({
+          color: 'green',
+          title: 'Apply to job',
+          message: 'You succeffull applied to this position',
+        });
+      } catch (error: unknown) {
+        notifications.show({
+          color: 'red',
+          title: 'Apply to job',
+          message: error as string,
+        });
+      }
+    }
+  };
+
+  const iAlreadyApplied = applications.find((id) => id === user?._id);
+  const showApplyBtn = !iAlreadyApplied && user?.role === ROLES.seeker;
 
   return (
     <Grid columns={4}>
@@ -153,9 +183,17 @@ export default function JobDetailes() {
               <Text>{summary}</Text>
             </Flex>
 
-            <Flex align='center' gap={24}>
-              <Text>Views: {viewsCount}</Text>
-              <Text>Applications: {applications.length}</Text>
+            <Flex align='center' justify='space-between' gap={24}>
+              <Group>
+                <Text>Views: {viewsCount}</Text>
+                <Text>Applications: {applications.length}</Text>
+              </Group>
+              {iAlreadyApplied && (
+                <Badge color='green' fw='bold'>
+                  You already applied
+                </Badge>
+              )}
+              {showApplyBtn && <Button onClick={applyJobHandler}>Apply</Button>}
             </Flex>
           </Stack>
         </Card>

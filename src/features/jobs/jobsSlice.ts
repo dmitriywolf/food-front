@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'store/appStore';
-import { getJobs, getJobById } from './services';
+import { getJobs, getJobById, applyToJob, getMyApplications } from './services';
 
 import { IJob } from '../types';
 
@@ -9,6 +9,7 @@ interface IJobsState {
   error: string | null;
   jobs: IJob[];
   currentJob: IJob;
+  myApplications: IJob[];
 }
 
 const DEFAULT_JOB_DATA = {
@@ -38,6 +39,7 @@ const initialState: IJobsState = {
   error: null,
   jobs: [],
   currentJob: DEFAULT_JOB_DATA,
+  myApplications: [],
 };
 
 const jobsSlice = createSlice({
@@ -59,7 +61,6 @@ const jobsSlice = createSlice({
         state.loading = false;
         state.jobs = action.payload;
       })
-
       // GET JOB BY ID
       .addCase(getJobById.pending, (state) => {
         state.loading = true;
@@ -72,6 +73,32 @@ const jobsSlice = createSlice({
       .addCase(getJobById.fulfilled, (state, action) => {
         state.loading = false;
         state.currentJob = action.payload;
+      })
+      // APPLY TO JOB
+      .addCase(applyToJob.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(applyToJob.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(applyToJob.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentJob.applications.push(action.payload);
+      })
+      // GET MY APPLICATIONS
+      .addCase(getMyApplications.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getMyApplications.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(getMyApplications.fulfilled, (state, action) => {
+        state.loading = false;
+        state.myApplications = action.payload;
       });
   },
 });
@@ -79,6 +106,8 @@ const jobsSlice = createSlice({
 // Selectors
 export const selectJobs = (state: RootState) => state.jobs.jobs;
 export const selectCurrentJob = (state: RootState) => state.jobs.currentJob;
+export const selectMyApplications = (state: RootState) =>
+  state.jobs.myApplications;
 
 export const selectIsLoading = (state: RootState) => state.jobs.loading;
 

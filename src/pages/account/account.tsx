@@ -5,11 +5,12 @@ import {
   IconUserScan,
   IconEdit,
   IconListCheck,
+  IconListTree,
 } from '@tabler/icons-react';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { ROLES } from 'shared/constants';
-import { selectUser } from 'features/user/userSlice';
-import { SeekerProfile, EmployerProfile } from 'features/user';
+import { getMyApplications, MyApplications } from 'features/jobs';
+import { SeekerProfile, EmployerProfile, selectUser } from 'features/user';
 import { Resume, getResume, selectResume } from 'features/resume';
 import { Vacancy, Vacancies, getVacancies } from 'features/employerVacancies';
 import { ISeekerAccount } from 'features/types';
@@ -17,7 +18,7 @@ import { ISeekerAccount } from 'features/types';
 const SEEKER_TABS = {
   profile: 'profile',
   resume: 'resume',
-  // applications: 'applications',
+  applications: 'applications',
 };
 
 function SeekerTabs() {
@@ -33,6 +34,10 @@ function SeekerTabs() {
     }
   }, [user?.resume, dispatch, resume]);
 
+  useEffect(() => {
+    dispatch(getMyApplications());
+  }, [dispatch]);
+
   return (
     <Tabs value={tab} onChange={setTab}>
       <Tabs.List mb={24}>
@@ -42,18 +47,18 @@ function SeekerTabs() {
         <Tabs.Tab value={SEEKER_TABS.resume} leftSection={<IconFileCv />}>
           Resume
         </Tabs.Tab>
-        {/* <Tabs.Tab
+        <Tabs.Tab
           value={SEEKER_TABS.applications}
-          leftSection={<IconReportAnalytics />}
+          leftSection={<IconListTree />}
         >
           My applications
-        </Tabs.Tab> */}
+        </Tabs.Tab>
       </Tabs.List>
       {
         {
           [SEEKER_TABS.profile]: <SeekerProfile />,
           [SEEKER_TABS.resume]: <Resume />,
-          // [SEEKER_TABS.applications]: <p>Applications</p>,
+          [SEEKER_TABS.applications]: <MyApplications />,
         }[tab!]
       }
     </Tabs>

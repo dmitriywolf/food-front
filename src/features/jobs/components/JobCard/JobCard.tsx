@@ -16,6 +16,8 @@ import {
   IconEye,
   IconUserPlus,
 } from '@tabler/icons-react';
+import { useAppSelector } from 'store/hooks';
+import { selectUser } from 'features/user';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
 import { ICompany, IJob } from '../../../types';
@@ -43,11 +45,15 @@ export default function JobCard({ job }: JobCardProps) {
 
   const { companyLogo, companyName } = author as ICompany;
 
+  const user = useAppSelector(selectUser);
+
   const navigate = useNavigate();
 
   const navigateHandler = () => {
     navigate(`${ROUTES.jobs}/${_id}`);
   };
+
+  const iAlreadyApplied = applications.find((id) => id === user?._id);
 
   return (
     <Card shadow='sm' padding='md' radius='md' onClick={navigateHandler}>
@@ -64,6 +70,11 @@ export default function JobCard({ job }: JobCardProps) {
               <IconUserPlus size={20} />
               {applications.length}
             </Flex>
+            {iAlreadyApplied && (
+              <Badge color='green' fw='bold'>
+                Applied
+              </Badge>
+            )}
           </Flex>
 
           <Flex gap={12} align='center'>

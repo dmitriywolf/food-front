@@ -18,3 +18,4 @@ export { EmployerProfile } from './components/EmployerProfile';
 // services
 
 // selectors
+export { selectUser } from './userSlice';
