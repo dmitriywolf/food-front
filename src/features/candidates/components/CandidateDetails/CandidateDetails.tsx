@@ -22,14 +22,13 @@ import {
   IconSquareCheckFilled,
   IconLanguage,
   IconChartDonut4,
-  IconChartAreaFilled,
   IconBrandSkype,
   IconBrandTelegram,
   IconBrandGithub,
   IconUserCode,
   IconSquareCheck,
 } from '@tabler/icons-react';
-import { formatDT } from 'shared/utils';
+import { formatDT, getEnglishLevel } from 'shared/utils';
 import { useAppSelector } from 'store/hooks';
 import { selectCurrentCandidate } from '../../candidatesSlice';
 import { IResume, ISeekerAccount } from '../../../types';
@@ -57,7 +56,6 @@ export default function CandidateDetails() {
     category,
     city,
     country,
-    employmentOptions,
     englishLevel,
     position,
     relocation,
@@ -110,11 +108,6 @@ export default function CandidateDetails() {
                   <Text>{category}</Text>
                 </Flex>
 
-                <Flex gap={10} align='center'>
-                  <IconChartAreaFilled size={20} />
-                  <Text>{employmentOptions}</Text>
-                </Flex>
-
                 {relocation && (
                   <Flex gap={10} align='center'>
                     <IconSquareCheck size={20} />
@@ -131,7 +124,7 @@ export default function CandidateDetails() {
 
                 <Flex gap={10} align='center'>
                   <IconLanguage size={20} />
-                  <Text>English: {englishLevel}</Text>
+                  <Text>English: {getEnglishLevel(englishLevel)}</Text>
                 </Flex>
               </Flex>
 

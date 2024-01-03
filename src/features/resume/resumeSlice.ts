@@ -23,10 +23,13 @@ const DEFAULT_RESUME_DATA = {
   relocation: false,
   englishLevel: '',
   summary: '',
-  employmentOptions: '',
   createdAt: '',
   updatedAt: '',
   isPublished: false,
+  remoteWork: false,
+  office: false,
+  partTime: false,
+  freelance: false,
 };
 
 const initialState: IResumeState = {

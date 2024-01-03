@@ -31,7 +31,6 @@ export default function CandidateCard({ candidate }: CandidateCardProps) {
     summary,
     workExperience,
     updatedAt,
-    employmentOptions,
   } = resume as IResume;
 
   const navigate = useNavigate();
@@ -67,9 +66,7 @@ export default function CandidateCard({ candidate }: CandidateCardProps) {
 
           <Flex gap={12} align='center'>
             <IconCrown />
-            <Text>
-              {workExperience} years, {employmentOptions}
-            </Text>
+            <Text>{workExperience} years</Text>
           </Flex>
           <Group align='center'>
             <Flex gap={12} align='center'>

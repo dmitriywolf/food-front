@@ -46,10 +46,13 @@ interface IResume {
   relocation: boolean;
   englishLevel: string;
   summary: string;
-  employmentOptions: string;
   createdAt: string;
   updatedAt: string;
   isPublished: boolean;
+  remoteWork: boolean;
+  office: boolean;
+  partTime: boolean;
+  freelance: boolean;
 }
 
 interface ICompany {

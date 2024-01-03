@@ -25,8 +25,9 @@ export const resumeSchema = z.object({
   summary: z.string().min(8, {
     message: 'At least 8 letters',
   }),
-  employmentOptions: z.string().min(3, {
-    message: 'At least 3 letters',
-  }),
+  remoteWork: z.boolean(),
+  office: z.boolean(),
+  partTime: z.boolean(),
+  freelance: z.boolean(),
   isPublished: z.boolean(),
 });

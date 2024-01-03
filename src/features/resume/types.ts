@@ -10,7 +10,10 @@ type IEditResume = {
   relocation: boolean;
   englishLevel: string;
   summary: string;
-  employmentOptions: string;
+  remoteWork: boolean;
+  office: boolean;
+  partTime: boolean;
+  freelance: boolean;
 };
 
 export { IEditResume };

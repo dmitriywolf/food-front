@@ -34,9 +34,12 @@ const DEFAULT_CANDIDATE_DATA = {
     relocation: false,
     englishLevel: '',
     summary: '',
-    employmentOptions: '',
     createdAt: '',
     updatedAt: '',
+    remoteWork: false,
+    office: false,
+    partTime: false,
+    freelance: false,
     isPublished: false,
   },
 };
