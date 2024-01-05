@@ -182,6 +182,7 @@ export default function Resume() {
 
             <TextInput
               label='City'
+              placeholder='City/Towm'
               leftSection={<IconMapPin size={16} />}
               {...getInputProps('city')}
             />

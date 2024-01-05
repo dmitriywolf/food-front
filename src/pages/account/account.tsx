@@ -108,7 +108,7 @@ function AccountPage() {
       <Container size='responsive'>
         <Stack gap={24} py={24}>
           <Title>
-            Account: {user?.firstName} {user?.lastName}
+            {user?.firstName} {user?.lastName}
           </Title>
           {user?.role === ROLES.seeker && <SeekerTabs />}
           {user?.role === ROLES.employer && <EmployersTabs />}

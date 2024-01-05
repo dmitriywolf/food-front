@@ -2,7 +2,7 @@ interface ICreateVacancy {
   title: string;
   category: string;
   domain: string;
-  skills: string;
+  skills: string[];
   workExperience: number;
   experienceLevel: string;
   salaryRange: string;
@@ -11,7 +11,8 @@ interface ICreateVacancy {
   englishLevel: string;
   summary: string;
   companyType: string;
-  employmentOptions: string;
+  employment: string[];
+  isArchive: boolean;
 }
 
 interface IUpdateVacancy extends ICreateVacancy {

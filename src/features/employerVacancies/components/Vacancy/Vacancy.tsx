@@ -4,13 +4,15 @@ import {
   TextInput,
   Stack,
   Button,
-  NumberInput,
   Textarea,
   Select,
   Text,
   Slider,
   Radio,
   Flex,
+  MultiSelect,
+  Checkbox,
+  Group,
 } from '@mantine/core';
 import { IconMapPinFilled, IconMapPin } from '@tabler/icons-react';
 import { useForm, zodResolver } from '@mantine/form';
@@ -25,6 +27,7 @@ import {
   EMPLOYMENT,
   DEV_DOMAINS,
   COUNTRIES,
+  SKILLS,
 } from 'shared/constants';
 import {
   selectIsLoading,
@@ -40,7 +43,7 @@ const INITIAL_VALUES = {
   title: '',
   category: '',
   domain: '',
-  skills: '',
+  skills: [],
   workExperience: 0,
   experienceLevel: '',
   salaryRange: '',
@@ -49,7 +52,8 @@ const INITIAL_VALUES = {
   englishLevel: '',
   summary: '',
   companyType: '',
-  employmentOptions: '',
+  employment: [],
+  isArchive: false,
 };
 
 export default function Vacancy() {
@@ -74,7 +78,8 @@ export default function Vacancy() {
             englishLevel: vacancy.englishLevel,
             summary: vacancy.summary,
             companyType: vacancy.companyType,
-            employmentOptions: vacancy.employmentOptions,
+            employment: vacancy.employment,
+            isArchive: vacancy.isArchive,
           }
         : INITIAL_VALUES,
       validate: zodResolver(vacancySchema),
@@ -130,7 +135,7 @@ export default function Vacancy() {
 
             <Select
               label='Domain'
-              placeholder='Pick domain'
+              placeholder='Select domain'
               value={values.domain}
               data={DEV_DOMAINS}
               onChange={(value) => setFieldValue('domain', value!)}
@@ -138,7 +143,7 @@ export default function Vacancy() {
 
             <Select
               label='Category'
-              placeholder='Pick category'
+              placeholder='Select category'
               value={values.category}
               data={CATEGORIES}
               onChange={(value) => setFieldValue('category', value!)}
@@ -151,14 +156,14 @@ export default function Vacancy() {
               onChange={(value) => setFieldValue('companyType', value)}
             >
               <Flex gap={12} pt={8} pl={20}>
-                {COMPANY_TYPES.map((type) => (
-                  <Radio key={type} value={type} label={type} />
+                {COMPANY_TYPES.map((t) => (
+                  <Radio key={t} value={t} label={t} />
                 ))}
               </Flex>
             </Radio.Group>
 
             <Stack gap={4} pb={12}>
-              <Text size='sm' fw='bold'>
+              <Text size='sm' fw='bold' pb={8}>
                 Work experience (years)
               </Text>
               <Slider
@@ -174,15 +179,57 @@ export default function Vacancy() {
             </Stack>
 
             <TextInput
-              label='Salary range ($)'
+              label='Salary range, $'
               placeholder='1000 - 2000 $'
               {...getInputProps('salaryRange')}
             />
 
-            <TextInput
+            <MultiSelect
               label='Skills'
-              placeholder='JS/PHP'
-              {...getInputProps('skills')}
+              placeholder='Select skill'
+              value={values.skills}
+              data={SKILLS}
+              searchable
+              clearable
+              hidePickedOptions
+              onChange={(value) => setFieldValue('skills', value)}
+            />
+
+            <Select
+              label='Country'
+              placeholder='Select country'
+              value={values.country}
+              data={COUNTRIES}
+              searchable
+              clearable
+              onChange={(value) => setFieldValue('country', value!)}
+            />
+
+            <TextInput
+              label='City'
+              placeholder='City/Towm'
+              leftSection={<IconMapPin size={16} />}
+              {...getInputProps('city')}
+            />
+
+            <Radio.Group
+              name='experienceLevel'
+              value={values.experienceLevel}
+              label='Experience level'
+              onChange={(value) => setFieldValue('experienceLevel', value)}
+            >
+              <Stack gap={12} pt={8} pl={20}>
+                {EXPERIENCE_LEVELS.map((lv) => (
+                  <Radio key={lv} value={lv} label={lv} />
+                ))}
+              </Stack>
+            </Radio.Group>
+
+            <Textarea
+              label='Tell about position'
+              autosize
+              minRows={5}
+              {...getInputProps('summary')}
             />
 
             <Radio.Group
@@ -199,55 +246,24 @@ export default function Vacancy() {
               </Stack>
             </Radio.Group>
 
-            <Select
-              label='Country'
-              placeholder='Select country'
-              value={values.country}
-              data={COUNTRIES}
-              searchable
-              clearable
-              onChange={(value) => setFieldValue('country', value!)}
-            />
-
-            <TextInput
-              label='City'
-              placeholder='City/towm'
-              leftSection={<IconMapPin size={16} />}
-              {...getInputProps('city')}
-            />
-
-            <Radio.Group
-              name='experienceLevel'
-              value={values.experienceLevel}
-              label='Experience level'
-              onChange={(value) => setFieldValue('experienceLevel', value)}
+            <Checkbox.Group
+              label='Employment'
+              value={values.employment}
+              onChange={(value) => setFieldValue('employment', value)}
             >
-              <Stack gap={12} pt={8} pl={20}>
-                {EXPERIENCE_LEVELS.map((lvl) => (
-                  <Radio key={lvl} value={lvl} label={lvl} />
+              <Group mt='xs'>
+                {EMPLOYMENT.map((e) => (
+                  <Checkbox key={e} label={e} value={e} />
                 ))}
-              </Stack>
-            </Radio.Group>
+              </Group>
+            </Checkbox.Group>
 
-            <Textarea
-              label='Tell about position'
-              autosize
-              minRows={5}
-              {...getInputProps('summary')}
-            />
-
-            <Radio.Group
-              name='Employment'
-              value={values.employmentOptions}
-              label='Employment options'
-              onChange={(value) => setFieldValue('employmentOptions', value)}
-            >
-              <Flex gap={12} pt={8} pl={20}>
-                {EMPLOYMENT.map((opt) => (
-                  <Radio key={opt} value={opt} label={opt} />
-                ))}
-              </Flex>
-            </Radio.Group>
+            {vacancy._id && (
+              <Checkbox
+                label='Arhive position'
+                {...getInputProps('isArchive', { type: 'checkbox' })}
+              />
+            )}
 
             <Button type='submit' disabled={isLoading}>
               {vacancy._id ? 'Update vacancy' : 'Create vacancy'}

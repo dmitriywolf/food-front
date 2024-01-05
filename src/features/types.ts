@@ -85,7 +85,7 @@ interface IJob {
   title: string;
   category: string;
   domain: string;
-  skills: string;
+  skills: string[];
   workExperience: number;
   experienceLevel: string;
   salaryRange: string;
@@ -94,9 +94,10 @@ interface IJob {
   englishLevel: string;
   summary: string;
   companyType: string;
-  employmentOptions: string;
+  employment: string[];
   viewsCount: number;
   applications: string[];
+  isArchive: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -107,7 +108,7 @@ interface IVacancy {
   title: string;
   category: string;
   domain: string;
-  skills: string;
+  skills: string[];
   workExperience: number;
   experienceLevel: string;
   salaryRange: string;
@@ -116,9 +117,10 @@ interface IVacancy {
   englishLevel: string;
   summary: string;
   companyType: string;
-  employmentOptions: string;
+  employment: string[];
   viewsCount: number;
   applications: IApplication[];
+  isArchive: boolean;
   createdAt: string;
   updatedAt: string;
 }

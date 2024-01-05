@@ -34,7 +34,7 @@ export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
     country,
     companyType,
     domain,
-    employmentOptions,
+    employment,
     englishLevel,
     experienceLevel,
     salaryRange,
@@ -62,7 +62,7 @@ export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
           <Badge>{domain}</Badge>
           <Badge color='grape'>{category}</Badge>
           <Badge color='teal'>{companyType}</Badge>
-          <Badge color='teal'>{employmentOptions}</Badge>
+          {/* <Badge color='teal'>{employmentOptions}</Badge> */}
           <Badge color='pink'>Eng: {englishLevel}</Badge>
           <Badge
             color='teal'
@@ -78,7 +78,7 @@ export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
 
         <Group gap={4}>
           <Text>Skills: </Text>
-          {skills.split(', ').map((item) => (
+          {skills.map((item) => (
             <Badge key={item} color='teal'>
               {item}
             </Badge>

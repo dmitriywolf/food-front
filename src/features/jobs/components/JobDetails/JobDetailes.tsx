@@ -51,7 +51,7 @@ export default function JobDetailes() {
     companyType,
     country,
     domain,
-    employmentOptions,
+    employment,
     englishLevel,
     experienceLevel,
     salaryRange,
@@ -161,7 +161,7 @@ export default function JobDetailes() {
 
                 <Flex gap={10} align='center'>
                   <IconChartAreaFilled size={20} />
-                  <Text>{employmentOptions}</Text>
+                  {/* <Text>{employmentOptions}</Text> */}
                 </Flex>
               </Flex>
 
@@ -185,7 +185,7 @@ export default function JobDetailes() {
               <Flex direction='column' gap={8}>
                 <Text>Required skills:</Text>
                 <Flex align='center' gap={12}>
-                  {skills.split(', ').map((skill) => (
+                  {skills.map((skill) => (
                     <Badge key={skill} color='cyan'>
                       {skill}
                     </Badge>

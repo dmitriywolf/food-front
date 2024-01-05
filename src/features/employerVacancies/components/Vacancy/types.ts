@@ -2,7 +2,7 @@ export type VacancyFormValues = {
   title: string;
   category: string;
   domain: string;
-  skills: string;
+  skills: string[];
   workExperience: number;
   experienceLevel: string;
   salaryRange: string;
@@ -11,5 +11,6 @@ export type VacancyFormValues = {
   englishLevel: string;
   summary: string;
   companyType: string;
-  employmentOptions: string;
+  employment: string[];
+  isArchive: boolean;
 };

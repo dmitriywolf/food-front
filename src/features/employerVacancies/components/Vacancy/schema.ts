@@ -10,9 +10,7 @@ export const vacancySchema = z.object({
   domain: z.string().min(3, {
     message: 'At least 3 letters',
   }),
-  skills: z.string().min(3, {
-    message: 'At least 3 letters',
-  }),
+  skills: z.string().array().nonempty(),
   workExperience: z.number(),
   experienceLevel: z.string().min(3, {
     message: 'At least 3 letters',
@@ -35,7 +33,5 @@ export const vacancySchema = z.object({
   companyType: z.string().min(4, {
     message: 'At least 4 letters',
   }),
-  employmentOptions: z.string().min(3, {
-    message: 'At least 3 letters',
-  }),
+  employment: z.string().array().nonempty(),
 });
