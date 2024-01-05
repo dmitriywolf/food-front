@@ -14,13 +14,23 @@ import {
   Slider,
   Text,
   Select,
+  MultiSelect,
 } from '@mantine/core';
-import { IconMapPinFilled, IconMapPin } from '@tabler/icons-react';
+import { IconMapPin } from '@tabler/icons-react';
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { notifications } from '@mantine/notifications';
 import { formatDT } from 'shared/utils';
-import { ENGLISH_LEVELS, CATEGORIES } from 'shared/constants';
+import {
+  ENGLISH_LEVELS,
+  CATEGORIES,
+  EXPERIENCE_YEARS,
+  EXPERIENCE_LEVELS,
+  COUNTRIES,
+  SKILLS,
+  NOT_CONSIDER_DOMAINS,
+  EMPLOYMENT,
+} from 'shared/constants';
 import { selectIsLoading, selectResume } from '../../resumeSlice';
 import { editResume, getMyResume } from '../../services';
 
@@ -37,16 +47,15 @@ export default function Resume() {
     category,
     skills,
     workExperience,
+    experienceLevel,
     salaryExpectations,
     country,
     city,
     relocation,
     englishLevel,
     summary,
-    remoteWork,
-    office,
-    partTime,
-    freelance,
+    employment,
+    dontConsider,
     createdAt,
     updatedAt,
     isPublished,
@@ -60,16 +69,15 @@ export default function Resume() {
         category,
         skills,
         workExperience,
+        experienceLevel,
         salaryExpectations,
         country,
         city,
         relocation,
         englishLevel,
         summary,
-        remoteWork,
-        office,
-        partTime,
-        freelance,
+        employment,
+        dontConsider,
         isPublished,
       },
       validate: zodResolver(resumeSchema),
@@ -113,18 +121,22 @@ export default function Resume() {
       <Card shadow='sm' padding='md' radius='md' withBorder>
         <Box component='form' w='100%' onSubmit={onSubmit(submitHandler)}>
           <Stack gap={20}>
-            <TextInput label='Position' {...getInputProps('position')} />
+            <TextInput
+              label='Position'
+              placeholder='Search position'
+              {...getInputProps('position')}
+            />
 
             <Select
               label='Category'
-              placeholder='Pick value'
+              placeholder='Select category'
               value={values.category}
               data={CATEGORIES}
               onChange={(value) => setFieldValue('category', value!)}
             />
 
             <Stack gap={4} pb={12}>
-              <Text size='sm' fw='bold'>
+              <Text size='sm' fw='bold' pb={8}>
                 Work experience (years)
               </Text>
               <Slider
@@ -134,41 +146,38 @@ export default function Resume() {
                 label={(value) => `${value} years`}
                 step={0.5}
                 value={values.workExperience}
-                marks={[
-                  { value: 0, label: 'no' },
-                  { value: 0.5, label: '0.5y' },
-                  { value: 1, label: '1y' },
-                  { value: 1.5, label: '1.5y' },
-                  { value: 2, label: '2y' },
-                  { value: 2.5, label: '2.5y' },
-                  { value: 3, label: '3y' },
-                  { value: 3.5, label: '3.5y' },
-                  { value: 4, label: '4y' },
-                  { value: 5, label: '5y' },
-                  { value: 6, label: '6y' },
-                  { value: 7, label: '7y' },
-                  { value: 8, label: '8y' },
-                  { value: 9, label: '9y' },
-                  { value: 10, label: '10y' },
-                ]}
+                marks={EXPERIENCE_YEARS}
                 onChangeEnd={(value) => setFieldValue('workExperience', value)}
               />
             </Stack>
 
             <NumberInput
-              label='Salary expectations ($)'
+              label='Salary expectations, $'
               prefix='$ '
               hideControls
               allowDecimal={false}
               {...getInputProps('salaryExpectations')}
             />
-            <TextInput label='Skills' {...getInputProps('skills')} />
 
-            <TextInput
-              label='Country of residence'
-              readOnly
-              leftSection={<IconMapPinFilled size={16} />}
-              {...getInputProps('country')}
+            <MultiSelect
+              label='Skills'
+              placeholder='Select skill'
+              value={values.skills}
+              data={SKILLS}
+              searchable
+              clearable
+              hidePickedOptions
+              onChange={(value) => setFieldValue('skills', value)}
+            />
+
+            <Select
+              label='Country'
+              placeholder='Select country'
+              value={values.country}
+              data={COUNTRIES}
+              searchable
+              clearable
+              onChange={(value) => setFieldValue('country', value!)}
             />
 
             <TextInput
@@ -183,15 +192,13 @@ export default function Resume() {
             />
 
             <Radio.Group
-              name='englishLevel'
-              value={values.englishLevel}
-              label='English level'
-              defaultValue={ENGLISH_LEVELS[0].id}
-              onChange={(value) => setFieldValue('englishLevel', value)}
+              value={values.experienceLevel}
+              label='Experience level'
+              onChange={(value) => setFieldValue('experienceLevel', value)}
             >
               <Stack gap={12} pt={8} pl={20}>
-                {ENGLISH_LEVELS.map(({ id, value }) => (
-                  <Radio key={id} value={id} label={value} />
+                {EXPERIENCE_LEVELS.map((lvl) => (
+                  <Radio key={lvl} value={lvl} label={lvl} />
                 ))}
               </Stack>
             </Radio.Group>
@@ -203,29 +210,41 @@ export default function Resume() {
               {...getInputProps('summary')}
             />
 
-            <Stack gap={4}>
-              <Text size='sm' fw='bold'>
-                Employment options
-              </Text>
-              <Stack gap={12} pl={20}>
-                <Checkbox
-                  label='Remote work'
-                  {...getInputProps('remoteWork', { type: 'checkbox' })}
-                />
-                <Checkbox
-                  label='Office'
-                  {...getInputProps('office', { type: 'checkbox' })}
-                />
-                <Checkbox
-                  label='Part-time'
-                  {...getInputProps('partTime', { type: 'checkbox' })}
-                />
-                <Checkbox
-                  label='Freelance (one-time projects)'
-                  {...getInputProps('freelance', { type: 'checkbox' })}
-                />
+            <Radio.Group
+              label='English level'
+              value={values.englishLevel}
+              onChange={(value) => setFieldValue('englishLevel', value)}
+            >
+              <Stack gap={12} pt={8} pl={20}>
+                {ENGLISH_LEVELS.map((lv) => (
+                  <Radio key={lv} value={lv} label={lv} />
+                ))}
               </Stack>
-            </Stack>
+            </Radio.Group>
+
+            <Checkbox.Group
+              label='Employment'
+              value={values.employment}
+              onChange={(value) => setFieldValue('employment', value)}
+            >
+              <Group mt='xs'>
+                {EMPLOYMENT.map((e) => (
+                  <Checkbox key={e} label={e} value={e} />
+                ))}
+              </Group>
+            </Checkbox.Group>
+
+            <Checkbox.Group
+              label='I do not consider'
+              value={values.dontConsider}
+              onChange={(value) => setFieldValue('dontConsider', value)}
+            >
+              <Group mt='xs'>
+                {NOT_CONSIDER_DOMAINS.map((d) => (
+                  <Checkbox key={d} label={d} value={d} />
+                ))}
+              </Group>
+            </Checkbox.Group>
 
             <Checkbox
               label='Publish my resume'

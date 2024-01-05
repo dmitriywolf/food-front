@@ -2,7 +2,7 @@ type IEditResume = {
   id: string;
   position: string;
   category: string;
-  skills: string;
+  skills: string[];
   workExperience: number;
   salaryExpectations: number;
   country: string;
@@ -10,10 +10,9 @@ type IEditResume = {
   relocation: boolean;
   englishLevel: string;
   summary: string;
-  remoteWork: boolean;
-  office: boolean;
-  partTime: boolean;
-  freelance: boolean;
+  employment: string[];
+  dontConsider: string[];
+  isPublished: boolean;
 };
 
 export { IEditResume };

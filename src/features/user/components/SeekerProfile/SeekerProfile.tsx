@@ -146,7 +146,7 @@ export default function SeekerProfile() {
             <TextInput
               label='Telegram'
               leftSection={<IconBrandTelegram size={16} />}
-              placeholder='@name'
+              placeholder='https://t.me/'
               {...getInputProps('telegram')}
             />
             <Checkbox

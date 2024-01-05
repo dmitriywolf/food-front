@@ -28,7 +28,7 @@ import {
   IconUserCode,
   IconSquareCheck,
 } from '@tabler/icons-react';
-import { formatDT, getEnglishLevel } from 'shared/utils';
+import { formatDT } from 'shared/utils';
 import { useAppSelector } from 'store/hooks';
 import { selectCurrentCandidate } from '../../candidatesSlice';
 import { IResume, ISeekerAccount } from '../../../types';
@@ -124,14 +124,14 @@ export default function CandidateDetails() {
 
                 <Flex gap={10} align='center'>
                   <IconLanguage size={20} />
-                  <Text>English: {getEnglishLevel(englishLevel)}</Text>
+                  <Text>English: {englishLevel}</Text>
                 </Flex>
               </Flex>
 
               <Flex direction='column' gap={8}>
                 <Text>My skills:</Text>
                 <Flex align='center' gap={12}>
-                  {skills.split(', ').map((skill) => (
+                  {skills.map((skill) => (
                     <Badge key={skill} color='cyan'>
                       {skill}
                     </Badge>

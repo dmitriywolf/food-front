@@ -7,10 +7,9 @@ export const resumeSchema = z.object({
   category: z.string().min(3, {
     message: 'At least 3 letters',
   }),
-  skills: z.string().min(3, {
-    message: 'At least 3 letters',
-  }),
+  skills: z.string().array().nonempty(),
   workExperience: z.number(),
+  experienceLevel: z.string(),
   salaryExpectations: z.number(),
   country: z.string().min(3, {
     message: 'At least 3 letters',
@@ -25,9 +24,7 @@ export const resumeSchema = z.object({
   summary: z.string().min(8, {
     message: 'At least 8 letters',
   }),
-  remoteWork: z.boolean(),
-  office: z.boolean(),
-  partTime: z.boolean(),
-  freelance: z.boolean(),
+  employment: z.string().array().nonempty(),
+  dontConsider: z.string().array().nonempty(),
   isPublished: z.boolean(),
 });

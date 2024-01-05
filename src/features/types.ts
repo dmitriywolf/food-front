@@ -38,23 +38,21 @@ interface IResume {
   owner: string;
   position: string;
   category: string;
-  skills: string;
+  skills: string[];
   workExperience: number;
+  experienceLevel: string;
   salaryExpectations: number;
   country: string;
   city: string;
   relocation: boolean;
   englishLevel: string;
   summary: string;
+  employment: string[];
+  dontConsider: string[];
+  isPublished: boolean;
   createdAt: string;
   updatedAt: string;
-  isPublished: boolean;
-  remoteWork: boolean;
-  office: boolean;
-  partTime: boolean;
-  freelance: boolean;
 }
-
 interface ICompany {
   _id: string;
   firstName: string;

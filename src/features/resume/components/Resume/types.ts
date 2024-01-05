@@ -1,18 +1,17 @@
 interface IResumeFormValues {
   position: string;
   category: string;
-  skills: string;
+  skills: string[];
   workExperience: number;
+  experienceLevel: string;
   salaryExpectations: number;
   country: string;
   city: string;
   relocation: boolean;
   englishLevel: string;
   summary: string;
-  remoteWork: boolean;
-  office: boolean;
-  partTime: boolean;
-  freelance: boolean;
+  employment: string[];
+  dontConsider: string[];
   isPublished: boolean;
 }
 
