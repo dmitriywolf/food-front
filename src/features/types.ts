@@ -31,6 +31,7 @@ interface IEmployerAccount extends IAccount {
   companyLogo: string;
   companyEmployeesCount: number;
   companyDescription: string;
+  companyOffices: string;
 }
 
 interface IResume {

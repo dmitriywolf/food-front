@@ -101,19 +101,14 @@ export default function SeekerProfile() {
                   {...getInputProps('lastName')}
                 />
                 <TextInput
-                  leftSection={<IconWorldWww size={16} />}
-                  label='Avatar'
-                  {...getInputProps('avatar')}
+                  label='Email'
+                  leftSection={<IconMailFilled size={16} />}
+                  readOnly
+                  {...getInputProps('email')}
                 />
               </Stack>
             </Flex>
 
-            <TextInput
-              label='Email'
-              leftSection={<IconMailFilled size={16} />}
-              readOnly
-              {...getInputProps('email')}
-            />
             <TextInput
               label='Phone'
               leftSection={<IconPhone size={16} />}
@@ -149,6 +144,13 @@ export default function SeekerProfile() {
               placeholder='https://t.me/'
               {...getInputProps('telegram')}
             />
+
+            <TextInput
+              leftSection={<IconWorldWww size={16} />}
+              label='Avatar'
+              {...getInputProps('avatar')}
+            />
+
             <Checkbox
               label='Active search'
               {...getInputProps('searchStatus', { type: 'checkbox' })}

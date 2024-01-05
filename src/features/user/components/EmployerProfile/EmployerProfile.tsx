@@ -8,9 +8,6 @@ import {
   Button,
   Flex,
   Image,
-  Divider,
-  NumberInput,
-  Textarea,
 } from '@mantine/core';
 import {
   IconUser,
@@ -46,12 +43,6 @@ export default function EmployerProfile() {
       phone: employer?.phone || '',
       linkedin: employer?.linkedin || '',
       userPosition: employer?.userPosition || '',
-      companyName: employer?.companyName || '',
-      companyWebSite: employer?.companyWebSite || '',
-      companyDouPage: employer?.companyDouPage || '',
-      companyLogo: employer?.companyLogo || '',
-      companyEmployeesCount: employer?.companyEmployeesCount || 0,
-      companyDescription: employer?.companyDescription || '',
     },
     validate: zodResolver(employerProfileSchema),
   });
@@ -99,10 +90,12 @@ export default function EmployerProfile() {
                   leftSection={<IconUser size={16} />}
                   {...getInputProps('lastName')}
                 />
+
                 <TextInput
-                  leftSection={<IconWorldWww size={16} />}
-                  label='Avatar'
-                  {...getInputProps('avatar')}
+                  label='You position in company'
+                  placeholder='HR'
+                  leftSection={<IconBuilding size={16} />}
+                  {...getInputProps('userPosition')}
                 />
               </Stack>
             </Flex>
@@ -121,61 +114,18 @@ export default function EmployerProfile() {
             />
 
             <TextInput
-              label='LinkedIn page'
+              label='LinkedIn profile'
               leftSection={<IconWorldWww size={16} />}
               placeholder='https://www.linkedin.com/'
               {...getInputProps('linkedin')}
             />
 
-            <Divider my={12} />
-
-            <Flex gap={24}>
-              <Stack gap={8} w='100%'>
-                <TextInput
-                  label='You position in company'
-                  placeholder='HR'
-                  leftSection={<IconBuilding size={16} />}
-                  {...getInputProps('userPosition')}
-                />
-                <TextInput
-                  label='Company name'
-                  leftSection={<IconBuilding size={16} />}
-                  {...getInputProps('companyName')}
-                />
-                <TextInput
-                  leftSection={<IconWorldWww size={16} />}
-                  label='Company logo'
-                  placeholder='https://'
-                  {...getInputProps('companyLogo')}
-                />
-              </Stack>
-              <Image radius='md' w={200} h={200} src={employer?.companyLogo} />
-            </Flex>
-
             <TextInput
               leftSection={<IconWorldWww size={16} />}
-              label='Company page'
-              placeholder='https://'
-              {...getInputProps('companyWebSite')}
-            />
-            <TextInput
-              leftSection={<IconWorldWww size={16} />}
-              label='Company dou page'
-              placeholder='https://jobs.dou.ua/companies/'
-              {...getInputProps('companyDouPage')}
-            />
-            <NumberInput
-              label='Employees count'
-              hideControls
-              allowDecimal={false}
-              {...getInputProps('companyEmployeesCount')}
+              label='Avatar'
+              {...getInputProps('avatar')}
             />
 
-            <Textarea
-              label='Company description'
-              placeholder='Description..'
-              {...getInputProps('companyDescription')}
-            />
             <Button type='submit' disabled={isLoading}>
               Update profile
             </Button>

@@ -47,12 +47,17 @@ type EditEmployerData = {
   phone: string;
   linkedin: string;
   userPosition: string;
+};
+
+type EditCompanyData = {
+  id: string;
   companyName: string;
   companyWebSite: string;
   companyDouPage: string;
   companyLogo: string;
   companyEmployeesCount: number;
   companyDescription: string;
+  companyOffices: string;
 };
 
 export type {
@@ -63,4 +68,5 @@ export type {
   ResetPasswordDataType,
   EditSeekerData,
   EditEmployerData,
+  EditCompanyData,
 };

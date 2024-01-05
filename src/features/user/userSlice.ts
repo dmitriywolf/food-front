@@ -10,6 +10,7 @@ import {
   userGetProfile,
   userEditSeeker,
   userEditEmployer,
+  userEditCompany,
 } from './service';
 
 import { ISeekerAccount, IEmployerAccount } from '../types';
@@ -133,6 +134,17 @@ const userSlice = createSlice({
         state.loading = false;
       })
       .addCase(userEditEmployer.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userData = action.payload;
+      })
+      // EDIT EMPLOYER COMPANY
+      .addCase(userEditCompany.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(userEditCompany.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(userEditCompany.fulfilled, (state, action) => {
         state.loading = false;
         state.userData = action.payload;
       });

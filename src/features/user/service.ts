@@ -12,6 +12,7 @@ import type {
   ResetPasswordDataType,
   EditSeekerData,
   EditEmployerData,
+  EditCompanyData,
 } from './types';
 
 export const userRegister = createAsyncThunk(
@@ -212,6 +213,32 @@ export const userEditEmployer = createAsyncThunk(
       }
 
       return rejectWithValue('Failed employer update');
+    }
+  },
+);
+
+export const userEditCompany = createAsyncThunk(
+  '@@user/editCompany',
+  async (editCompanyData: EditCompanyData, { rejectWithValue }) => {
+    const { id, ...emplyerData } = editCompanyData;
+    try {
+      const { data } = await API.patch(
+        `${API_PATHS.employers}/company/${id}`,
+        emplyerData,
+      );
+      return data.user;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        if (error.response && error.response.data) {
+          return rejectWithValue(error.response.data.message);
+        }
+      }
+
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+
+      return rejectWithValue('Failed employer company update');
     }
   },
 );

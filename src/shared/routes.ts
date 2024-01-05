@@ -20,6 +20,7 @@ export const ROUTES = {
   // employer profile
   profileAddEditVacancy: '/account/add-edit-vacancy',
   profileVacancies: '/account/vacancies',
+  profileCompany: '/account/company',
 
   // auth
   signin: '/auth/signin',

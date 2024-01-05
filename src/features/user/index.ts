@@ -14,6 +14,7 @@ export { ResetPassword } from './components/ResetPassword';
 export { ProfileMenu } from './components/ProfileMenu';
 export { SeekerProfile } from './components/SeekerProfile';
 export { EmployerProfile } from './components/EmployerProfile';
+export { EmployerCompany } from './components/EmployerCompany';
 
 // services
 
