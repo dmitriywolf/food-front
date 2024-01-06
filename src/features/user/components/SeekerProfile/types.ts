@@ -10,4 +10,5 @@ export type SeekerProfileFormValues = {
   portfolio: string;
   skype: string;
   telegram: string;
+  image?: File;
 };

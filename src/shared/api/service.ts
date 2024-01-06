@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-import { API_URL, TOKEN_LOCALSTORAGE_KEY } from 'shared/constants';
+import { API_SERVER, TOKEN_LOCALSTORAGE_KEY } from 'shared/constants';
 
 const instance = axios.create({
-  baseURL: API_URL,
+  baseURL: `${API_SERVER}/api`,
 });
 
 instance.interceptors.request.use((config) => {

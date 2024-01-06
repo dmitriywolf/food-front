@@ -1,5 +1,8 @@
 export const DEBUG = process.env.DEBUG === 'true';
-export const API_URL = `${process.env.API_URL}/api`;
+export const API_SERVER = process.env.API_URL;
+
+export const DEFAULT_AVATAR = `${API_SERVER}/uploads/avatar.jpg`;
+export const DEFAULT_COMPANY_AVATAR = `${API_SERVER}/uploads/company-logo.png`;
 
 export const TOKEN_LOCALSTORAGE_KEY = 'token';
 

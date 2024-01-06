@@ -168,12 +168,40 @@ export const userGetProfile = createAsyncThunk(
 export const userEditSeeker = createAsyncThunk(
   '@@user/editSeeker',
   async (editSeekerData: EditSeekerData, { rejectWithValue }) => {
-    const { id, ...seekerData } = editSeekerData;
+    const {
+      id,
+      searchStatus,
+      firstName,
+      lastName,
+      avatar,
+      phone,
+      linkedin,
+      github,
+      portfolio,
+      skype,
+      telegram,
+      image,
+    } = editSeekerData;
     try {
-      const { data } = await API.patch(
-        `${API_PATHS.seekers}/${id}`,
-        seekerData,
-      );
+      const form = new FormData();
+
+      form.append('searchStatus', String(searchStatus));
+      form.append('firstName', firstName);
+      form.append('lastName', lastName);
+      form.append('avatar', avatar);
+      form.append('phone', phone);
+      form.append('linkedin', linkedin);
+      form.append('github', github);
+      form.append('portfolio', portfolio);
+      form.append('skype', skype);
+      form.append('telegram', telegram);
+
+      if (image) {
+        form.append('image', image);
+      }
+
+      const { data } = await API.patch(`${API_PATHS.seekers}/${id}`, form);
+
       return data.user;
     } catch (error: unknown) {
       if (error instanceof AxiosError) {

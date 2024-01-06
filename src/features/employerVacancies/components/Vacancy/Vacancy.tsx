@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Box,
   Card,
@@ -14,7 +15,7 @@ import {
   Checkbox,
   Group,
 } from '@mantine/core';
-import { IconMapPinFilled, IconMapPin } from '@tabler/icons-react';
+import { IconMapPin } from '@tabler/icons-react';
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { notifications } from '@mantine/notifications';
@@ -32,6 +33,7 @@ import {
 import {
   selectIsLoading,
   selectCurrentVacancy,
+  resetCurrentVacancy,
 } from '../../employerVacanciesSlice';
 
 import { createVacancy, updateVacancy } from '../../services';
@@ -121,6 +123,12 @@ export default function Vacancy() {
       }
     }
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetCurrentVacancy());
+    };
+  }, [dispatch]);
 
   return (
     <Box component='section'>

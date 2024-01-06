@@ -50,6 +50,9 @@ const employerVacanciesSlice = createSlice({
         (vac) => vac._id === payload,
       ) as IVacancy;
     },
+    resetCurrentVacancy: (state) => {
+      state.currentVacancy = DEFAULT_VACANCY_DATA;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -94,7 +97,8 @@ const employerVacanciesSlice = createSlice({
 });
 
 // Actions
-export const { setCurrentVacancy } = employerVacanciesSlice.actions;
+export const { setCurrentVacancy, resetCurrentVacancy } =
+  employerVacanciesSlice.actions;
 
 // Selectors
 export const selectIsLoading = (state: RootState) =>

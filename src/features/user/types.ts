@@ -36,6 +36,7 @@ type EditSeekerData = {
   portfolio: string;
   skype: string;
   telegram: string;
+  image?: File;
 };
 
 type EditEmployerData = {

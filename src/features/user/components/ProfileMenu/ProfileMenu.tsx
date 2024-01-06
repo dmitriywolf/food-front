@@ -8,8 +8,9 @@ import {
   IconListTree,
   IconLogout,
   IconChevronRight,
+  IconBuilding,
 } from '@tabler/icons-react';
-import { ROLES } from 'shared/constants';
+import { ROLES, API_SERVER } from 'shared/constants';
 
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { ROUTES } from 'shared/routes';
@@ -39,6 +40,11 @@ const employerConfig = [
     title: 'My profile',
     href: ROUTES.profile,
     icon: <IconUserScan size={20} />,
+  },
+  {
+    title: 'My company',
+    href: ROUTES.profileCompany,
+    icon: <IconBuilding size={20} />,
   },
   {
     title: 'My vacancies',
@@ -71,7 +77,7 @@ export default function ProfileMenu() {
         <Menu.Target>
           <UnstyledButton>
             <Group gap={8}>
-              <Avatar src={user?.avatar} />
+              <Avatar src={`${API_SERVER}/${user?.avatar}`} />
               <Text size='sm'>
                 {user?.firstName} {user?.lastName}
               </Text>
