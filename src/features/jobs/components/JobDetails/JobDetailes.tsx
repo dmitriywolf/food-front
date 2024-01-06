@@ -31,7 +31,7 @@ import {
   IconChartAreaFilled,
 } from '@tabler/icons-react';
 import { formatDT } from 'shared/utils';
-import { ROLES } from 'shared/constants';
+import { ROLES, API_SERVER } from 'shared/constants';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { selectUser } from 'features/user';
 import { selectCurrentJob } from '../../jobsSlice';
@@ -184,7 +184,7 @@ export default function JobDetailes() {
 
               <Flex direction='column' gap={8}>
                 <Text>Required skills:</Text>
-                <Flex align='center' gap={12}>
+                <Flex align='center' gap={12} wrap='wrap'>
                   {skills.map((skill) => (
                     <Badge key={skill} color='cyan'>
                       {skill}
@@ -220,7 +220,7 @@ export default function JobDetailes() {
           {/* Потом вынести в отдельный компонент */}
           <Card shadow='sm' padding='md' radius='md' withBorder>
             <Card.Section>
-              <Image src={avatar} w='100%' h={250} />
+              <Image src={`${API_SERVER}/${avatar}`} w='100%' h={250} />
             </Card.Section>
             <Stack gap={12} pt={24}>
               <Group>

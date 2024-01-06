@@ -125,6 +125,7 @@ export default function SeekerProfile() {
                 )}
               </FileButton>
             </Stack>
+
             <Stack gap={12} w='100%'>
               <TextInput
                 label='First Name'

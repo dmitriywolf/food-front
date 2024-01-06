@@ -48,6 +48,7 @@ type EditEmployerData = {
   phone: string;
   linkedin: string;
   userPosition: string;
+  image?: File;
 };
 
 type EditCompanyData = {
@@ -59,6 +60,7 @@ type EditCompanyData = {
   companyEmployeesCount: number;
   companyDescription: string;
   companyOffices: string;
+  image?: File;
 };
 
 export type {

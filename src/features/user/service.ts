@@ -222,12 +222,31 @@ export const userEditSeeker = createAsyncThunk(
 export const userEditEmployer = createAsyncThunk(
   '@@user/editEmployer',
   async (editEmployerData: EditEmployerData, { rejectWithValue }) => {
-    const { id, ...emplyerData } = editEmployerData;
+    const {
+      id,
+      firstName,
+      lastName,
+      userPosition,
+      avatar,
+      phone,
+      linkedin,
+      image,
+    } = editEmployerData;
     try {
-      const { data } = await API.patch(
-        `${API_PATHS.employers}/${id}`,
-        emplyerData,
-      );
+      const form = new FormData();
+
+      form.append('firstName', firstName);
+      form.append('lastName', lastName);
+      form.append('avatar', avatar);
+      form.append('phone', phone);
+      form.append('linkedin', linkedin);
+      form.append('userPosition', userPosition);
+
+      if (image) {
+        form.append('image', image);
+      }
+
+      const { data } = await API.patch(`${API_PATHS.employers}/${id}`, form);
       return data.user;
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
@@ -248,11 +267,35 @@ export const userEditEmployer = createAsyncThunk(
 export const userEditCompany = createAsyncThunk(
   '@@user/editCompany',
   async (editCompanyData: EditCompanyData, { rejectWithValue }) => {
-    const { id, ...emplyerData } = editCompanyData;
+    const {
+      id,
+      companyDescription,
+      companyDouPage,
+      companyEmployeesCount,
+      companyLogo,
+      companyName,
+      companyOffices,
+      companyWebSite,
+      image,
+    } = editCompanyData;
     try {
+      const form = new FormData();
+
+      form.append('companyDescription', companyDescription);
+      form.append('companyDouPage', companyDouPage);
+      form.append('companyEmployeesCount', String(companyEmployeesCount));
+      form.append('companyLogo', companyLogo);
+      form.append('companyName', companyName);
+      form.append('companyOffices', companyOffices);
+      form.append('companyWebSite', companyWebSite);
+
+      if (image) {
+        form.append('image', image);
+      }
+
       const { data } = await API.patch(
         `${API_PATHS.employers}/company/${id}`,
-        emplyerData,
+        form,
       );
       return data.user;
     } catch (error: unknown) {

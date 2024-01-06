@@ -13,6 +13,7 @@ import {
 } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
+import { API_SERVER } from 'shared/constants';
 import {
   IconMailFilled,
   IconBrandLinkedin,
@@ -130,7 +131,7 @@ export default function CandidateDetails() {
 
               <Flex direction='column' gap={8}>
                 <Text>My skills:</Text>
-                <Flex align='center' gap={12}>
+                <Flex align='center' gap={12} wrap='wrap'>
                   {skills.map((skill) => (
                     <Badge key={skill} color='cyan'>
                       {skill}
@@ -147,7 +148,7 @@ export default function CandidateDetails() {
         <Grid.Col span={1}>
           <Card shadow='sm' padding='md' radius='md' withBorder>
             <Card.Section>
-              <Image src={avatar} w='100%' h={250} />
+              <Image src={`${API_SERVER}/${avatar}`} w='100%' h={250} />
             </Card.Section>
             <Stack gap={12} pt={24}>
               <Group>

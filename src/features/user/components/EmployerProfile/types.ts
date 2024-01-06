@@ -6,6 +6,7 @@ interface IEmployerProfileFormValues {
   phone: string;
   linkedin: string;
   userPosition: string;
+  image?: File;
 }
 
 export { IEmployerProfileFormValues };

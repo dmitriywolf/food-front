@@ -19,6 +19,7 @@ import {
 import { useAppSelector } from 'store/hooks';
 import { selectUser } from 'features/user';
 import { useNavigate } from 'react-router-dom';
+import { API_SERVER } from 'shared/constants';
 import { ROUTES } from 'shared/routes';
 import { ICompany, IJob } from '../../../types';
 
@@ -98,7 +99,7 @@ export default function JobCard({ job }: JobCardProps) {
           </Group>
           <Text>{summary}</Text>
         </Stack>
-        <Image src={companyLogo} w='100px' />
+        <Image src={`${API_SERVER}/${companyLogo}`} w='100px' />
       </Flex>
     </Card>
   );

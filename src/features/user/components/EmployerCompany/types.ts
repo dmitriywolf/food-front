@@ -6,6 +6,7 @@ interface IEmployerCompanyFormValues {
   companyEmployeesCount: number;
   companyDescription: string;
   companyOffices: string;
+  image?: File;
 }
 
 export { IEmployerCompanyFormValues };

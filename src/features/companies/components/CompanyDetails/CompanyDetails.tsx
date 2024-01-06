@@ -25,6 +25,7 @@ import {
   IconPhone,
 } from '@tabler/icons-react';
 import { useAppSelector } from 'store/hooks';
+import { API_SERVER, DEFAULT_COMPANY_AVATAR } from 'shared/constants';
 import { JobCard } from 'features/jobs';
 import { selectCurrentCompany } from '../../companiesSlice';
 
@@ -67,7 +68,12 @@ export default function CompanyDetails() {
         <Grid.Col span={3}>
           <Card shadow='sm' padding='md' radius='md' withBorder>
             <Card.Section>
-              <Image src={companyLogo} w='100%' h={250} />
+              <Image
+                fallbackSrc={DEFAULT_COMPANY_AVATAR}
+                src={`${API_SERVER}/${companyLogo}`}
+                w='100%'
+                h={250}
+              />
             </Card.Section>
             <Stack gap={24} pt={24}>
               <Title ta='center'>{companyName}</Title>
@@ -123,7 +129,7 @@ export default function CompanyDetails() {
           {/* Потом вынести в отдельный компонент */}
           <Card shadow='sm' padding='md' radius='md' withBorder>
             <Card.Section>
-              <Image src={avatar} w='100%' h={250} />
+              <Image src={`${API_SERVER}/${avatar}`} w='100%' h={250} />
             </Card.Section>
             <Stack gap={12} pt={24}>
               <Group>

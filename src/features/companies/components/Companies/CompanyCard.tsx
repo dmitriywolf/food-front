@@ -11,6 +11,7 @@ import {
 import { formatDT } from 'shared/utils';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
+import { API_SERVER, DEFAULT_COMPANY_AVATAR } from 'shared/constants';
 import { ICompany } from '../../../types';
 import classes from './CompanyCard.module.scss';
 
@@ -48,9 +49,14 @@ export default function CompanyCard({ company }: CompanyCardProps) {
       onClick={navigateHandler}
     >
       <Card.Section className={classes.imgWrap}>
-        <Image src={companyLogo} w='100%' h={250} />
+        <Image
+          fallbackSrc={DEFAULT_COMPANY_AVATAR}
+          src={`${API_SERVER}/${companyLogo}`}
+          w='100%'
+          h={250}
+        />
         <Flex className={classes.avatarWrap}>
-          <Avatar src={avatar} />
+          <Avatar src={`${API_SERVER}/${avatar}`} />
           <Text>
             {firstName} {lastName}
           </Text>
