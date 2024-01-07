@@ -1,30 +1,29 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Container, Stack } from '@mantine/core';
-import { CandidateDetails } from 'features/candidates';
-import { getCandidateById } from 'features/candidates/services';
+import { ResumeDetails, getResumeById } from 'features/resume';
 import { useAppDispatch } from 'store/hooks';
 
-function CandidatePage() {
-  const { candidateid } = useParams();
+function ResumePage() {
+  const { resumeid } = useParams();
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (candidateid) {
-      dispatch(getCandidateById(candidateid));
+    if (resumeid) {
+      dispatch(getResumeById(resumeid));
     }
-  }, [dispatch, candidateid]);
+  }, [dispatch, resumeid]);
 
   return (
     <Box component='section'>
       <Container size='responsive'>
         <Stack gap={32} py={24}>
-          <CandidateDetails />
+          <ResumeDetails />
         </Stack>
       </Container>
     </Box>
   );
 }
 
-export default CandidatePage;
+export default ResumePage;

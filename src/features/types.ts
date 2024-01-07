@@ -35,7 +35,7 @@ interface IEmployerAccount extends IAccount {
 
 interface IResume {
   _id: string;
-  owner: string;
+  owner: string | ISeekerAccount;
   position: string;
   category: string;
   skills: string[];
@@ -78,6 +78,7 @@ interface IApplication {
   _id: string;
   firstName: string;
   lastName: string;
+  resume: string;
 }
 
 interface IJob {

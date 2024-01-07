@@ -28,30 +28,15 @@ import {
   IconBrandGithub,
   IconUserCode,
   IconSquareCheck,
+  IconChartBar,
 } from '@tabler/icons-react';
 import { formatDT } from 'shared/utils';
 import { useAppSelector } from 'store/hooks';
-import { selectCurrentCandidate } from '../../candidatesSlice';
-import { IResume, ISeekerAccount } from '../../../types';
+import { selectCurrentResume } from '../../resumeSlice';
+import { ISeekerAccount } from '../../../types';
 
-export default function CandidateDetails() {
-  const candidate = useAppSelector(selectCurrentCandidate);
-
-  const {
-    avatar,
-    email,
-    emailVerified,
-    firstName,
-    github,
-    lastName,
-    linkedin,
-    phone,
-    portfolio,
-    resume,
-    searchStatus,
-    skype,
-    telegram,
-  } = candidate as ISeekerAccount;
+export default function ResumeDetails() {
+  const resume = useAppSelector(selectCurrentResume);
 
   const {
     category,
@@ -65,10 +50,29 @@ export default function CandidateDetails() {
     summary,
     updatedAt,
     workExperience,
-  } = resume as IResume;
+    owner,
+    dontConsider,
+    employment,
+    experienceLevel,
+  } = resume;
+
+  const {
+    avatar,
+    email,
+    emailVerified,
+    firstName,
+    github,
+    lastName,
+    linkedin,
+    phone,
+    portfolio,
+    searchStatus,
+    skype,
+    telegram,
+  } = owner as ISeekerAccount;
 
   const items = [
-    { title: 'Candidates', href: ROUTES.candidates },
+    { title: 'Candidates', href: ROUTES.resumes },
     { title: `${firstName} ${lastName}`, href: '#' },
   ].map((item) => (
     <Anchor to={item.href} component={Link} key={item.title}>
@@ -84,14 +88,23 @@ export default function CandidateDetails() {
         <Grid.Col span={3}>
           <Card shadow='sm' padding='md' radius='md' withBorder>
             <Stack gap={12}>
-              <Title>{position}</Title>
+              <Flex align='flex-start' justify='space-between'>
+                <Title>{position}</Title>
+                {updatedAt && <Badge color='grey'>{formatDT(updatedAt)}</Badge>}
+              </Flex>
 
-              <Flex gap={10} align='center'>
-                <IconCoin size={20} />
-                <Text fw='bold'>{salaryExpectations} $</Text>
-                {updatedAt && (
-                  <Badge color='cyan'>Updated: {formatDT(updatedAt)}</Badge>
-                )}
+              <Flex align='center' gap={24}>
+                <Flex gap={10} align='center'>
+                  <IconCoin size={20} />
+                  <Text fw='bold' c='cyan'>
+                    {salaryExpectations} $
+                  </Text>
+                </Flex>
+
+                <Flex gap={10} align='center'>
+                  <IconChartBar size={20} />
+                  <Text fw='bold'>{experienceLevel}</Text>
+                </Flex>
               </Flex>
 
               <Flex align='center' gap={24}>
@@ -125,11 +138,33 @@ export default function CandidateDetails() {
 
                 <Flex gap={10} align='center'>
                   <IconLanguage size={20} />
-                  <Text>English: {englishLevel}</Text>
+                  <Text>{englishLevel}</Text>
                 </Flex>
               </Flex>
 
-              <Flex direction='column' gap={8}>
+              <Flex gap={8}>
+                <Text>Employment:</Text>
+                <Flex align='center' gap={12} wrap='wrap'>
+                  {employment.map((e) => (
+                    <Badge key={e} color='blue'>
+                      {e}
+                    </Badge>
+                  ))}
+                </Flex>
+              </Flex>
+
+              <Flex gap={8}>
+                <Text>I do not consider:</Text>
+                <Flex align='center' gap={12} wrap='wrap'>
+                  {dontConsider.map((e) => (
+                    <Badge key={e} color='gray'>
+                      {e}
+                    </Badge>
+                  ))}
+                </Flex>
+              </Flex>
+
+              <Flex gap={8}>
                 <Text>My skills:</Text>
                 <Flex align='center' gap={12} wrap='wrap'>
                   {skills.map((skill) => (

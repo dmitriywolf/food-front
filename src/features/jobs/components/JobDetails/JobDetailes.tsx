@@ -23,7 +23,7 @@ import {
   IconCoin,
   IconMapPin,
   IconSquareCheckFilled,
-  IconChartArrowsVertical,
+  IconChartBar,
   IconLanguage,
   IconChartInfographic,
   IconChartCandle,
@@ -184,7 +184,7 @@ export default function JobDetailes() {
                   </Flex>
 
                   <Flex gap={10} align='center'>
-                    <IconChartArrowsVertical size={20} />
+                    <IconChartBar size={20} />
                     <Text>{experienceLevel}</Text>
                   </Flex>
 

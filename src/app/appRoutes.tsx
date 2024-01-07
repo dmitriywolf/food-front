@@ -13,8 +13,8 @@ import { CompaniesPage } from 'pages/companies';
 import { AboutUsPage } from 'pages/about/aboutUs';
 import { ContactsPage } from 'pages/about/contacts';
 import { ConditionsPage } from 'pages/about/conditions';
-import { CandidatesPage } from 'pages/candidates';
-import { CandidatePage } from 'pages/candidate';
+import { ResumesPage } from 'pages/resumes';
+import { ResumePage } from 'pages/resume';
 import { FaqPage } from 'pages/about/faq';
 import { ROUTES } from 'shared/routes';
 import { AuthGuard, GuestGuard } from 'features/user';
@@ -51,12 +51,12 @@ export const appRouter = () =>
           element: <CompaniesPage />,
         },
         {
-          path: ROUTES.candidates,
-          element: <CandidatesPage />,
+          path: ROUTES.resumes,
+          element: <ResumesPage />,
         },
         {
-          path: ROUTES.candidate,
-          element: <CandidatePage />,
+          path: ROUTES.resume,
+          element: <ResumePage />,
         },
         {
           path: ROUTES.accountTabs,

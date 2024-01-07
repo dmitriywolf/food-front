@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { Box, Container, Stack, Title } from '@mantine/core';
 
-import { getCandidates, Candidates } from 'features/candidates';
+import { getResumes, Resumes } from 'features/resume';
 import { useAppDispatch } from 'store/hooks';
 
-function CandidatesPage() {
+function ResumesPage() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getCandidates());
+    dispatch(getResumes());
   }, [dispatch]);
 
   return (
@@ -16,11 +16,11 @@ function CandidatesPage() {
       <Container size='responsive'>
         <Stack gap={32} py={24}>
           <Title>Candidates</Title>
-          <Candidates />
+          <Resumes />
         </Stack>
       </Container>
     </Box>
   );
 }
 
-export default CandidatesPage;
+export default ResumesPage;

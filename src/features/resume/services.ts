@@ -51,3 +51,47 @@ export const editResume = createAsyncThunk(
     }
   },
 );
+
+export const getResumes = createAsyncThunk(
+  '@@resume/getResumes',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await API.get(API_PATHS.resumes);
+      return data.resumes;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        if (error.response && error.response.data) {
+          return rejectWithValue(error.response.data.message);
+        }
+      }
+
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+
+      return rejectWithValue('Failed get resumes');
+    }
+  },
+);
+
+export const getResumeById = createAsyncThunk(
+  '@@resume/getResumeById',
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const { data } = await API.get(`${API_PATHS.resumes}/${id}`);
+      return data.resume;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        if (error.response && error.response.data) {
+          return rejectWithValue(error.response.data.message);
+        }
+      }
+
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+
+      return rejectWithValue('Failed get resume by id');
+    }
+  },
+);

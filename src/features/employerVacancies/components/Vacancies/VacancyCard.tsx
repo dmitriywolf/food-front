@@ -109,13 +109,13 @@ export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
 
         <Flex gap={8} direction='column'>
           <Text>Applications: {applications.length}</Text>
-          {applications.map(({ _id, firstName, lastName }) => (
+          {applications.map(({ _id, firstName, lastName, resume }) => (
             <Flex key={_id} gap={8}>
               <IconUserSearch size={20} />
               <Anchor
                 component={Link}
                 target='_blank'
-                to={`${ROUTES.candidates}/${_id}`}
+                to={`${ROUTES.resumes}/${resume}`}
               >
                 {firstName} {lastName}
               </Anchor>

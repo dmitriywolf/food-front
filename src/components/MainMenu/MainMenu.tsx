@@ -15,7 +15,7 @@ export default function MainMenu() {
     },
     {
       key: 'Candidates',
-      href: ROUTES.candidates,
+      href: ROUTES.resumes,
     },
   ];
 

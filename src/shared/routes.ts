@@ -37,9 +37,9 @@ export const ROUTES = {
   jobs: '/jobs',
   job: '/jobs/:jobid',
 
-  // candidates
-  candidates: '/candidates',
-  candidate: '/candidates/:candidateid',
+  // cresumes
+  resumes: '/resumes',
+  resume: '/resumes/:resumeid',
 
   // not found
   notFound: '*',

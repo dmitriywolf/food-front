@@ -13,6 +13,7 @@ import {
   IconCrown,
   IconUserCircle,
   IconChartBar,
+  IconLanguage,
 } from '@tabler/icons-react';
 import { formatDT } from 'shared/utils';
 import { useNavigate } from 'react-router-dom';
@@ -21,15 +22,14 @@ import { ROUTES } from 'shared/routes';
 
 import { IResume, ISeekerAccount } from '../../../types';
 
-type CandidateCardProps = {
-  candidate: ISeekerAccount;
+type ResumeCardProps = {
+  resume: IResume;
 };
 
-export default function CandidateCard({ candidate }: CandidateCardProps) {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { _id, avatar, firstName, lastName, searchStatus, resume } = candidate;
-
+export default function ResumeCard({ resume }: ResumeCardProps) {
   const {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    _id,
     position,
     salaryExpectations,
     country,
@@ -38,12 +38,16 @@ export default function CandidateCard({ candidate }: CandidateCardProps) {
     workExperience,
     updatedAt,
     experienceLevel,
-  } = resume as IResume;
+    owner,
+    englishLevel,
+  } = resume;
+
+  const { avatar, firstName, lastName, searchStatus } = owner as ISeekerAccount;
 
   const navigate = useNavigate();
 
   const navigateHandler = () => {
-    navigate(`${ROUTES.candidates}/${_id}`);
+    navigate(`${ROUTES.resumes}/${_id}`);
   };
 
   return (
@@ -80,6 +84,11 @@ export default function CandidateCard({ candidate }: CandidateCardProps) {
             <Flex gap={12} align='center'>
               <IconChartBar />
               <Text>{experienceLevel}</Text>
+            </Flex>
+
+            <Flex gap={12} align='center'>
+              <IconLanguage />
+              <Text>{englishLevel}</Text>
             </Flex>
           </Flex>
 
