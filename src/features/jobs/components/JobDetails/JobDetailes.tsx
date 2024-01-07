@@ -33,7 +33,12 @@ import {
   IconMapPins,
 } from '@tabler/icons-react';
 import { formatDT } from 'shared/utils';
-import { ROLES, API_SERVER } from 'shared/constants';
+import {
+  ROLES,
+  API_SERVER,
+  DEFAULT_COMPANY_AVATAR,
+  DEFAULT_AVATAR,
+} from 'shared/constants';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { selectUser } from 'features/user';
 import { selectCurrentJob } from '../../jobsSlice';
@@ -223,6 +228,7 @@ export default function JobDetailes() {
               </Stack>
 
               <Image
+                fallbackSrc={DEFAULT_COMPANY_AVATAR}
                 src={`${API_SERVER}/${companyLogo}`}
                 w='160px'
                 radius='md'
@@ -235,6 +241,7 @@ export default function JobDetailes() {
           <Card shadow='sm' padding='md' radius='md' withBorder>
             <Card.Section className={classes.imgWrap}>
               <Image
+                fallbackSrc={DEFAULT_AVATAR}
                 src={`${API_SERVER}/${avatar}`}
                 w='100%'
                 h={250}

@@ -26,7 +26,11 @@ import {
   IconMapPin,
 } from '@tabler/icons-react';
 import { useAppSelector } from 'store/hooks';
-import { API_SERVER, DEFAULT_COMPANY_AVATAR } from 'shared/constants';
+import {
+  API_SERVER,
+  DEFAULT_COMPANY_AVATAR,
+  DEFAULT_AVATAR,
+} from 'shared/constants';
 import { JobCard } from 'features/jobs';
 import { selectCurrentCompany } from '../../companiesSlice';
 import classes from './CompanyDetails.module.scss';
@@ -138,6 +142,7 @@ export default function CompanyDetails() {
           <Card shadow='sm' padding='md' radius='md' withBorder>
             <Card.Section className={classes.imgWrap}>
               <Image
+                fallbackSrc={DEFAULT_AVATAR}
                 src={`${API_SERVER}/${avatar}`}
                 w='100%'
                 h={250}

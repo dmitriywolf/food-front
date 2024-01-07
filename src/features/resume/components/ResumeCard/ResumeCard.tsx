@@ -17,7 +17,7 @@ import {
 } from '@tabler/icons-react';
 import { formatDT } from 'shared/utils';
 import { useNavigate } from 'react-router-dom';
-import { API_SERVER } from 'shared/constants';
+import { API_SERVER, DEFAULT_AVATAR } from 'shared/constants';
 import { ROUTES } from 'shared/routes';
 
 import { IResume, ISeekerAccount } from '../../../types';
@@ -53,7 +53,12 @@ export default function ResumeCard({ resume }: ResumeCardProps) {
   return (
     <Card shadow='sm' padding='md' radius='md' onClick={navigateHandler}>
       <Flex align='flex-start' gap={24}>
-        <Image src={`${API_SERVER}/${avatar}`} w='160px' radius='md' />
+        <Image
+          fallbackSrc={DEFAULT_AVATAR}
+          src={`${API_SERVER}/${avatar}`}
+          w='160px'
+          radius='md'
+        />
 
         <Stack gap={8} w='100%'>
           <Flex align='center' justify='space-between' w='100%'>

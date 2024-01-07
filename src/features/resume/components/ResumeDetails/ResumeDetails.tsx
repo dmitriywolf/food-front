@@ -13,7 +13,7 @@ import {
 } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
-import { API_SERVER } from 'shared/constants';
+import { API_SERVER, DEFAULT_AVATAR } from 'shared/constants';
 import {
   IconMailFilled,
   IconBrandLinkedin,
@@ -184,6 +184,7 @@ export default function ResumeDetails() {
           <Card shadow='sm' padding='md' radius='md' withBorder>
             <Card.Section>
               <Image
+                fallbackSrc={DEFAULT_AVATAR}
                 src={`${API_SERVER}/${avatar}`}
                 w='100%'
                 h={250}

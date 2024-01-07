@@ -20,7 +20,7 @@ import {
 import { useAppSelector } from 'store/hooks';
 import { selectUser } from 'features/user';
 import { useNavigate } from 'react-router-dom';
-import { API_SERVER } from 'shared/constants';
+import { API_SERVER, DEFAULT_COMPANY_AVATAR } from 'shared/constants';
 import { ROUTES } from 'shared/routes';
 import { ICompany, IJob } from '../../../types';
 
@@ -113,7 +113,12 @@ export default function JobCard({ job }: JobCardProps) {
 
           <Text>{summary}</Text>
         </Stack>
-        <Image radius='md' src={`${API_SERVER}/${companyLogo}`} w='120px' />
+        <Image
+          radius='md'
+          fallbackSrc={DEFAULT_COMPANY_AVATAR}
+          src={`${API_SERVER}/${companyLogo}`}
+          w='120px'
+        />
       </Flex>
     </Card>
   );
