@@ -12,9 +12,10 @@ import { formatDT } from 'shared/utils';
 import {
   IconCoin,
   IconMapPin,
-  IconBuildingCastle,
   IconEye,
   IconUserPlus,
+  IconBuilding,
+  IconBuildingFortress,
 } from '@tabler/icons-react';
 import { useAppSelector } from 'store/hooks';
 import { selectUser } from 'features/user';
@@ -38,8 +39,8 @@ export default function JobCard({ job }: JobCardProps) {
     salaryRange,
     title,
     summary,
-    category,
-    companyType,
+    isArchive,
+    domain,
     applications,
     viewsCount,
   } = job;
@@ -58,38 +59,43 @@ export default function JobCard({ job }: JobCardProps) {
 
   return (
     <Card shadow='sm' padding='md' radius='md' onClick={navigateHandler}>
-      <Flex justify='space-between' align='flex-start'>
-        <Stack gap={8}>
-          <Flex align='center' gap={24}>
-            <Title order={3}>{title}</Title>
-            <Flex gap={8}>
-              <IconEye size={20} />
-              {viewsCount}
+      <Flex justify='space-between' align='flex-start' gap={24}>
+        <Stack gap={8} w='100%'>
+          <Flex gap={12} justify='space-between'>
+            <Flex gap={8} align='center'>
+              <Title order={3}>{title}</Title>
+
+              <Flex gap={8}>
+                <IconEye size={20} />
+                {viewsCount}
+              </Flex>
+
+              <Flex gap={8}>
+                <IconUserPlus size={20} />
+                {applications.length}
+              </Flex>
             </Flex>
 
-            <Flex gap={8}>
-              <IconUserPlus size={20} />
-              {applications.length}
+            <Flex gap={8} align='center'>
+              <Text>{formatDT(updatedAt)}</Text>
+              {iAlreadyApplied && (
+                <Badge color='green' fw='bold'>
+                  You are applied
+                </Badge>
+              )}
+              {isArchive && (
+                <Badge color='red' fw='bold'>
+                  Archived
+                </Badge>
+              )}
             </Flex>
-            {iAlreadyApplied && (
-              <Badge color='green' fw='bold'>
-                Applied
-              </Badge>
-            )}
           </Flex>
 
-          <Flex gap={12} align='center'>
-            <IconCoin />
-            <Text>{salaryRange} $</Text>
-            <Text>{category}</Text>
-            <Badge color='cyan'>Updated: {formatDT(updatedAt)}</Badge>
-          </Flex>
           <Group align='center'>
             <Flex gap={12} align='center'>
-              <IconBuildingCastle />
+              <IconBuilding />
               <Text c='teal'>{companyName}</Text>
             </Flex>
-            <Text>{companyType}</Text>
             <Flex gap={12} align='center'>
               <IconMapPin />
               <Text>
@@ -97,9 +103,17 @@ export default function JobCard({ job }: JobCardProps) {
               </Text>
             </Flex>
           </Group>
+
+          <Flex gap={12} align='center'>
+            <IconCoin />
+            <Text>{salaryRange} $</Text>
+            <IconBuildingFortress />
+            <Text>{domain}</Text>
+          </Flex>
+
           <Text>{summary}</Text>
         </Stack>
-        <Image src={`${API_SERVER}/${companyLogo}`} w='100px' />
+        <Image radius='md' src={`${API_SERVER}/${companyLogo}`} w='120px' />
       </Flex>
     </Card>
   );

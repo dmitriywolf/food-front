@@ -19,7 +19,6 @@ interface ISeekerAccount extends IAccount {
   github: string;
   portfolio: string;
   resume: string | IResume;
-  applications: IJob[];
 }
 
 interface IEmployerAccount extends IAccount {
@@ -72,6 +71,7 @@ interface ICompany {
   companyLogo: string;
   companyEmployeesCount: number;
   companyDescription: string;
+  companyOffices: string;
 }
 
 interface IApplication {

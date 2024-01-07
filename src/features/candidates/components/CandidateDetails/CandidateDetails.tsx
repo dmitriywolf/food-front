@@ -148,7 +148,12 @@ export default function CandidateDetails() {
         <Grid.Col span={1}>
           <Card shadow='sm' padding='md' radius='md' withBorder>
             <Card.Section>
-              <Image src={`${API_SERVER}/${avatar}`} w='100%' h={250} />
+              <Image
+                src={`${API_SERVER}/${avatar}`}
+                w='100%'
+                h={250}
+                radius='md'
+              />
             </Card.Section>
             <Stack gap={12} pt={24}>
               <Group>

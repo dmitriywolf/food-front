@@ -29,6 +29,8 @@ import {
   IconChartCandle,
   IconChartDonut4,
   IconChartAreaFilled,
+  IconUsersGroup,
+  IconMapPins,
 } from '@tabler/icons-react';
 import { formatDT } from 'shared/utils';
 import { ROLES, API_SERVER } from 'shared/constants';
@@ -37,6 +39,7 @@ import { selectUser } from 'features/user';
 import { selectCurrentJob } from '../../jobsSlice';
 import { applyToJob } from '../../services';
 import { ICompany } from '../../../types';
+import classes from './JobDetails.module.scss';
 
 export default function JobDetailes() {
   const dispatch = useAppDispatch();
@@ -62,6 +65,7 @@ export default function JobDetailes() {
     workExperience,
     viewsCount,
     applications,
+    isArchive,
   } = job;
 
   const {
@@ -75,6 +79,8 @@ export default function JobDetailes() {
     linkedin,
     firstName,
     lastName,
+    companyEmployeesCount,
+    companyOffices,
   } = author as ICompany;
 
   const applyJobHandler = async () => {
@@ -115,24 +121,28 @@ export default function JobDetailes() {
       <Grid columns={4}>
         <Grid.Col span={3}>
           <Card shadow='sm' padding='md' radius='md' withBorder>
-            <Stack gap={12}>
-              <Flex align='center' justify='space-between'>
-                <Title>{title}</Title>
-                <Image src={companyLogo} w='100px' />
-              </Flex>
+            <Flex gap={24} justify='space-between' align='flex-start'>
+              <Stack gap={12} w='100%'>
+                <Flex align='flex-start' justify='space-between'>
+                  <Title>{title}</Title>
 
-              <Flex gap={10} align='center'>
-                <IconCoin size={20} />
-                <Text fw='bold'>{salaryRange} $</Text>
-                {updatedAt && (
-                  <Badge color='cyan'>Added: {formatDT(updatedAt)}</Badge>
-                )}
-              </Flex>
+                  <Flex gap={8} justify='flex-end'>
+                    {updatedAt && (
+                      <Badge color='grey'>{formatDT(updatedAt)}</Badge>
+                    )}
+                    {isArchive && <Badge color='red'>Arhived</Badge>}
 
-              <Flex align='center' gap={24}>
+                    {iAlreadyApplied && (
+                      <Badge color='green' fw='bold'>
+                        You applied
+                      </Badge>
+                    )}
+                  </Flex>
+                </Flex>
+
                 <Flex gap={10} align='center'>
-                  <IconBuilding size={20} />
-                  <Text c='teal'>{companyName}</Text>
+                  <IconCoin size={20} />
+                  <Text fw='bold'>{salaryRange} $</Text>
                 </Flex>
 
                 <Flex gap={10} align='center'>
@@ -141,98 +151,127 @@ export default function JobDetailes() {
                     {country}, {city}
                   </Text>
                 </Flex>
-              </Flex>
 
-              <Flex align='center' gap={24}>
-                <Flex gap={10} align='center'>
-                  <IconChartInfographic size={20} />
-                  <Text>{companyType}</Text>
-                </Flex>
+                <Flex align='center' gap={24}>
+                  <Flex gap={10} align='center'>
+                    <IconChartInfographic size={20} />
+                    <Text>{companyType}</Text>
+                  </Flex>
 
-                <Flex gap={10} align='center'>
-                  <IconChartCandle size={20} />
-                  <Text>{domain}</Text>
-                </Flex>
+                  <Flex gap={10} align='center'>
+                    <IconChartCandle size={20} />
+                    <Text>{domain}</Text>
+                  </Flex>
 
-                <Flex gap={10} align='center'>
-                  <IconChartDonut4 size={20} />
-                  <Text>{category}</Text>
+                  <Flex gap={10} align='center'>
+                    <IconChartDonut4 size={20} />
+                    <Text>{category}</Text>
+                  </Flex>
                 </Flex>
 
                 <Flex gap={10} align='center'>
                   <IconChartAreaFilled size={20} />
-                  {/* <Text>{employmentOptions}</Text> */}
-                </Flex>
-              </Flex>
 
-              <Flex align='center' gap={24}>
-                <Flex gap={10} align='center'>
-                  <IconSquareCheckFilled size={20} />
-                  <Text>Experience: {workExperience} years</Text>
-                </Flex>
-
-                <Flex gap={10} align='center'>
-                  <IconChartArrowsVertical size={20} />
-                  <Text>{experienceLevel}</Text>
-                </Flex>
-
-                <Flex gap={10} align='center'>
-                  <IconLanguage size={20} />
-                  <Text>English: {englishLevel}</Text>
-                </Flex>
-              </Flex>
-
-              <Flex direction='column' gap={8}>
-                <Text>Required skills:</Text>
-                <Flex align='center' gap={12} wrap='wrap'>
-                  {skills.map((skill) => (
-                    <Badge key={skill} color='cyan'>
-                      {skill}
-                    </Badge>
+                  {employment.map((e) => (
+                    <Text key={e}>{e}</Text>
                   ))}
                 </Flex>
-              </Flex>
 
-              <Flex direction='column' gap={8}>
-                <Text>Description: </Text>
-                <Text>{summary}</Text>
-              </Flex>
+                <Flex align='center' gap={24}>
+                  <Flex gap={10} align='center'>
+                    <IconSquareCheckFilled size={20} />
+                    <Text>Experience: {workExperience} years</Text>
+                  </Flex>
 
-              <Flex align='center' justify='space-between' gap={24}>
-                <Group>
-                  <Text>Views: {viewsCount}</Text>
-                  <Text>Applications: {applications.length}</Text>
-                </Group>
-                {iAlreadyApplied && (
-                  <Badge color='green' fw='bold'>
-                    You already applied
-                  </Badge>
-                )}
-                {showApplyBtn && (
-                  <Button onClick={applyJobHandler}>Apply</Button>
-                )}
-              </Flex>
-            </Stack>
+                  <Flex gap={10} align='center'>
+                    <IconChartArrowsVertical size={20} />
+                    <Text>{experienceLevel}</Text>
+                  </Flex>
+
+                  <Flex gap={10} align='center'>
+                    <IconLanguage size={20} />
+                    <Text>English: {englishLevel}</Text>
+                  </Flex>
+                </Flex>
+
+                <Flex direction='column' gap={8}>
+                  <Text>Required skills:</Text>
+                  <Flex align='center' gap={12} wrap='wrap'>
+                    {skills.map((skill) => (
+                      <Badge key={skill} color='cyan'>
+                        {skill}
+                      </Badge>
+                    ))}
+                  </Flex>
+                </Flex>
+
+                <Flex direction='column' gap={2}>
+                  <Text>Description: </Text>
+                  <Text>{summary}</Text>
+                </Flex>
+
+                <Flex align='center' justify='space-between' gap={24}>
+                  <Group>
+                    <Text>Views: {viewsCount}</Text>
+                    <Text>Applications: {applications.length}</Text>
+                  </Group>
+
+                  {showApplyBtn && (
+                    <Button onClick={applyJobHandler}>Apply</Button>
+                  )}
+                </Flex>
+              </Stack>
+
+              <Image
+                src={`${API_SERVER}/${companyLogo}`}
+                w='160px'
+                radius='md'
+              />
+            </Flex>
           </Card>
         </Grid.Col>
 
         <Grid.Col span={1}>
-          {/* Потом вынести в отдельный компонент */}
           <Card shadow='sm' padding='md' radius='md' withBorder>
-            <Card.Section>
-              <Image src={`${API_SERVER}/${avatar}`} w='100%' h={250} />
+            <Card.Section className={classes.imgWrap}>
+              <Image
+                src={`${API_SERVER}/${avatar}`}
+                w='100%'
+                h={250}
+                radius='md'
+              />
+
+              <Badge
+                className={classes.badge}
+                color={emailVerified ? 'teal' : 'pink'}
+              >
+                {emailVerified ? 'Verified' : 'Unverified'}
+              </Badge>
             </Card.Section>
             <Stack gap={12} pt={24}>
-              <Group>
+              <Group align='flex-end'>
                 <Title order={2}>
-                  {firstName} {lastName}
+                  {firstName} {lastName},
                 </Title>
-                <Badge color={emailVerified ? 'teal' : 'pink'}>
-                  {emailVerified ? 'Verified' : 'Unverified'}
-                </Badge>
+                <Text size='lg'>{userPosition}</Text>
               </Group>
-              <Text>{userPosition}</Text>
-              <Group>
+              <Flex gap={12} wrap='wrap'>
+                <Flex gap={10} align='center'>
+                  <IconBuilding size={20} />
+                  <Text c='teal'>{companyName}</Text>
+                </Flex>
+
+                <Flex align='center' gap={4}>
+                  <IconUsersGroup size={16} />
+                  <Text>{companyEmployeesCount} employers</Text>
+                </Flex>
+                <Flex align='center' gap={4}>
+                  <IconMapPins size={16} />
+                  <Text>{companyOffices}</Text>
+                </Flex>
+              </Flex>
+
+              <Flex gap={12} wrap='wrap'>
                 <Flex gap={8}>
                   <IconMailFilled />
                   <Anchor href={`mailto:${email}`} c='teal'>
@@ -248,9 +287,7 @@ export default function JobDetailes() {
                     </Anchor>
                   </Flex>
                 )}
-              </Group>
 
-              <Group>
                 {linkedin && (
                   <Flex gap={8}>
                     <IconBrandLinkedin />
@@ -259,7 +296,7 @@ export default function JobDetailes() {
                     </Anchor>
                   </Flex>
                 )}
-              </Group>
+              </Flex>
             </Stack>
           </Card>
         </Grid.Col>

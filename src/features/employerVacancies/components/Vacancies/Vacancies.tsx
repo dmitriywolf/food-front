@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { ROUTES } from 'shared/routes';
 import VacancyCard from './VacancyCard';
 import {
+  resetCurrentVacancy,
   selectVacancies,
   setCurrentVacancy,
 } from '../../employerVacanciesSlice';
@@ -24,6 +25,7 @@ export default function EmployerVacancies() {
 
   useEffect(() => {
     dispatch(getVacancies());
+    dispatch(resetCurrentVacancy());
   }, [dispatch]);
 
   return (

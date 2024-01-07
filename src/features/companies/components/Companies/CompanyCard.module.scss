@@ -7,6 +7,7 @@
   bottom: rem(12);
   right: rem(20);
   align-items: center;
+  justify-content: space-between;
   gap: rem(8);
 
   p {
@@ -15,4 +16,10 @@
     background-color: black;
     color: antiquewhite;
   }
+}
+
+.time {
+  position: absolute;
+  top: rem(12);
+  right: rem(20);
 }

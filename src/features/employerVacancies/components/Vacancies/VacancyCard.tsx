@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom';
 import {
   IconMapPinFilled,
   IconEdit,
-  IconChartArrowsVertical,
   IconUserSearch,
 } from '@tabler/icons-react';
 import { ROUTES } from 'shared/routes';
@@ -45,52 +44,19 @@ export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
     workExperience,
     viewsCount,
     applications,
+    isArchive,
   } = vacancy;
 
   return (
     <Card shadow='sm' padding='md' radius='md' withBorder>
-      <Stack gap={10}>
+      <Stack gap={8}>
         <Group justify='space-between'>
           <Title order={3}>
             {title}, {'  '} {salaryRange}$
           </Title>
           <Group>
-            <Badge color='tomato'>Updated: {formatDT(updatedAt)}</Badge>
-          </Group>
-        </Group>
-        <Group gap={8}>
-          <Badge>{domain}</Badge>
-          <Badge color='grape'>{category}</Badge>
-          <Badge color='teal'>{companyType}</Badge>
-          {/* <Badge color='teal'>{employmentOptions}</Badge> */}
-          <Badge color='pink'>Eng: {englishLevel}</Badge>
-          <Badge
-            color='teal'
-            leftSection={<IconChartArrowsVertical size={16} />}
-          >
-            {experienceLevel}
-          </Badge>
-          <Badge color='indigo'>{workExperience} years</Badge>
-          <Badge color='blue' leftSection={<IconMapPinFilled size={16} />}>
-            {country}, {city}
-          </Badge>
-        </Group>
-
-        <Group gap={4}>
-          <Text>Skills: </Text>
-          {skills.map((item) => (
-            <Badge key={item} color='teal'>
-              {item}
-            </Badge>
-          ))}
-        </Group>
-        <Text>{summary}</Text>
-        <Group justify='space-between'>
-          <Group>
-            <Text>Views: {viewsCount}</Text>
-            {/* <Text>Applications: {applicationsCount}</Text> */}
-          </Group>
-          <Group>
+            <Badge color='gray'>{formatDT(updatedAt)}</Badge>
+            {isArchive && <Badge color='red'>Arhived</Badge>}
             <ActionIcon
               variant='subtle'
               color='red'
@@ -101,6 +67,45 @@ export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
             </ActionIcon>
           </Group>
         </Group>
+
+        <Group gap={8}>
+          <Badge>Domain: {domain}</Badge>
+          <Badge color='grape'>Category: {category}</Badge>
+        </Group>
+
+        <Group gap={8}>
+          <Badge color='teal'>Company type: {companyType}</Badge>
+          {employment.map((e) => (
+            <Badge key={e} color='cyan'>
+              {e}
+            </Badge>
+          ))}
+        </Group>
+
+        <Group gap={8}>
+          <Badge color='teal'>Level: {experienceLevel}</Badge>
+          <Badge color='indigo'>{workExperience} years</Badge>
+          <Badge color='pink'>Eng: {englishLevel}</Badge>
+        </Group>
+
+        <Group>
+          <Badge color='blue' leftSection={<IconMapPinFilled size={16} />}>
+            {country}, {city}
+          </Badge>
+        </Group>
+
+        <Group gap={4}>
+          <Text>Skills: </Text>
+          {skills.map((item) => (
+            <Badge key={item} color='grey'>
+              {item}
+            </Badge>
+          ))}
+        </Group>
+
+        <Text>{summary}</Text>
+
+        <Text>Views: {viewsCount}</Text>
 
         <Flex gap={8} direction='column'>
           <Text>Applications: {applications.length}</Text>

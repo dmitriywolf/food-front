@@ -9,6 +9,7 @@ import {
   Avatar,
 } from '@mantine/core';
 import { formatDT } from 'shared/utils';
+import { IconMapPin, IconUsersGroup } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
 import { API_SERVER, DEFAULT_COMPANY_AVATAR } from 'shared/constants';
@@ -32,6 +33,7 @@ export default function CompanyCard({ company }: CompanyCardProps) {
     companyHiresCount,
     companyLogo,
     companyName,
+    companyOffices,
   } = company;
 
   const navigate = useNavigate();
@@ -54,6 +56,7 @@ export default function CompanyCard({ company }: CompanyCardProps) {
           src={`${API_SERVER}/${companyLogo}`}
           w='100%'
           h={250}
+          radius='md'
         />
         <Flex className={classes.avatarWrap}>
           <Avatar src={`${API_SERVER}/${avatar}`} />
@@ -61,9 +64,12 @@ export default function CompanyCard({ company }: CompanyCardProps) {
             {firstName} {lastName}
           </Text>
         </Flex>
+        <Badge className={classes.time} color='cyan'>
+          {formatDT(createdAt)}
+        </Badge>
       </Card.Section>
 
-      <Stack gap={12} mt='xs'>
+      <Stack gap={8} mt='xs'>
         <Group justify='space-between'>
           <Text size='md' c='cyan' fw={500}>
             {companyName}
@@ -71,10 +77,15 @@ export default function CompanyCard({ company }: CompanyCardProps) {
           {companyHiresCount && <Badge color='pink'>Has hires</Badge>}
         </Group>
 
-        <Group>
-          <Badge color='teal'>{companyEmployeesCount} people</Badge>
-          <Badge color='cyan'>Added: {formatDT(createdAt)}</Badge>
-        </Group>
+        <Flex align='center' gap={4}>
+          <IconMapPin size={16} />
+          <Text size='sm'>{companyOffices}</Text>
+        </Flex>
+
+        <Flex align='center' gap={4}>
+          <IconUsersGroup size={16} />
+          <Text>{companyEmployeesCount}</Text>
+        </Flex>
 
         <Text size='sm' c='dimmed' ta='justify'>
           {companyDescription}

@@ -8,9 +8,15 @@ import {
   Flex,
   Title,
 } from '@mantine/core';
-import { IconMapPin, IconCrown, IconUserCircle } from '@tabler/icons-react';
+import {
+  IconMapPin,
+  IconCrown,
+  IconUserCircle,
+  IconChartBar,
+} from '@tabler/icons-react';
 import { formatDT } from 'shared/utils';
 import { useNavigate } from 'react-router-dom';
+import { API_SERVER } from 'shared/constants';
 import { ROUTES } from 'shared/routes';
 
 import { IResume, ISeekerAccount } from '../../../types';
@@ -31,6 +37,7 @@ export default function CandidateCard({ candidate }: CandidateCardProps) {
     summary,
     workExperience,
     updatedAt,
+    experienceLevel,
   } = resume as IResume;
 
   const navigate = useNavigate();
@@ -42,7 +49,7 @@ export default function CandidateCard({ candidate }: CandidateCardProps) {
   return (
     <Card shadow='sm' padding='md' radius='md' onClick={navigateHandler}>
       <Flex align='flex-start' gap={24}>
-        <Image src={avatar} w='160px' />
+        <Image src={`${API_SERVER}/${avatar}`} w='160px' radius='md' />
 
         <Stack gap={8} w='100%'>
           <Flex align='center' justify='space-between' w='100%'>
@@ -64,10 +71,18 @@ export default function CandidateCard({ candidate }: CandidateCardProps) {
             </Text>
           </Flex>
 
-          <Flex gap={12} align='center'>
-            <IconCrown />
-            <Text>{workExperience} years</Text>
+          <Flex gap={24}>
+            <Flex gap={12} align='center'>
+              <IconCrown />
+              <Text>{workExperience} years</Text>
+            </Flex>
+
+            <Flex gap={12} align='center'>
+              <IconChartBar />
+              <Text>{experienceLevel}</Text>
+            </Flex>
           </Flex>
+
           <Group align='center'>
             <Flex gap={12} align='center'>
               <IconMapPin />

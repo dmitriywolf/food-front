@@ -23,11 +23,13 @@ import {
   IconMailFilled,
   IconBrandLinkedin,
   IconPhone,
+  IconMapPin,
 } from '@tabler/icons-react';
 import { useAppSelector } from 'store/hooks';
 import { API_SERVER, DEFAULT_COMPANY_AVATAR } from 'shared/constants';
 import { JobCard } from 'features/jobs';
 import { selectCurrentCompany } from '../../companiesSlice';
+import classes from './CompanyDetails.module.scss';
 
 export default function CompanyDetails() {
   const { data, jobs } = useAppSelector(selectCurrentCompany);
@@ -49,6 +51,7 @@ export default function CompanyDetails() {
     companyLogo,
     companyName,
     companyWebSite,
+    companyOffices,
   } = data;
 
   const items = [
@@ -73,6 +76,7 @@ export default function CompanyDetails() {
                 src={`${API_SERVER}/${companyLogo}`}
                 w='100%'
                 h={250}
+                radius='md'
               />
             </Card.Section>
             <Stack gap={24} pt={24}>
@@ -80,6 +84,10 @@ export default function CompanyDetails() {
 
               <SimpleGrid cols={2} spacing={24}>
                 <Stack gap={12}>
+                  <Flex align='center' gap={8}>
+                    <IconMapPin />
+                    <Text>{companyOffices}</Text>
+                  </Flex>
                   <Flex gap={8}>
                     <IconUsers />
                     <Text>{companyEmployeesCount} employers</Text>
@@ -128,19 +136,28 @@ export default function CompanyDetails() {
         <Grid.Col span={1}>
           {/* Потом вынести в отдельный компонент */}
           <Card shadow='sm' padding='md' radius='md' withBorder>
-            <Card.Section>
-              <Image src={`${API_SERVER}/${avatar}`} w='100%' h={250} />
+            <Card.Section className={classes.imgWrap}>
+              <Image
+                src={`${API_SERVER}/${avatar}`}
+                w='100%'
+                h={250}
+                radius='md'
+              />
+              <Badge
+                className={classes.badge}
+                color={emailVerified ? 'teal' : 'pink'}
+              >
+                {emailVerified ? 'Verified' : 'Unverified'}
+              </Badge>
             </Card.Section>
             <Stack gap={12} pt={24}>
-              <Group>
+              <Group align='flex-end'>
                 <Title order={2}>
-                  {firstName} {lastName}
+                  {firstName} {lastName},
                 </Title>
-                <Badge color={emailVerified ? 'teal' : 'pink'}>
-                  {emailVerified ? 'Verified' : 'Unverified'}
-                </Badge>
+                <Text size='lg'>{userPosition}</Text>
               </Group>
-              <Text>{userPosition}</Text>
+
               <Group>
                 <Flex gap={8}>
                   <IconMailFilled />
@@ -148,19 +165,21 @@ export default function CompanyDetails() {
                     Mail me
                   </Anchor>
                 </Flex>
-                {linkedin && (
-                  <Flex gap={8}>
-                    <IconBrandLinkedin />
-                    <Anchor href={linkedin} c='teal'>
-                      LinkedIn
-                    </Anchor>
-                  </Flex>
-                )}
+
                 {phone && (
                   <Flex gap={8}>
                     <IconPhone />
                     <Anchor href={`tel:${phone}`} c='teal'>
                       Call
+                    </Anchor>
+                  </Flex>
+                )}
+
+                {linkedin && (
+                  <Flex gap={8}>
+                    <IconBrandLinkedin />
+                    <Anchor href={linkedin} c='teal'>
+                      LinkedIn
                     </Anchor>
                   </Flex>
                 )}

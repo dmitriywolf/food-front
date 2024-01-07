@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import {
   Box,
   Card,
@@ -33,7 +32,6 @@ import {
 import {
   selectIsLoading,
   selectCurrentVacancy,
-  resetCurrentVacancy,
 } from '../../employerVacanciesSlice';
 
 import { createVacancy, updateVacancy } from '../../services';
@@ -123,12 +121,6 @@ export default function Vacancy() {
       }
     }
   };
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetCurrentVacancy());
-    };
-  }, [dispatch]);
 
   return (
     <Box component='section'>

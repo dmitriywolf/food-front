@@ -22,6 +22,7 @@ const DEFAULT_COMPANY: ICompany = {
   companyLogo: '',
   companyEmployeesCount: 0,
   companyDescription: '',
+  companyOffices: '',
 };
 
 interface ICompaniesState {
