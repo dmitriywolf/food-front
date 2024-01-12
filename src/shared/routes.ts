@@ -21,6 +21,7 @@ export const ROUTES = {
   profileAddEditVacancy: '/account/add-edit-vacancy',
   profileVacancies: '/account/vacancies',
   profileCompany: '/account/company',
+  profileCompanyDocs: '/account/company-docs',
 
   // auth
   signin: '/auth/signin',
@@ -40,6 +41,8 @@ export const ROUTES = {
   // cresumes
   resumes: '/resumes',
   resume: '/resumes/:resumeid',
+
+  chats: '/chats',
 
   // not found
   notFound: '*',

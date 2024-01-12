@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'store/appStore';
+import { ROLES } from 'shared/constants';
 import { getCompanies, getCompanyById } from './services';
 
 import { ICompany, IJob } from '../types';
@@ -11,6 +12,7 @@ const DEFAULT_COMPANY: ICompany = {
   email: '',
   emailVerified: false,
   avatar: '',
+  role: ROLES.employer,
   phone: '',
   linkedin: '',
   createdAt: '',

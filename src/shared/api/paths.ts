@@ -6,8 +6,10 @@ export const API_PATHS = {
   resetPassword: '/auth/reset-password',
   getMe: '/auth/me',
 
-  seekers: '/seekers', // candidates
+  seekers: '/seekers',
   employers: '/employers', // companies
-  resumes: '/resumes',
+  resumes: '/resumes', // candidates
   jobs: '/jobs',
+  chats: '/chats',
+  docs: 'docs',
 };

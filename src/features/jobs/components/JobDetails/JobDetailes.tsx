@@ -41,6 +41,7 @@ import {
 } from 'shared/constants';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { selectUser } from 'features/user';
+import { MakeChatButton } from 'features/chats';
 import { selectCurrentJob } from '../../jobsSlice';
 import { applyToJob } from '../../services';
 import { ICompany } from '../../../types';
@@ -74,10 +75,13 @@ export default function JobDetailes() {
   } = job;
 
   const {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    _id,
     avatar,
     companyLogo,
     companyName,
     email,
+    role,
     phone,
     userPosition,
     emailVerified,
@@ -262,6 +266,7 @@ export default function JobDetailes() {
                 </Title>
                 <Text size='lg'>{userPosition}</Text>
               </Group>
+
               <Flex gap={12} wrap='wrap'>
                 <Flex gap={10} align='center'>
                   <IconBuilding size={20} />
@@ -304,6 +309,8 @@ export default function JobDetailes() {
                   </Flex>
                 )}
               </Flex>
+
+              {user?.role !== role && <MakeChatButton id={_id} />}
             </Stack>
           </Card>
         </Grid.Col>

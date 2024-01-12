@@ -9,6 +9,8 @@ import {
   IconLogout,
   IconChevronRight,
   IconBuilding,
+  IconBrandHipchat,
+  IconFileDots,
 } from '@tabler/icons-react';
 import { ROLES, API_SERVER } from 'shared/constants';
 
@@ -22,6 +24,11 @@ const seekerConfig = [
     title: 'My profile',
     href: ROUTES.profile,
     icon: <IconUserScan size={20} />,
+  },
+  {
+    title: 'Chats',
+    href: ROUTES.chats,
+    icon: <IconBrandHipchat size={20} />,
   },
   {
     title: 'My resume',
@@ -42,9 +49,19 @@ const employerConfig = [
     icon: <IconUserScan size={20} />,
   },
   {
+    title: 'Chats',
+    href: ROUTES.chats,
+    icon: <IconBrandHipchat size={20} />,
+  },
+  {
     title: 'My company',
     href: ROUTES.profileCompany,
     icon: <IconBuilding size={20} />,
+  },
+  {
+    title: 'Company docs',
+    href: ROUTES.profileCompanyDocs,
+    icon: <IconFileDots size={20} />,
   },
   {
     title: 'My vacancies',

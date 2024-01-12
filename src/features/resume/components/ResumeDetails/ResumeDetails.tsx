@@ -32,10 +32,13 @@ import {
 } from '@tabler/icons-react';
 import { formatDT } from 'shared/utils';
 import { useAppSelector } from 'store/hooks';
+import { MakeChatButton } from 'features/chats';
+import { selectUser } from 'features/user';
 import { selectCurrentResume } from '../../resumeSlice';
 import { ISeekerAccount } from '../../../types';
 
 export default function ResumeDetails() {
+  const user = useAppSelector(selectUser);
   const resume = useAppSelector(selectCurrentResume);
 
   const {
@@ -57,6 +60,8 @@ export default function ResumeDetails() {
   } = resume;
 
   const {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    _id,
     avatar,
     email,
     emailVerified,
@@ -65,6 +70,7 @@ export default function ResumeDetails() {
     lastName,
     linkedin,
     phone,
+    role,
     portfolio,
     searchStatus,
     skype,
@@ -267,6 +273,8 @@ export default function ResumeDetails() {
                   </Flex>
                 )}
               </Group>
+
+              {user?.role !== role && <MakeChatButton id={_id} />}
             </Stack>
           </Card>
         </Grid.Col>

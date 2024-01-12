@@ -53,6 +53,7 @@ interface IResume {
   createdAt: string;
   updatedAt: string;
 }
+
 interface ICompany {
   _id: string;
   firstName: string;
@@ -61,6 +62,7 @@ interface ICompany {
   emailVerified: boolean;
   avatar: string;
   phone: string;
+  role: string;
   linkedin: string;
   createdAt: string;
   userPosition: string;
@@ -127,6 +129,23 @@ interface IVacancy {
   updatedAt: string;
 }
 
+interface IChat {
+  members: {
+    firstId: string;
+    secondId: string;
+  };
+}
+
+interface IDoc {
+  _id: string;
+  owner: string | IEmployerAccount;
+  url: string;
+  title: string;
+  size: string;
+  type: string;
+  updatedAt: string;
+}
+
 export {
   IAccount,
   ISeekerAccount,
@@ -136,4 +155,6 @@ export {
   IJob,
   IVacancy,
   IApplication,
+  IChat,
+  IDoc,
 };

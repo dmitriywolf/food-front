@@ -6,6 +6,7 @@ import {
   IconListCheck,
   IconListTree,
   IconBuilding,
+  IconFileDots,
 } from '@tabler/icons-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppSelector } from 'store/hooks';
@@ -20,6 +21,7 @@ import {
 import { Resume } from 'features/resume';
 import { Vacancy, Vacancies } from 'features/employerVacancies';
 import { ROUTES } from 'shared/routes';
+import Docs from './components/Docs';
 
 const SEEKER_TABS = {
   profile: ROUTES.profile,
@@ -65,6 +67,7 @@ function SeekerTabs() {
 const EMPLOYER_TABS = {
   profile: ROUTES.profile,
   company: ROUTES.profileCompany,
+  companyDocs: ROUTES.profileCompanyDocs,
   vacancies: ROUTES.profileVacancies,
   vacancy: ROUTES.profileAddEditVacancy,
 };
@@ -92,6 +95,12 @@ function EmployersTabs() {
             Company
           </Tabs.Tab>
           <Tabs.Tab
+            value={EMPLOYER_TABS.companyDocs}
+            leftSection={<IconFileDots />}
+          >
+            Docs
+          </Tabs.Tab>
+          <Tabs.Tab
             value={EMPLOYER_TABS.vacancies}
             leftSection={<IconListCheck />}
           >
@@ -106,6 +115,7 @@ function EmployersTabs() {
         {
           [EMPLOYER_TABS.profile]: <EmployerProfile />,
           [EMPLOYER_TABS.company]: <EmployerCompany />,
+          [EMPLOYER_TABS.companyDocs]: <Docs />,
           [EMPLOYER_TABS.vacancies]: <Vacancies />,
           [EMPLOYER_TABS.vacancy]: <Vacancy />,
         }[navTab]

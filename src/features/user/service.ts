@@ -197,7 +197,7 @@ export const userEditSeeker = createAsyncThunk(
       form.append('telegram', telegram);
 
       if (image) {
-        form.append('image', image);
+        form.append('file', image);
       }
 
       const { data } = await API.patch(`${API_PATHS.seekers}/${id}`, form);
@@ -243,7 +243,7 @@ export const userEditEmployer = createAsyncThunk(
       form.append('userPosition', userPosition);
 
       if (image) {
-        form.append('image', image);
+        form.append('file', image);
       }
 
       const { data } = await API.patch(`${API_PATHS.employers}/${id}`, form);

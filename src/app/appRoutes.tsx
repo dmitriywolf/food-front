@@ -23,6 +23,7 @@ import { AuthLayout } from 'layouts/authLayout';
 
 import { ErrorPage } from 'components';
 import { AccountPage } from 'pages/account';
+import { ChatsPage } from 'pages/chats';
 
 export const appRouter = () =>
   createBrowserRouter([
@@ -65,6 +66,10 @@ export const appRouter = () =>
               <AccountPage />
             </GuestGuard>
           ),
+        },
+        {
+          path: ROUTES.chats,
+          element: <ChatsPage />,
         },
         // About pages
         {
