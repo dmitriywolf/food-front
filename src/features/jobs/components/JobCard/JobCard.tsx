@@ -38,7 +38,7 @@ export default function JobCard({ job }: JobCardProps) {
     updatedAt,
     salaryRange,
     title,
-    summary,
+    // summary,
     isArchive,
     domain,
     applications,
@@ -111,7 +111,7 @@ export default function JobCard({ job }: JobCardProps) {
             <Text>{domain}</Text>
           </Flex>
 
-          <Text>{summary}</Text>
+          {/* <Text>{summary}</Text> */}
         </Stack>
         <Image
           radius='md'

@@ -4,7 +4,6 @@ import {
   TextInput,
   Stack,
   Button,
-  Textarea,
   Select,
   Text,
   Slider,
@@ -29,6 +28,7 @@ import {
   COUNTRIES,
   SKILLS,
 } from 'shared/constants';
+import { Editor } from 'components';
 import {
   selectIsLoading,
   selectCurrentVacancy,
@@ -120,6 +120,10 @@ export default function Vacancy() {
         });
       }
     }
+  };
+
+  const onSummaryUpdate = (v: string) => {
+    setFieldValue('summary', v);
   };
 
   return (
@@ -225,12 +229,16 @@ export default function Vacancy() {
               </Stack>
             </Radio.Group>
 
-            <Textarea
-              label='Tell about position'
-              autosize
-              minRows={5}
-              {...getInputProps('summary')}
-            />
+            <Stack gap={4}>
+              <Text size='sm' fw='bold' pb={8}>
+                Tell about position
+              </Text>
+              <Editor
+                content={values.summary}
+                placeholder='Please tell about this position'
+                onChange={onSummaryUpdate}
+              />
+            </Stack>
 
             <Radio.Group
               name='englishLevel'

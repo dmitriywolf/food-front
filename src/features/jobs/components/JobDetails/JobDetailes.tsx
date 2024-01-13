@@ -11,6 +11,7 @@ import {
   Image,
   Button,
   Breadcrumbs,
+  Divider,
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { Link } from 'react-router-dom';
@@ -214,11 +215,6 @@ export default function JobDetailes() {
                   </Flex>
                 </Flex>
 
-                <Flex direction='column' gap={2}>
-                  <Text>Description: </Text>
-                  <Text>{summary}</Text>
-                </Flex>
-
                 <Flex align='center' justify='space-between' gap={24}>
                   <Group>
                     <Text>Views: {viewsCount}</Text>
@@ -229,6 +225,9 @@ export default function JobDetailes() {
                     <Button onClick={applyJobHandler}>Apply</Button>
                   )}
                 </Flex>
+
+                <Divider />
+                <div dangerouslySetInnerHTML={{ __html: summary }} />
               </Stack>
 
               <Image

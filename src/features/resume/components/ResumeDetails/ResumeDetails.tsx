@@ -10,6 +10,7 @@ import {
   Anchor,
   Image,
   Breadcrumbs,
+  Divider,
 } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
@@ -181,7 +182,8 @@ export default function ResumeDetails() {
                 </Flex>
               </Flex>
 
-              <Text>{summary}</Text>
+              <Divider />
+              <div dangerouslySetInnerHTML={{ __html: summary }} />
             </Stack>
           </Card>
         </Grid.Col>

@@ -9,6 +9,7 @@ import {
   rem,
   Anchor,
   Flex,
+  Divider,
 } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import {
@@ -103,8 +104,6 @@ export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
           ))}
         </Group>
 
-        <Text>{summary}</Text>
-
         <Text>Views: {viewsCount}</Text>
 
         <Flex gap={8} direction='column'>
@@ -122,6 +121,9 @@ export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
             </Flex>
           ))}
         </Flex>
+
+        <Divider />
+        <div dangerouslySetInnerHTML={{ __html: summary }} />
       </Stack>
     </Card>
   );

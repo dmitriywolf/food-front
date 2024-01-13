@@ -9,3 +9,4 @@ export { Intro } from './Intro';
 export { PageLoader } from './PageLoader';
 export { StillWork } from './StillWork';
 export { AuthTemplate } from './AuthTemplate';
+export { Editor } from './Editor';

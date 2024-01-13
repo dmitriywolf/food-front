@@ -19,6 +19,7 @@ import {
 import { IconMapPin } from '@tabler/icons-react';
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
+import { Editor } from 'components';
 import { notifications } from '@mantine/notifications';
 import { formatDT } from 'shared/utils';
 import {
@@ -101,6 +102,10 @@ export default function Resume() {
   };
 
   const isResume = createdAt !== updatedAt;
+
+  const onSummaryUpdate = (v: string) => {
+    setFieldValue('summary', v);
+  };
 
   useEffect(() => {
     if (!_id) {
@@ -204,12 +209,16 @@ export default function Resume() {
               </Stack>
             </Radio.Group>
 
-            <Textarea
-              label='Tell about yourself'
-              autosize
-              minRows={5}
-              {...getInputProps('summary')}
-            />
+            <Stack gap={4}>
+              <Text size='sm' fw='bold' pb={8}>
+                Tell about yourself
+              </Text>
+              <Editor
+                content={values.summary}
+                placeholder='Please tell about this yourself'
+                onChange={onSummaryUpdate}
+              />
+            </Stack>
 
             <Radio.Group
               label='English level'

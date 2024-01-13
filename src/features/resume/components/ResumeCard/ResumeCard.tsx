@@ -34,7 +34,6 @@ export default function ResumeCard({ resume }: ResumeCardProps) {
     salaryExpectations,
     country,
     city,
-    summary,
     workExperience,
     updatedAt,
     experienceLevel,
@@ -105,7 +104,6 @@ export default function ResumeCard({ resume }: ResumeCardProps) {
               </Text>
             </Flex>
           </Group>
-          <Text>{summary}</Text>
         </Stack>
       </Flex>
     </Card>
