@@ -7,7 +7,7 @@ interface ICreateDocData {
 interface IEditDocData {
   _id: string;
   title: string;
-  docUrl: '';
+  docUrl: string;
   file?: File;
 }
 

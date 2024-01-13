@@ -50,5 +50,6 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'no-param-reassign': 'off',
     'import/no-cycle': 'error',
+    "react/require-default-props": "off"
   },
 };

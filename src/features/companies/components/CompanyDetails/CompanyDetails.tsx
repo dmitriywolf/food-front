@@ -11,6 +11,7 @@ import {
   Image,
   SimpleGrid,
   Breadcrumbs,
+  Tabs,
 } from '@mantine/core';
 import { formatDT } from 'shared/utils';
 import { Link } from 'react-router-dom';
@@ -24,6 +25,8 @@ import {
   IconBrandLinkedin,
   IconPhone,
   IconMapPin,
+  IconFileDots,
+  IconSubtask,
 } from '@tabler/icons-react';
 import { useAppSelector } from 'store/hooks';
 import {
@@ -32,11 +35,12 @@ import {
   DEFAULT_AVATAR,
 } from 'shared/constants';
 import { JobCard } from 'features/jobs';
+import { DocItem } from 'features/docs';
 import { selectCurrentCompany } from '../../companiesSlice';
 import classes from './CompanyDetails.module.scss';
 
 export default function CompanyDetails() {
-  const { data, jobs } = useAppSelector(selectCurrentCompany);
+  const { data, jobs, docs } = useAppSelector(selectCurrentCompany);
 
   const {
     avatar,
@@ -131,12 +135,35 @@ export default function CompanyDetails() {
               <Text>{companyDescription}</Text>
             </Stack>
           </Card>
-          <Stack gap={12} pt={24}>
-            {jobs.map((job) => (
-              <JobCard key={job._id} job={job} />
-            ))}
-          </Stack>
+
+          <Tabs defaultValue='jobs' pt={24}>
+            <Tabs.List>
+              <Tabs.Tab value='jobs' leftSection={<IconSubtask />}>
+                Jobs
+              </Tabs.Tab>
+              <Tabs.Tab value='docs' leftSection={<IconFileDots />}>
+                Company docs
+              </Tabs.Tab>
+            </Tabs.List>
+
+            <Tabs.Panel value='jobs'>
+              <Stack gap={12} pt={24}>
+                {jobs.map((job) => (
+                  <JobCard key={job._id} job={job} />
+                ))}
+              </Stack>
+            </Tabs.Panel>
+
+            <Tabs.Panel value='docs'>
+              <Stack gap={12} pt={24}>
+                {docs.map((d) => (
+                  <DocItem key={d._id} document={d} />
+                ))}
+              </Stack>
+            </Tabs.Panel>
+          </Tabs>
         </Grid.Col>
+
         <Grid.Col span={1}>
           {/* Потом вынести в отдельный компонент */}
           <Card shadow='sm' padding='md' radius='md' withBorder>

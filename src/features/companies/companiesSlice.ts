@@ -3,7 +3,7 @@ import type { RootState } from 'store/appStore';
 import { ROLES } from 'shared/constants';
 import { getCompanies, getCompanyById } from './services';
 
-import { ICompany, IJob } from '../types';
+import { ICompany, IJob, IDoc } from '../types';
 
 const DEFAULT_COMPANY: ICompany = {
   _id: '',
@@ -34,6 +34,7 @@ interface ICompaniesState {
   currentCompany: {
     data: ICompany;
     jobs: IJob[];
+    docs: IDoc[];
   };
 }
 
@@ -44,6 +45,7 @@ const initialState: ICompaniesState = {
   currentCompany: {
     data: DEFAULT_COMPANY,
     jobs: [],
+    docs: [],
   },
 };
 
@@ -79,6 +81,7 @@ const companiesSlice = createSlice({
         state.loading = false;
         state.currentCompany.data = action.payload.user;
         state.currentCompany.jobs = action.payload.jobs;
+        state.currentCompany.docs = action.payload.docs;
       });
   },
 });

@@ -138,9 +138,10 @@ interface IChat {
 
 interface IDoc {
   _id: string;
-  owner: string | IEmployerAccount;
+  owner: string;
   url: string;
   title: string;
+  filename: string;
   size: string;
   type: string;
   updatedAt: string;

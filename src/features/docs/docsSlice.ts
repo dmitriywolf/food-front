@@ -16,6 +16,7 @@ const DEFAULT_DOC = {
   owner: '',
   url: '',
   title: '',
+  filename: '',
   size: '',
   type: '',
   updatedAt: '',
@@ -34,7 +35,7 @@ const docsSlice = createSlice({
   reducers: {
     setCurrentDoc: (state, action) => {
       state.currentDoc = state.myDocs.find(
-        (d) => d._id === action.payload.id,
+        (d) => d._id === action.payload,
       ) as IDoc;
     },
     resetCurrentDoc: (state) => {
@@ -95,8 +96,7 @@ const docsSlice = createSlice({
       })
       .addCase(deleteDoc.fulfilled, (state, action) => {
         state.loading = false;
-        const idx = state.myDocs.findIndex(action.payload._id);
-        state.myDocs.splice(idx, 1);
+        state.myDocs = state.myDocs.filter((d) => d._id !== action.payload._id);
       });
   },
 });

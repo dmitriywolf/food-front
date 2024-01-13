@@ -38,6 +38,9 @@ export const createDoc = createAsyncThunk(
 
       if (file) {
         form.append('file', file);
+        form.append('filename', file.name);
+        form.append('type', file.type);
+        form.append('size', String(file.size));
       } else {
         form.append('docUrl', docUrl);
       }
@@ -65,9 +68,22 @@ export const editDoc = createAsyncThunk(
   async (editData: IEditDocData, { rejectWithValue }) => {
     try {
       // eslint-disable-next-line @typescript-eslint/naming-convention
-      const { _id, ...values } = editData;
+      const { _id, title, file, docUrl } = editData;
 
-      const { data } = await API.patch(`${API_PATHS.docs}/${_id}`, values);
+      const form = new FormData();
+
+      form.append('title', title);
+
+      if (file) {
+        form.append('file', file);
+        form.append('filename', file.name);
+        form.append('type', file.type);
+        form.append('size', String(file.size));
+      } else {
+        form.append('docUrl', docUrl);
+      }
+
+      const { data } = await API.patch(`${API_PATHS.docs}/${_id}`, form);
       return data.doc;
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
