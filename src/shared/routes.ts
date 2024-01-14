@@ -43,6 +43,7 @@ export const ROUTES = {
   resume: '/resumes/:resumeid',
 
   chats: '/chats',
+  chat: '/chats/:chatId',
 
   // not found
   notFound: '*',

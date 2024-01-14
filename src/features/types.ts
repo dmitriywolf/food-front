@@ -130,10 +130,8 @@ interface IVacancy {
 }
 
 interface IChat {
-  members: {
-    firstId: string;
-    secondId: string;
-  };
+  _id: string;
+  members: IAccount[];
 }
 
 interface IDoc {

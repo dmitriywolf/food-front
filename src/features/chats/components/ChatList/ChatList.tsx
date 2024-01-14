@@ -1,18 +1,24 @@
 import React, { useEffect } from 'react';
+import { Stack } from '@mantine/core';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { getMyChats } from '../../services';
 import { selectChats } from '../../chatsSlice';
+import { ChatItem } from '../ChatItem';
 
 export default function ChatList() {
   const dispatch = useAppDispatch();
 
   const myChats = useAppSelector(selectChats);
 
-  console.log(myChats);
-
   useEffect(() => {
     dispatch(getMyChats());
   }, [dispatch]);
 
-  return <p>Chats list</p>;
+  return (
+    <Stack gap={2}>
+      {myChats.map((chat) => (
+        <ChatItem key={chat._id} chat={chat} />
+      ))}
+    </Stack>
+  );
 }

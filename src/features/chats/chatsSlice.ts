@@ -12,10 +12,8 @@ interface IChatsState {
 }
 
 const DEFAULT_CHAT_DATA = {
-  members: {
-    firstId: '',
-    secondId: '',
-  },
+  _id: '',
+  members: [],
 };
 
 const initialState: IChatsState = {

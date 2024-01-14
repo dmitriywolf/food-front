@@ -3,26 +3,33 @@ import { useParams } from 'react-router-dom';
 import { Box, Container, Grid, Stack } from '@mantine/core';
 // import { getJobById, JobDetails } from 'features/jobs';
 import { useAppDispatch } from 'store/hooks';
-import { ChatList } from 'features/chats';
+import { useSocketContext } from 'app/SocketProvider';
+import { ChatList, getChat } from 'features/chats';
 
 function ChatsPage() {
-  const { chatid } = useParams();
+  const { chatId } = useParams();
 
   const dispatch = useAppDispatch();
 
+  const { socket } = useSocketContext();
+
   useEffect(() => {
-    // dispatch(getJobById(jobid!));
-  }, [dispatch, chatid]);
+    if (chatId) {
+      dispatch(getChat(chatId));
+    }
+  }, [dispatch, chatId]);
+
+  console.log('chat id', chatId, socket);
 
   return (
     <Box component='section'>
       <Container size='responsive'>
         <Stack gap={32} py={24}>
           <Grid>
-            <Grid.Col span={3}>
+            <Grid.Col span={4}>
               <ChatList />
             </Grid.Col>
-            <Grid.Col span={9}>Chat</Grid.Col>
+            <Grid.Col span={8}>Chat</Grid.Col>
           </Grid>
           {/* <JobDetails /> */}
         </Stack>

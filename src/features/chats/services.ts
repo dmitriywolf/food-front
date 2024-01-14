@@ -49,7 +49,7 @@ export const createChat = createAsyncThunk(
 
 export const getChat = createAsyncThunk(
   '@@chats/getChat',
-  async (chatId, { rejectWithValue }) => {
+  async (chatId: string, { rejectWithValue }) => {
     try {
       const { data } = await API.get(`${API_PATHS.chats}/${chatId}`);
       return data.chat;

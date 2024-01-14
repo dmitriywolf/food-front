@@ -71,6 +71,10 @@ export const appRouter = () =>
           path: ROUTES.chats,
           element: <ChatsPage />,
         },
+        {
+          path: ROUTES.chat,
+          element: <ChatsPage />,
+        },
         // About pages
         {
           path: ROUTES.faq,
