@@ -67,7 +67,7 @@ const chatsSlice = createSlice({
       .addCase(createChat.fulfilled, (state, action) => {
         state.loading = false;
         state.currentChat = action.payload;
-        state.chats = [action.payload, ...state.chats];
+        // state.chats = [action.payload, ...state.chats];
       });
   },
 });
