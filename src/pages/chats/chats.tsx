@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Container, Grid, Stack } from '@mantine/core';
-import { useAppDispatch } from 'store/hooks';
-import { ChatList, getChat, Chat } from 'features/chats';
+import { Container, Grid } from '@mantine/core';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { ChatList, getChat, Chat, selectCurrentChat } from 'features/chats';
 
 function ChatsPage() {
   const { chatId } = useParams();
 
   const dispatch = useAppDispatch();
+  const chat = useAppSelector(selectCurrentChat);
 
   useEffect(() => {
     if (chatId) {
@@ -21,9 +22,7 @@ function ChatsPage() {
         <Grid.Col span={4}>
           <ChatList />
         </Grid.Col>
-        <Grid.Col span={8}>
-          <Chat />
-        </Grid.Col>
+        <Grid.Col span={8}>{chat._id && <Chat />}</Grid.Col>
       </Grid>
     </Container>
   );

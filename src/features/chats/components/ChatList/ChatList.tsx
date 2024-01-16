@@ -15,7 +15,7 @@ export default function ChatList() {
   }, [dispatch]);
 
   return (
-    <Stack gap={2}>
+    <Stack gap={4}>
       {myChats.map((chat) => (
         <ChatItem key={chat._id} chat={chat} />
       ))}

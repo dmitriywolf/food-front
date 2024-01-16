@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'store/appStore';
-import { getMyChats, createChat, getChat } from './services';
+import { getMyChats, createChat, getChat, sendMessage } from './services';
 
 import { IChat } from '../types';
 
@@ -14,6 +14,7 @@ interface IChatsState {
 const DEFAULT_CHAT_DATA = {
   _id: '',
   members: [],
+  messages: [],
 };
 
 const initialState: IChatsState = {
@@ -53,7 +54,7 @@ const chatsSlice = createSlice({
       })
       .addCase(getChat.fulfilled, (state, action) => {
         state.loading = false;
-        state.currentChat = action.payload;
+        state.currentChat = { ...state.currentChat, ...action.payload };
       })
       // CREATE CHAT
       .addCase(createChat.pending, (state) => {
@@ -67,7 +68,19 @@ const chatsSlice = createSlice({
       .addCase(createChat.fulfilled, (state, action) => {
         state.loading = false;
         state.currentChat = action.payload;
-        // state.chats = [action.payload, ...state.chats];
+      })
+      // SEND MESSAGE
+      .addCase(sendMessage.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(sendMessage.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(sendMessage.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentChat.messages.push(action.payload);
       });
   },
 });

@@ -129,9 +129,19 @@ interface IVacancy {
   updatedAt: string;
 }
 
+interface IMessage {
+  _id: string;
+  chatId: string;
+  senderId: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 interface IChat {
   _id: string;
   members: IAccount[];
+  messages: IMessage[];
 }
 
 interface IDoc {
@@ -155,5 +165,6 @@ export {
   IVacancy,
   IApplication,
   IChat,
+  IMessage,
   IDoc,
 };

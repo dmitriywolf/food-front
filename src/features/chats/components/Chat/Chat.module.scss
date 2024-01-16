@@ -1,0 +1,43 @@
+.header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--mantine-color-gray-7);
+}
+
+.messageLine {
+  padding: rem(4);
+  justify-content: space-between;
+}
+
+.message {
+  gap: 2px;
+  padding: rem(4) rem(10);
+
+  border-radius: 8px;
+
+  p {
+    color: #ffffff;
+  }
+
+  span {
+    color: #ffffff;
+    font-size: 10px;
+    line-height: 10px;
+    text-align: right;
+  }
+}
+
+.messageRecepient {
+  justify-self: flex-start;
+  background-color: var(--mantine-color-dark-5);
+  span {
+    text-align: left;
+  }
+}
+
+.messageSender {
+  margin-left: auto;
+  background-color: var(--mantine-color-primary-5);
+  span {
+    text-align: right;
+  }
+}

@@ -7,7 +7,7 @@ export { ChatList } from './components/ChatList';
 export { Chat } from './components/Chat';
 
 // service
-export { getMyChats, createChat, getChat } from './services';
+export { getMyChats, createChat, getChat, sendMessage } from './services';
 
 // selectors
 export { selectChats, selectCurrentChat } from './chatsSlice';

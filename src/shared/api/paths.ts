@@ -11,5 +11,6 @@ export const API_PATHS = {
   resumes: '/resumes', // candidates
   jobs: '/jobs',
   chats: '/chats',
-  docs: 'docs',
+  messages: '/messages',
+  docs: '/docs',
 };
