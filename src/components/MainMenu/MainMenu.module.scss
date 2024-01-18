@@ -1,0 +1,28 @@
+.menu {
+  gap: rem(20);
+  align-items: center;
+}
+
+.link {
+  align-items: center;
+  gap: rem(6);
+
+  svg {
+    stroke: var(--mantine-color-secondary-5);
+  }
+
+  p {
+    color: var(--mantine-color-secondary-5);
+    text-transform: uppercase;
+  }
+
+  &:hover {
+    svg {
+      stroke: var(--mantine-color-primary-5);
+    }
+
+    p {
+      color: var(--mantine-color-primary-5);
+    }
+  }
+}

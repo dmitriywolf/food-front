@@ -1,30 +1,27 @@
-import { useTranslation } from 'react-i18next';
-import { Container, Stack, Flex, Text, Box, Group, rem } from '@mantine/core';
-import { ThemeSwitch, LangSwitch } from 'components';
+import { Container, Grid, Text, Box, Group, rem } from '@mantine/core';
+import { LangSwitch, ThemeSwitch } from 'components';
 
-// import FooterMenu from './FooterMenu';
-
+import FooterMenu from './FooterMenu';
 import classes from './Footer.module.scss';
-// import FooterTop from './FooterTop';
 
 export default function RootFooter() {
-  const { t } = useTranslation();
-
   return (
-    <Box component='footer' className={classes.footer}>
+    <Box component='footer'>
       <Container size='responsive'>
-        <Stack gap={rem(32)}>
-          {/* <FooterTop /> */}
-
-          <Flex className={classes.menu}>
-            <Text>@2024 {t('all_rights_reserved')}</Text>
-            {/* <FooterMenu /> */}
-            <Group gap={8}>
+        <Grid className={classes.footer}>
+          <Grid.Col span={2}>
+            <Text size='sm'>IThub @ 2024</Text>
+          </Grid.Col>
+          <Grid.Col span={8}>
+            <FooterMenu />
+          </Grid.Col>
+          <Grid.Col span={2}>
+            <Group justify='flex-end' gap={rem(6)}>
               <ThemeSwitch />
               <LangSwitch />
             </Group>
-          </Flex>
-        </Stack>
+          </Grid.Col>
+        </Grid>
       </Container>
     </Box>
   );

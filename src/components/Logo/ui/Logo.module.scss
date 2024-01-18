@@ -1,25 +1,24 @@
-.text {
-  position: relative;
-  padding: rem(8) rem(14);
-  font-size: rem(24);
-  font-weight: 600;
-  line-height: rem(28);
-  z-index: 10;
-}
-
-.shape {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: rem(44px);
-  height: rem(44px);
-  background: var(--mantine-color-orange-7);
-  background-size: rem(42px) rem(42px);
-  background-repeat: no-repeat;
-}
-
 .link {
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: rem(4);
   width: max-content;
   text-decoration: none;
+
+  p {
+    font-size: rem(32);
+    font-weight: 600;
+    line-height: rem(36);
+    color: var(--mantine-color-white);
+  }
+
+  &:hover .box {
+    background-color: var(--mantine-color-orange-5);
+  }
+}
+
+.box {
+  padding: 0 rem(8);
+  background-color: var(--mantine-color-primary-5);
+  border-radius: rem(4);
 }

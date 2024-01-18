@@ -11,21 +11,22 @@ export default function AuthMenu() {
 
   const isAuthorized = useAppSelector(selectIsAuthorized);
 
-  if (!isAuthorized)
+  if (!isAuthorized) {
     return (
-      <Flex align='center' gap={rem(20)}>
+      <Flex align='center' gap={rem(16)}>
         <Link to={ROUTES.signin}>
-          <Button variant='light' leftSection={<IconLogin2 size={14} />}>
+          <Button variant='light' leftSection={<IconLogin2 size={16} />}>
             {t('signin')}
           </Button>
         </Link>
         <Link to={ROUTES.signup}>
-          <Button variant='outline' leftSection={<IconUserPlus size={14} />}>
+          <Button variant='outline' leftSection={<IconUserPlus size={16} />}>
             {t('signup')}
           </Button>
         </Link>
       </Flex>
     );
+  }
 
   return null;
 }

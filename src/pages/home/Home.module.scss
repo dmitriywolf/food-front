@@ -1,0 +1,27 @@
+.intro {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - rem(180));
+}
+
+.inner {
+  flex-direction: column;
+  align-items: center;
+  gap: rem(12);
+
+  svg {
+    max-width: rem(600);
+    padding-bottom: rem(20);
+  }
+}
+
+.title {
+  font-size: rem(48);
+  text-align: center;
+}
+
+.subtitle {
+  font-size: rem(24);
+  text-align: center;
+}

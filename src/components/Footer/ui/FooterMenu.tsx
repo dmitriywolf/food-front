@@ -1,7 +1,9 @@
-import { Flex, rem } from '@mantine/core';
+import { Flex, Anchor } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
-import { useTranslation } from 'react-i18next';
+
+import classes from './Footer.module.scss';
 
 export default function FooterMenu() {
   const { t } = useTranslation();
@@ -26,11 +28,11 @@ export default function FooterMenu() {
   ];
 
   return (
-    <Flex gap={rem(12)}>
+    <Flex className={classes.menu}>
       {menuConfig.map(({ value, href }) => (
-        <Link key={value} to={href}>
+        <Anchor component={Link} key={value} to={href} underline='never'>
           {value}
-        </Link>
+        </Anchor>
       ))}
     </Flex>
   );

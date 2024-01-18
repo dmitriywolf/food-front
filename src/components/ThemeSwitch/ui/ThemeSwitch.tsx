@@ -1,11 +1,10 @@
 import {
-  ActionIcon,
+  Button,
   useMantineColorScheme,
   useComputedColorScheme,
+  rem,
 } from '@mantine/core';
-import { IconSun, IconMoon } from '@tabler/icons-react';
-
-import classes from './styles.module.scss';
+import { IconSun, IconMoonStars } from '@tabler/icons-react';
 
 export default function ThemeSwitch() {
   const { setColorScheme } = useMantineColorScheme();
@@ -16,17 +15,14 @@ export default function ThemeSwitch() {
   const isLightTheme = computedColorScheme === 'light';
 
   return (
-    <ActionIcon
+    <Button
       onClick={() => setColorScheme(isLightTheme ? 'dark' : 'light')}
-      variant='default'
-      size='lg'
+      size='xs'
+      variant='outline'
+      px={rem(8)}
       aria-label='Toggle color scheme'
     >
-      {isLightTheme ? (
-        <IconMoon className={classes.icon} stroke={1.5} />
-      ) : (
-        <IconSun className={classes.icon} stroke={1.5} />
-      )}
-    </ActionIcon>
+      {isLightTheme ? <IconSun size={14} /> : <IconMoonStars size={14} />}
+    </Button>
   );
 }

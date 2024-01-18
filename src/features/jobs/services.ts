@@ -3,6 +3,28 @@ import { AxiosError } from 'axios';
 import { API_PATHS } from 'shared/api/paths';
 import API from 'shared/api/service';
 
+export const getTotal = createAsyncThunk(
+  '@@jobs/getTotal',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await API.get(API_PATHS.totalJobs);
+      return data.total;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        if (error.response && error.response.data) {
+          return rejectWithValue(error.response.data.message);
+        }
+      }
+
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+
+      return rejectWithValue('Failed get total jobs');
+    }
+  },
+);
+
 export const getJobById = createAsyncThunk(
   '@@jobs/getJobById',
   async (id: string, { rejectWithValue }) => {

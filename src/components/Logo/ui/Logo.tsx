@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
-import { Box, Text } from '@mantine/core';
-
+import { Text } from '@mantine/core';
 import classes from './Logo.module.scss';
 
 export default function Logo() {
   return (
     <Link to={ROUTES.home} className={classes.link}>
-      <Box className={classes.shape} />
-      <Text className={classes.text}>JobMagazine</Text>
+      <Text>IT</Text>
+      <Text className={classes.box}>hub</Text>
     </Link>
   );
 }

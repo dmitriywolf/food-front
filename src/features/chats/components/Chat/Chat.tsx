@@ -11,9 +11,12 @@ import {
   Anchor,
   Group,
 } from '@mantine/core';
+import { socket } from 'socket';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import InputEmoji from 'react-input-emoji';
 import { API_SERVER, ROLES } from 'shared/constants';
+// import { useSocketContext } from 'app/SocketProvider';
+import { IMessage } from 'features/types';
 import { ROUTES } from 'shared/routes';
 import { formatDT } from 'shared/utils';
 import { selectUser } from 'features/user';
@@ -23,10 +26,13 @@ import classes from './Chat.module.scss';
 
 export default function Chat() {
   const [text, setText] = useState('');
+  const [typingStatus, setTypingStatus] = useState();
 
   const lastMessageRef = useRef(null);
 
   const dispatch = useAppDispatch();
+
+  // const { socket } = useSocketContext();
 
   const user = useAppSelector(selectUser);
   const chat = useAppSelector(selectCurrentChat);
@@ -47,17 +53,55 @@ export default function Chat() {
     if (!value || !user?._id) return;
 
     try {
-      await dispatch(
+      const data = await dispatch(
         sendMessage({
           chatId: chat._id,
           senderId: user._id,
           content: value,
         }),
       ).unwrap();
+
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      const { _id, chatId, content, senderId, createdAt } = data;
+
+      socket.emit('message', {
+        _id,
+        chatId,
+        content,
+        senderId,
+        createdAt,
+        socketID: socket.id,
+      });
     } catch (error) {
       console.log('ERROR', error);
     }
   };
+
+  useEffect(() => {
+    async function onResponseMsg(msg: IMessage) {
+      console.log('MSG', msg);
+      // if (msg.senderId === user?._id) {
+      //   sendMessage({
+      //     chatId: msg.chatId,
+      //     senderId: msg.senderId,
+      //     content: msg.content,
+      //   });
+      // }
+    }
+
+    // function onTyping(data: boolean) {
+    //   console.log('is Typing', data);
+    //   setTypingStatus(data);
+    // }
+
+    socket.on('messageResponse', onResponseMsg);
+    // socket.on('typingResponse', onTyping);
+
+    return () => {
+      socket.off('messageResponse', onResponseMsg);
+      // socket.off('typingResponse', onTyping);
+    };
+  }, []);
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

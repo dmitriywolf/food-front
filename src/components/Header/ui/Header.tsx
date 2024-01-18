@@ -8,12 +8,13 @@ export default function Header() {
     <Box component='header' className={classes.header}>
       <Container size='responsive'>
         <Flex className={classes.inner}>
-          <Logo />
-          <MainMenu />
-          <Flex gap={rem(18)} align='center'>
-            <AuthMenu />
-            <ProfileMenu />
+          <Flex gap={rem(24)}>
+            <Logo />
+            <MainMenu />
           </Flex>
+
+          <AuthMenu />
+          <ProfileMenu />
         </Flex>
       </Container>
     </Box>

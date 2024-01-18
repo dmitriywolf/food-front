@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'store/appStore';
-import { getJobs, getJobById, applyToJob, getMyApplications } from './services';
+import {
+  getJobs,
+  getJobById,
+  applyToJob,
+  getMyApplications,
+  getTotal,
+} from './services';
 
 import { IJob } from '../types';
 
@@ -10,6 +16,7 @@ interface IJobsState {
   jobs: IJob[];
   currentJob: IJob;
   myApplications: IJob[];
+  totalCount: string;
 }
 
 const DEFAULT_JOB_DATA = {
@@ -41,6 +48,7 @@ const initialState: IJobsState = {
   jobs: [],
   currentJob: DEFAULT_JOB_DATA,
   myApplications: [],
+  totalCount: '',
 };
 
 const jobsSlice = createSlice({
@@ -61,6 +69,19 @@ const jobsSlice = createSlice({
       .addCase(getJobs.fulfilled, (state, action) => {
         state.loading = false;
         state.jobs = action.payload;
+      })
+      // GET TOTAL JOBS COUNT
+      .addCase(getTotal.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getTotal.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(getTotal.fulfilled, (state, action) => {
+        state.loading = false;
+        state.totalCount = action.payload;
       })
       // GET JOB BY ID
       .addCase(getJobById.pending, (state) => {
@@ -111,6 +132,8 @@ export const selectMyApplications = (state: RootState) =>
   state.jobs.myApplications;
 
 export const selectIsLoading = (state: RootState) => state.jobs.loading;
+
+export const selectTotalJobsCount = (state: RootState) => state.jobs.totalCount;
 
 // Reducer
 export default jobsSlice.reducer;

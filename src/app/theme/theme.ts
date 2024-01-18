@@ -2,16 +2,16 @@ import { createTheme, MantineColorsTuple } from '@mantine/core';
 import { ContainerExt } from './components/Container/Container';
 
 const primary: MantineColorsTuple = [
-  '#ffebe5',
-  '#ffd6cd',
-  '#ffad9a',
-  '#ff8063',
-  '#ff5a36',
-  '#ff4218',
-  '#ff3507',
-  '#e42600',
-  '#cc1f00',
-  '#b21300',
+  '#eef3ff',
+  '#dce4f5',
+  '#b9c7e2',
+  '#94a8d0',
+  '#748dc1',
+  '#5f7cb8',
+  '#5474b4',
+  '#44639f',
+  '#39588f',
+  '#2d4b81',
 ];
 
 const secondary: MantineColorsTuple = [
@@ -27,11 +27,25 @@ const secondary: MantineColorsTuple = [
   '#4a5063',
 ];
 
+const bg: MantineColorsTuple = [
+  '#f2f3f7',
+  '#e3e4e8',
+  '#c4c6d1',
+  '#a3a6bb',
+  '#090b0e',
+  '#12141D',
+  '#6a7299',
+  '#5a6185',
+  '#4f5678',
+  '#424a6b',
+];
+
 export const theme = createTheme({
   fontFamily: 'Rubik, sans-serif',
   colors: {
     primary,
     secondary,
+    bg,
   },
   black: '#12141D',
   primaryColor: 'primary',
