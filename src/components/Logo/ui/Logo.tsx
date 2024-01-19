@@ -7,7 +7,9 @@ export default function Logo() {
   return (
     <Link to={ROUTES.home} className={classes.link}>
       <Text>IT</Text>
-      <Text className={classes.box}>hub</Text>
+      <Text c='white' className={classes.box}>
+        hub
+      </Text>
     </Link>
   );
 }

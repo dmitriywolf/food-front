@@ -9,11 +9,17 @@
     font-size: rem(32);
     font-weight: 600;
     line-height: rem(36);
-    color: var(--mantine-color-white);
+    color: #fff;
   }
 
   &:hover .box {
     background-color: var(--mantine-color-orange-5);
+  }
+
+  @mixin light {
+    p {
+      color: var(--mantine-color-primary-5);
+    }
   }
 }
 

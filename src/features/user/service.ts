@@ -290,7 +290,7 @@ export const userEditCompany = createAsyncThunk(
       form.append('companyWebSite', companyWebSite);
 
       if (image) {
-        form.append('image', image);
+        form.append('file', image);
       }
 
       const { data } = await API.patch(

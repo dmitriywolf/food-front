@@ -2,6 +2,7 @@
   width: 100%;
   @mixin light {
     border-bottom: 1px solid var(--mantine-color-gray-4);
+    background-color: var(--mantine-color-white);
   }
 
   @mixin dark {
