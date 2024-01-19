@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Text } from '@mantine/core';
+import { Anchor } from '@mantine/core';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
 import { ROUTES } from 'shared/routes';
@@ -29,24 +29,24 @@ export default function ResetPassword() {
       ).unwrap();
       notifications.show({
         color: 'green',
-        title: 'ResetPassword',
-        message: data.message,
+        title: t('reset_password'),
+        message: t(data.message),
       });
       navigate(ROUTES.signin);
     } catch (error: unknown) {
       notifications.show({
         color: 'red',
-        title: 'Forgot password',
-        message: error as string,
+        title: t('reset_password'),
+        message: t(error as string),
       });
     }
   };
 
   return (
     <AuthTemplate title={t('reset_password')}>
-      <Text>
-        <Link to={ROUTES.signin}>{t('signin')}</Link>
-      </Text>
+      <Anchor component={Link} to={ROUTES.signin}>
+        {t('log_in_instead')}
+      </Anchor>
       <ResetPasswordForm submit={submitHanlder} isSubmitting={isLoading} />
     </AuthTemplate>
   );

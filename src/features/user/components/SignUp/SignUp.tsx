@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Text } from '@mantine/core';
+import { Text, Anchor } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
@@ -32,8 +32,8 @@ export default function SignUp() {
     } catch (error: unknown) {
       notifications.show({
         color: 'red',
-        title: 'Sign up error',
-        message: error as string,
+        title: t('sign_up_error'),
+        message: t(error as string),
       });
     }
   };
@@ -41,11 +41,15 @@ export default function SignUp() {
   return (
     <AuthTemplate title={t('signup')}>
       <Text>
-        {t('have_you_already_have_an_account')} ?{' '}
-        <Link to={ROUTES.signin}>{t('signin')}</Link>
+        {t('have_you_already_have_an_account')}?{' '}
+        <Anchor component={Link} to={ROUTES.signin}>
+          {t('signin')}
+        </Anchor>
       </Text>
       {successRegister ? (
-        <Text>{successRegister}</Text>
+        <Text c='secondary' fz='lg' ta='center'>
+          {t(successRegister)}
+        </Text>
       ) : (
         <SignUpForm submit={signupHanlder} isSubmitting={isLoading} />
       )}

@@ -1,6 +1,12 @@
 .header {
   width: 100%;
-  border-bottom: 1px solid var(--mantine-color-dark-8);
+  @mixin light {
+    border-bottom: 1px solid var(--mantine-color-gray-4);
+  }
+
+  @mixin dark {
+    border-bottom: 1px solid var(--mantine-color-dark-8);
+  }
 }
 
 .inner {

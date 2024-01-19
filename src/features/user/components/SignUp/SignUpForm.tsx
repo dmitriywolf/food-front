@@ -60,8 +60,8 @@ export default function SignUpForm({ submit, isSubmitting }: SignupFormType) {
             onChange={(value) => form.setFieldValue('role', value)}
           >
             <Group justify='center'>
-              <Radio value={ROLES.seeker} label='I am job seeker' />
-              <Radio value={ROLES.employer} label='I am employer' />
+              <Radio value={ROLES.seeker} label={t('i_am_job_seeker')} />
+              <Radio value={ROLES.employer} label={t('i_am_employer')} />
             </Group>
           </Radio.Group>
           <TextInput
@@ -81,7 +81,7 @@ export default function SignUpForm({ submit, isSubmitting }: SignupFormType) {
           />
           <PasswordInput
             label={t('password')}
-            placeholder='xxxxxxxx'
+            placeholder='********'
             leftSection={icon}
             visible={visible}
             onVisibilityChange={toggle}
@@ -89,7 +89,7 @@ export default function SignUpForm({ submit, isSubmitting }: SignupFormType) {
           />
           <PasswordInput
             label={t('confirm_password')}
-            placeholder='xxxxxxxx'
+            placeholder='********'
             leftSection={icon}
             visible={visibleConfirm}
             onVisibilityChange={toggleConfirm}
@@ -113,7 +113,7 @@ export default function SignUpForm({ submit, isSubmitting }: SignupFormType) {
       </Box>
       {/* Terms & conditions modal */}
       <Modal opened={opened} onClose={close} title={t('terms_and_conditions')}>
-        <Text>
+        <Text c='gray' ta='justify'>
           Contrary to popular belief, Lorem Ipsum is not simply random text. It
           has roots in a piece of classical Latin literature from 45 BC, making
           it over 2000 years old. Richard McClintock, a Latin professor at

@@ -1,4 +1,5 @@
-import { Card, Stack, Title, rem } from '@mantine/core';
+import { Card, Stack, Title } from '@mantine/core';
+import classes from './AuthTemplate.module.scss';
 
 type Props = {
   title: string;
@@ -7,7 +8,7 @@ type Props = {
 
 export default function AuthTemplate({ title, children }: Props) {
   return (
-    <Card shadow='sm' padding='lg' radius='md' w={rem(768)} withBorder>
+    <Card withBorder className={classes.card}>
       <Stack gap='md' align='center'>
         <Title>{title}</Title>
         {children}

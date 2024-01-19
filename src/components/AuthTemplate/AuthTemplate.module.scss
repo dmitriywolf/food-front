@@ -1,0 +1,10 @@
+.card {
+  min-width: rem(480);
+  padding: var(--mantine-spacing-lg);
+  border-radius: var(--mantine-radius-md);
+  box-shadow: var(--mantine-shadow-md);
+
+  @mixin dark {
+    background-color: var(--mantine-color-gray-9);
+  }
+}

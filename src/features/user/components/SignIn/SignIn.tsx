@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Text } from '@mantine/core';
+import { Text, Anchor } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
@@ -25,8 +25,8 @@ export default function SignIn() {
     } catch (error: unknown) {
       notifications.show({
         color: 'red',
-        title: 'Sign in error',
-        message: error as string,
+        title: t('sign_in_error'),
+        message: t(error as string),
       });
     }
   };
@@ -34,8 +34,10 @@ export default function SignIn() {
   return (
     <AuthTemplate title={t('signin')}>
       <Text>
-        {t('do_not_have_an_account')} ?{' '}
-        <Link to={ROUTES.signup}>{t('signup')}</Link>
+        {t('do_not_have_an_account')}? {'  '}
+        <Anchor component={Link} to={ROUTES.signup}>
+          {t('signup')}
+        </Anchor>
       </Text>
       <SignInForm submit={signupHanlder} isSubmitting={isLoading} />
     </AuthTemplate>

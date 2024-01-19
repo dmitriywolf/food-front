@@ -14,7 +14,7 @@ import { SocketProvider } from './SocketProvider';
 export default function App() {
   return (
     <Provider store={store}>
-      <MantineProvider theme={theme}>
+      <MantineProvider theme={theme} defaultColorScheme='dark'>
         <ErrorBoundary>
           <Authorization />
           <Notifications position='top-right' />

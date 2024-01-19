@@ -1,26 +1,39 @@
 import { Anchor, Flex, Text } from '@mantine/core';
-import { IconFileCv, IconListCheck, IconBuilding } from '@tabler/icons-react';
+import {
+  IconFileCv,
+  IconListCheck,
+  IconBuilding,
+  IconChartDots,
+} from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 
 import { ROUTES } from 'shared/routes';
 import { Link } from 'react-router-dom';
 import classes from './MainMenu.module.scss';
 
 export default function MainMenu() {
+  const { t } = useTranslation();
+
   const configMenu = [
     {
-      key: 'Companies',
+      key: t('companies'),
       href: ROUTES.companies,
-      icon: <IconBuilding size={24} />,
+      icon: <IconBuilding size={20} />,
     },
     {
-      key: 'Jobs',
+      key: t('jobs'),
       href: ROUTES.jobs,
-      icon: <IconListCheck size={24} />,
+      icon: <IconListCheck size={20} />,
     },
     {
-      key: 'Candidates',
+      key: t('candidates'),
       href: ROUTES.resumes,
-      icon: <IconFileCv size={24} />,
+      icon: <IconFileCv size={20} />,
+    },
+    {
+      key: t('statistics'),
+      href: ROUTES.statistics,
+      icon: <IconChartDots size={20} />,
     },
   ];
 

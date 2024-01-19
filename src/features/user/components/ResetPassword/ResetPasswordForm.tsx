@@ -38,7 +38,7 @@ export default function ResetPasswordForm({
       <Stack gap={12}>
         <PasswordInput
           label={t('new_password')}
-          placeholder='xxxxxxxx'
+          placeholder='********'
           leftSection={icon}
           visible={visible}
           onVisibilityChange={toggle}
@@ -46,7 +46,7 @@ export default function ResetPasswordForm({
         />
         <PasswordInput
           label={t('confirm_password')}
-          placeholder='xxxxxxxx'
+          placeholder='********'
           leftSection={icon}
           visible={visibleConfirm}
           onVisibilityChange={toggleConfirm}

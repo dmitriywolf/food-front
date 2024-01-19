@@ -45,6 +45,9 @@ export const ROUTES = {
   chats: '/chats',
   chat: '/chats/:chatId',
 
+  // statistics
+  statistics: '/statistics',
+
   // not found
   notFound: '*',
 };

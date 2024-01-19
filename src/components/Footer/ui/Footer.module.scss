@@ -1,6 +1,13 @@
 .footer {
   padding: rem(24) 0;
-  border-top: 1px solid var(--mantine-color-dark-8);
+
+  @mixin light {
+    border-top: 1px solid var(--mantine-color-gray-4);
+  }
+
+  @mixin dark {
+    border-top: 1px solid var(--mantine-color-dark-8);
+  }
 }
 
 .menu {

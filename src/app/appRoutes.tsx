@@ -16,14 +16,16 @@ import { ConditionsPage } from 'pages/about/conditions';
 import { ResumesPage } from 'pages/resumes';
 import { ResumePage } from 'pages/resume';
 import { FaqPage } from 'pages/about/faq';
+import { AccountPage } from 'pages/account';
+import { ChatsPage } from 'pages/chats';
+import { StatisticsPage } from 'pages/statistics';
+
 import { ROUTES } from 'shared/routes';
 import { AuthGuard, GuestGuard } from 'features/user';
 import { RootLayout } from 'layouts/rootLayout';
 import { AuthLayout } from 'layouts/authLayout';
 
 import { ErrorPage } from 'components';
-import { AccountPage } from 'pages/account';
-import { ChatsPage } from 'pages/chats';
 
 export const appRouter = () =>
   createBrowserRouter([
@@ -58,6 +60,10 @@ export const appRouter = () =>
         {
           path: ROUTES.resume,
           element: <ResumePage />,
+        },
+        {
+          path: ROUTES.statistics,
+          element: <StatisticsPage />,
         },
         {
           path: ROUTES.accountTabs,

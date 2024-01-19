@@ -14,10 +14,10 @@ function HomePage() {
         <Flex className={classes.inner}>
           <IntroLogo />
           <Title order={1} className={classes.title}>
-            {t('find_a_dream_jobs_in_ukraine')}
+            {t('find_a_dream_job_in_it')}
           </Title>
           <Text className={classes.subtitle} c='secondary'>
-            {t('when_you_re_searching_for_a_job')}
+            {t('searching_for_a_job')}
           </Text>
           <TotalJobs />
         </Flex>

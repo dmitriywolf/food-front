@@ -6,6 +6,7 @@ import {
   Stack,
   PasswordInput,
   Text,
+  Anchor,
   rem,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -34,30 +35,29 @@ export default function SignInForm({ submit, isSubmitting }: SigninFormProps) {
     validate: zodResolver(signinSchema),
   });
 
-  const icon = (
-    <IconLock style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
-  );
+  const icon = <IconLock size={18} />;
 
   return (
     <Box component='form' w='100%' onSubmit={form.onSubmit(submit)}>
-      <Stack gap={12}>
+      <Stack gap={rem(12)}>
         <TextInput
           label='Email'
           placeholder='your@email.com'
           {...form.getInputProps('email')}
         />
+
         <PasswordInput
           label={t('password')}
-          placeholder={t('password')}
+          placeholder='********'
           leftSection={icon}
           visible={visible}
           onVisibilityChange={toggle}
           {...form.getInputProps('password')}
         />
 
-        <Text>
-          <Link to={ROUTES.forgotPassword}>{t('forgot_password')}?</Link>
-        </Text>
+        <Anchor component={Link} to={ROUTES.forgotPassword}>
+          {t('forgot_password')}?
+        </Anchor>
 
         <Button type='submit' disabled={isSubmitting}>
           {t('signin')}

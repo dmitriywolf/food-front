@@ -1,7 +1,14 @@
 .layout {
   min-height: 100vh;
   gap: 0;
-  background-color: var(--mantine-color-bg-5);
+
+  @mixin light {
+    background-color: var(--mantine-color-gray-3);
+  }
+
+  @mixin dark {
+    background-color: var(--mantine-color-bg-5);
+  }
 }
 
 .main {

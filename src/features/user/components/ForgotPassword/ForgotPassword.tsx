@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { notifications } from '@mantine/notifications';
-import { Text } from '@mantine/core';
+import { Anchor } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
@@ -25,23 +25,23 @@ export default function ForgotPassword() {
 
       notifications.show({
         color: 'green',
-        title: 'Forgot password',
-        message: data.message,
+        title: t('forgot_password'),
+        message: t(data.message),
       });
     } catch (error: unknown) {
       notifications.show({
         color: 'red',
-        title: 'Forgot password',
-        message: error as string,
+        title: t('forgot_password'),
+        message: t(error as string),
       });
     }
   };
 
   return (
     <AuthTemplate title={t('forgot_password')}>
-      <Text>
-        <Link to={ROUTES.signin}>{t('signin')}</Link>
-      </Text>
+      <Anchor component={Link} to={ROUTES.signin}>
+        {t('log_in_instead')}
+      </Anchor>
       <ForgotPasswordForm
         submit={forgotPasswordHanlder}
         isSubmitting={isLoading}
