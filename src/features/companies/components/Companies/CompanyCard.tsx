@@ -1,12 +1,12 @@
 import {
   Card,
   Text,
-  Group,
   Badge,
   Image,
   Stack,
   Flex,
   Avatar,
+  rem,
 } from '@mantine/core';
 import { formatDT } from 'shared/utils';
 import { IconMapPin, IconUsersGroup } from '@tabler/icons-react';
@@ -28,9 +28,8 @@ export default function CompanyCard({ company }: CompanyCardProps) {
     createdAt,
     firstName,
     lastName,
-    companyDescription,
     companyEmployeesCount,
-    companyHiresCount,
+    // companyHiresCount,
     companyLogo,
     companyName,
     companyOffices,
@@ -45,51 +44,51 @@ export default function CompanyCard({ company }: CompanyCardProps) {
   return (
     <Card
       shadow='sm'
-      padding='lg'
-      radius='md'
-      withBorder
+      radius={0}
       onClick={navigateHandler}
+      className={classes.card}
     >
-      <Card.Section className={classes.imgWrap}>
+      <Card.Section>
         <Image
           fallbackSrc={DEFAULT_COMPANY_AVATAR}
           src={`${API_SERVER}/${companyLogo}`}
           w='100%'
-          h={250}
-          radius='md'
+          h={200}
         />
-        <Flex className={classes.avatarWrap}>
+
+        <Badge className={classes.time} color='primary'>
+          {formatDT(createdAt)}
+        </Badge>
+      </Card.Section>
+
+      <Stack gap={rem(4)} mt={rem(12)} className={classes.content}>
+        <Flex align='center' gap={rem(8)}>
           <Avatar src={`${API_SERVER}/${avatar}`} />
           <Text>
             {firstName} {lastName}
           </Text>
         </Flex>
-        <Badge className={classes.time} color='cyan'>
-          {formatDT(createdAt)}
-        </Badge>
-      </Card.Section>
 
-      <Stack gap={8} mt='xs'>
-        <Group justify='space-between'>
-          <Text size='md' c='cyan' fw={500}>
+        <Flex mt={rem(4)}>
+          <Text size='lg' c='primary' fw={500}>
             {companyName}
           </Text>
-          {companyHiresCount && <Badge color='pink'>Has hires</Badge>}
-        </Group>
-
-        <Flex align='center' gap={4}>
-          <IconMapPin size={16} />
-          <Text size='sm'>{companyOffices}</Text>
+          {/* {companyHiresCount && <Badge color='pink'>Has hires</Badge>} */}
         </Flex>
 
         <Flex align='center' gap={4}>
-          <IconUsersGroup size={16} />
-          <Text>{companyEmployeesCount}</Text>
+          <IconMapPin size={20} stroke='secondary' />
+          <Text c='secondary' lh='sm'>
+            {companyOffices}
+          </Text>
         </Flex>
 
-        <Text size='sm' c='dimmed' ta='justify'>
-          {companyDescription}
-        </Text>
+        <Flex align='center' gap={4}>
+          <IconUsersGroup size={20} stroke='secondary' />
+          <Text c='secondary' lh='sm'>
+            {companyEmployeesCount}
+          </Text>
+        </Flex>
       </Stack>
     </Card>
   );

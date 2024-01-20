@@ -1,25 +1,20 @@
-.imgWrap {
-  position: relative;
-}
+.card {
+  @mixin dark {
+    background-color: var(--mantine-color-gray-9);
+  }
 
-.avatarWrap {
-  position: absolute;
-  bottom: rem(12);
-  right: rem(20);
-  align-items: center;
-  justify-content: space-between;
-  gap: rem(8);
+  @mixin hover {
+    cursor: pointer;
+    box-shadow: var(--mantine-shadow-lg);
 
-  p {
-    padding: rem(0) rem(8);
-    border-radius: rem(8);
-    background-color: black;
-    color: antiquewhite;
+    @mixin dark {
+      background-color: var(--mantine-color-gray-8);
+    }
   }
 }
 
 .time {
   position: absolute;
   top: rem(12);
-  right: rem(20);
+  right: rem(12);
 }
