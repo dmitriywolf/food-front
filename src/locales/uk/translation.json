@@ -73,5 +73,7 @@
   "required_skills": "Необхідні навички",
   "apply": "Відгукнутися",
   "apply_to_job": "Відгук на вакансію",
-  "you_succeffull_applied_to_this_position": "Ви успішно відгукнулися на вакансію"
+  "you_succeffull_applied_to_this_position": "Ви успішно відгукнулися на вакансію",
+  "employees": "співробітників",
+  "company_docs": "Документи компанії"
 }

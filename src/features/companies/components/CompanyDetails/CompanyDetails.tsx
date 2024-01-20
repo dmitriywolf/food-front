@@ -12,23 +12,25 @@ import {
   SimpleGrid,
   Breadcrumbs,
   Tabs,
+  rem,
 } from '@mantine/core';
 import { formatDT } from 'shared/utils';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
 import {
-  IconUserPlus,
-  IconWorldWww,
-  IconBuilding,
   IconUsers,
-  IconMailFilled,
+  IconFileDots,
+  IconSubtask,
+  IconLink,
   IconBrandLinkedin,
   IconPhone,
   IconMapPin,
-  IconFileDots,
-  IconSubtask,
+  IconMail,
 } from '@tabler/icons-react';
+import { MakeChatButton } from 'features/chats';
+import { selectUser } from 'features/user';
 import { useAppSelector } from 'store/hooks';
+import { useTranslation } from 'react-i18next';
 import {
   API_SERVER,
   DEFAULT_COMPANY_AVATAR,
@@ -36,17 +38,16 @@ import {
 } from 'shared/constants';
 import { JobCard } from 'features/jobs';
 import { DocItem } from 'features/docs';
-import {
-  selectCompany,
-  selectCompanyIsLoading,
-  selectCompanyError,
-} from '../../companiesSlice';
+import { selectCompany } from '../../companiesSlice';
 import classes from './CompanyDetails.module.scss';
 
 export default function CompanyDetails() {
   const { data, jobs, docs } = useAppSelector(selectCompany);
+  const user = useAppSelector(selectUser);
 
   const {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    _id,
     avatar,
     createdAt,
     firstName,
@@ -55,19 +56,21 @@ export default function CompanyDetails() {
     phone,
     userPosition,
     email,
-    emailVerified,
+    role,
     companyDescription,
     companyDouPage,
     companyEmployeesCount,
-    companyHiresCount,
+    // companyHiresCount,
     companyLogo,
     companyName,
     companyWebSite,
     companyOffices,
   } = data;
 
+  const { t } = useTranslation();
+
   const items = [
-    { title: 'Companies', href: ROUTES.companies },
+    { title: t('companies'), href: ROUTES.companies },
     { title: companyName, href: '#' },
   ].map((item) => (
     <Anchor to={item.href} component={Link} key={item.title}>
@@ -75,151 +78,150 @@ export default function CompanyDetails() {
     </Anchor>
   ));
 
+  const showTabs = docs?.length > 0 || jobs.length > 0;
+
   return (
     <Stack>
       <Breadcrumbs>{items}</Breadcrumbs>
 
       <Grid columns={4}>
+        {/* Company */}
         <Grid.Col span={3}>
-          <Card shadow='sm' padding='md' radius='md' withBorder>
-            <Card.Section>
+          <Card shadow='sm' radius={0} className={classes.card}>
+            <Card.Section className={classes.avatarBox}>
               <Image
                 fallbackSrc={DEFAULT_COMPANY_AVATAR}
                 src={`${API_SERVER}/${companyLogo}`}
                 w='100%'
                 h={250}
-                radius='md'
               />
+              {createdAt && (
+                <Badge color='primary' className={classes.badgeAvatar}>
+                  {formatDT(createdAt)}
+                </Badge>
+              )}
             </Card.Section>
-            <Stack gap={24} pt={24}>
-              <Title ta='center'>{companyName}</Title>
 
-              <SimpleGrid cols={2} spacing={24}>
-                <Stack gap={12}>
-                  <Flex align='center' gap={8}>
+            <Stack gap={rem(12)} pt={rem(16)}>
+              <Title order={2} ta='center'>
+                {companyName}
+              </Title>
+
+              <SimpleGrid cols={2}>
+                <Stack gap={rem(12)}>
+                  <Flex align='center' gap={rem(8)}>
                     <IconMapPin />
                     <Text>{companyOffices}</Text>
                   </Flex>
-                  <Flex gap={8}>
+                  <Flex align='center' gap={rem(8)}>
                     <IconUsers />
-                    <Text>{companyEmployeesCount} employers</Text>
+                    <Text>
+                      {companyEmployeesCount} {t('employees')}
+                    </Text>
                   </Flex>
 
-                  {companyHiresCount && (
+                  {/* {companyHiresCount && (
                     <Flex gap={8}>
                       <IconUserPlus />
                       <Text>Hires: {companyHiresCount}</Text>
                     </Flex>
-                  )}
-
-                  {createdAt && (
-                    <Flex gap={8}>
-                      <IconBuilding />
-                      <Text>Added: {formatDT(createdAt)}</Text>
-                    </Flex>
-                  )}
+                  )} */}
                 </Stack>
 
-                <Stack gap={12}>
-                  <Flex gap={8}>
-                    <IconWorldWww />
-                    <Anchor href={companyWebSite} c='teal'>
-                      Company site
-                    </Anchor>
+                <Stack gap={rem(12)}>
+                  <Flex gap={rem(8)}>
+                    <IconLink />
+                    <Anchor href={companyWebSite}>{companyWebSite}</Anchor>
                   </Flex>
-                  <Flex gap={8}>
-                    <IconWorldWww />
-                    <Anchor href={companyDouPage} c='teal'>
-                      Dou page
-                    </Anchor>
+                  <Flex gap={rem(8)}>
+                    <IconLink />
+                    <Anchor href={companyDouPage}>{companyDouPage}</Anchor>
                   </Flex>
                 </Stack>
               </SimpleGrid>
 
-              <Text>{companyDescription}</Text>
+              <Text c='secondary'>{companyDescription}</Text>
             </Stack>
           </Card>
 
-          <Tabs defaultValue='jobs' pt={24}>
-            <Tabs.List>
-              <Tabs.Tab value='jobs' leftSection={<IconSubtask />}>
-                Jobs
-              </Tabs.Tab>
-              <Tabs.Tab value='docs' leftSection={<IconFileDots />}>
-                Company docs
-              </Tabs.Tab>
-            </Tabs.List>
+          {/* TABS */}
+          {showTabs && (
+            <Tabs defaultValue='jobs' pt={rem(24)}>
+              <Tabs.List>
+                {jobs.length > 0 && (
+                  <Tabs.Tab value='jobs' leftSection={<IconSubtask />}>
+                    {t('jobs')}
+                  </Tabs.Tab>
+                )}
 
-            <Tabs.Panel value='jobs'>
-              <Stack gap={12} pt={24}>
-                {jobs.map((job) => (
-                  <JobCard key={job._id} job={job} />
-                ))}
-              </Stack>
-            </Tabs.Panel>
+                {docs?.length > 0 && (
+                  <Tabs.Tab value='docs' leftSection={<IconFileDots />}>
+                    {t('company_docs')}
+                  </Tabs.Tab>
+                )}
+              </Tabs.List>
 
-            <Tabs.Panel value='docs'>
-              <Stack gap={12} pt={24}>
-                {docs.map((d) => (
-                  <DocItem key={d._id} document={d} />
-                ))}
-              </Stack>
-            </Tabs.Panel>
-          </Tabs>
+              <Tabs.Panel value='jobs'>
+                <Stack gap={rem(12)} pt={rem(16)}>
+                  {jobs.map((job) => (
+                    <JobCard key={job._id} job={job} />
+                  ))}
+                </Stack>
+              </Tabs.Panel>
+
+              <Tabs.Panel value='docs'>
+                <Stack gap={rem(12)} pt={rem(16)}>
+                  {docs.map((d) => (
+                    <DocItem key={d._id} document={d} />
+                  ))}
+                </Stack>
+              </Tabs.Panel>
+            </Tabs>
+          )}
         </Grid.Col>
 
+        {/* Employer */}
         <Grid.Col span={1}>
-          {/* Потом вынести в отдельный компонент */}
-          <Card shadow='sm' padding='md' radius='md' withBorder>
-            <Card.Section className={classes.imgWrap}>
+          <Card shadow='sm' radius={0} className={classes.card}>
+            <Card.Section className={classes.avatarBox}>
               <Image
                 fallbackSrc={DEFAULT_AVATAR}
                 src={`${API_SERVER}/${avatar}`}
                 w='100%'
                 h={250}
-                radius='md'
               />
-              <Badge
-                className={classes.badge}
-                color={emailVerified ? 'teal' : 'pink'}
-              >
-                {emailVerified ? 'Verified' : 'Unverified'}
+
+              <Badge className={classes.badgeAvatar} color='gray'>
+                {userPosition}
               </Badge>
             </Card.Section>
-            <Stack gap={12} pt={24}>
-              <Group align='flex-end'>
-                <Title order={2}>
-                  {firstName} {lastName},
-                </Title>
-                <Text size='lg'>{userPosition}</Text>
-              </Group>
 
-              <Group>
-                <Flex gap={8}>
-                  <IconMailFilled />
-                  <Anchor href={`mailto:${email}`} c='teal'>
-                    Mail me
-                  </Anchor>
+            <Stack gap={rem(12)} pt={rem(12)}>
+              <Title order={2}>
+                {firstName} {lastName}
+              </Title>
+
+              <Group gap={rem(12)}>
+                <Flex gap={rem(8)}>
+                  <IconMail stroke='secondary' />
+                  <Anchor href={`mailto:${email}`}>E-Mail</Anchor>
                 </Flex>
 
                 {phone && (
-                  <Flex gap={8}>
-                    <IconPhone />
-                    <Anchor href={`tel:${phone}`} c='teal'>
-                      Call
-                    </Anchor>
+                  <Flex gap={rem(8)}>
+                    <IconPhone stroke='secondary' />
+                    <Anchor href={`tel:${phone}`}>{t('call')}</Anchor>
                   </Flex>
                 )}
 
                 {linkedin && (
-                  <Flex gap={8}>
-                    <IconBrandLinkedin />
-                    <Anchor href={linkedin} c='teal'>
-                      LinkedIn
-                    </Anchor>
+                  <Flex gap={rem(8)}>
+                    <IconBrandLinkedin stroke='secondary' />
+                    <Anchor href={linkedin}>LinkedIn</Anchor>
                   </Flex>
                 )}
               </Group>
+              {user?.role !== role && <MakeChatButton id={_id} />}
             </Stack>
           </Card>
         </Grid.Col>
