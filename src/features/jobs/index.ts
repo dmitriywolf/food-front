@@ -12,4 +12,12 @@ export { TotalJobs } from './components/TotalJobs';
 export { getJobs, getJobById, getMyApplications } from './services';
 
 // selectors
-export { selectJobs } from './jobsSlice';
+export {
+  selectJobs,
+  selectJobsIsLoading,
+  selectJobsError,
+  selectJob,
+  selectJobIsLoading,
+  selectJobError,
+  selectTotalJobsCount,
+} from './jobsSlice';

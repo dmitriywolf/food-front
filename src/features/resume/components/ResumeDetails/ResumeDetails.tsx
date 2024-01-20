@@ -212,11 +212,9 @@ export default function ResumeDetails() {
             </Card.Section>
 
             <Stack gap={rem(12)} pt={rem(12)}>
-              <Group>
-                <Title order={2}>
-                  {firstName} {lastName}
-                </Title>
-              </Group>
+              <Title order={2}>
+                {firstName} {lastName}
+              </Title>
 
               <Group gap={rem(12)}>
                 <Flex gap={rem(8)}>

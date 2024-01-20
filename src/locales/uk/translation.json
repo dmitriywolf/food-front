@@ -69,5 +69,9 @@
   "i_do_not_consider": "Я не розглядаю",
   "my_skills": "Мої навички",
   "description": "Опис",
-  "years": "років"
+  "years": "років",
+  "required_skills": "Необхідні навички",
+  "apply": "Відгукнутися",
+  "apply_to_job": "Відгук на вакансію",
+  "you_succeffull_applied_to_this_position": "Ви успішно відгукнулися на вакансію"
 }

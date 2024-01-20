@@ -69,5 +69,9 @@
   "i_do_not_consider": "I do not consider",
   "my_skills": "My skills",
   "description": "Description",
-  "years": "years"
+  "years": "years",
+  "required_skills": "Required skills",
+  "apply": "Apply",
+  "apply_to_job": "Apply to job",
+  "you_succeffull_applied_to_this_position": "You succeffull applied to this position"
 }
