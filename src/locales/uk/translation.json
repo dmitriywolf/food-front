@@ -55,5 +55,9 @@
   "new_password": "Новий пароль",
   "you_have_successfully_verified_your_mail": "Ви успішно підтвердили свою електронну пошту",
   "active_search": "Активний пошук",
-  "passive_search": "Пасивний пошук"
+  "passive_search": "Пасивний пошук",
+  "views": "Перегляди",
+  "applications": "Відгуки",
+  "you_are_applied": "Ви відгукнулись",
+  "archived": "В архіві"
 }

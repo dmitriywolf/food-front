@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
-import { Box, Container, Stack, Title } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
+import { Box, Container, Stack, Title, rem } from '@mantine/core';
 import { useAppDispatch } from 'store/hooks';
 import { getJobs, Jobs } from 'features/jobs';
 
 function JobsPage() {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(getJobs());
@@ -13,8 +15,8 @@ function JobsPage() {
   return (
     <Box component='section'>
       <Container size='responsive'>
-        <Stack gap={24} py={24}>
-          <Title>Jobs</Title>
+        <Stack gap={rem(16)} py={rem(16)}>
+          <Title>{t('jobs')}</Title>
           <Jobs />
         </Stack>
       </Container>

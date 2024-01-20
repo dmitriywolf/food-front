@@ -10,15 +10,6 @@ import {
 
 import { IJob } from '../types';
 
-interface IJobsState {
-  loading: boolean;
-  error: string | null;
-  jobs: IJob[];
-  currentJob: IJob;
-  myApplications: IJob[];
-  totalCount: string;
-}
-
 const DEFAULT_JOB_DATA = {
   _id: '',
   author: '',
@@ -42,13 +33,44 @@ const DEFAULT_JOB_DATA = {
   updatedAt: '',
 };
 
+interface IJobsState {
+  // Jobs list
+  jobsListLoading: boolean;
+  jobsListError: string | null;
+  jobsList: IJob[];
+
+  // Job page
+  jobPageLoading: boolean;
+  jobPageError: string | null;
+  jobPage: IJob;
+
+  // My applications
+  myApplicationsLoading: boolean;
+  myApplicationsError: string | null;
+  myApplications: IJob[];
+
+  // Total jobs count
+  totalJobsCount: string;
+}
+
 const initialState: IJobsState = {
-  loading: false,
-  error: null,
-  jobs: [],
-  currentJob: DEFAULT_JOB_DATA,
+  // Jobs list
+  jobsListLoading: false,
+  jobsListError: null,
+  jobsList: [],
+
+  // Job page
+  jobPageLoading: false,
+  jobPageError: null,
+  jobPage: DEFAULT_JOB_DATA,
+
+  // My applications
+  myApplicationsLoading: false,
+  myApplicationsError: null,
   myApplications: [],
-  totalCount: '',
+
+  // Total jobs count
+  totalJobsCount: '',
 };
 
 const jobsSlice = createSlice({
@@ -57,83 +79,94 @@ const jobsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // GET JOBS
+      // GET JOBS LIST
       .addCase(getJobs.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.jobsListLoading = true;
+        state.jobsListError = null;
       })
       .addCase(getJobs.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
+        state.jobsListLoading = false;
+        state.jobsListError = action.payload as string;
       })
       .addCase(getJobs.fulfilled, (state, action) => {
-        state.loading = false;
-        state.jobs = action.payload;
+        state.jobsListLoading = false;
+        state.jobsListError = null;
+        state.jobsList = action.payload;
       })
       // GET TOTAL JOBS COUNT
-      .addCase(getTotal.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(getTotal.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      })
       .addCase(getTotal.fulfilled, (state, action) => {
-        state.loading = false;
-        state.totalCount = action.payload;
+        state.totalJobsCount = action.payload;
       })
       // GET JOB BY ID
       .addCase(getJobById.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.jobPageLoading = true;
+        state.jobPageError = null;
       })
       .addCase(getJobById.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
+        state.jobPageLoading = false;
+        state.jobPageError = action.payload as string;
       })
       .addCase(getJobById.fulfilled, (state, action) => {
-        state.loading = false;
-        state.currentJob = action.payload;
+        state.jobPageLoading = false;
+        state.jobPageError = null;
+        state.jobPage = action.payload;
       })
       // APPLY TO JOB
-      .addCase(applyToJob.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(applyToJob.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      })
+      // .addCase(applyToJob.pending, (state) => {
+      //   state.loading = true;
+      //   state.error = null;
+      // })
+      // .addCase(applyToJob.rejected, (state, action) => {
+      //   state.loading = false;
+      //   state.error = action.payload as string;
+      // })
       .addCase(applyToJob.fulfilled, (state, action) => {
-        state.loading = false;
-        state.currentJob.applications.push(action.payload);
+        // state.loading = false;
+        state.jobPage.applications.push(action.payload);
       })
       // GET MY APPLICATIONS
       .addCase(getMyApplications.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.myApplicationsLoading = true;
+        state.myApplicationsError = null;
       })
       .addCase(getMyApplications.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
+        state.myApplicationsLoading = false;
+        state.myApplicationsError = action.payload as string;
       })
       .addCase(getMyApplications.fulfilled, (state, action) => {
-        state.loading = false;
+        state.myApplicationsLoading = false;
+        state.myApplicationsError = null;
         state.myApplications = action.payload;
       });
   },
 });
 
 // Selectors
-export const selectJobs = (state: RootState) => state.jobs.jobs;
-export const selectCurrentJob = (state: RootState) => state.jobs.currentJob;
+
+// All Jobs
+export const selectJobs = (state: RootState) => state.jobs.jobsList;
+export const selectJobsIsLoading = (state: RootState) =>
+  state.jobs.jobsListLoading;
+export const selectJobsError = (state: RootState) => state.jobs.jobsListError;
+
+// Job Page
+export const selectJob = (state: RootState) => state.jobs.jobPage;
+export const selectJobIsLoading = (state: RootState) =>
+  state.jobs.jobPageLoading;
+export const selectJobError = (state: RootState) => state.jobs.jobPageError;
+
+// Total Jobs Count
+export const selectTotalJobsCount = (state: RootState) =>
+  state.jobs.totalJobsCount;
+
+// My Applications
 export const selectMyApplications = (state: RootState) =>
   state.jobs.myApplications;
 
-export const selectIsLoading = (state: RootState) => state.jobs.loading;
-
-export const selectTotalJobsCount = (state: RootState) => state.jobs.totalCount;
+export const selectMyApplicationsIsLoading = (state: RootState) =>
+  state.jobs.myApplicationsLoading;
+export const selectMyApplicationsError = (state: RootState) =>
+  state.jobs.myApplicationsError;
 
 // Reducer
 export default jobsSlice.reducer;

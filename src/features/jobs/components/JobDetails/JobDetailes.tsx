@@ -43,7 +43,7 @@ import {
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { selectUser } from 'features/user';
 import { MakeChatButton } from 'features/chats';
-import { selectCurrentJob } from '../../jobsSlice';
+import { selectJob } from '../../jobsSlice';
 import { applyToJob } from '../../services';
 import { ICompany } from '../../../types';
 import classes from './JobDetails.module.scss';
@@ -51,7 +51,7 @@ import classes from './JobDetails.module.scss';
 export default function JobDetailes() {
   const dispatch = useAppDispatch();
 
-  const job = useAppSelector(selectCurrentJob);
+  const job = useAppSelector(selectJob);
   const user = useAppSelector(selectUser);
 
   const {

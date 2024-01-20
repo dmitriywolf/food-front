@@ -55,5 +55,9 @@
   "new_password": "New password",
   "you_have_successfully_verified_your_mail": "You have successfully verified your email",
   "active_search": "Active search",
-  "passive_search": "Passive search"
+  "passive_search": "Passive search",
+  "views": "Views",
+  "applications": "Applications",
+  "you_are_applied": "You are applied",
+  "archived": "Archived"
 }

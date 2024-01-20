@@ -102,14 +102,12 @@ export default function ResumeCard({ resume }: ResumeCardProps) {
             </Flex>
           </Flex>
 
-          <Group align='center'>
-            <Flex gap={6} align='center'>
-              <IconMapPin stroke='secondary' size={18} />
-              <Text c='secondary'>
-                {country}, {city}
-              </Text>
-            </Flex>
-          </Group>
+          <Flex gap={6} align='center'>
+            <IconMapPin stroke='secondary' size={18} />
+            <Text c='secondary'>
+              {country}, {city}
+            </Text>
+          </Flex>
         </Stack>
       </Flex>
     </Card>

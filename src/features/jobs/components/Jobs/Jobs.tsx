@@ -1,29 +1,35 @@
-import { Stack, Grid } from '@mantine/core';
+import { Box, SimpleGrid } from '@mantine/core';
+
+import { CardSkeleton, ErrorBox } from 'components';
 
 import { useAppSelector } from 'store/hooks';
+import { JobCard } from '../JobCard';
 import {
   selectJobs,
-  // selectIsLoading
+  selectJobsIsLoading,
+  selectJobsError,
 } from '../../jobsSlice';
-import { JobCard } from '../JobCard';
-import { JobsFilter } from '../Filter';
 
 export default function Jobs() {
   const jobs = useAppSelector(selectJobs);
-  // const isLoading = useAppSelector(selectIsLoading);
+  const loading = useAppSelector(selectJobsIsLoading);
+  const error = useAppSelector(selectJobsError);
+
+  const skeletons = Array.from({ length: 6 }, (_, i) => (
+    <CardSkeleton key={i} horizontal />
+  ));
 
   return (
-    <Grid>
-      <Grid.Col span={9}>
-        <Stack gap={24}>
-          {jobs.map((job) => (
-            <JobCard key={job._id} job={job} />
-          ))}
-        </Stack>
-      </Grid.Col>
-      <Grid.Col span={3}>
-        <JobsFilter />
-      </Grid.Col>
-    </Grid>
+    <Box component='section'>
+      {error ? (
+        <ErrorBox msg={error} />
+      ) : (
+        <SimpleGrid cols={2}>
+          {loading
+            ? skeletons
+            : jobs.map((job) => <JobCard key={job._id} job={job} />)}
+        </SimpleGrid>
+      )}
+    </Box>
   );
 }

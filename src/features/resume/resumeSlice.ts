@@ -43,10 +43,12 @@ interface IResumeState {
 }
 
 const initialState: IResumeState = {
+  // All resumes (candidates)
   resumesListLoading: false,
   resumesListError: null,
   resumesList: [],
 
+  // Resume Page (Candidate)
   resumePageLoading: false,
   resumePageError: null,
   resumePage: DEFAULT_RESUME_DATA,
