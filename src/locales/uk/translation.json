@@ -53,5 +53,7 @@
   "change_password": "Змінити пароль",
   "reset_password": "Створити новий пароль",
   "new_password": "Новий пароль",
-  "you_have_successfully_verified_your_mail": "Ви успішно підтвердили свою електронну пошту"
+  "you_have_successfully_verified_your_mail": "Ви успішно підтвердили свою електронну пошту",
+  "active_search": "Активний пошук",
+  "passive_search": "Пасивний пошук"
 }

@@ -7,18 +7,20 @@ import {
   Stack,
   Flex,
   Title,
+  Box,
+  rem,
 } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import {
   IconMapPin,
   IconCrown,
-  IconUserCircle,
   IconChartBar,
   IconLanguage,
 } from '@tabler/icons-react';
-import { formatDT } from 'shared/utils';
 import { useNavigate } from 'react-router-dom';
 import { API_SERVER, DEFAULT_AVATAR } from 'shared/constants';
 import { ROUTES } from 'shared/routes';
+import classes from './ResumeCard.module.scss';
 
 import { IResume, ISeekerAccount } from '../../../types';
 
@@ -35,7 +37,6 @@ export default function ResumeCard({ resume }: ResumeCardProps) {
     country,
     city,
     workExperience,
-    updatedAt,
     experienceLevel,
     owner,
     englishLevel,
@@ -44,62 +45,67 @@ export default function ResumeCard({ resume }: ResumeCardProps) {
   const { avatar, firstName, lastName, searchStatus } = owner as ISeekerAccount;
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const navigateHandler = () => {
     navigate(`${ROUTES.resumes}/${_id}`);
   };
 
   return (
-    <Card shadow='sm' padding='md' radius='md' onClick={navigateHandler}>
-      <Flex align='flex-start' gap={24}>
-        <Image
-          fallbackSrc={DEFAULT_AVATAR}
-          src={`${API_SERVER}/${avatar}`}
-          w='160px'
-          radius='md'
-        />
+    <Card
+      shadow='sm'
+      radius={0}
+      className={classes.card}
+      onClick={navigateHandler}
+    >
+      <Flex>
+        <Box className={classes.avatarBox}>
+          <Image
+            fallbackSrc={DEFAULT_AVATAR}
+            src={`${API_SERVER}/${avatar}`}
+            w={rem(160)}
+            h={rem(160)}
+          />
+          <Badge
+            className={classes.badge}
+            color={searchStatus ? 'green' : 'gray'}
+          >
+            {searchStatus ? t('active_search') : t('passive_search')}
+          </Badge>
+        </Box>
 
-        <Stack gap={8} w='100%'>
+        <Stack gap={4} w='100%' className={classes.content}>
           <Flex align='center' justify='space-between' w='100%'>
-            <Title order={3}>
+            <Title order={3} c='primary'>
               {position}, {salaryExpectations} $
             </Title>
-            <Group>
-              <Badge color='grape'>{formatDT(updatedAt)}</Badge>
-              <Badge color={searchStatus ? 'green' : 'gray'}>
-                {searchStatus ? 'Active search' : 'Passive search'}
-              </Badge>
-            </Group>
           </Flex>
 
-          <Flex gap={12} align='center'>
-            <IconUserCircle />
-            <Text c='teal'>
-              {firstName} {lastName}
-            </Text>
-          </Flex>
+          <Text fz='lg'>
+            {firstName} {lastName}
+          </Text>
 
-          <Flex gap={24}>
-            <Flex gap={12} align='center'>
-              <IconCrown />
-              <Text>{workExperience} years</Text>
+          <Flex gap={rem(16)}>
+            <Flex gap={6} align='center'>
+              <IconCrown stroke='secondary' size={18} />
+              <Text c='secondary'>{workExperience} years</Text>
             </Flex>
 
-            <Flex gap={12} align='center'>
-              <IconChartBar />
-              <Text>{experienceLevel}</Text>
+            <Flex gap={6} align='center'>
+              <IconChartBar stroke='secondary' size={18} />
+              <Text c='secondary'>{experienceLevel}</Text>
             </Flex>
 
-            <Flex gap={12} align='center'>
-              <IconLanguage />
-              <Text>{englishLevel}</Text>
+            <Flex gap={6} align='center'>
+              <IconLanguage stroke='secondary' size={18} />
+              <Text c='secondary'>{englishLevel}</Text>
             </Flex>
           </Flex>
 
           <Group align='center'>
-            <Flex gap={12} align='center'>
-              <IconMapPin />
-              <Text>
+            <Flex gap={6} align='center'>
+              <IconMapPin stroke='secondary' size={18} />
+              <Text c='secondary'>
                 {country}, {city}
               </Text>
             </Flex>

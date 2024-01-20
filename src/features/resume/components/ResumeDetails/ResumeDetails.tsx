@@ -35,12 +35,12 @@ import { formatDT } from 'shared/utils';
 import { useAppSelector } from 'store/hooks';
 import { MakeChatButton } from 'features/chats';
 import { selectUser } from 'features/user';
-import { selectCurrentResume } from '../../resumeSlice';
+import { selectResume } from '../../resumeSlice';
 import { ISeekerAccount } from '../../../types';
 
 export default function ResumeDetails() {
   const user = useAppSelector(selectUser);
-  const resume = useAppSelector(selectCurrentResume);
+  const resume = useAppSelector(selectResume);
 
   const {
     category,

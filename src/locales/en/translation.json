@@ -53,5 +53,7 @@
   "change_password": "Change password",
   "reset_password": "Reset password",
   "new_password": "New password",
-  "you_have_successfully_verified_your_mail": "You have successfully verified your email"
+  "you_have_successfully_verified_your_mail": "You have successfully verified your email",
+  "active_search": "Active search",
+  "passive_search": "Passive search"
 }

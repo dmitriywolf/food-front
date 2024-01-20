@@ -32,7 +32,7 @@ import {
   NOT_CONSIDER_DOMAINS,
   EMPLOYMENT,
 } from 'shared/constants';
-import { selectIsLoading, selectMyResume } from '../../resumeSlice';
+import { selectMyResumeIsLoading, selectMyResume } from '../../resumeSlice';
 import { editResume, getMyResume } from '../../services';
 
 import type { IResumeFormValues } from './types';
@@ -61,7 +61,7 @@ export default function Resume() {
     updatedAt,
     isPublished,
   } = useAppSelector(selectMyResume);
-  const isLoading = useAppSelector(selectIsLoading);
+  const isLoading = useAppSelector(selectMyResumeIsLoading);
 
   const { getInputProps, onSubmit, values, setFieldValue } =
     useForm<IResumeFormValues>({

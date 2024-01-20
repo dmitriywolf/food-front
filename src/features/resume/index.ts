@@ -11,7 +11,13 @@ export { getMyResume, getResumeById, getResumes } from './services';
 
 // selectors
 export {
-  selectMyResume,
   selectResumes,
-  selectCurrentResume,
+  selectResumesIsLoading,
+  selectResumesError,
+  selectResume,
+  selectResumeIsLoading,
+  selectResumeError,
+  selectMyResume,
+  selectMyResumeIsLoading,
+  selectMyResumeError,
 } from './resumeSlice';
