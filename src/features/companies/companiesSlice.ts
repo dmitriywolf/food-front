@@ -28,10 +28,15 @@ const DEFAULT_COMPANY: ICompany = {
 };
 
 interface ICompaniesState {
-  loading: boolean;
-  error: string | null;
-  companies: ICompany[];
-  currentCompany: {
+  // Companies List
+  companiesListLoading: boolean;
+  companiesListError: string | null;
+  companiesList: ICompany[];
+
+  // Company Page
+  companyPageLoading: boolean;
+  companyPageError: string | null;
+  companyPage: {
     data: ICompany;
     jobs: IJob[];
     docs: IDoc[];
@@ -39,10 +44,13 @@ interface ICompaniesState {
 }
 
 const initialState: ICompaniesState = {
-  loading: false,
-  error: null,
-  companies: [],
-  currentCompany: {
+  companiesListLoading: false,
+  companiesListError: null,
+  companiesList: [],
+
+  companyPageLoading: false,
+  companyPageError: null,
+  companyPage: {
     data: DEFAULT_COMPANY,
     jobs: [],
     docs: [],
@@ -57,40 +65,52 @@ const companiesSlice = createSlice({
     builder
       // GET COMPANIES
       .addCase(getCompanies.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.companiesListLoading = true;
+        state.companiesListError = null;
       })
       .addCase(getCompanies.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
+        state.companiesListLoading = false;
+        state.companiesListError = action.payload as string;
       })
       .addCase(getCompanies.fulfilled, (state, action) => {
-        state.loading = false;
-        state.companies = action.payload;
+        state.companiesListLoading = false;
+        state.companiesListError = null;
+        state.companiesList = action.payload;
       })
       // GET COMPANY BY ID
       .addCase(getCompanyById.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.companyPageLoading = true;
+        state.companyPageError = null;
       })
       .addCase(getCompanyById.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
+        state.companyPageLoading = false;
+        state.companyPageError = action.payload as string;
       })
       .addCase(getCompanyById.fulfilled, (state, action) => {
-        state.loading = false;
-        state.currentCompany.data = action.payload.user;
-        state.currentCompany.jobs = action.payload.jobs;
-        state.currentCompany.docs = action.payload.docs;
+        state.companyPageLoading = false;
+        state.companyPageError = null;
+        state.companyPage.data = action.payload.user;
+        state.companyPage.jobs = action.payload.jobs;
+        state.companyPage.docs = action.payload.docs;
       });
   },
 });
 
 // Selectors
-export const selectCompanies = (state: RootState) => state.companies.companies;
-export const selectCurrentCompany = (state: RootState) =>
-  state.companies.currentCompany;
-export const selectIsLoading = (state: RootState) => state.companies.loading;
+// Companies list
+export const selectCompanies = (state: RootState) =>
+  state.companies.companiesList;
+export const selectCompaniesIsLoading = (state: RootState) =>
+  state.companies.companiesListLoading;
+export const selectCompaniesError = (state: RootState) =>
+  state.companies.companiesListError;
+
+// Company Page
+export const selectCompany = (state: RootState) => state.companies.companyPage;
+export const selectCompanyIsLoading = (state: RootState) =>
+  state.companies.companyPageLoading;
+export const selectCompanyError = (state: RootState) =>
+  state.companies.companyPageError;
 
 // Reducer
 export default companiesSlice.reducer;

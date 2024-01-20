@@ -1,13 +1,18 @@
-import { Center, Title, rem } from '@mantine/core';
+import { Container, Stack, Title, rem } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
+import NotFoundLogo from 'assets/svg/notFound.svg';
+import classes from './NotFound.module.scss';
 
 function NotFoundPage(): JSX.Element {
   const { t } = useTranslation();
 
   return (
-    <Center py={rem(100)}>
-      <Title order={2}>{t('not_found_page')}</Title>
-    </Center>
+    <Container size='responsive'>
+      <Stack align='center' py={rem(100)} className={classes.page}>
+        <NotFoundLogo />
+        <Title order={2}>{t('not_found_page')}</Title>
+      </Stack>
+    </Container>
   );
 }
 

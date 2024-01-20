@@ -1,22 +1,35 @@
 import { Box, SimpleGrid } from '@mantine/core';
 import { useAppSelector } from 'store/hooks';
+import { CardSkeleton, ErrorBox } from 'components';
 import CompanyCard from './CompanyCard';
 import {
   selectCompanies,
-  // selectIsLoading
+  selectCompaniesIsLoading,
+  selectCompaniesError,
 } from '../../companiesSlice';
 
 export default function Companies() {
   const companies = useAppSelector(selectCompanies);
-  // const isLoading = useAppSelector(selectIsLoading);
+  const loading = useAppSelector(selectCompaniesIsLoading);
+  const error = useAppSelector(selectCompaniesError);
+
+  const skeletons = Array.from({ length: 6 }, (_, i) => (
+    <CardSkeleton key={i} />
+  ));
 
   return (
     <Box component='section'>
-      <SimpleGrid cols={4} py={12}>
-        {companies.map((company) => (
-          <CompanyCard key={company._id} company={company} />
-        ))}
-      </SimpleGrid>
+      {error ? (
+        <ErrorBox msg={error} />
+      ) : (
+        <SimpleGrid cols={5}>
+          {loading
+            ? skeletons
+            : companies.map((company) => (
+                <CompanyCard key={company._id} company={company} />
+              ))}
+        </SimpleGrid>
+      )}
     </Box>
   );
 }

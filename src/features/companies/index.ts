@@ -11,6 +11,9 @@ export { getCompanies, getCompanyById } from './services';
 // selectors
 export {
   selectCompanies,
-  selectCurrentCompany,
-  selectIsLoading,
+  selectCompaniesIsLoading,
+  selectCompaniesError,
+  selectCompany,
+  selectCompanyIsLoading,
+  selectCompanyError,
 } from './companiesSlice';

@@ -9,3 +9,5 @@ export { PageLoader } from './PageLoader';
 export { StillWork } from './StillWork';
 export { AuthTemplate } from './AuthTemplate';
 export { Editor } from './Editor';
+export { CardSkeleton } from './CardSkeleton';
+export { ErrorBox } from './ErrorBox';

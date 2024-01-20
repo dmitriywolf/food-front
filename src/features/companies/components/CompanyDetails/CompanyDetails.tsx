@@ -36,11 +36,15 @@ import {
 } from 'shared/constants';
 import { JobCard } from 'features/jobs';
 import { DocItem } from 'features/docs';
-import { selectCurrentCompany } from '../../companiesSlice';
+import {
+  selectCompany,
+  selectCompanyIsLoading,
+  selectCompanyError,
+} from '../../companiesSlice';
 import classes from './CompanyDetails.module.scss';
 
 export default function CompanyDetails() {
-  const { data, jobs, docs } = useAppSelector(selectCurrentCompany);
+  const { data, jobs, docs } = useAppSelector(selectCompany);
 
   const {
     avatar,
