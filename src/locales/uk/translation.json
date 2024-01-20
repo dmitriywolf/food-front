@@ -59,5 +59,15 @@
   "views": "Перегляди",
   "applications": "Відгуки",
   "you_are_applied": "Ви відгукнулись",
-  "archived": "В архіві"
+  "archived": "В архіві",
+  "loading": "Завантаження",
+  "call": "Подзвонити",
+  "level": "Рівень",
+  "experience": "Досвід",
+  "ready_to_relocate": "Готовий до переїзду",
+  "employment": "Працевлаштування",
+  "i_do_not_consider": "Я не розглядаю",
+  "my_skills": "Мої навички",
+  "description": "Опис",
+  "years": "років"
 }

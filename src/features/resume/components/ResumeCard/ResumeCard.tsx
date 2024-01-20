@@ -1,7 +1,6 @@
 import {
   Card,
   Text,
-  Group,
   Badge,
   Image,
   Stack,
@@ -75,11 +74,9 @@ export default function ResumeCard({ resume }: ResumeCardProps) {
         </Box>
 
         <Stack gap={4} w='100%' className={classes.content}>
-          <Flex align='center' justify='space-between' w='100%'>
-            <Title order={3} c='primary'>
-              {position}, {salaryExpectations} $
-            </Title>
-          </Flex>
+          <Title order={3} c='primary'>
+            {position}, {salaryExpectations} $
+          </Title>
 
           <Text fz='lg'>
             {firstName} {lastName}

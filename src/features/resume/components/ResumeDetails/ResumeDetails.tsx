@@ -11,17 +11,18 @@ import {
   Image,
   Breadcrumbs,
   Divider,
+  rem,
 } from '@mantine/core';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ROUTES } from 'shared/routes';
 import { API_SERVER, DEFAULT_AVATAR } from 'shared/constants';
 import {
-  IconMailFilled,
+  IconMail,
   IconBrandLinkedin,
   IconPhone,
-  IconCoin,
   IconMapPin,
-  IconSquareCheckFilled,
+  IconCircleCheck,
   IconLanguage,
   IconChartDonut4,
   IconBrandSkype,
@@ -37,6 +38,7 @@ import { MakeChatButton } from 'features/chats';
 import { selectUser } from 'features/user';
 import { selectResume } from '../../resumeSlice';
 import { ISeekerAccount } from '../../../types';
+import classes from './ResumeDetails.module.scss';
 
 export default function ResumeDetails() {
   const user = useAppSelector(selectUser);
@@ -65,7 +67,6 @@ export default function ResumeDetails() {
     _id,
     avatar,
     email,
-    emailVerified,
     firstName,
     github,
     lastName,
@@ -78,11 +79,13 @@ export default function ResumeDetails() {
     telegram,
   } = owner as ISeekerAccount;
 
+  const { t } = useTranslation();
+
   const items = [
-    { title: 'Candidates', href: ROUTES.resumes },
+    { title: t('candidates'), href: ROUTES.resumes },
     { title: `${firstName} ${lastName}`, href: '#' },
   ].map((item) => (
-    <Anchor to={item.href} component={Link} key={item.title}>
+    <Anchor component={Link} to={item.href} key={item.title}>
       {item.title}
     </Anchor>
   ));
@@ -93,184 +96,176 @@ export default function ResumeDetails() {
 
       <Grid columns={4}>
         <Grid.Col span={3}>
-          <Card shadow='sm' padding='md' radius='md' withBorder>
-            <Stack gap={12}>
-              <Flex align='flex-start' justify='space-between'>
-                <Title>{position}</Title>
-                {updatedAt && <Badge color='grey'>{formatDT(updatedAt)}</Badge>}
+          {/* Resume */}
+          <Card shadow='sm' radius={0} className={classes.card}>
+            <Stack gap={rem(8)}>
+              <Flex justify='space-between'>
+                <Title>
+                  {position}, {salaryExpectations} $
+                </Title>
+                {updatedAt && (
+                  <Badge color='primary'>{formatDT(updatedAt)}</Badge>
+                )}
               </Flex>
 
-              <Flex align='center' gap={24}>
-                <Flex gap={10} align='center'>
-                  <IconCoin size={20} />
-                  <Text fw='bold' c='cyan'>
-                    {salaryExpectations} $
-                  </Text>
-                </Flex>
+              <Flex gap={rem(8)} align='center'>
+                <IconMapPin size={20} />
+                <Text>
+                  {country}, {city}
+                </Text>
+              </Flex>
 
-                <Flex gap={10} align='center'>
+              <Flex align='center' gap={rem(16)}>
+                <Flex gap={rem(8)} align='center'>
                   <IconChartBar size={20} />
-                  <Text fw='bold'>{experienceLevel}</Text>
-                </Flex>
-              </Flex>
-
-              <Flex align='center' gap={24}>
-                <Flex gap={10} align='center'>
-                  <IconMapPin size={20} />
                   <Text>
-                    {country}, {city}
+                    {t('level')}: {experienceLevel}
                   </Text>
                 </Flex>
+
+                <Flex gap={rem(8)} align='center'>
+                  <IconCircleCheck size={20} />
+                  <Text>
+                    {t('experience')}: {workExperience} {t('years')}
+                  </Text>
+                </Flex>
+
+                <Flex gap={rem(8)} align='center'>
+                  <IconLanguage size={20} />
+                  <Text>English: {englishLevel}</Text>
+                </Flex>
               </Flex>
 
-              <Flex align='center' gap={24}>
-                <Flex gap={10} align='center'>
+              <Flex align='center' gap={rem(16)}>
+                <Flex gap={rem(8)} align='center'>
                   <IconChartDonut4 size={20} />
                   <Text>{category}</Text>
                 </Flex>
 
                 {relocation && (
-                  <Flex gap={10} align='center'>
+                  <Flex gap={rem(8)} align='center'>
                     <IconSquareCheck size={20} />
-                    <Text>Ready to relocate</Text>
+                    <Text>{t('ready_to_relocate')}</Text>
                   </Flex>
                 )}
               </Flex>
 
-              <Flex align='center' gap={24}>
-                <Flex gap={10} align='center'>
-                  <IconSquareCheckFilled size={20} />
-                  <Text>Experience: {workExperience} years</Text>
-                </Flex>
-
-                <Flex gap={10} align='center'>
-                  <IconLanguage size={20} />
-                  <Text>{englishLevel}</Text>
-                </Flex>
-              </Flex>
-
-              <Flex gap={8}>
-                <Text>Employment:</Text>
+              <Flex gap={rem(8)}>
+                <Text>{t('employment')}:</Text>
                 <Flex align='center' gap={12} wrap='wrap'>
                   {employment.map((e) => (
-                    <Badge key={e} color='blue'>
+                    <Badge key={e} color='blue' tt='none'>
                       {e}
                     </Badge>
                   ))}
                 </Flex>
               </Flex>
 
-              <Flex gap={8}>
-                <Text>I do not consider:</Text>
-                <Flex align='center' gap={12} wrap='wrap'>
+              <Flex gap={rem(8)}>
+                <Text>{t('i_do_not_consider')}:</Text>
+                <Flex align='center' gap={rem(8)} wrap='wrap'>
                   {dontConsider.map((e) => (
-                    <Badge key={e} color='gray'>
+                    <Badge key={e} color='dark' tt='none'>
                       {e}
                     </Badge>
                   ))}
                 </Flex>
               </Flex>
 
-              <Flex gap={8}>
-                <Text>My skills:</Text>
-                <Flex align='center' gap={12} wrap='wrap'>
+              <Flex gap={rem(2)} direction='column'>
+                <Text>{t('my_skills')}:</Text>
+                <Flex align='center' gap={rem(8)} wrap='wrap'>
                   {skills.map((skill) => (
-                    <Badge key={skill} color='cyan'>
+                    <Badge key={skill} color='primary' tt='none'>
                       {skill}
                     </Badge>
                   ))}
                 </Flex>
               </Flex>
 
-              <Divider />
-              <div dangerouslySetInnerHTML={{ __html: summary }} />
+              <Divider my={rem(8)} />
+
+              <Stack gap={rem(8)}>
+                <Text>{t('description')}:</Text>
+                <div dangerouslySetInnerHTML={{ __html: summary }} />
+              </Stack>
             </Stack>
           </Card>
         </Grid.Col>
 
+        {/* Seeker Card */}
         <Grid.Col span={1}>
-          <Card shadow='sm' padding='md' radius='md' withBorder>
-            <Card.Section>
+          <Card shadow='sm' radius={0} className={classes.card}>
+            <Card.Section className={classes.avatarBox}>
               <Image
                 fallbackSrc={DEFAULT_AVATAR}
                 src={`${API_SERVER}/${avatar}`}
                 w='100%'
                 h={250}
-                radius='md'
               />
+              <Badge
+                className={classes.badge}
+                color={searchStatus ? 'green' : 'gray'}
+              >
+                {searchStatus ? t('active_search') : t('passive_search')}
+              </Badge>
             </Card.Section>
-            <Stack gap={12} pt={24}>
+
+            <Stack gap={rem(12)} pt={rem(12)}>
               <Group>
                 <Title order={2}>
                   {firstName} {lastName}
                 </Title>
               </Group>
 
-              <Group gap={8}>
-                <Badge color={emailVerified ? 'teal' : 'pink'}>
-                  {emailVerified ? 'Verified' : 'Unverified'}
-                </Badge>
-
-                <Badge color={searchStatus ? 'green' : 'red'}>
-                  {searchStatus ? 'Active search' : 'Passive search'}
-                </Badge>
-              </Group>
-
-              <Group gap={8}>
-                <Flex gap={8}>
-                  <IconMailFilled />
-                  <Anchor href={`mailto:${email}`} c='teal'>
-                    Mail
-                  </Anchor>
+              <Group gap={rem(12)}>
+                <Flex gap={rem(8)}>
+                  <IconMail stroke='secondary' />
+                  <Anchor href={`mailto:${email}`}>E-Mail</Anchor>
                 </Flex>
+
                 {phone && (
-                  <Flex gap={8}>
-                    <IconPhone />
-                    <Anchor href={`tel:${phone}`} c='teal'>
-                      Call
-                    </Anchor>
+                  <Flex gap={rem(8)}>
+                    <IconPhone stroke='secondary' />
+                    <Anchor href={`tel:${phone}`}>{t('call')}</Anchor>
                   </Flex>
                 )}
-              </Group>
 
-              <Group gap={8}>
                 {linkedin && (
-                  <Flex gap={8}>
-                    <IconBrandLinkedin />
-                    <Anchor href={linkedin} c='teal'>
-                      LinkedIn
-                    </Anchor>
+                  <Flex gap={rem(8)}>
+                    <IconBrandLinkedin stroke='secondary' />
+                    <Anchor href={linkedin}>LinkedIn</Anchor>
                   </Flex>
                 )}
 
                 {telegram && (
-                  <Flex gap={8}>
-                    <IconBrandTelegram />
-                    <Anchor href={telegram} c='teal'>
-                      Telegram
-                    </Anchor>
+                  <Flex gap={rem(8)}>
+                    <IconBrandTelegram stroke='secondary' />
+                    <Anchor href={telegram}>Telegram</Anchor>
                   </Flex>
                 )}
 
                 {skype && (
-                  <Flex gap={8}>
-                    <IconBrandSkype />
-                    <Text c='teal'>{skype}</Text>
+                  <Flex gap={rem(8)}>
+                    <IconBrandSkype stroke='secondary' />
+                    <Text c='secondary'>{skype}</Text>
                   </Flex>
                 )}
               </Group>
 
-              <Group gap={8}>
+              <Divider />
+
+              <Group gap={rem(8)}>
                 {github && (
-                  <Flex gap={8}>
-                    <IconBrandGithub />
+                  <Flex gap={rem(8)}>
+                    <IconBrandGithub stroke='secondary' />
                     <Anchor href={github}>{github}</Anchor>
                   </Flex>
                 )}
 
                 {portfolio && (
-                  <Flex gap={8}>
-                    <IconUserCode />
+                  <Flex gap={rem(8)}>
+                    <IconUserCode stroke='secondary' />
                     <Anchor href={portfolio}>{portfolio}</Anchor>
                   </Flex>
                 )}

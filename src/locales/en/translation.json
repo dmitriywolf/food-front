@@ -59,5 +59,15 @@
   "views": "Views",
   "applications": "Applications",
   "you_are_applied": "You are applied",
-  "archived": "Archived"
+  "archived": "Archived",
+  "loading": "Loading",
+  "call": "Call",
+  "level": "Level",
+  "experience": "Experience",
+  "ready_to_relocate": "Ready to relocate",
+  "employment": "Employment",
+  "i_do_not_consider": "I do not consider",
+  "my_skills": "My skills",
+  "description": "Description",
+  "years": "years"
 }

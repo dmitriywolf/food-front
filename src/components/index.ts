@@ -11,3 +11,4 @@ export { AuthTemplate } from './AuthTemplate';
 export { Editor } from './Editor';
 export { CardSkeleton } from './CardSkeleton';
 export { ErrorBox } from './ErrorBox';
+export { LoaderBox } from './LoaderBox';

@@ -85,13 +85,13 @@ export default function JobCard({ job }: JobCardProps) {
           <Flex gap={rem(8)} align='center'>
             <Text c='secondary'>
               {t('views')}:{' '}
-              <Text span c='primary' fw='bold'>
+              <Text span fw='bold'>
                 {viewsCount}
               </Text>
             </Text>
             <Text c='secondary'>
               {t('applications')}:{' '}
-              <Text span c='primary' fw='bold'>
+              <Text span fw='bold'>
                 {applications.length}
               </Text>
             </Text>
