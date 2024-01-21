@@ -96,7 +96,7 @@ export default function SeekerProfile() {
       <Group justify='end'>
         {seeker?.updatedAt && (
           <Badge color='primary' className={classes.badge}>
-            {t('updated')}: {formatDT(seeker?.updatedAt)}
+            {t('updated')}: {formatDT(seeker.updatedAt, true)}
           </Badge>
         )}
         <Badge

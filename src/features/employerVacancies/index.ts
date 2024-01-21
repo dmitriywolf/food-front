@@ -9,8 +9,10 @@ export { getVacancies, createVacancy } from './services';
 
 // selectors
 export {
-  selectIsLoading,
-  selectError,
-  selectCurrentVacancy,
+  selectVacanciesIsLoading,
+  selectVacanciesError,
   selectVacancies,
+  selectVacancyIsLoading,
+  selectVacancyError,
+  selectVacancy,
 } from './employerVacanciesSlice';

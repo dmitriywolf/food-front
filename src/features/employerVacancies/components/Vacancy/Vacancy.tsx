@@ -30,8 +30,8 @@ import {
 } from 'shared/constants';
 import { Editor } from 'components';
 import {
-  selectIsLoading,
-  selectCurrentVacancy,
+  selectVacancyIsLoading,
+  selectVacancy,
 } from '../../employerVacanciesSlice';
 
 import { createVacancy, updateVacancy } from '../../services';
@@ -59,8 +59,8 @@ const INITIAL_VALUES = {
 export default function Vacancy() {
   const dispatch = useAppDispatch();
 
-  const vacancy = useAppSelector(selectCurrentVacancy);
-  const isLoading = useAppSelector(selectIsLoading);
+  const vacancy = useAppSelector(selectVacancy);
+  const isLoading = useAppSelector(selectVacancyIsLoading);
 
   const { onSubmit, getInputProps, setValues, values, setFieldValue } =
     useForm<VacancyFormValues>({

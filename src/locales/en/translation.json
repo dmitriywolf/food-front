@@ -99,5 +99,11 @@
   "offices": "Offices",
   "company_dou_page": "Company DOU page",
   "company_description": "Company description",
-  "you_have_no_applications_yet": "You have no applications yet"
+  "you_have_no_applications_yet": "You have no applications yet",
+  "you_have_no_vacancies_yet": "You have no vacancies yet",
+  "domain": "Domain",
+  "category": "Category",
+  "company_type": "Company type",
+  "less": "Less",
+  "more": "More"
 }

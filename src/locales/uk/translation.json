@@ -99,5 +99,11 @@
   "offices": "Офіси",
   "company_dou_page": "Сторінка компанії на DOU",
   "company_description": "Опис компанії",
-  "you_have_no_applications_yet": "У вас ще немає відгуків"
+  "you_have_no_applications_yet": "У вас ще немає відгуків",
+  "you_have_no_vacancies_yet": "У Вас ще нема вакансій",
+  "domain": "Домен",
+  "category": "Категорія",
+  "company_type": "Тип компанії",
+  "less": "Менше",
+  "more": "Більше"
 }

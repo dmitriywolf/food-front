@@ -92,7 +92,7 @@ export default function EmployerProfile() {
       <Group justify='end'>
         {employer?.updatedAt && (
           <Badge color='primary' className={classes.badge}>
-            {t('updated')}: {formatDT(employer?.updatedAt)}
+            {t('updated')}: {formatDT(employer.updatedAt, true)}
           </Badge>
         )}
       </Group>
