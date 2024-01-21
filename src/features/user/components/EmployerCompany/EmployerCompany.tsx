@@ -22,7 +22,7 @@ import { useForm, zodResolver } from '@mantine/form';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { notifications } from '@mantine/notifications';
 import { API_SERVER, DEFAULT_AVATAR } from 'shared/constants';
-import { selectUser, selectIsLoading } from '../../userSlice';
+import { selectUser, selectUserIsLoading } from '../../userSlice';
 import { userEditCompany } from '../../service';
 
 import type { IEmployerCompanyFormValues } from './types';
@@ -35,7 +35,7 @@ export default function EmployerCompany() {
 
   const employer = useAppSelector(selectUser) as IEmployerAccount;
 
-  const isLoading = useAppSelector(selectIsLoading);
+  const isLoading = useAppSelector(selectUserIsLoading);
 
   const { getInputProps, onSubmit, setFieldValue } =
     useForm<IEmployerCompanyFormValues>({

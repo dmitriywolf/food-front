@@ -7,7 +7,7 @@ import { ROUTES } from 'shared/routes';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { AuthTemplate } from 'components';
 import { userRegister } from '../../service';
-import { selectIsLoading } from '../../userSlice';
+import { selectAuthIsLoading } from '../../userSlice';
 
 import SignUpForm from './SignUpForm';
 import type { SignUpFormValues } from './types';
@@ -18,7 +18,7 @@ export default function SignUp() {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector(selectIsLoading);
+  const isLoading = useAppSelector(selectAuthIsLoading);
 
   const signupHanlder = async (values: SignUpFormValues) => {
     const { firstName, lastName, email, password, role } = values;

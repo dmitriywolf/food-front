@@ -5,7 +5,7 @@ import { notifications } from '@mantine/notifications';
 import { ROUTES } from 'shared/routes';
 import { AuthTemplate } from 'components';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { selectIsLoading } from '../../userSlice';
+import { selectAuthIsLoading } from '../../userSlice';
 import { userResetPassword } from '../../service';
 
 import ResetPasswordForm from './ResetPasswordForm';
@@ -17,7 +17,7 @@ export default function ResetPassword() {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector(selectIsLoading);
+  const isLoading = useAppSelector(selectAuthIsLoading);
 
   const submitHanlder = async (values: ResetPasswordFormValues) => {
     if (!code) return;

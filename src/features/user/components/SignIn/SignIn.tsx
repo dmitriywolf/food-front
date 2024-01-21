@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { ROUTES } from 'shared/routes';
 import { AuthTemplate } from 'components';
 import { userLogin } from '../../service';
-import { selectIsLoading } from '../../userSlice';
+import { selectAuthIsLoading } from '../../userSlice';
 
 import SignInForm from './SignInForm';
 import type { SignInFormValues } from './types';
@@ -15,7 +15,7 @@ export default function SignIn() {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector(selectIsLoading);
+  const isLoading = useAppSelector(selectAuthIsLoading);
 
   const signupHanlder = async (values: SignInFormValues) => {
     const { email, password } = values;

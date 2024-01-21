@@ -24,7 +24,7 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { notifications } from '@mantine/notifications';
 import { API_SERVER, DEFAULT_AVATAR } from 'shared/constants';
 import { formatDT } from 'shared/utils';
-import { selectUser, selectIsLoading } from '../../userSlice';
+import { selectUser, selectUserIsLoading } from '../../userSlice';
 import { userEditEmployer } from '../../service';
 
 import type { IEmployerProfileFormValues } from './types';
@@ -38,7 +38,7 @@ export default function EmployerProfile() {
 
   const employer = useAppSelector(selectUser) as IEmployerAccount;
 
-  const isLoading = useAppSelector(selectIsLoading);
+  const isLoading = useAppSelector(selectUserIsLoading);
 
   const { getInputProps, onSubmit, setFieldValue } =
     useForm<IEmployerProfileFormValues>({

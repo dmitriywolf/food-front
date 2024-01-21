@@ -26,7 +26,7 @@ import {
 import { notifications } from '@mantine/notifications';
 import { formatDT } from 'shared/utils';
 import { API_SERVER, DEFAULT_AVATAR } from 'shared/constants';
-import { selectUser, selectIsLoading } from '../../userSlice';
+import { selectUser, selectUserIsLoading } from '../../userSlice';
 import { userEditSeeker } from '../../service';
 
 import type { SeekerProfileFormValues } from './types';
@@ -39,7 +39,7 @@ export default function SeekerProfile() {
   const dispatch = useAppDispatch();
 
   const seeker = useAppSelector(selectUser) as ISeekerAccount;
-  const isLoading = useAppSelector(selectIsLoading);
+  const isLoading = useAppSelector(selectUserIsLoading);
 
   const { getInputProps, onSubmit, setFieldValue } =
     useForm<SeekerProfileFormValues>({

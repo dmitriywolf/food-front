@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { AuthTemplate } from 'components';
-import { selectIsLoading } from '../../userSlice';
+import { selectAuthIsLoading } from '../../userSlice';
 import { userForgotPassword } from '../../service';
 import type { ForgotPasswordFormValues } from './types';
 
@@ -15,7 +15,7 @@ export default function ForgotPassword() {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector(selectIsLoading);
+  const isLoading = useAppSelector(selectAuthIsLoading);
 
   const forgotPasswordHanlder = async (values: ForgotPasswordFormValues) => {
     const { email } = values;

@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { ROUTES } from 'shared/routes';
 import { PageLoader } from 'components';
 import { userVerifyEmail } from '../../service';
-import { selectIsLoading, selectError } from '../../userSlice';
+import { selectAuthIsLoading, selectAuthError } from '../../userSlice';
 
 export default function VerifyEmail() {
   const { code = '' } = useParams();
@@ -16,8 +16,8 @@ export default function VerifyEmail() {
 
   const dispatch = useAppDispatch();
 
-  const isLoading = useAppSelector(selectIsLoading);
-  const verifyError = useAppSelector(selectError);
+  const isLoading = useAppSelector(selectAuthIsLoading);
+  const verifyError = useAppSelector(selectAuthError);
 
   const verifyHandler = useCallback(async () => {
     if (!code) return;

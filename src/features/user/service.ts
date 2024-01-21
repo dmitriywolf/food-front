@@ -86,7 +86,7 @@ export const userVerifyEmail = createAsyncThunk(
   {
     condition: (_, { getState }) => {
       const { user } = getState() as RootState;
-      if (user.loading) {
+      if (user.authIsLoading) {
         return false;
       }
       return true;
@@ -157,7 +157,7 @@ export const userGetProfile = createAsyncThunk(
   {
     condition: (_, { getState }) => {
       const { user } = getState() as RootState;
-      if (user.loading) {
+      if (user.userIsLoading) {
         return false;
       }
       return true;
