@@ -19,8 +19,8 @@ import { notifications } from '@mantine/notifications';
 
 import {
   resetCurrentDoc,
-  selectCurrentDoc,
-  selectIsLoading,
+  selectDocument,
+  selectDocumentIsLoading,
 } from '../../docsSlice';
 import { createDoc, editDoc } from '../../services';
 import { documentSchema } from './schema';
@@ -43,9 +43,9 @@ export default function Doc() {
     title,
     url,
     filename,
-  } = useAppSelector(selectCurrentDoc);
+  } = useAppSelector(selectDocument);
 
-  const isLoading = useAppSelector(selectIsLoading);
+  const isLoading = useAppSelector(selectDocumentIsLoading);
 
   const EDIT_VALUES = useMemo(
     () => ({

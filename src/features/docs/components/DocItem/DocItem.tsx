@@ -20,7 +20,7 @@ import { API_SERVER } from 'shared/constants';
 import { deleteDoc } from '../../services';
 import {
   setCurrentDoc,
-  selectCurrentDoc,
+  selectDocument,
   resetCurrentDoc,
 } from '../../docsSlice';
 import { IDoc } from '../../../types';
@@ -38,7 +38,7 @@ export default function DocItem({
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const { _id, size, title, type, updatedAt, url, filename } = document;
 
-  const currentDoc = useAppSelector(selectCurrentDoc);
+  const currentDoc = useAppSelector(selectDocument);
 
   const dispatch = useAppDispatch();
 

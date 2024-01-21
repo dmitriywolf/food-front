@@ -1,25 +1,49 @@
 import { useEffect } from 'react';
-import { Stack } from '@mantine/core';
+import { Box, Title, Stack } from '@mantine/core';
+import { CardSkeleton, ErrorBox } from 'components';
+import { useTranslation } from 'react-i18next';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 
-import { selectDocs } from '../../docsSlice';
+import {
+  selectDocs,
+  selectDocsError,
+  selectDocsIsLoading,
+} from '../../docsSlice';
 import { getCompanyDocs } from '../../services';
 import { DocItem } from '../DocItem';
 
 export default function DocsList() {
   const dispatch = useAppDispatch();
 
+  const { t } = useTranslation();
+
   const docs = useAppSelector(selectDocs);
+  const loading = useAppSelector(selectDocsIsLoading);
+  const error = useAppSelector(selectDocsError);
+
+  const skeletons = Array.from({ length: 3 }, (_, i) => (
+    <CardSkeleton key={i} horizontal />
+  ));
 
   useEffect(() => {
     dispatch(getCompanyDocs());
   }, [dispatch]);
 
   return (
-    <Stack gap={4}>
-      {docs.map((d) => (
-        <DocItem key={d._id} document={d} showControls />
-      ))}
-    </Stack>
+    <Box component='section'>
+      {error ? (
+        <ErrorBox msg={error} />
+      ) : (
+        <Stack>
+          {loading ? (
+            skeletons
+          ) : docs?.length > 0 ? (
+            docs.map((d) => <DocItem key={d._id} document={d} showControls />)
+          ) : (
+            <Title order={2}>{t('you_have_no_docs_yet')}</Title>
+          )}
+        </Stack>
+      )}
+    </Box>
   );
 }

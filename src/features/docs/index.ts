@@ -10,10 +10,10 @@ export { getCompanyDocs, createDoc, editDoc, deleteDoc } from './services';
 
 // selectors & actions
 export {
-  selectIsLoading,
-  selectError,
   selectDocs,
-  selectCurrentDoc,
-  setCurrentDoc,
+  selectDocsIsLoading,
+  selectDocsError,
+  selectDocument,
+  selectDocumentIsLoading,
   resetCurrentDoc,
 } from './docsSlice';
