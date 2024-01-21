@@ -85,7 +85,9 @@ export default function ResumeCard({ resume }: ResumeCardProps) {
           <Flex gap={rem(16)}>
             <Flex gap={6} align='center'>
               <IconCrown stroke='secondary' size={18} />
-              <Text c='secondary'>{workExperience} years</Text>
+              <Text c='secondary'>
+                {workExperience} {t('years')}
+              </Text>
             </Flex>
 
             <Flex gap={6} align='center'>

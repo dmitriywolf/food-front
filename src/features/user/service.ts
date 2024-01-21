@@ -157,7 +157,7 @@ export const userGetProfile = createAsyncThunk(
   {
     condition: (_, { getState }) => {
       const { user } = getState() as RootState;
-      if (user.userIsLoading) {
+      if (user.getProfileIsLoading) {
         return false;
       }
       return true;

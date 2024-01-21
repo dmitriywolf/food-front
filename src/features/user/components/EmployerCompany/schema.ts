@@ -1,8 +1,9 @@
 import { z } from 'zod';
-import { i18n } from 'shared/i18n';
 
 export const employerCompanySchema = z.object({
-  companyName: z.string().min(2, {
-    message: i18n.t('sv_first_name_should_have_at_least_2_letters'),
-  }),
+  companyName: z.string().min(2),
+  companyWebSite: z.string().min(3),
+  companyEmployeesCount: z.number(),
+  companyOffices: z.string().min(2),
+  companyDescription: z.string().min(6),
 });

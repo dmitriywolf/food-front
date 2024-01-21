@@ -12,7 +12,9 @@ import {
   Group,
   FileButton,
   Center,
+  rem,
 } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import {
@@ -32,14 +34,17 @@ import { userEditSeeker } from '../../service';
 import type { SeekerProfileFormValues } from './types';
 import { seekerProfileSchema } from './schema';
 import { ISeekerAccount } from '../../../types';
+import classes from './SeekerProfile.module.scss';
 
 export default function SeekerProfile() {
   const [preview, setPreview] = useState('');
 
+  const { t } = useTranslation();
+
   const dispatch = useAppDispatch();
 
   const seeker = useAppSelector(selectUser) as ISeekerAccount;
-  const isLoading = useAppSelector(selectUserIsLoading);
+  const loading = useAppSelector(selectUserIsLoading);
 
   const { getInputProps, onSubmit, setFieldValue } =
     useForm<SeekerProfileFormValues>({
@@ -66,13 +71,13 @@ export default function SeekerProfile() {
 
       notifications.show({
         color: 'green',
-        title: 'Edit user info',
-        message: 'User data has updated successful',
+        title: t('update_profile'),
+        message: t('user_data_has_updated_successful'),
       });
     } catch (error: unknown) {
       notifications.show({
         color: 'red',
-        title: 'Edit user info',
+        title: t('update_profile'),
         message: error as string,
       });
     }
@@ -82,31 +87,31 @@ export default function SeekerProfile() {
     if (file) {
       setFieldValue('image', file);
       const imageUrl = URL.createObjectURL(file);
-
       setPreview(imageUrl);
     }
   };
 
-  const isResume = seeker?.createdAt !== seeker?.updatedAt;
-  const isActiveSearch = !!seeker?.searchStatus;
-
   return (
-    <Stack gap={24}>
+    <Stack gap={rem(24)}>
       <Group justify='end'>
-        {isResume && (
-          <Badge color='tomato'>Updated: {formatDT(seeker?.updatedAt)}</Badge>
+        {seeker?.updatedAt && (
+          <Badge color='primary' className={classes.badge}>
+            {t('updated')}: {formatDT(seeker?.updatedAt)}
+          </Badge>
         )}
-        <Badge color={isActiveSearch ? 'green' : 'gray'}>
-          {isActiveSearch ? 'Active search' : 'Passive search'}
+        <Badge
+          color={seeker?.searchStatus ? 'green' : 'gray'}
+          className={classes.badge}
+        >
+          {seeker?.searchStatus ? t('active_search') : t('passive_search')}
         </Badge>
       </Group>
-      <Card shadow='sm' padding='md' radius='md' withBorder>
+      <Card shadow='sm' radius={0} className={classes.card}>
         <Box component='form' w='100%' onSubmit={onSubmit(submitHandler)}>
-          <Flex gap={24}>
-            <Stack gap={12}>
+          <Flex gap={rem(24)}>
+            <Stack gap={rem(12)}>
               <Center w={200} h={200}>
                 <Image
-                  radius='md'
                   fallbackSrc={DEFAULT_AVATAR}
                   src={preview || `${API_SERVER}/${seeker?.avatar}`}
                   w={200}
@@ -120,20 +125,19 @@ export default function SeekerProfile() {
               >
                 {(props) => (
                   <Button {...props} variant='outline'>
-                    Upload Avatar
+                    {t('upload_avatar')}
                   </Button>
                 )}
               </FileButton>
             </Stack>
-
-            <Stack gap={12} w='100%'>
+            <Stack gap={rem(12)} w='100%'>
               <TextInput
-                label='First Name'
+                label={t('first_name')}
                 leftSection={<IconUser size={16} />}
                 {...getInputProps('firstName')}
               />
               <TextInput
-                label='Last Name'
+                label={t('last_name')}
                 leftSection={<IconUser size={16} />}
                 {...getInputProps('lastName')}
               />
@@ -144,25 +148,25 @@ export default function SeekerProfile() {
                 {...getInputProps('email')}
               />
               <TextInput
-                label='Phone'
+                label={t('phone')}
                 leftSection={<IconPhone size={16} />}
                 placeholder='+3780'
                 {...getInputProps('phone')}
               />
               <TextInput
-                label='LinkedIn page'
+                label={`LinkedIn ${t('page')}`}
                 leftSection={<IconWorldWww size={16} />}
                 placeholder='https://www.linkedin.com/'
                 {...getInputProps('linkedin')}
               />
               <TextInput
-                label='GitHub page'
+                label={`GitHub ${t('page')}`}
                 leftSection={<IconWorldWww size={16} />}
                 placeholder='https://github.com/'
                 {...getInputProps('github')}
               />
               <TextInput
-                label='Portfolio page'
+                label={t('portfolio_page')}
                 leftSection={<IconWorldWww size={16} />}
                 placeholder='https://'
                 {...getInputProps('portfolio')}
@@ -178,13 +182,12 @@ export default function SeekerProfile() {
                 placeholder='https://t.me/'
                 {...getInputProps('telegram')}
               />
-
               <Checkbox
-                label='Active search'
+                label={t('active_search')}
                 {...getInputProps('searchStatus', { type: 'checkbox' })}
               />
-              <Button type='submit' disabled={isLoading}>
-                Update profile
+              <Button type='submit' disabled={loading}>
+                {t('update_profile')}
               </Button>
             </Stack>
           </Flex>

@@ -1,4 +1,4 @@
-import { Box, Tabs, Container, Stack, Title } from '@mantine/core';
+import { Box, Tabs, Container, Stack, Title, rem } from '@mantine/core';
 import {
   IconFileCv,
   IconUserScan,
@@ -9,6 +9,7 @@ import {
   IconFileDots,
 } from '@tabler/icons-react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'store/hooks';
 import { ROLES } from 'shared/constants';
 import { Applications } from 'features/jobs';
@@ -33,6 +34,8 @@ function SeekerTabs() {
   const navigate = useNavigate();
   const { tab } = useParams();
 
+  const { t } = useTranslation();
+
   const navTab = `${ROUTES.account}/${tab}`;
 
   return (
@@ -40,16 +43,16 @@ function SeekerTabs() {
       <Tabs value={navTab} onChange={(value) => navigate(value!)}>
         <Tabs.List>
           <Tabs.Tab value={SEEKER_TABS.profile} leftSection={<IconUserScan />}>
-            Profile
+            {t('profile')}
           </Tabs.Tab>
           <Tabs.Tab value={SEEKER_TABS.resume} leftSection={<IconFileCv />}>
-            Resume
+            {t('resume')}
           </Tabs.Tab>
           <Tabs.Tab
             value={SEEKER_TABS.applications}
             leftSection={<IconListTree />}
           >
-            My applications
+            {t('my_applications')}
           </Tabs.Tab>
         </Tabs.List>
       </Tabs>
@@ -76,6 +79,8 @@ function EmployersTabs() {
   const navigate = useNavigate();
   const { tab } = useParams();
 
+  const { t } = useTranslation();
+
   const navTab = `${ROUTES.account}/${tab}`;
 
   return (
@@ -86,28 +91,28 @@ function EmployersTabs() {
             value={EMPLOYER_TABS.profile}
             leftSection={<IconUserScan />}
           >
-            Profile
+            {t('profile')}
           </Tabs.Tab>
           <Tabs.Tab
             value={EMPLOYER_TABS.company}
             leftSection={<IconBuilding />}
           >
-            Company
+            {t('company')}
           </Tabs.Tab>
           <Tabs.Tab
             value={EMPLOYER_TABS.companyDocs}
             leftSection={<IconFileDots />}
           >
-            Docs
+            {t('docs')}
           </Tabs.Tab>
           <Tabs.Tab
             value={EMPLOYER_TABS.vacancies}
             leftSection={<IconListCheck />}
           >
-            Vacancies
+            {t('vacancies')}
           </Tabs.Tab>
           <Tabs.Tab value={EMPLOYER_TABS.vacancy} leftSection={<IconEdit />}>
-            Create/Edit Vacancy
+            {t('create_edit_vacancy')}
           </Tabs.Tab>
         </Tabs.List>
       </Tabs>
@@ -130,7 +135,7 @@ function AccountPage() {
   return (
     <Box component='section'>
       <Container size='responsive'>
-        <Stack gap={24} py={24}>
+        <Stack gap={rem(16)} py={rem(16)}>
           <Title>
             {user?.firstName} {user?.lastName}
           </Title>

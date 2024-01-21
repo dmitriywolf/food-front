@@ -75,11 +75,19 @@ export const appRouter = () =>
         },
         {
           path: ROUTES.chats,
-          element: <ChatsPage />,
+          element: (
+            <GuestGuard>
+              <ChatsPage />
+            </GuestGuard>
+          ),
         },
         {
           path: ROUTES.chat,
-          element: <ChatsPage />,
+          element: (
+            <GuestGuard>
+              <ChatsPage />
+            </GuestGuard>
+          ),
         },
         // About pages
         {

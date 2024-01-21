@@ -11,7 +11,9 @@ import {
   Image,
   Center,
   FileButton,
+  rem,
 } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import {
   IconUser,
   IconMailFilled,
@@ -30,15 +32,17 @@ import { userEditEmployer } from '../../service';
 import type { IEmployerProfileFormValues } from './types';
 import { employerProfileSchema } from './schema';
 import type { IEmployerAccount } from '../../../types';
+import classes from './EmployerProfile.module.scss';
 
 export default function EmployerProfile() {
   const [preview, setPreview] = useState('');
 
+  const { t } = useTranslation();
+
   const dispatch = useAppDispatch();
 
   const employer = useAppSelector(selectUser) as IEmployerAccount;
-
-  const isLoading = useAppSelector(selectUserIsLoading);
+  const loading = useAppSelector(selectUserIsLoading);
 
   const { getInputProps, onSubmit, setFieldValue } =
     useForm<IEmployerProfileFormValues>({
@@ -63,13 +67,13 @@ export default function EmployerProfile() {
 
       notifications.show({
         color: 'green',
-        title: 'Edit user info',
-        message: 'User data has updated successful',
+        title: t('update_profile'),
+        message: t('user_data_has_updated_successful'),
       });
     } catch (error: unknown) {
       notifications.show({
         color: 'red',
-        title: 'Edit user info',
+        title: t('update_profile'),
         message: error as string,
       });
     }
@@ -79,62 +83,61 @@ export default function EmployerProfile() {
     if (file) {
       setFieldValue('image', file);
       const imageUrl = URL.createObjectURL(file);
-
       setPreview(imageUrl);
     }
   };
 
   return (
-    <Stack gap={24}>
+    <Stack gap={rem(24)}>
       <Group justify='end'>
-        <Badge color='gray'>Updated: {formatDT(employer?.updatedAt)}</Badge>
+        {employer?.updatedAt && (
+          <Badge color='primary' className={classes.badge}>
+            {t('updated')}: {formatDT(employer?.updatedAt)}
+          </Badge>
+        )}
       </Group>
 
-      <Card shadow='sm' padding='md' radius='md' withBorder>
+      <Card shadow='sm' radius={0} className={classes.card}>
         <Box component='form' w='100%' onSubmit={onSubmit(submitHandler)}>
-          <Flex gap={24}>
-            <Stack gap={12}>
+          <Flex gap={rem(24)}>
+            <Stack gap={rem(12)}>
               <Center w={200} h={200}>
                 <Image
-                  radius='md'
                   fallbackSrc={DEFAULT_AVATAR}
                   src={preview || `${API_SERVER}/${employer?.avatar}`}
                   w={200}
                   h={200}
                 />
               </Center>
-
               <FileButton
                 onChange={changeImageHandler}
                 accept='image/png,image/jpeg'
               >
                 {(props) => (
                   <Button {...props} variant='outline'>
-                    Upload Avatar
+                    {t('upload_avatar')}
                   </Button>
                 )}
               </FileButton>
             </Stack>
 
-            <Stack gap={12} w='100%'>
+            <Stack gap={rem(12)} w='100%'>
               <TextInput
-                label='First Name'
+                label={t('first_name')}
                 leftSection={<IconUser size={16} />}
                 {...getInputProps('firstName')}
               />
               <TextInput
-                label='Last Name'
+                label={t('last_name')}
                 leftSection={<IconUser size={16} />}
                 {...getInputProps('lastName')}
               />
-
               <TextInput
-                label='You position in company'
+                label={t('you_position_in_company')}
                 placeholder='HR'
                 leftSection={<IconBuilding size={16} />}
                 {...getInputProps('userPosition')}
               />
-
               <TextInput
                 label='Email'
                 leftSection={<IconMailFilled size={16} />}
@@ -142,21 +145,21 @@ export default function EmployerProfile() {
                 {...getInputProps('email')}
               />
               <TextInput
-                label='Phone'
+                label={t('phone')}
                 leftSection={<IconPhone size={16} />}
                 placeholder='+3780'
                 {...getInputProps('phone')}
               />
 
               <TextInput
-                label='LinkedIn profile'
+                label={`LinkedIn ${t('page')}`}
                 leftSection={<IconWorldWww size={16} />}
                 placeholder='https://www.linkedin.com/'
                 {...getInputProps('linkedin')}
               />
 
-              <Button type='submit' disabled={isLoading}>
-                Update profile
+              <Button type='submit' disabled={loading}>
+                {t('update_profile')}
               </Button>
             </Stack>
           </Flex>

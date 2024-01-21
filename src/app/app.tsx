@@ -9,7 +9,7 @@ import { PageLoader } from 'components';
 import { ErrorBoundary } from './ErrorBoundary';
 import { theme } from './theme';
 import { appRouter } from './appRoutes';
-import { SocketProvider } from './SocketProvider';
+// import { SocketProvider } from './SocketProvider';
 
 export default function App() {
   return (
@@ -19,9 +19,9 @@ export default function App() {
           <Authorization />
           <Notifications position='top-right' />
           <Suspense fallback={<PageLoader />}>
-            <SocketProvider>
-              <RouterProvider router={appRouter()} />
-            </SocketProvider>
+            {/* <SocketProvider> */}
+            <RouterProvider router={appRouter()} />
+            {/* </SocketProvider> */}
           </Suspense>
         </ErrorBoundary>
       </MantineProvider>

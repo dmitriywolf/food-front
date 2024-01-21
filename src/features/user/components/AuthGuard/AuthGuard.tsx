@@ -1,17 +1,28 @@
-import { type ReactElement } from 'react';
+import { useState, useEffect, type ReactElement } from 'react';
 import { Navigate } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
 import { useAppSelector } from 'store/hooks';
-import { selectIsAuthorized } from '../../userSlice';
+import { selectIsAuthorized, selectGetProfileIsLoading } from '../../userSlice';
 
 type AuthGuardProps = {
   children: ReactElement;
 };
 
 export default function AuthGuard({ children }: AuthGuardProps) {
+  const [mounted, setMounted] = useState(false);
+
+  const loading = useAppSelector(selectGetProfileIsLoading);
   const isAuthorized = useAppSelector(selectIsAuthorized);
 
-  if (isAuthorized) return <Navigate to={ROUTES.profile} />;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  return children;
+  if (mounted) {
+    if (isAuthorized) return <Navigate to={ROUTES.profile} />;
+
+    if (!isAuthorized && !loading) return children;
+  }
+
+  return null;
 }

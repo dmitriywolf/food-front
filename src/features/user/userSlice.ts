@@ -24,6 +24,10 @@ interface IUserState {
   userIsLoading: boolean;
   userError: string | null;
   userData: ISeekerAccount | IEmployerAccount | null;
+
+  // Get Profile
+  getProfileIsLoading: boolean;
+  getProfileError: string | null;
 }
 
 const initialState: IUserState = {
@@ -35,6 +39,10 @@ const initialState: IUserState = {
   userIsLoading: false,
   userError: null,
   userData: null,
+
+  // Get Profile
+  getProfileIsLoading: false,
+  getProfileError: null,
 };
 
 const userSlice = createSlice({
@@ -120,21 +128,21 @@ const userSlice = createSlice({
         state.authIsLoading = false;
         state.authError = null;
       })
-      // USERS
       // GET PROFILE
       .addCase(userGetProfile.pending, (state) => {
-        state.userIsLoading = true;
-        state.userError = null;
+        state.getProfileIsLoading = true;
+        state.getProfileError = null;
       })
       .addCase(userGetProfile.rejected, (state, action) => {
-        state.userIsLoading = false;
-        state.userError = action.payload as string;
+        state.getProfileIsLoading = false;
+        state.getProfileError = action.payload as string;
       })
       .addCase(userGetProfile.fulfilled, (state, action) => {
-        state.userIsLoading = false;
-        state.userError = null;
+        state.getProfileIsLoading = false;
+        state.getProfileError = null;
         state.userData = action.payload;
       })
+      // USER
       // EDIT SEEKER
       .addCase(userEditSeeker.pending, (state) => {
         state.userIsLoading = true;
@@ -188,6 +196,12 @@ export const { logout, setUser } = userSlice.actions;
 export const selectAuthIsLoading = (state: RootState) =>
   state.user.authIsLoading;
 export const selectAuthError = (state: RootState) => state.user.authError;
+
+// Get Profile
+export const selectGetProfileIsLoading = (state: RootState) =>
+  state.user.getProfileIsLoading;
+export const selectGetProfileError = (state: RootState) =>
+  state.user.getProfileError;
 
 // User
 export const selectUser = (state: RootState) => state.user.userData;
