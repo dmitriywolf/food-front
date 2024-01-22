@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Box,
   Card,
@@ -12,7 +13,9 @@ import {
   MultiSelect,
   Checkbox,
   Group,
+  rem,
 } from '@mantine/core';
+import { t } from 'i18next';
 import { IconMapPin } from '@tabler/icons-react';
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
@@ -32,10 +35,12 @@ import { Editor } from 'components';
 import {
   selectVacancyIsLoading,
   selectVacancy,
+  resetVacancy,
 } from '../../employerVacanciesSlice';
 
 import { createVacancy, updateVacancy } from '../../services';
 import { vacancySchema } from './schema';
+import classes from './Vacancy.module.scss';
 
 import type { VacancyFormValues } from './types';
 
@@ -93,13 +98,13 @@ export default function Vacancy() {
         setValues(INITIAL_VALUES);
         notifications.show({
           color: 'green',
-          title: 'Update vacancy',
-          message: 'Vacancy updated',
+          title: t('vacancy'),
+          message: t('vacancy_updated'),
         });
       } catch (error: unknown) {
         notifications.show({
           color: 'red',
-          title: 'Update vacncy',
+          title: t('vacancy'),
           message: error as string,
         });
       }
@@ -109,13 +114,13 @@ export default function Vacancy() {
         setValues(INITIAL_VALUES);
         notifications.show({
           color: 'green',
-          title: 'Create vacancy',
-          message: 'Vacancy created',
+          title: t('vacancy'),
+          message: t('vacancy_created'),
         });
       } catch (error: unknown) {
         notifications.show({
           color: 'red',
-          title: 'Create vacncy',
+          title: t('vacancy'),
           message: error as string,
         });
       }
@@ -126,159 +131,161 @@ export default function Vacancy() {
     setFieldValue('summary', v);
   };
 
+  useEffect(() => {
+    return () => {
+      dispatch(resetVacancy());
+    };
+  }, [dispatch]);
+
   return (
-    <Box component='section'>
-      <Card shadow='sm' padding='md' radius='md' withBorder>
-        <Box component='form' onSubmit={onSubmit(submitHandler)}>
-          <Stack gap={20}>
-            <TextInput
-              label='Position'
-              placeholder='Job position'
-              {...getInputProps('title')}
+    <Card className={classes.card}>
+      <Box component='form' onSubmit={onSubmit(submitHandler)}>
+        <Stack gap={rem(16)}>
+          <TextInput
+            label={t('job_position')}
+            placeholder={t('developer')}
+            {...getInputProps('title')}
+          />
+
+          <Select
+            label={t('domain')}
+            placeholder='Web'
+            value={values.domain}
+            data={DEV_DOMAINS}
+            onChange={(value) => setFieldValue('domain', value!)}
+          />
+
+          <Select
+            label={t('category')}
+            placeholder='Frontend'
+            value={values.category}
+            data={CATEGORIES}
+            onChange={(value) => setFieldValue('category', value!)}
+          />
+
+          <Radio.Group
+            value={values.companyType}
+            label={t('company_type')}
+            onChange={(value) => setFieldValue('companyType', value)}
+          >
+            <Flex gap={12} pt={8} pl={20}>
+              {COMPANY_TYPES.map((ct) => (
+                <Radio key={ct} value={ct} label={ct} />
+              ))}
+            </Flex>
+          </Radio.Group>
+
+          <Stack gap={4} pb={12}>
+            <Text size='sm' fw='bold' pb={8}>
+              {t('experience')} ({t('years')})
+            </Text>
+            <Slider
+              defaultValue={0}
+              min={0}
+              max={10}
+              label={(value) => `${value} ${t('years')}`}
+              step={0.5}
+              value={values.workExperience}
+              marks={EXPERIENCE_YEARS}
+              onChangeEnd={(value) => setFieldValue('workExperience', value)}
             />
-
-            <Select
-              label='Domain'
-              placeholder='Select domain'
-              value={values.domain}
-              data={DEV_DOMAINS}
-              onChange={(value) => setFieldValue('domain', value!)}
-            />
-
-            <Select
-              label='Category'
-              placeholder='Select category'
-              value={values.category}
-              data={CATEGORIES}
-              onChange={(value) => setFieldValue('category', value!)}
-            />
-
-            <Radio.Group
-              name='Company type'
-              value={values.companyType}
-              label='Company type'
-              onChange={(value) => setFieldValue('companyType', value)}
-            >
-              <Flex gap={12} pt={8} pl={20}>
-                {COMPANY_TYPES.map((t) => (
-                  <Radio key={t} value={t} label={t} />
-                ))}
-              </Flex>
-            </Radio.Group>
-
-            <Stack gap={4} pb={12}>
-              <Text size='sm' fw='bold' pb={8}>
-                Work experience (years)
-              </Text>
-              <Slider
-                defaultValue={0}
-                min={0}
-                max={10}
-                label={(value) => `${value} years`}
-                step={0.5}
-                value={values.workExperience}
-                marks={EXPERIENCE_YEARS}
-                onChangeEnd={(value) => setFieldValue('workExperience', value)}
-              />
-            </Stack>
-
-            <TextInput
-              label='Salary range, $'
-              placeholder='1000 - 2000 $'
-              {...getInputProps('salaryRange')}
-            />
-
-            <MultiSelect
-              label='Skills'
-              placeholder='Select skill'
-              value={values.skills}
-              data={SKILLS}
-              searchable
-              clearable
-              hidePickedOptions
-              onChange={(value) => setFieldValue('skills', value)}
-            />
-
-            <Select
-              label='Country'
-              placeholder='Select country'
-              value={values.country}
-              data={COUNTRIES}
-              searchable
-              clearable
-              onChange={(value) => setFieldValue('country', value!)}
-            />
-
-            <TextInput
-              label='City'
-              placeholder='City/Towm'
-              leftSection={<IconMapPin size={16} />}
-              {...getInputProps('city')}
-            />
-
-            <Radio.Group
-              name='experienceLevel'
-              value={values.experienceLevel}
-              label='Experience level'
-              onChange={(value) => setFieldValue('experienceLevel', value)}
-            >
-              <Stack gap={12} pt={8} pl={20}>
-                {EXPERIENCE_LEVELS.map((lv) => (
-                  <Radio key={lv} value={lv} label={lv} />
-                ))}
-              </Stack>
-            </Radio.Group>
-
-            <Stack gap={4}>
-              <Text size='sm' fw='bold' pb={8}>
-                Tell about position
-              </Text>
-              <Editor
-                content={values.summary}
-                placeholder='Please tell about this position'
-                onChange={onSummaryUpdate}
-              />
-            </Stack>
-
-            <Radio.Group
-              name='englishLevel'
-              value={values.englishLevel}
-              label='English level'
-              defaultValue={ENGLISH_LEVELS[0]}
-              onChange={(value) => setFieldValue('englishLevel', value)}
-            >
-              <Stack gap={12} pt={8} pl={20}>
-                {ENGLISH_LEVELS.map((lvl) => (
-                  <Radio key={lvl} value={lvl} label={lvl} />
-                ))}
-              </Stack>
-            </Radio.Group>
-
-            <Checkbox.Group
-              label='Employment'
-              value={values.employment}
-              onChange={(value) => setFieldValue('employment', value)}
-            >
-              <Group mt='xs'>
-                {EMPLOYMENT.map((e) => (
-                  <Checkbox key={e} label={e} value={e} />
-                ))}
-              </Group>
-            </Checkbox.Group>
-
-            {vacancy._id && (
-              <Checkbox
-                label='Arhive position'
-                {...getInputProps('isArchive', { type: 'checkbox' })}
-              />
-            )}
-
-            <Button type='submit' disabled={isLoading}>
-              {vacancy._id ? 'Update vacancy' : 'Create vacancy'}
-            </Button>
           </Stack>
-        </Box>
-      </Card>
-    </Box>
+
+          <TextInput
+            label={`${t('salary_range')}, $`}
+            placeholder='1000 - 2000 $'
+            {...getInputProps('salaryRange')}
+          />
+
+          <MultiSelect
+            label={t('required_skills')}
+            placeholder='js'
+            value={values.skills}
+            data={SKILLS}
+            searchable
+            clearable
+            hidePickedOptions
+            onChange={(value) => setFieldValue('skills', value)}
+          />
+
+          <Select
+            label={t('country')}
+            placeholder='USA'
+            value={values.country}
+            data={COUNTRIES}
+            searchable
+            clearable
+            onChange={(value) => setFieldValue('country', value!)}
+          />
+
+          <TextInput
+            label={t('city_town')}
+            placeholder='New York'
+            leftSection={<IconMapPin size={16} />}
+            {...getInputProps('city')}
+          />
+
+          <Radio.Group
+            value={values.experienceLevel}
+            label={t('level')}
+            onChange={(value) => setFieldValue('experienceLevel', value)}
+          >
+            <Stack gap={12} pt={8} pl={20}>
+              {EXPERIENCE_LEVELS.map((lv) => (
+                <Radio key={lv} value={lv} label={lv} />
+              ))}
+            </Stack>
+          </Radio.Group>
+
+          <Stack gap={4}>
+            <Text size='sm' fw='bold' pb={8}>
+              {t('more_details')}
+            </Text>
+            <Editor
+              content={values.summary}
+              placeholder=''
+              onChange={onSummaryUpdate}
+            />
+          </Stack>
+
+          <Radio.Group
+            name='englishLevel'
+            value={values.englishLevel}
+            label='English'
+            defaultValue={ENGLISH_LEVELS[0]}
+            onChange={(value) => setFieldValue('englishLevel', value)}
+          >
+            <Stack gap={12} pt={8} pl={20}>
+              {ENGLISH_LEVELS.map((lvl) => (
+                <Radio key={lvl} value={lvl} label={lvl} />
+              ))}
+            </Stack>
+          </Radio.Group>
+
+          <Checkbox.Group
+            label={t('employment')}
+            value={values.employment}
+            onChange={(value) => setFieldValue('employment', value)}
+          >
+            <Group mt='xs'>
+              {EMPLOYMENT.map((e) => (
+                <Checkbox key={e} label={e} value={e} />
+              ))}
+            </Group>
+          </Checkbox.Group>
+
+          {vacancy._id && (
+            <Checkbox
+              label={t('to_archive')}
+              {...getInputProps('isArchive', { type: 'checkbox' })}
+            />
+          )}
+
+          <Button type='submit' disabled={isLoading}>
+            {vacancy._id ? t('update_vacancy') : t('add_vacancy')}
+          </Button>
+        </Stack>
+      </Box>
+    </Card>
   );
 }

@@ -1,5 +1,14 @@
 import { Link } from 'react-router-dom';
-import { Group, Avatar, Text, Menu, UnstyledButton } from '@mantine/core';
+import {
+  Group,
+  Avatar,
+  Text,
+  Menu,
+  UnstyledButton,
+  Divider,
+  rem,
+} from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import {
   IconFileCv,
   IconUserScan,
@@ -19,64 +28,9 @@ import { ROUTES } from 'shared/routes';
 
 import { selectIsAuthorized, selectUser, logout } from '../../userSlice';
 
-const seekerConfig = [
-  {
-    title: 'My profile',
-    href: ROUTES.profile,
-    icon: <IconUserScan size={20} />,
-  },
-  {
-    title: 'Chats',
-    href: ROUTES.chats,
-    icon: <IconBrandHipchat size={20} />,
-  },
-  {
-    title: 'My resume',
-    href: ROUTES.profileResume,
-    icon: <IconFileCv size={20} />,
-  },
-  {
-    title: 'My applications',
-    href: ROUTES.profileApplications,
-    icon: <IconListTree size={20} />,
-  },
-];
-
-const employerConfig = [
-  {
-    title: 'My profile',
-    href: ROUTES.profile,
-    icon: <IconUserScan size={20} />,
-  },
-  {
-    title: 'Chats',
-    href: ROUTES.chats,
-    icon: <IconBrandHipchat size={20} />,
-  },
-  {
-    title: 'My company',
-    href: ROUTES.profileCompany,
-    icon: <IconBuilding size={20} />,
-  },
-  {
-    title: 'Company docs',
-    href: ROUTES.profileCompanyDocs,
-    icon: <IconFileDots size={20} />,
-  },
-  {
-    title: 'My vacancies',
-    href: ROUTES.profileVacancies,
-    icon: <IconListCheck size={20} />,
-  },
-  {
-    title: 'Create vacancy',
-    href: ROUTES.profileAddEditVacancy,
-    icon: <IconEdit size={20} />,
-  },
-];
-
 export default function ProfileMenu() {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   const isAuthorized = useAppSelector(selectIsAuthorized);
   const user = useAppSelector(selectUser);
@@ -84,6 +38,62 @@ export default function ProfileMenu() {
   const logoutHandler = () => {
     dispatch(logout());
   };
+
+  const seekerConfig = [
+    {
+      title: t('profile'),
+      href: ROUTES.profile,
+      icon: <IconUserScan size={20} />,
+    },
+    {
+      title: t('resume'),
+      href: ROUTES.profileResume,
+      icon: <IconFileCv size={20} />,
+    },
+    {
+      title: t('my_applications'),
+      href: ROUTES.profileApplications,
+      icon: <IconListTree size={20} />,
+    },
+    {
+      title: t('chats'),
+      href: ROUTES.chats,
+      icon: <IconBrandHipchat size={20} />,
+    },
+  ];
+
+  const employerConfig = [
+    {
+      title: t('profile'),
+      href: ROUTES.profile,
+      icon: <IconUserScan size={20} />,
+    },
+    {
+      title: t('company'),
+      href: ROUTES.profileCompany,
+      icon: <IconBuilding size={20} />,
+    },
+    {
+      title: t('docs'),
+      href: ROUTES.profileCompanyDocs,
+      icon: <IconFileDots size={20} />,
+    },
+    {
+      title: t('vacancies'),
+      href: ROUTES.profileVacancies,
+      icon: <IconListCheck size={20} />,
+    },
+    {
+      title: t('create_vacancy'),
+      href: ROUTES.profileAddEditVacancy,
+      icon: <IconEdit size={20} />,
+    },
+    {
+      title: t('chats'),
+      href: ROUTES.chats,
+      icon: <IconBrandHipchat size={20} />,
+    },
+  ];
 
   const menuConfig =
     user?.role === ROLES.seeker ? seekerConfig : employerConfig;
@@ -113,13 +123,13 @@ export default function ProfileMenu() {
               {title}
             </Menu.Item>
           ))}
-
+          <Divider my={rem(4)} />
           <Menu.Item
             color='red'
             onClick={logoutHandler}
             leftSection={<IconLogout size={20} />}
           >
-            Logout
+            {t('logout')}
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>

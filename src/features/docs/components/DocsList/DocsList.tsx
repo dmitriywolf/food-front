@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Box, Title, Stack } from '@mantine/core';
+import { Box, Title, Stack, rem } from '@mantine/core';
 import { CardSkeleton, ErrorBox } from 'components';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
@@ -34,7 +34,7 @@ export default function DocsList() {
       {error ? (
         <ErrorBox msg={error} />
       ) : (
-        <Stack>
+        <Stack gap={rem(12)}>
           {loading ? (
             skeletons
           ) : docs?.length > 0 ? (

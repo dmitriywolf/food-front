@@ -1,18 +1,19 @@
 import {
   Card,
   Stack,
-  Group,
   Flex,
   Text,
   Anchor,
   ActionIcon,
+  rem,
 } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import { notifications } from '@mantine/notifications';
 import {
   IconEdit,
   IconTrash,
   IconArrowBack,
-  IconScript,
+  IconFileSmile,
 } from '@tabler/icons-react';
 import { formatDT, formatBytes, getDocType } from 'shared/utils';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
@@ -24,7 +25,7 @@ import {
   resetCurrentDoc,
 } from '../../docsSlice';
 import { IDoc } from '../../../types';
-import classes from './DocIte.module.scss';
+import classes from './DocItem.module.scss';
 
 type DocItemProps = {
   document: IDoc;
@@ -41,6 +42,7 @@ export default function DocItem({
   const currentDoc = useAppSelector(selectDocument);
 
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   const link = url.startsWith('uploads') ? `${API_SERVER}/${url}` : url;
   const isCurrentDoc = _id === currentDoc._id;
@@ -53,13 +55,13 @@ export default function DocItem({
       }
       notifications.show({
         color: 'green',
-        title: 'Delete document',
-        message: 'Document was successful deleted',
+        title: t('document'),
+        message: t('document_was_successful_deleted'),
       });
     } catch (error) {
       notifications.show({
         color: 'red',
-        title: 'Delete document',
+        title: t('document'),
         message: error as string,
       });
     }
@@ -76,33 +78,34 @@ export default function DocItem({
   return (
     <Card
       shadow='sm'
-      padding='md'
-      radius='md'
-      withBorder
-      className={isCurrentDoc ? classes.activeCard : ''}
+      radius={0}
+      className={`${classes.card} ${isCurrentDoc ? classes.activeCard : ''}`}
     >
-      <Flex gap={12}>
-        <IconScript style={{ width: '40px', height: '40px' }} />
+      <Flex gap={rem(12)}>
+        <IconFileSmile size={40} className={classes.icon} stroke={1} />
 
-        <Stack gap={2} w='100%'>
-          <Group align='center' gap={2}>
-            <Anchor href={link} target='_blank' size='lg'>
-              {title} {filename}
-            </Anchor>
-          </Group>
+        <Stack gap={rem(2)} className={classes.content}>
+          <Anchor
+            href={link}
+            target='_blank'
+            size='lg'
+            className={classes.title}
+          >
+            {title} {filename}
+          </Anchor>
 
-          <Flex gap={8}>
+          <Flex gap={rem(8)}>
             <Text size='sm'>
-              <Text span>Updated: </Text>
-              <Text span c='blue'>
-                {formatDT(updatedAt)}
+              <Text span>{t('updated')}: </Text>
+              <Text span c='secondary'>
+                {formatDT(updatedAt, true)}
               </Text>
             </Text>
 
             {type && (
               <Text size='sm'>
-                <Text span>Type: </Text>
-                <Text span c='blue'>
+                <Text span>{t('type')}: </Text>
+                <Text span c='secondary'>
                   {getDocType(type)}
                 </Text>
               </Text>
@@ -110,8 +113,8 @@ export default function DocItem({
 
             {size && (
               <Text size='sm'>
-                <Text span>Size: </Text>
-                <Text span c='blue'>
+                <Text span>{t('size')}: </Text>
+                <Text span c='secondary'>
                   {formatBytes(Number(size))}
                 </Text>
               </Text>
@@ -121,32 +124,17 @@ export default function DocItem({
         {showControls && (
           <Flex direction='column'>
             {!isCurrentDoc && (
-              <ActionIcon
-                variant='subtle'
-                color='blue'
-                size='md'
-                onClick={editDocHandler}
-              >
+              <ActionIcon variant='subtle' size='md' onClick={editDocHandler}>
                 <IconEdit style={{ width: '70%', height: '70%' }} />
               </ActionIcon>
             )}
 
             {isCurrentDoc && (
-              <ActionIcon
-                variant='subtle'
-                color='blue'
-                size='md'
-                onClick={resetEditDoc}
-              >
+              <ActionIcon variant='subtle' size='md' onClick={resetEditDoc}>
                 <IconArrowBack style={{ width: '70%', height: '70%' }} />
               </ActionIcon>
             )}
-            <ActionIcon
-              variant='subtle'
-              color='blue'
-              size='md'
-              onClick={deleteDocHandler}
-            >
+            <ActionIcon variant='subtle' size='md' onClick={deleteDocHandler}>
               <IconTrash style={{ width: '70%', height: '70%' }} />
             </ActionIcon>
           </Flex>

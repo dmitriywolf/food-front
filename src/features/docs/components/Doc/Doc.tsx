@@ -11,6 +11,7 @@ import {
   ActionIcon,
   Flex,
 } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import { IconUpload, IconX, IconFiles } from '@tabler/icons-react';
 import { Dropzone, MIME_TYPES } from '@mantine/dropzone';
 import { useForm, zodResolver } from '@mantine/form';
@@ -24,6 +25,7 @@ import {
 } from '../../docsSlice';
 import { createDoc, editDoc } from '../../services';
 import { documentSchema } from './schema';
+import classes from './Doc.module.scss';
 
 import type { DocFormValues } from './types';
 
@@ -44,8 +46,9 @@ export default function Doc() {
     url,
     filename,
   } = useAppSelector(selectDocument);
-
   const isLoading = useAppSelector(selectDocumentIsLoading);
+
+  const { t } = useTranslation();
 
   const EDIT_VALUES = useMemo(
     () => ({
@@ -86,8 +89,8 @@ export default function Doc() {
         dispatch(resetCurrentDoc());
         notifications.show({
           color: 'green',
-          title: 'Document updated',
-          message: 'The document was successfully updated',
+          title: t('document'),
+          message: t('the_document_was_successfully_updated'),
         });
       } else {
         // CREATE
@@ -95,14 +98,14 @@ export default function Doc() {
         resetForm();
         notifications.show({
           color: 'green',
-          title: 'Document created',
-          message: 'The document was successfully created',
+          title: t('document'),
+          message: t('the_document_was_successfully_created'),
         });
       }
     } catch (error: unknown) {
       notifications.show({
         color: 'red',
-        title: 'Create/Update document',
+        title: t('document'),
         message: error as string,
       });
     }
@@ -114,14 +117,11 @@ export default function Doc() {
   }, [_id, EDIT_VALUES, setValues]);
 
   return (
-    <Card shadow='sm' padding='md' radius='md' withBorder>
+    <Card className={classes.card}>
       <Box component='form' w='100%' onSubmit={onSubmit(submitHandler)}>
-        <Stack gap={10}>
+        <Stack gap={rem(10)}>
           <Stack gap={8}>
-            <Text size='sm'>
-              You can upload any file or just add ulr to Google Docs or another
-              service
-            </Text>
+            <Text size='sm'>{t('you_can_upload_any_file_or_just_add')}</Text>
             <Dropzone
               onDrop={(files) => onDropFileHandler(files[0])}
               maxSize={5 * 1024 ** 2}
@@ -174,8 +174,8 @@ export default function Doc() {
                   />
                 </Dropzone.Idle>
                 <div>
-                  <Text size='lg' inline>
-                    Drag file here or click to select
+                  <Text size='md' inline>
+                    {t('grag_file_here_or_click_to_select')}
                   </Text>
                   <Text size='sm' c='dimmed' inline mt={7}>
                     PDF, CSV, Microsoft Word/Excel/PowerPoint
@@ -186,7 +186,7 @@ export default function Doc() {
             {file && (
               <Flex align='center' gap={4}>
                 <Text size='sm'>
-                  File:{' '}
+                  {t('file')}:{' '}
                   <Text span c='red'>
                     {file.name}
                   </Text>
@@ -205,7 +205,7 @@ export default function Doc() {
 
             {filename && !file && (
               <Text size='sm'>
-                File:{' '}
+                {t('file')} :{' '}
                 <Text span c='red'>
                   {filename}
                 </Text>
@@ -214,19 +214,19 @@ export default function Doc() {
           </Stack>
 
           <TextInput
-            label='Document url'
+            label={t('document_url')}
             placeholder='https://docs.google.com/document/'
             {...getInputProps('docUrl')}
           />
 
           <TextInput
-            label='Document name'
-            placeholder='Terms...'
+            label={t('document_name')}
+            placeholder='CV'
             {...getInputProps('title')}
           />
 
-          <Button type='submit' disabled={isLoading}>
-            {_id ? 'Update document' : 'Add document'}
+          <Button type='submit' disabled={isLoading} mt={rem(10)}>
+            {_id ? t('update_document') : t('add_document')}
           </Button>
         </Stack>
       </Box>
