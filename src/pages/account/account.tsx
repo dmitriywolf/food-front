@@ -19,7 +19,7 @@ import {
   EmployerCompany,
   selectUser,
 } from 'features/user';
-import { Resume } from 'features/resume';
+import { Resume, getMyResume } from 'features/resume';
 import { Vacancy, Vacancies } from 'features/employerVacancies';
 import { ROUTES } from 'shared/routes';
 import Docs from './components/Docs';

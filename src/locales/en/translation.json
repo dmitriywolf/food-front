@@ -134,5 +134,16 @@
   "add_vacancy": "Add vacancy",
   "chats": "Chats",
   "logout": "Logout",
-  "create_vacancy": "Create vacancy"
+  "create_vacancy": "Create vacancy",
+  "the_resume_was_successfully_updated": "The resume was successfully updated",
+  "published": "Published",
+  "not_published": "Not published",
+  "search_position": "Search position",
+  "salary_expectations": "Salary expectations",
+  "consider_relocation_to_another_city": "Consider relocation to another city",
+  "tell_about_yourself": "Tell about yourself",
+  "do_not_consider": "I do not consider",
+  "publish_my_resume": "Publish my resume",
+  "update_resume": "Update resume",
+  "create_resume": "Create resume"
 }

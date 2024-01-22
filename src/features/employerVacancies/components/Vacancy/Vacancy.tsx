@@ -175,7 +175,7 @@ export default function Vacancy() {
             </Flex>
           </Radio.Group>
 
-          <Stack gap={4} pb={12}>
+          <Stack gap={rem(4)} pb={12}>
             <Text size='sm' fw='bold' pb={8}>
               {t('experience')} ({t('years')})
             </Text>
@@ -243,7 +243,7 @@ export default function Vacancy() {
             </Text>
             <Editor
               content={values.summary}
-              placeholder=''
+              placeholder='...'
               onChange={onSummaryUpdate}
             />
           </Stack>

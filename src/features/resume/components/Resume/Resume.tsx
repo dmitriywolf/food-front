@@ -7,7 +7,6 @@ import {
   Button,
   Checkbox,
   NumberInput,
-  Textarea,
   Group,
   Badge,
   Radio,
@@ -15,7 +14,9 @@ import {
   Text,
   Select,
   MultiSelect,
+  rem,
 } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import { IconMapPin } from '@tabler/icons-react';
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
@@ -37,9 +38,11 @@ import { editResume, getMyResume } from '../../services';
 
 import type { IResumeFormValues } from './types';
 import { resumeSchema } from './schema';
+import classes from './Resume.module.scss';
 
 export default function Resume() {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   const {
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -89,13 +92,13 @@ export default function Resume() {
       await dispatch(editResume({ id: _id, ...data })).unwrap();
       notifications.show({
         color: 'green',
-        title: 'Edit resume',
-        message: 'The resume was successfully updated',
+        title: t('resume'),
+        message: t('the_resume_was_successfully_updated'),
       });
     } catch (error: unknown) {
       notifications.show({
         color: 'red',
-        title: 'Edit resume',
+        title: t('resume'),
         message: error as string,
       });
     }
@@ -114,35 +117,37 @@ export default function Resume() {
   }, [_id, dispatch]);
 
   return (
-    <Stack gap={24}>
+    <Stack gap={rem(24)}>
       <Group justify='end'>
         {isResume && (
-          <Badge color='tomato'>Updated: {formatDT(updatedAt)}</Badge>
+          <Badge color='primary' className={classes.badge}>
+            {t('updated')}: {formatDT(updatedAt, true)}
+          </Badge>
         )}
-        <Badge color={isPublished ? 'green' : 'gray'}>
-          {isPublished ? 'Published' : 'Hidden'}
+        <Badge color={isPublished ? 'green' : 'gray'} className={classes.badge}>
+          {isPublished ? t('published') : t('not_published')}
         </Badge>
       </Group>
-      <Card shadow='sm' padding='md' radius='md' withBorder>
+      <Card shadow='sm' radius={0} className={classes.card}>
         <Box component='form' w='100%' onSubmit={onSubmit(submitHandler)}>
-          <Stack gap={20}>
+          <Stack gap={rem(16)}>
             <TextInput
-              label='Position'
-              placeholder='Search position'
+              label={t('search_position')}
+              placeholder='React'
               {...getInputProps('position')}
             />
 
             <Select
-              label='Category'
-              placeholder='Select category'
+              label={t('category')}
+              placeholder='Frontend'
               value={values.category}
               data={CATEGORIES}
               onChange={(value) => setFieldValue('category', value!)}
             />
 
-            <Stack gap={4} pb={12}>
+            <Stack gap={rem(4)} pb={12}>
               <Text size='sm' fw='bold' pb={8}>
-                Work experience (years)
+                {t('experience')} ({t('years')})
               </Text>
               <Slider
                 defaultValue={0}
@@ -157,7 +162,7 @@ export default function Resume() {
             </Stack>
 
             <NumberInput
-              label='Salary expectations, $'
+              label={`${t('salary_expectations')}, $`}
               prefix='$ '
               hideControls
               allowDecimal={false}
@@ -165,8 +170,8 @@ export default function Resume() {
             />
 
             <MultiSelect
-              label='Skills'
-              placeholder='Select skill'
+              label={t('my_skills')}
+              placeholder='js'
               value={values.skills}
               data={SKILLS}
               searchable
@@ -176,7 +181,7 @@ export default function Resume() {
             />
 
             <Select
-              label='Country'
+              label={t('country')}
               placeholder='Select country'
               value={values.country}
               data={COUNTRIES}
@@ -186,20 +191,20 @@ export default function Resume() {
             />
 
             <TextInput
-              label='City'
-              placeholder='City/Towm'
+              label={t('city_town')}
+              placeholder='New York'
               leftSection={<IconMapPin size={16} />}
               {...getInputProps('city')}
             />
 
             <Checkbox
-              label='Consider relocation to another city'
+              label={t('consider_relocation_to_another_city')}
               {...getInputProps('relocation', { type: 'checkbox' })}
             />
 
             <Radio.Group
               value={values.experienceLevel}
-              label='Experience level'
+              label={t('level')}
               onChange={(value) => setFieldValue('experienceLevel', value)}
             >
               <Stack gap={12} pt={8} pl={20}>
@@ -211,17 +216,17 @@ export default function Resume() {
 
             <Stack gap={4}>
               <Text size='sm' fw='bold' pb={8}>
-                Tell about yourself
+                {t('tell_about_yourself')}
               </Text>
               <Editor
                 content={values.summary}
-                placeholder='Please tell about this yourself'
+                placeholder='...'
                 onChange={onSummaryUpdate}
               />
             </Stack>
 
             <Radio.Group
-              label='English level'
+              label='English'
               value={values.englishLevel}
               onChange={(value) => setFieldValue('englishLevel', value)}
             >
@@ -233,7 +238,7 @@ export default function Resume() {
             </Radio.Group>
 
             <Checkbox.Group
-              label='Employment'
+              label={t('employment')}
               value={values.employment}
               onChange={(value) => setFieldValue('employment', value)}
             >
@@ -245,7 +250,7 @@ export default function Resume() {
             </Checkbox.Group>
 
             <Checkbox.Group
-              label='I do not consider'
+              label={t('do_not_consider')}
               value={values.dontConsider}
               onChange={(value) => setFieldValue('dontConsider', value)}
             >
@@ -257,12 +262,12 @@ export default function Resume() {
             </Checkbox.Group>
 
             <Checkbox
-              label='Publish my resume'
+              label={t('publish_my_resume')}
               {...getInputProps('isPublished', { type: 'checkbox' })}
             />
 
             <Button type='submit' disabled={isLoading}>
-              {isResume ? 'Update resume' : 'Create resume'}
+              {isResume ? t('update_resume') : t('create_resume')}
             </Button>
           </Stack>
         </Box>

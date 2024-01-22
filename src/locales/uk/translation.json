@@ -134,5 +134,16 @@
   "add_vacancy": "Додати вакансію",
   "chats": "Чати",
   "logout": "Вийти",
-  "create_vacancy": "Створити вакансію"
+  "create_vacancy": "Створити вакансію",
+  "the_resume_was_successfully_updated": "Резюме було успішно оновлено",
+  "published": "Опубліковано",
+  "not_published": "Не опубліковано",
+  "search_position": "Позиція",
+  "salary_expectations": "Очікуваний рівень доходу",
+  "consider_relocation_to_another_city": "Розгляну переїзд до іншого міста",
+  "tell_about_yourself": "Розкажіть про себе",
+  "do_not_consider": "Я не розглядаю",
+  "publish_my_resume": "Опублікувати моє резюме",
+  "update_resume": "Оновити резюме",
+  "create_resume": "Створити резюме"
 }
