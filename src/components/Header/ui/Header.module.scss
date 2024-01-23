@@ -1,5 +1,4 @@
-.header {
-  width: 100%;
+.wrap {
   @mixin light {
     border-bottom: 1px solid var(--mantine-color-gray-4);
     background-color: var(--mantine-color-white);
@@ -11,7 +10,32 @@
 }
 
 .inner {
-  align-items: center;
-  justify-content: space-between;
-  height: rem(80px);
+  padding: rem(16) 0;
+}
+
+.logoCol {
+  @media (max-width: $mantine-breakpoint-lg) {
+    order: 2;
+  }
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    a {
+      margin: 0 auto;
+    }
+  }
+}
+
+.menuCol {
+}
+
+.authCol {
+  @media (max-width: $mantine-breakpoint-lg) {
+    order: 3;
+  }
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    .authWrap {
+      display: none;
+    }
+  }
 }

@@ -13,7 +13,7 @@ export default function AuthMenu() {
 
   if (!isAuthorized) {
     return (
-      <Flex align='center' gap={rem(16)}>
+      <Flex align='center' justify='flex-end' gap={rem(16)}>
         <Link to={ROUTES.signin}>
           <Button variant='light' leftSection={<IconLogin2 size={16} />}>
             {t('signin')}

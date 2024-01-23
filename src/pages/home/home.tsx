@@ -12,7 +12,7 @@ function HomePage() {
     <Box component='section' className={classes.intro}>
       <Container size='responsive'>
         <Flex className={classes.inner}>
-          <IntroLogo />
+          <IntroLogo className={classes.icon} />
           <Title order={1} className={classes.title}>
             {t('find_a_dream_job_in_it')}
           </Title>

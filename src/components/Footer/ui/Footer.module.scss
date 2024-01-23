@@ -10,16 +10,35 @@
   }
 }
 
+.copyrightCol {
+  @media (max-width: $mantine-breakpoint-sm) {
+    p {
+      text-align: right;
+    }
+  }
+}
+
+.btnsCol {
+  display: flex;
+  gap: rem(6);
+  justify-content: flex-end;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    justify-content: flex-start;
+  }
+}
+
 .menu {
-  gap: rem(20);
+  gap: rem(8) rem(16);
   justify-content: center;
+  flex-wrap: wrap;
 
   a {
     color: var(--mantine-color-secondary-5);
-  }
 
-  a:hover {
-    color: var(--mantine-color-primary-5);
-    opacity: 0.8;
+    @mixin hover {
+      color: var(--mantine-color-primary-5);
+      opacity: 0.8;
+    }
   }
 }

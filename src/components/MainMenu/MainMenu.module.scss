@@ -1,6 +1,25 @@
+.burger {
+  display: none;
+
+  @media (max-width: $mantine-breakpoint-lg) {
+    display: block;
+  }
+}
+
 .menu {
   gap: rem(16);
+  justify-content: center;
   align-items: center;
+
+  @media (max-width: $mantine-breakpoint-lg) {
+    flex-direction: column;
+  }
+}
+
+.desktopMenu {
+  @media (max-width: $mantine-breakpoint-lg) {
+    display: none;
+  }
 }
 
 .link {
@@ -24,5 +43,13 @@
     p {
       color: var(--mantine-color-primary-5);
     }
+  }
+}
+
+.authWrap {
+  display: none;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    display: block;
   }
 }
