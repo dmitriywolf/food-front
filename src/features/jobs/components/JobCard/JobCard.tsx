@@ -63,7 +63,7 @@ export default function JobCard({ job }: JobCardProps) {
       <Flex justify='space-between'>
         <Stack gap={rem(2)} className={classes.content}>
           <Title order={4} c='primary'>
-            {title}, {salaryRange} $
+            {title}, {salaryRange}$
           </Title>
 
           <Flex gap={rem(6)} wrap='wrap'>

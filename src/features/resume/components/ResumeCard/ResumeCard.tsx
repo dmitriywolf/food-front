@@ -57,13 +57,13 @@ export default function ResumeCard({ resume }: ResumeCardProps) {
       className={classes.card}
       onClick={navigateHandler}
     >
-      <Flex>
+      <Flex className={classes.inner}>
         <Box className={classes.avatarBox}>
           <Image
             fallbackSrc={DEFAULT_AVATAR}
             src={`${API_SERVER}/${avatar}`}
             w={rem(160)}
-            h={rem(160)}
+            h='100%'
           />
           <Badge
             className={classes.badge}
@@ -73,35 +73,35 @@ export default function ResumeCard({ resume }: ResumeCardProps) {
           </Badge>
         </Box>
 
-        <Stack gap={4} w='100%' className={classes.content}>
-          <Title order={3} c='primary'>
-            {position}, {salaryExpectations} $
+        <Stack gap={rem(2)} className={classes.content}>
+          <Title order={4} c='primary'>
+            {position}, {salaryExpectations}$
           </Title>
 
           <Text fz='lg'>
             {firstName} {lastName}
           </Text>
 
-          <Flex gap={rem(16)}>
-            <Flex gap={6} align='center'>
+          <Flex wrap='wrap' className={classes.row}>
+            <Flex gap={rem(6)} align='center'>
               <IconCrown stroke='secondary' size={18} />
               <Text c='secondary'>
                 {workExperience} {t('years')}
               </Text>
             </Flex>
 
-            <Flex gap={6} align='center'>
+            <Flex gap={rem(6)} align='center'>
               <IconChartBar stroke='secondary' size={18} />
               <Text c='secondary'>{experienceLevel}</Text>
             </Flex>
 
-            <Flex gap={6} align='center'>
+            <Flex gap={rem(6)} align='center'>
               <IconLanguage stroke='secondary' size={18} />
               <Text c='secondary'>{englishLevel}</Text>
             </Flex>
           </Flex>
 
-          <Flex gap={6} align='center'>
+          <Flex gap={rem(6)} align='center'>
             <IconMapPin stroke='secondary' size={18} />
             <Text c='secondary'>
               {country}, {city}

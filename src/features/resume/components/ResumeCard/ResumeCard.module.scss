@@ -18,11 +18,25 @@
 .avatarBox {
   position: relative;
   width: rem(160);
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    display: none;
+  }
+}
+
+.inner {
+  height: 100%;
+  align-content: stretch;
+}
+
+.row {
+  flex-wrap: wrap;
+  gap: rem(2) rem(8);
 }
 
 .badge {
   position: absolute;
-  bottom: rem(8);
+  top: rem(8);
   left: rem(8);
   font-size: rem(10);
   text-transform: none;

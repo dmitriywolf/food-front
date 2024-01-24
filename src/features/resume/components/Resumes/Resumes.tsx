@@ -22,7 +22,7 @@ export default function Candidates() {
       {error ? (
         <ErrorBox msg={error} />
       ) : (
-        <SimpleGrid cols={2}>
+        <SimpleGrid cols={{ md: 2 }}>
           {loading
             ? skeletons
             : resumes.map((resume) => (
