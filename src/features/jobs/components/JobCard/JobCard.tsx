@@ -60,29 +60,35 @@ export default function JobCard({ job }: JobCardProps) {
       className={classes.card}
       onClick={navigateHandler}
     >
-      <Flex>
-        <Stack gap={rem(2)} w='100%' className={classes.content}>
-          <Title order={3} c='primary'>
+      <Flex justify='space-between'>
+        <Stack gap={rem(2)} className={classes.content}>
+          <Title order={4} c='primary'>
             {title}, {salaryRange} $
           </Title>
 
-          <Text fz='lg'>{companyName}</Text>
+          <Flex gap={rem(6)} wrap='wrap'>
+            <Text fz='lg' truncate='end'>
+              {companyName}
+            </Text>
 
-          <Flex gap={rem(12)}>
-            <Flex gap={rem(6)} align='center'>
+            <Flex gap={rem(4)} align='center'>
               <IconMapPin stroke='secondary' size={18} />
-              <Text c='secondary'>
+              <Text c='secondary' truncate='end'>
                 {country}, {city}
               </Text>
             </Flex>
+          </Flex>
 
-            <Flex gap={rem(6)} align='center'>
+          <Flex gap={rem(6)}>
+            <Flex gap={rem(4)} align='center'>
               <IconBuildingFortress stroke='secondary' size={18} />
-              <Text c='secondary'>{domain}</Text>
+              <Text c='secondary' truncate='end'>
+                {domain}
+              </Text>
             </Flex>
           </Flex>
 
-          <Flex gap={rem(8)} align='center'>
+          <Flex gap={rem(6)} align='center'>
             <Text c='secondary'>
               {t('views')}:{' '}
               <Text span fw='bold'>
@@ -97,7 +103,7 @@ export default function JobCard({ job }: JobCardProps) {
             </Text>
           </Flex>
 
-          <Flex gap={rem(8)} align='center'>
+          <Flex gap={rem(6)} align='center'>
             {iAlreadyApplied && (
               <Badge color='green' className={classes.badge}>
                 {t('you_are_applied')}

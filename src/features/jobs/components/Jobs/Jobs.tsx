@@ -24,7 +24,7 @@ export default function Jobs() {
       {error ? (
         <ErrorBox msg={error} />
       ) : (
-        <SimpleGrid cols={2}>
+        <SimpleGrid cols={{ md: 2 }}>
           {loading
             ? skeletons
             : jobs.map((job) => <JobCard key={job._id} job={job} />)}

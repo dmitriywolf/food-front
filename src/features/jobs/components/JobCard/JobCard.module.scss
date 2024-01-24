@@ -17,7 +17,19 @@
 
 .avatarBox {
   position: relative;
-  width: rem(160);
+  min-width: rem(160);
+
+  @media (max-width: $mantine-breakpoint-lg) {
+    display: none;
+  }
+
+  @media (max-width: $mantine-breakpoint-md) {
+    display: block;
+  }
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    display: none;
+  }
 }
 
 .badge {

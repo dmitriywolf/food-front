@@ -22,7 +22,7 @@ export default function Companies() {
       {error ? (
         <ErrorBox msg={error} />
       ) : (
-        <SimpleGrid cols={5}>
+        <SimpleGrid cols={{ xs: 2, md: 3, xl: 5 }}>
           {loading
             ? skeletons
             : companies.map((company) => (
