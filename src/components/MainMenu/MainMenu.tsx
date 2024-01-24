@@ -42,6 +42,21 @@ export default function MainMenu() {
     },
   ];
 
+  const menu = configMenu.map((item) => (
+    <Anchor
+      component={Link}
+      key={item.key}
+      to={item.href}
+      onClick={close}
+      underline='never'
+    >
+      <Flex className={classes.link}>
+        {item.icon}
+        <Text>{item.key}</Text>
+      </Flex>
+    </Anchor>
+  ));
+
   return (
     <>
       <ActionIcon
@@ -55,21 +70,7 @@ export default function MainMenu() {
       </ActionIcon>
 
       <Drawer opened={opened} onClose={close}>
-        <Flex className={classes.menu}>
-          {configMenu.map((item) => (
-            <Anchor
-              component={Link}
-              key={item.key}
-              to={item.href}
-              underline='never'
-            >
-              <Flex className={classes.link}>
-                {item.icon}
-                <Text>{item.key}</Text>
-              </Flex>
-            </Anchor>
-          ))}
-        </Flex>
+        <Flex className={classes.menu}>{menu}</Flex>
 
         <Box className={classes.authWrap}>
           <AuthMenu />
@@ -77,21 +78,7 @@ export default function MainMenu() {
       </Drawer>
 
       <Box className={classes.desktopMenu}>
-        <Flex className={classes.menu}>
-          {configMenu.map((item) => (
-            <Anchor
-              component={Link}
-              key={item.key}
-              to={item.href}
-              underline='never'
-            >
-              <Flex className={classes.link}>
-                {item.icon}
-                <Text>{item.key}</Text>
-              </Flex>
-            </Anchor>
-          ))}
-        </Flex>
+        <Flex className={classes.menu}>{menu}</Flex>
       </Box>
     </>
   );

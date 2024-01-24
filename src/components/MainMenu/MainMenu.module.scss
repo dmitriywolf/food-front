@@ -50,6 +50,8 @@
   display: none;
 
   @media (max-width: $mantine-breakpoint-xs) {
-    display: block;
+    display: flex;
+    justify-content: center;
+    margin-top: rem(24);
   }
 }

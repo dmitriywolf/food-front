@@ -16,7 +16,6 @@ import {
   IconListCheck,
   IconListTree,
   IconLogout,
-  IconChevronRight,
   IconBuilding,
   IconBrandHipchat,
   IconFileDots,
@@ -100,7 +99,7 @@ export default function ProfileMenu() {
 
   if (isAuthorized) {
     return (
-      <Menu withArrow trigger='click-hover'>
+      <Menu trigger='click-hover'>
         <Menu.Target>
           <UnstyledButton>
             <Group gap={8}>
@@ -108,7 +107,6 @@ export default function ProfileMenu() {
               <Text size='sm'>
                 {user?.firstName} {user?.lastName}
               </Text>
-              <IconChevronRight size='1rem' />
             </Group>
           </UnstyledButton>
         </Menu.Target>

@@ -16,16 +16,14 @@
 .logoCol {
   @media (max-width: $mantine-breakpoint-lg) {
     order: 2;
-  }
-
-  @media (max-width: $mantine-breakpoint-xs) {
     a {
       margin: 0 auto;
     }
   }
 }
 
-.menuCol {
+.profileWrap {
+  margin-left: auto;
 }
 
 .authCol {
