@@ -84,9 +84,55 @@ export default function CompanyDetails() {
     <Stack>
       <Breadcrumbs>{items}</Breadcrumbs>
 
-      <Grid columns={4}>
+      <Grid>
+        {/* Employer */}
+        <Grid.Col order={{ md: 2 }} span={{ md: 4, lg: 3 }}>
+          <Card shadow='sm' radius={0} className={classes.card}>
+            <Card.Section className={classes.avatarBox}>
+              <Image
+                fallbackSrc={DEFAULT_AVATAR}
+                src={`${API_SERVER}/${avatar}`}
+                w='100%'
+                h={250}
+              />
+
+              <Badge className={classes.badgeAvatar} color='gray'>
+                {userPosition}
+              </Badge>
+            </Card.Section>
+
+            <Stack gap={rem(12)} pt={rem(12)}>
+              <Title order={4}>
+                {firstName} {lastName}
+              </Title>
+
+              <Group gap={rem(8)}>
+                <Flex gap={rem(6)}>
+                  <IconMail stroke='secondary' />
+                  <Anchor href={`mailto:${email}`}>E-Mail</Anchor>
+                </Flex>
+
+                {phone && (
+                  <Flex gap={rem(6)}>
+                    <IconPhone stroke='secondary' />
+                    <Anchor href={`tel:${phone}`}>{t('call')}</Anchor>
+                  </Flex>
+                )}
+
+                {linkedin && (
+                  <Flex gap={rem(6)}>
+                    <IconBrandLinkedin stroke='secondary' />
+                    <Anchor href={linkedin}>LinkedIn</Anchor>
+                  </Flex>
+                )}
+              </Group>
+              {user?.role !== role && <MakeChatButton id={_id} />}
+            </Stack>
+          </Card>
+        </Grid.Col>
+
         {/* Company */}
-        <Grid.Col span={3}>
+        <Grid.Col span={{ md: 8, lg: 9 }}>
           <Card shadow='sm' radius={0} className={classes.card}>
             <Card.Section className={classes.avatarBox}>
               <Image
@@ -107,14 +153,14 @@ export default function CompanyDetails() {
                 {companyName}
               </Title>
 
-              <SimpleGrid cols={2}>
-                <Stack gap={rem(12)}>
-                  <Flex align='center' gap={rem(8)}>
-                    <IconMapPin />
+              <SimpleGrid cols={{ xs: 2 }} spacing={rem(6)}>
+                <Stack gap={rem(6)}>
+                  <Flex align='center' gap={rem(6)}>
+                    <IconMapPin size={18} />
                     <Text>{companyOffices}</Text>
                   </Flex>
-                  <Flex align='center' gap={rem(8)}>
-                    <IconUsers />
+                  <Flex align='center' gap={rem(6)}>
+                    <IconUsers size={18} />
                     <Text>
                       {companyEmployeesCount} {t('employees')}
                     </Text>
@@ -128,14 +174,16 @@ export default function CompanyDetails() {
                   )} */}
                 </Stack>
 
-                <Stack gap={rem(12)}>
-                  <Flex gap={rem(8)}>
-                    <IconLink />
-                    <Anchor href={companyWebSite}>{companyWebSite}</Anchor>
+                <Stack gap={rem(8)}>
+                  <Flex gap={rem(6)}>
+                    <IconLink size={18} />
+                    <Anchor href={companyWebSite}>{t('company_page')}</Anchor>
                   </Flex>
-                  <Flex gap={rem(8)}>
-                    <IconLink />
-                    <Anchor href={companyDouPage}>{companyDouPage}</Anchor>
+                  <Flex gap={rem(6)}>
+                    <IconLink size={18} />
+                    <Anchor href={companyDouPage}>
+                      {t('company_dou_page')}
+                    </Anchor>
                   </Flex>
                 </Stack>
               </SimpleGrid>
@@ -178,52 +226,6 @@ export default function CompanyDetails() {
               </Tabs.Panel>
             </Tabs>
           )}
-        </Grid.Col>
-
-        {/* Employer */}
-        <Grid.Col span={1}>
-          <Card shadow='sm' radius={0} className={classes.card}>
-            <Card.Section className={classes.avatarBox}>
-              <Image
-                fallbackSrc={DEFAULT_AVATAR}
-                src={`${API_SERVER}/${avatar}`}
-                w='100%'
-                h={250}
-              />
-
-              <Badge className={classes.badgeAvatar} color='gray'>
-                {userPosition}
-              </Badge>
-            </Card.Section>
-
-            <Stack gap={rem(12)} pt={rem(12)}>
-              <Title order={2}>
-                {firstName} {lastName}
-              </Title>
-
-              <Group gap={rem(12)}>
-                <Flex gap={rem(8)}>
-                  <IconMail stroke='secondary' />
-                  <Anchor href={`mailto:${email}`}>E-Mail</Anchor>
-                </Flex>
-
-                {phone && (
-                  <Flex gap={rem(8)}>
-                    <IconPhone stroke='secondary' />
-                    <Anchor href={`tel:${phone}`}>{t('call')}</Anchor>
-                  </Flex>
-                )}
-
-                {linkedin && (
-                  <Flex gap={rem(8)}>
-                    <IconBrandLinkedin stroke='secondary' />
-                    <Anchor href={linkedin}>LinkedIn</Anchor>
-                  </Flex>
-                )}
-              </Group>
-              {user?.role !== role && <MakeChatButton id={_id} />}
-            </Stack>
-          </Card>
         </Grid.Col>
       </Grid>
     </Stack>
