@@ -30,3 +30,8 @@
 .icon {
   stroke: var(--mantine-color-primary-5);
 }
+
+.info {
+  flex-wrap: wrap;
+  gap: rem(2) rem(8);
+}

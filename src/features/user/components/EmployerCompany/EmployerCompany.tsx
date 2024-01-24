@@ -88,14 +88,14 @@ export default function EmployerCompany() {
   return (
     <Card shadow='sm' radius={0} className={classes.card}>
       <Box component='form' w='100%' onSubmit={onSubmit(submitHandler)}>
-        <Flex gap={rem(24)}>
+        <Flex gap={rem(24)} className={classes.form}>
           <Stack gap={rem(12)}>
-            <Center w={200} h={200}>
+            <Center className={classes.imgWrap}>
               <Image
                 fallbackSrc={DEFAULT_AVATAR}
                 src={preview || `${API_SERVER}/${employer?.companyLogo}`}
-                w={200}
-                h={200}
+                w='100%'
+                h='100%'
               />
             </Center>
 

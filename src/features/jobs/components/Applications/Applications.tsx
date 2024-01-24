@@ -33,7 +33,7 @@ export default function Applications() {
       {error ? (
         <ErrorBox msg={error} />
       ) : (
-        <SimpleGrid cols={2}>
+        <SimpleGrid cols={{ md: 2 }}>
           {loading ? (
             skeletons
           ) : applications?.length > 0 ? (

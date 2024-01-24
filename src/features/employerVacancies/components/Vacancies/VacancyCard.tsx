@@ -55,8 +55,8 @@ export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
   return (
     <Card shadow='sm' radius={0} className={classes.card}>
       <Stack gap={rem(8)}>
-        <Group justify='space-between'>
-          <Title order={2}>
+        <Group justify='space-between' gap={rem(2)}>
+          <Title order={4}>
             {title}, {'  '} {salaryRange}$
           </Title>
 
@@ -113,7 +113,7 @@ export default function VacancyCard({ vacancy, onEdit }: VacancyCardProps) {
             </Badge>
           </Flex>
 
-          <Flex align='center' gap={rem(4)}>
+          <Flex align='center' gap={rem(4)} wrap='wrap'>
             <Text>{t('employment')}: </Text>
             {employment.map((e) => (
               <Badge key={e} color='cyan' tt='none'>

@@ -118,7 +118,7 @@ export default function Resume() {
 
   return (
     <Stack gap={rem(24)}>
-      <Group justify='end'>
+      <Group justify='end' gap={rem(6)}>
         {isResume && (
           <Badge color='primary' className={classes.badge}>
             {t('updated')}: {formatDT(updatedAt, true)}
@@ -207,7 +207,7 @@ export default function Resume() {
               label={t('level')}
               onChange={(value) => setFieldValue('experienceLevel', value)}
             >
-              <Stack gap={12} pt={8} pl={20}>
+              <Stack gap={rem(12)} pt={rem(8)} pl={rem(20)}>
                 {EXPERIENCE_LEVELS.map((lvl) => (
                   <Radio key={lvl} value={lvl} label={lvl} />
                 ))}
@@ -215,7 +215,7 @@ export default function Resume() {
             </Radio.Group>
 
             <Stack gap={4}>
-              <Text size='sm' fw='bold' pb={8}>
+              <Text size='sm' fw='bold' pb={rem(8)}>
                 {t('tell_about_yourself')}
               </Text>
               <Editor
@@ -230,7 +230,7 @@ export default function Resume() {
               value={values.englishLevel}
               onChange={(value) => setFieldValue('englishLevel', value)}
             >
-              <Stack gap={12} pt={8} pl={20}>
+              <Stack gap={rem(12)} pt={rem(8)} pl={rem(20)}>
                 {ENGLISH_LEVELS.map((lv) => (
                   <Radio key={lv} value={lv} label={lv} />
                 ))}
@@ -242,7 +242,7 @@ export default function Resume() {
               value={values.employment}
               onChange={(value) => setFieldValue('employment', value)}
             >
-              <Group mt='xs'>
+              <Group gap={rem(8)}>
                 {EMPLOYMENT.map((e) => (
                   <Checkbox key={e} label={e} value={e} />
                 ))}
@@ -254,7 +254,7 @@ export default function Resume() {
               value={values.dontConsider}
               onChange={(value) => setFieldValue('dontConsider', value)}
             >
-              <Group mt='xs'>
+              <Group gap={rem(8)}>
                 {NOT_CONSIDER_DOMAINS.map((d) => (
                   <Checkbox key={d} label={d} value={d} />
                 ))}
@@ -263,6 +263,8 @@ export default function Resume() {
 
             <Checkbox
               label={t('publish_my_resume')}
+              mt={rem(8)}
+              fw='bold'
               {...getInputProps('isPublished', { type: 'checkbox' })}
             />
 

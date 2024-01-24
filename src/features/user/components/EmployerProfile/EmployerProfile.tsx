@@ -89,7 +89,7 @@ export default function EmployerProfile() {
 
   return (
     <Stack gap={rem(24)}>
-      <Group justify='end'>
+      <Group justify='end' gap={rem(6)}>
         {employer?.updatedAt && (
           <Badge color='primary' className={classes.badge}>
             {t('updated')}: {formatDT(employer.updatedAt, true)}
@@ -99,14 +99,14 @@ export default function EmployerProfile() {
 
       <Card shadow='sm' radius={0} className={classes.card}>
         <Box component='form' w='100%' onSubmit={onSubmit(submitHandler)}>
-          <Flex gap={rem(24)}>
+          <Flex gap={rem(24)} className={classes.form}>
             <Stack gap={rem(12)}>
-              <Center w={200} h={200}>
+              <Center className={classes.imgWrap}>
                 <Image
                   fallbackSrc={DEFAULT_AVATAR}
                   src={preview || `${API_SERVER}/${employer?.avatar}`}
-                  w={200}
-                  h={200}
+                  w='100%'
+                  h='100%'
                 />
               </Center>
               <FileButton

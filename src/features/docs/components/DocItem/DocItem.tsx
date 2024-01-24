@@ -88,13 +88,13 @@ export default function DocItem({
           <Anchor
             href={link}
             target='_blank'
-            size='lg'
+            size='md'
             className={classes.title}
           >
             {title} {filename}
           </Anchor>
 
-          <Flex gap={rem(8)}>
+          <Flex className={classes.info}>
             <Text size='sm'>
               <Text span>{t('updated')}: </Text>
               <Text span c='secondary'>

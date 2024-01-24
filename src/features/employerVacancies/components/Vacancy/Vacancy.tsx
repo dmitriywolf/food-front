@@ -168,7 +168,7 @@ export default function Vacancy() {
             label={t('company_type')}
             onChange={(value) => setFieldValue('companyType', value)}
           >
-            <Flex gap={12} pt={8} pl={20}>
+            <Flex gap={rem(12)} pt={rem(8)} pl={rem(20)} wrap='wrap'>
               {COMPANY_TYPES.map((ct) => (
                 <Radio key={ct} value={ct} label={ct} />
               ))}
