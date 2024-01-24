@@ -127,18 +127,86 @@ export default function JobDetailes() {
     <Stack>
       <Breadcrumbs>{items}</Breadcrumbs>
 
-      <Grid columns={4}>
-        <Grid.Col span={3}>
+      <Grid>
+        {/* Employer, Company Card */}
+        <Grid.Col order={{ md: 2 }} span={{ md: 4, lg: 3 }}>
+          <Card shadow='sm' radius={0} className={classes.card}>
+            <Card.Section className={classes.avatarBox}>
+              <Image
+                fallbackSrc={DEFAULT_AVATAR}
+                src={`${API_SERVER}/${avatar}`}
+                w='100%'
+                h={250}
+              />
+
+              <Badge className={classes.badgeAvatar} color='gray'>
+                {userPosition}
+              </Badge>
+            </Card.Section>
+
+            <Stack gap={rem(12)} pt={rem(12)}>
+              <Title order={4}>
+                {firstName} {lastName}
+              </Title>
+
+              <Group gap={rem(8)}>
+                <Flex gap={rem(6)}>
+                  <IconBuilding stroke='secondary' />
+                  <Anchor component={Link} to={`${ROUTES.companies}/${_id}`}>
+                    {companyName}
+                  </Anchor>
+                </Flex>
+
+                <Flex align='center' gap={rem(4)}>
+                  <IconMapPin stroke='secondary' />
+                  <Text>{companyOffices}</Text>
+                </Flex>
+              </Group>
+
+              <Divider />
+
+              <Group gap={rem(8)}>
+                <Flex gap={rem(6)}>
+                  <IconMail stroke='secondary' />
+                  <Anchor href={`mailto:${email}`}>E-Mail</Anchor>
+                </Flex>
+
+                {phone && (
+                  <Flex gap={rem(6)}>
+                    <IconPhone stroke='secondary' />
+                    <Anchor href={`tel:${phone}`}>{t('call')}</Anchor>
+                  </Flex>
+                )}
+
+                {linkedin && (
+                  <Flex gap={rem(6)}>
+                    <IconBrandLinkedin stroke='secondary' />
+                    <Anchor href={linkedin}>LinkedIn</Anchor>
+                  </Flex>
+                )}
+              </Group>
+
+              {user?.role !== role && <MakeChatButton id={_id} />}
+            </Stack>
+          </Card>
+        </Grid.Col>
+
+        <Grid.Col span={{ md: 8, lg: 9 }}>
           {/* Job */}
           <Card shadow='sm' radius={0} className={classes.card}>
-            <Flex gap={24} justify='space-between' align='flex-start'>
+            <Flex
+              gap={rem(24)}
+              justify='space-between'
+              align='flex-start'
+              className={classes.inner}
+            >
               <Stack gap={rem(8)} w='100%'>
-                <Flex justify='space-between'>
-                  <Title>
-                    {title}, {salaryRange} $
+                <Flex justify='space-between' wrap='wrap'>
+                  <Title order={2}>
+                    {title}, {salaryRange}$
                   </Title>
 
-                  <Flex justify='space-between' gap={rem(24)}>
+                  <Flex justify='space-between' gap={rem(12)}>
                     <Group>
                       <Text>
                         {t('views')}: {viewsCount}
@@ -177,24 +245,24 @@ export default function JobDetailes() {
                   </Text>
                 </Flex>
 
-                <Flex align='center' gap={rem(16)}>
-                  <Flex gap={rem(8)} align='center'>
+                <Flex align='center' gap={rem(8)} wrap='wrap'>
+                  <Flex gap={rem(6)} align='center'>
                     <IconChartInfographic size={20} />
                     <Text>{companyType}</Text>
                   </Flex>
 
-                  <Flex gap={rem(8)} align='center'>
+                  <Flex gap={rem(6)} align='center'>
                     <IconChartCandle size={20} />
                     <Text>{domain}</Text>
                   </Flex>
 
-                  <Flex gap={rem(8)} align='center'>
+                  <Flex gap={rem(6)} align='center'>
                     <IconChartDonut4 size={20} />
                     <Text>{category}</Text>
                   </Flex>
                 </Flex>
 
-                <Flex gap={rem(8)}>
+                <Flex gap={rem(8)} wrap='wrap'>
                   <Text>{t('employment')}:</Text>
                   <Flex align='center' gap={12} wrap='wrap'>
                     {employment.map((e) => (
@@ -205,22 +273,22 @@ export default function JobDetailes() {
                   </Flex>
                 </Flex>
 
-                <Flex gap={rem(8)}>
-                  <Flex gap={rem(8)} align='center'>
+                <Flex gap={rem(8)} wrap='wrap'>
+                  <Flex gap={rem(6)} align='center'>
                     <IconCircleCheck size={20} />
                     <Text>
                       {t('experience')}: {workExperience} {t('years')}
                     </Text>
                   </Flex>
 
-                  <Flex gap={rem(8)} align='center'>
+                  <Flex gap={rem(6)} align='center'>
                     <IconChartBar size={20} />
                     <Text>
                       {t('level')}: {experienceLevel}
                     </Text>
                   </Flex>
 
-                  <Flex gap={rem(8)} align='center'>
+                  <Flex gap={rem(6)} align='center'>
                     <IconLanguage size={20} />
                     <Text>English: {englishLevel}</Text>
                   </Flex>
@@ -251,6 +319,7 @@ export default function JobDetailes() {
                   src={`${API_SERVER}/${companyLogo}`}
                   w={rem(160)}
                   radius='sm'
+                  className={classes.companyName}
                 />
                 {showApplyBtn && (
                   <Button
@@ -263,69 +332,6 @@ export default function JobDetailes() {
                 )}
               </Stack>
             </Flex>
-          </Card>
-        </Grid.Col>
-
-        {/* Employer, Company Card */}
-        <Grid.Col span={1}>
-          <Card shadow='sm' radius={0} className={classes.card}>
-            <Card.Section className={classes.avatarBox}>
-              <Image
-                fallbackSrc={DEFAULT_AVATAR}
-                src={`${API_SERVER}/${avatar}`}
-                w='100%'
-                h={250}
-              />
-
-              <Badge className={classes.badgeAvatar} color='gray'>
-                {userPosition}
-              </Badge>
-            </Card.Section>
-
-            <Stack gap={rem(12)} pt={rem(12)}>
-              <Title order={2}>
-                {firstName} {lastName}
-              </Title>
-
-              <Group gap={rem(12)}>
-                <Flex gap={rem(8)}>
-                  <IconBuilding stroke='secondary' />
-                  <Anchor component={Link} to={`${ROUTES.companies}/${_id}`}>
-                    {companyName}
-                  </Anchor>
-                </Flex>
-
-                <Flex align='center' gap={rem(4)}>
-                  <IconMapPin stroke='secondary' />
-                  <Text>{companyOffices}</Text>
-                </Flex>
-              </Group>
-
-              <Divider />
-
-              <Group gap={rem(12)}>
-                <Flex gap={rem(8)}>
-                  <IconMail stroke='secondary' />
-                  <Anchor href={`mailto:${email}`}>E-Mail</Anchor>
-                </Flex>
-
-                {phone && (
-                  <Flex gap={rem(8)}>
-                    <IconPhone stroke='secondary' />
-                    <Anchor href={`tel:${phone}`}>{t('call')}</Anchor>
-                  </Flex>
-                )}
-
-                {linkedin && (
-                  <Flex gap={rem(8)}>
-                    <IconBrandLinkedin stroke='secondary' />
-                    <Anchor href={linkedin}>LinkedIn</Anchor>
-                  </Flex>
-                )}
-              </Group>
-
-              {user?.role !== role && <MakeChatButton id={_id} />}
-            </Stack>
           </Card>
         </Grid.Col>
       </Grid>

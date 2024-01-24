@@ -19,3 +19,15 @@
   font-size: rem(10);
   text-transform: none;
 }
+
+.companyName {
+  @media (max-width: $mantine-breakpoint-sm) {
+    display: none;
+  }
+}
+
+.inner {
+  @media (max-width: $mantine-breakpoint-sm) {
+    flex-direction: column;
+  }
+}
