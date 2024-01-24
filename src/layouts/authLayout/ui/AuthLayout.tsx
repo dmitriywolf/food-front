@@ -1,17 +1,17 @@
 import { Outlet } from 'react-router-dom';
-import { Stack, Container, rem } from '@mantine/core';
+import { Stack, Center, Box } from '@mantine/core';
 import { Footer, Logo } from 'components';
 import classes from './Layout.module.scss';
 
 export default function AuthLayout() {
   return (
     <Stack className={classes.layout}>
-      <Container size='responsive' className={classes.main}>
-        <Stack gap={rem(32)} align='center'>
+      <Box component='main' className={classes.main}>
+        <Center>
           <Logo />
-          <Outlet />
-        </Stack>
-      </Container>
+        </Center>
+        <Outlet />
+      </Box>
       <Footer />
     </Stack>
   );

@@ -10,7 +10,9 @@ export default function StillWorking() {
     <Container size='responsive'>
       <Stack align='center' py={rem(100)} className={classes.box}>
         <StillWorkingLogo />
-        <Title order={2}>{t('this_page_is_still_under_construction')}</Title>
+        <Title order={2} ta='center'>
+          {t('this_page_is_still_under_construction')}
+        </Title>
       </Stack>
     </Container>
   );

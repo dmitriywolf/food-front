@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import {
-  Group,
+  Flex,
   Avatar,
   Text,
   Menu,
@@ -102,12 +102,12 @@ export default function ProfileMenu() {
       <Menu trigger='click-hover'>
         <Menu.Target>
           <UnstyledButton>
-            <Group gap={8}>
+            <Flex gap={rem(8)} align='center'>
               <Avatar src={`${API_SERVER}/${user?.avatar}`} />
               <Text size='sm'>
                 {user?.firstName} {user?.lastName}
               </Text>
-            </Group>
+            </Flex>
           </UnstyledButton>
         </Menu.Target>
         <Menu.Dropdown>

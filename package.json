@@ -1,7 +1,7 @@
 {
-  "name": "jobmagazine-front",
+  "name": "ithub-front",
   "version": "1.0.0",
-  "description": "Job magazine",
+  "description": "IThub",
   "main": "index.js",
   "scripts": {
     "dev": "webpack serve --env port=3000",
