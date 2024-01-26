@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { AuthMenu } from 'features/user';
 
 import { ROUTES } from 'shared/routes';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import classes from './MainMenu.module.scss';
 
 export default function MainMenu() {
@@ -42,19 +42,21 @@ export default function MainMenu() {
     },
   ];
 
+  const navLinkClasse = ({ isActive }: { isActive: boolean }): string =>
+    `${classes.link} ${isActive ? classes.active : ''}`;
+
   const menu = configMenu.map((item) => (
-    <Anchor
-      component={Link}
+    <NavLink
       key={item.key}
       to={item.href}
       onClick={close}
-      underline='never'
+      className={navLinkClasse}
     >
-      <Flex className={classes.link}>
+      <Flex className={classes.innerLink}>
         {item.icon}
         <Text>{item.key}</Text>
       </Flex>
-    </Anchor>
+    </NavLink>
   ));
 
   return (

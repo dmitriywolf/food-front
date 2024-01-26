@@ -23,6 +23,10 @@
 }
 
 .link {
+  text-decoration: none;
+}
+
+.innerLink {
   align-items: center;
   gap: rem(6);
 
@@ -33,6 +37,7 @@
   p {
     color: var(--mantine-color-secondary-5);
     text-transform: uppercase;
+    text-decoration: none;
   }
 
   &:hover {
@@ -53,5 +58,16 @@
     display: flex;
     justify-content: center;
     margin-top: rem(24);
+  }
+}
+
+.active {
+  svg {
+    stroke: var(--mantine-color-primary-5);
+  }
+
+  p {
+    color: var(--mantine-color-primary-5);
+    font-weight: bold;
   }
 }

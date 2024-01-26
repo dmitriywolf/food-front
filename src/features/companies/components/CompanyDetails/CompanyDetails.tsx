@@ -175,16 +175,21 @@ export default function CompanyDetails() {
                 </Stack>
 
                 <Stack gap={rem(8)}>
-                  <Flex gap={rem(6)}>
-                    <IconLink size={18} />
-                    <Anchor href={companyWebSite}>{t('company_page')}</Anchor>
-                  </Flex>
-                  <Flex gap={rem(6)}>
-                    <IconLink size={18} />
-                    <Anchor href={companyDouPage}>
-                      {t('company_dou_page')}
-                    </Anchor>
-                  </Flex>
+                  {companyWebSite && (
+                    <Flex gap={rem(6)}>
+                      <IconLink size={18} />
+                      <Anchor href={companyWebSite}>{t('company_page')}</Anchor>
+                    </Flex>
+                  )}
+
+                  {companyDouPage && (
+                    <Flex gap={rem(6)}>
+                      <IconLink size={18} />
+                      <Anchor href={companyDouPage}>
+                        {t('company_dou_page')}
+                      </Anchor>
+                    </Flex>
+                  )}
                 </Stack>
               </SimpleGrid>
 
