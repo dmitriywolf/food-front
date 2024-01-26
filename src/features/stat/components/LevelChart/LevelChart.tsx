@@ -23,8 +23,8 @@ export default function LevelChart() {
         dataKey='level'
         withLegend
         series={[
-          { name: 'Vacancies', color: 'grape' },
-          { name: 'Candidates', color: 'cyan' },
+          { name: 'Vacancies', color: 'teal.9' },
+          { name: 'Candidates', color: 'cyan.9' },
         ]}
       />
     </ChartTemplate>

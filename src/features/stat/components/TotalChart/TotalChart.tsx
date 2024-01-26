@@ -24,12 +24,11 @@ export default function TotalChart() {
         withLegend
         orientation='vertical'
         withYAxis={false}
-        unit='%'
         gridAxis='none'
         series={[
-          { name: 'Companies', color: 'blue' },
-          { name: 'Vacancies', color: 'red' },
-          { name: 'Candidates', color: 'gray' },
+          { name: 'Companies', color: 'primary' },
+          { name: 'Vacancies', color: 'teal.9' },
+          { name: 'Candidates', color: 'cyan.9' },
         ]}
       />
     </ChartTemplate>

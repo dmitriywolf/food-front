@@ -5,11 +5,25 @@ import {
   getLevelStat,
   getDomainsStat,
   getEmploymentStat,
+  getEnglishStat,
 } from './services';
 
-import { ITotalStat, ILevelStat, IEmploymentStat, IDomainStat } from './types';
+import {
+  ITotalStat,
+  ILevelStat,
+  IEmploymentStat,
+  IDomainStat,
+  IEnglishStat,
+} from './types';
 
-const COLOES = ['indigo.6', 'yellow.6', 'teal.6'];
+const ENGLISH_COLOS = [
+  'indigo.5',
+  'red.6',
+  'teal.6',
+  'blue.6',
+  'cyan.5',
+  'grape.5',
+];
 
 interface IStatState {
   // Total statistics
@@ -31,6 +45,11 @@ interface IStatState {
   domainsStatLoading: boolean;
   domainsStatError: string | null;
   domainsStat: IDomainStat[];
+
+  // English
+  englishStatLoading: boolean;
+  englishStatError: string | null;
+  englishStat: IEnglishStat;
 }
 
 const initialState: IStatState = {
@@ -53,6 +72,14 @@ const initialState: IStatState = {
   domainsStatLoading: false,
   domainsStatError: null,
   domainsStat: [],
+
+  // English statistics
+  englishStatLoading: false,
+  englishStatError: null,
+  englishStat: {
+    vacancies: [],
+    candidates: [],
+  },
 };
 
 const statSlice = createSlice({
@@ -74,12 +101,6 @@ const statSlice = createSlice({
         state.totalStatLoading = false;
         state.totalStatError = null;
         state.totalStat = action.payload;
-        // state.totalStat = action.payload.map(
-        //   (el: { name: string; value: number }, idx: number) => ({
-        //     ...el,
-        //     color: COLOES[idx],
-        //   }),
-        // );
       })
       // GET LEVEL STAT
       .addCase(getLevelStat.pending, (state) => {
@@ -122,6 +143,31 @@ const statSlice = createSlice({
         state.domainsStatLoading = false;
         state.domainsStatError = null;
         state.domainsStat = action.payload;
+      })
+      // GET ENGLISH STAT
+      .addCase(getEnglishStat.pending, (state) => {
+        state.englishStatLoading = true;
+        state.englishStatError = null;
+      })
+      .addCase(getEnglishStat.rejected, (state, action) => {
+        state.englishStatLoading = false;
+        state.englishStatError = action.payload as string;
+      })
+      .addCase(getEnglishStat.fulfilled, (state, action) => {
+        state.englishStatLoading = false;
+        state.englishStatError = null;
+        state.englishStat.vacancies = action.payload.vacancies.map(
+          (el: { name: string; value: number }, idx: number) => ({
+            ...el,
+            color: ENGLISH_COLOS[idx],
+          }),
+        );
+        state.englishStat.candidates = action.payload.candidates.map(
+          (el: { name: string; value: number }, idx: number) => ({
+            ...el,
+            color: ENGLISH_COLOS[idx],
+          }),
+        );
       });
   },
 });
@@ -154,6 +200,13 @@ export const selectDomainsStatIsLoading = (state: RootState) =>
   state.stat.domainsStatLoading;
 export const selectDomainsError = (state: RootState) =>
   state.stat.domainsStatError;
+
+// English
+export const selectEnglishStat = (state: RootState) => state.stat.englishStat;
+export const selectEnglishStatIsLoading = (state: RootState) =>
+  state.stat.englishStatLoading;
+export const selectEnglishError = (state: RootState) =>
+  state.stat.englishStatError;
 
 // Reducer
 export default statSlice.reducer;

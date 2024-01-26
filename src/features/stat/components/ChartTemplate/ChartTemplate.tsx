@@ -16,7 +16,7 @@ export default function ChartTemplate({
 }: ChartTemplateProps) {
   return (
     <Card className={classes.card}>
-      <Title order={4} className={classes.title}>
+      <Title order={5} className={classes.title}>
         {title}
       </Title>
       {loading ? (

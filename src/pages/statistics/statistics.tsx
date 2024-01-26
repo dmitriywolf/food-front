@@ -7,10 +7,12 @@ import {
   getEmploymentStat,
   getDomainsStat,
   getTotalStat,
+  getEnglishStat,
   LevelChart,
   EmploymentChart,
   DomainsChart,
   TotalChart,
+  EnglishCharts,
 } from 'features/stat';
 
 function StatisticsPage() {
@@ -23,6 +25,7 @@ function StatisticsPage() {
     dispatch(getEmploymentStat());
     dispatch(getDomainsStat());
     dispatch(getTotalStat());
+    dispatch(getEnglishStat());
   }, [dispatch]);
 
   return (
@@ -34,14 +37,17 @@ function StatisticsPage() {
             <Grid.Col span={12}>
               <TotalChart />
             </Grid.Col>
-            <Grid.Col span={12}>
-              <LevelChart />
-            </Grid.Col>
             <Grid.Col span={{ xl: 6 }}>
               <EmploymentChart />
             </Grid.Col>
             <Grid.Col span={{ xl: 6 }}>
               <DomainsChart />
+            </Grid.Col>
+            <Grid.Col span={12}>
+              <EnglishCharts />
+            </Grid.Col>
+            <Grid.Col span={12}>
+              <LevelChart />
             </Grid.Col>
           </Grid>
         </Stack>

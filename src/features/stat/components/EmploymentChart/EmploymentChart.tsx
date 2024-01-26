@@ -16,15 +16,19 @@ export default function EmploymentChart() {
   const error = useAppSelector(selectEmploymentError);
 
   return (
-    <ChartTemplate title={t('employment')} loading={loading} error={error}>
+    <ChartTemplate
+      title={t('graph_employment')}
+      loading={loading}
+      error={error}
+    >
       <BarChart
         h={360}
         data={data}
         dataKey='employment'
         withLegend
         series={[
-          { name: 'Vacancies', color: 'blue' },
-          { name: 'Candidates', color: 'red' },
+          { name: 'Vacancies', color: 'teal.9' },
+          { name: 'Candidates', color: 'cyan.9' },
         ]}
       />
     </ChartTemplate>

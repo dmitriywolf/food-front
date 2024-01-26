@@ -5,6 +5,7 @@ export { LevelChart } from './components/LevelChart';
 export { EmploymentChart } from './components/EmploymentChart';
 export { DomainsChart } from './components/DomainsChart';
 export { TotalChart } from './components/TotalChart';
+export { EnglishCharts } from './components/EnglishCharts';
 
 // service
 export {
@@ -12,6 +13,7 @@ export {
   getEmploymentStat,
   getDomainsStat,
   getTotalStat,
+  getEnglishStat,
 } from './services';
 
 // selectors

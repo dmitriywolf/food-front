@@ -31,11 +31,11 @@ export default function DomainsChart() {
         unit='%'
         gridAxis='none'
         series={[
-          { name: 'Adult', color: 'blue' },
-          { name: 'Gambling', color: 'red' },
-          { name: 'Dating', color: 'gray' },
-          { name: 'GameDev', color: 'green' },
-          { name: 'Blockchain', color: 'yellow' },
+          { name: 'Adult', color: 'red.9' },
+          { name: 'Gambling', color: 'blue.9' },
+          { name: 'Dating', color: 'orange.9' },
+          { name: 'GameDev', color: 'lime.9' },
+          { name: 'Blockchain', color: 'violet.9' },
         ]}
       />
     </ChartTemplate>

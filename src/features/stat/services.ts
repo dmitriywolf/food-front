@@ -92,3 +92,25 @@ export const getDomainsStat = createAsyncThunk(
     }
   },
 );
+
+export const getEnglishStat = createAsyncThunk(
+  '@@stat/getEnglishStat',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await API.get(`${API_PATHS.statistics}/english`);
+      return data.stat;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        if (error.response && error.response.data) {
+          return rejectWithValue(error.response.data.message);
+        }
+      }
+
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+
+      return rejectWithValue('Failed get english statistics');
+    }
+  },
+);

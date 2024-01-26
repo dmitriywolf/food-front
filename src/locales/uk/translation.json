@@ -146,7 +146,10 @@
   "publish_my_resume": "Опублікувати моє резюме",
   "update_resume": "Оновити резюме",
   "create_resume": "Створити резюме",
-  "candidates_do_not_want_to_work_with": "Кандидати не хочуть працювати з",
-  "comp_vac_can": "Компанії, Вакансії, Кандидати",
-  "level_candidate": "Досвід кандидата"
+  "candidates_do_not_want_to_work_with": "Кандидати не розглядають, %",
+  "comp_vac_can": "Компанії/Вакансії/Кандидати, к-сть (Всього)",
+  "level_candidate": "Рівень, к-сть (Вакансії/Кандидати)",
+  "required_english": "Необхідна англійська, % (Вакансії)",
+  "candidates_english": "Англійська кандидатів, % (Резюме)",
+  "graph_employment": "Працевлаштування, к-сть (Вакансії/Кандидати)"
 }

@@ -147,6 +147,9 @@
   "update_resume": "Update resume",
   "create_resume": "Create resume",
   "candidates_do_not_want_to_work_with": "Candidates don't want to work with",
-  "comp_vac_can": "Companies, Vacancies, Candidates",
-  "level_candidate": "Candidate level"
+  "comp_vac_can": "Companies/Vacancies/Candidates (Total)",
+  "level_candidate": "Level (Vacancies/Candidates)",
+  "required_english": "Required english, % (Vacancies)",
+  "candidates_english": "Candidates english, % (Resumes)",
+  "graph_employment": "Employment (Vacancies/Candidates)"
 }

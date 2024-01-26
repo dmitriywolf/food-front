@@ -26,4 +26,15 @@ interface IDomainStat {
   Blockchain: number;
 }
 
-export { ITotalStat, ILevelStat, IEmploymentStat, IDomainStat };
+interface IPieChart {
+  name: string;
+  value: number;
+  color: string;
+}
+
+interface IEnglishStat {
+  vacancies: IPieChart[];
+  candidates: IPieChart[];
+}
+
+export { ITotalStat, ILevelStat, IEmploymentStat, IDomainStat, IEnglishStat };
