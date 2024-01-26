@@ -147,9 +147,10 @@
   "update_resume": "Оновити резюме",
   "create_resume": "Створити резюме",
   "candidates_do_not_want_to_work_with": "Кандидати не розглядають, %",
-  "comp_vac_can": "Компанії/Вакансії/Кандидати, к-сть (Всього)",
-  "level_candidate": "Рівень, к-сть (Вакансії/Кандидати)",
+  "comp_vac_can": "Всього",
+  "level_candidate": "Рівень, к-сть",
   "required_english": "Необхідна англійська, % (Вакансії)",
   "candidates_english": "Англійська кандидатів, % (Резюме)",
-  "graph_employment": "Працевлаштування, к-сть (Вакансії/Кандидати)"
+  "graph_employment": "Працевлаштування, к-сть (Вакансії/Кандидати)",
+  "average_salary_expectation": "Середні очікування кандидатів, $"
 }

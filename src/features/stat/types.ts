@@ -32,9 +32,21 @@ interface IPieChart {
   color: string;
 }
 
+interface ISalaryExpectation {
+  level: string;
+  Salary: number;
+}
+
 interface IEnglishStat {
   vacancies: IPieChart[];
   candidates: IPieChart[];
 }
 
-export { ITotalStat, ILevelStat, IEmploymentStat, IDomainStat, IEnglishStat };
+export {
+  ITotalStat,
+  ILevelStat,
+  IEmploymentStat,
+  IDomainStat,
+  IEnglishStat,
+  ISalaryExpectation,
+};

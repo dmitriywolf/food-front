@@ -22,6 +22,8 @@ export default function LevelChart() {
         data={data}
         dataKey='level'
         withLegend
+        withYAxis={false}
+        tooltipAnimationDuration={200}
         series={[
           { name: 'Vacancies', color: 'teal.9' },
           { name: 'Candidates', color: 'cyan.9' },

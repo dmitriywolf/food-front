@@ -3,6 +3,30 @@ import { AxiosError } from 'axios';
 import { API_PATHS } from 'shared/api/paths';
 import API from 'shared/api/service';
 
+export const getAverageSalaryExpectationStat = createAsyncThunk(
+  '@@stat/getAverageSalaryExpectationStat',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await API.get(
+        `${API_PATHS.statistics}/salary-expectation`,
+      );
+      return data.stat;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        if (error.response && error.response.data) {
+          return rejectWithValue(error.response.data.message);
+        }
+      }
+
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+
+      return rejectWithValue('Failed get slary expectation statistics');
+    }
+  },
+);
+
 export const getTotalStat = createAsyncThunk(
   '@@stat/getTotalStat',
   async (_, { rejectWithValue }) => {

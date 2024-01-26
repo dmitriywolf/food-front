@@ -25,6 +25,8 @@ export default function EmploymentChart() {
         h={360}
         data={data}
         dataKey='employment'
+        tooltipAnimationDuration={200}
+        withYAxis={false}
         withLegend
         series={[
           { name: 'Vacancies', color: 'teal.9' },

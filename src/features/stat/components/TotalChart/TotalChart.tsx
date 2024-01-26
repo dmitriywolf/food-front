@@ -21,10 +21,10 @@ export default function TotalChart() {
         h={200}
         data={data}
         dataKey='key'
-        withLegend
         orientation='vertical'
         withYAxis={false}
         gridAxis='none'
+        tooltipAnimationDuration={200}
         series={[
           { name: 'Companies', color: 'primary' },
           { name: 'Vacancies', color: 'teal.9' },

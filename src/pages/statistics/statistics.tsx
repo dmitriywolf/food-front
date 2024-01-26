@@ -8,11 +8,13 @@ import {
   getDomainsStat,
   getTotalStat,
   getEnglishStat,
+  getAverageSalaryExpectationStat,
   LevelChart,
   EmploymentChart,
   DomainsChart,
   TotalChart,
   EnglishCharts,
+  SalaryExpectationChart,
 } from 'features/stat';
 
 function StatisticsPage() {
@@ -26,6 +28,7 @@ function StatisticsPage() {
     dispatch(getDomainsStat());
     dispatch(getTotalStat());
     dispatch(getEnglishStat());
+    dispatch(getAverageSalaryExpectationStat());
   }, [dispatch]);
 
   return (
@@ -34,8 +37,11 @@ function StatisticsPage() {
         <Stack gap={rem(16)} py={rem(16)}>
           <Title>{t('statistics')}</Title>
           <Grid gutter='lg'>
-            <Grid.Col span={12}>
+            <Grid.Col>
               <TotalChart />
+            </Grid.Col>
+            <Grid.Col>
+              <SalaryExpectationChart />
             </Grid.Col>
             <Grid.Col span={{ xl: 6 }}>
               <EmploymentChart />
@@ -43,10 +49,11 @@ function StatisticsPage() {
             <Grid.Col span={{ xl: 6 }}>
               <DomainsChart />
             </Grid.Col>
-            <Grid.Col span={12}>
+            <Grid.Col>
               <EnglishCharts />
             </Grid.Col>
-            <Grid.Col span={12}>
+
+            <Grid.Col>
               <LevelChart />
             </Grid.Col>
           </Grid>

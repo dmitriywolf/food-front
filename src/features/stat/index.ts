@@ -6,6 +6,7 @@ export { EmploymentChart } from './components/EmploymentChart';
 export { DomainsChart } from './components/DomainsChart';
 export { TotalChart } from './components/TotalChart';
 export { EnglishCharts } from './components/EnglishCharts';
+export { SalaryExpectationChart } from './components/SalaryExpectationChart';
 
 // service
 export {
@@ -14,6 +15,7 @@ export {
   getDomainsStat,
   getTotalStat,
   getEnglishStat,
+  getAverageSalaryExpectationStat,
 } from './services';
 
 // selectors

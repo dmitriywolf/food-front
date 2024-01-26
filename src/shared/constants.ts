@@ -111,20 +111,15 @@ export const COMPANY_TYPES = [
 ];
 
 export const EXPERIENCE_LEVELS = [
-  'Trainee/Intern',
+  'Trainee',
   'Junior',
   'Middle',
   'Senior',
-  'Team Lead',
-  'Chief/Head of',
+  'Lead',
+  'Chief',
 ];
 
-export const EMPLOYMENT = [
-  'Remote work',
-  'Office',
-  'Part-time',
-  'Freelance (one-time projects)',
-];
+export const EMPLOYMENT = ['Remote', 'Office', 'Part-time', 'Freelance'];
 
 export const DEV_DOMAINS = [
   'Web Development',

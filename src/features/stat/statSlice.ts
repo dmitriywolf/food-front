@@ -6,6 +6,7 @@ import {
   getDomainsStat,
   getEmploymentStat,
   getEnglishStat,
+  getAverageSalaryExpectationStat,
 } from './services';
 
 import {
@@ -14,6 +15,7 @@ import {
   IEmploymentStat,
   IDomainStat,
   IEnglishStat,
+  ISalaryExpectation,
 } from './types';
 
 const ENGLISH_COLOS = [
@@ -50,6 +52,11 @@ interface IStatState {
   englishStatLoading: boolean;
   englishStatError: string | null;
   englishStat: IEnglishStat;
+
+  // Salary Expectation
+  salaryExpectationLoading: boolean;
+  salaryExpectationError: string | null;
+  salaryExpectationStat: ISalaryExpectation[];
 }
 
 const initialState: IStatState = {
@@ -80,6 +87,11 @@ const initialState: IStatState = {
     vacancies: [],
     candidates: [],
   },
+
+  // Salary Expectation
+  salaryExpectationLoading: false,
+  salaryExpectationError: null,
+  salaryExpectationStat: [],
 };
 
 const statSlice = createSlice({
@@ -168,6 +180,20 @@ const statSlice = createSlice({
             color: ENGLISH_COLOS[idx],
           }),
         );
+      })
+      // GET SALARY EXPECTATION STAT
+      .addCase(getAverageSalaryExpectationStat.pending, (state) => {
+        state.salaryExpectationLoading = true;
+        state.salaryExpectationError = null;
+      })
+      .addCase(getAverageSalaryExpectationStat.rejected, (state, action) => {
+        state.salaryExpectationLoading = false;
+        state.salaryExpectationError = action.payload as string;
+      })
+      .addCase(getAverageSalaryExpectationStat.fulfilled, (state, action) => {
+        state.salaryExpectationLoading = false;
+        state.salaryExpectationError = null;
+        state.salaryExpectationStat = action.payload;
       });
   },
 });
@@ -207,6 +233,14 @@ export const selectEnglishStatIsLoading = (state: RootState) =>
   state.stat.englishStatLoading;
 export const selectEnglishError = (state: RootState) =>
   state.stat.englishStatError;
+
+// Average Salary Expectation
+export const selectSalaryExpectationStat = (state: RootState) =>
+  state.stat.salaryExpectationStat;
+export const selectSalaryExpectationLoading = (state: RootState) =>
+  state.stat.salaryExpectationLoading;
+export const selectSalaryExpectationError = (state: RootState) =>
+  state.stat.salaryExpectationError;
 
 // Reducer
 export default statSlice.reducer;

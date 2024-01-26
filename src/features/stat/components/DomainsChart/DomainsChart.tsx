@@ -27,6 +27,7 @@ export default function DomainsChart() {
         dataKey='key'
         withLegend
         orientation='vertical'
+        tooltipAnimationDuration={200}
         withYAxis={false}
         unit='%'
         gridAxis='none'
