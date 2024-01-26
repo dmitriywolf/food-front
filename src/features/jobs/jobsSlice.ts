@@ -1,12 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'store/appStore';
-import {
-  getJobs,
-  getJobById,
-  applyToJob,
-  getMyApplications,
-  getTotal,
-} from './services';
+import { getJobs, getJobById, applyToJob, getMyApplications } from './services';
 
 import { IJob } from '../types';
 
@@ -48,9 +42,6 @@ interface IJobsState {
   myApplicationsLoading: boolean;
   myApplicationsError: string | null;
   myApplications: IJob[];
-
-  // Total jobs count
-  totalJobsCount: string;
 }
 
 const initialState: IJobsState = {
@@ -68,9 +59,6 @@ const initialState: IJobsState = {
   myApplicationsLoading: false,
   myApplicationsError: null,
   myApplications: [],
-
-  // Total jobs count
-  totalJobsCount: '',
 };
 
 const jobsSlice = createSlice({
@@ -93,10 +81,6 @@ const jobsSlice = createSlice({
         state.jobsListError = null;
         state.jobsList = action.payload;
       })
-      // GET TOTAL JOBS COUNT
-      .addCase(getTotal.fulfilled, (state, action) => {
-        state.totalJobsCount = action.payload;
-      })
       // GET JOB BY ID
       .addCase(getJobById.pending, (state) => {
         state.jobPageLoading = true;
@@ -112,16 +96,7 @@ const jobsSlice = createSlice({
         state.jobPage = action.payload;
       })
       // APPLY TO JOB
-      // .addCase(applyToJob.pending, (state) => {
-      //   state.loading = true;
-      //   state.error = null;
-      // })
-      // .addCase(applyToJob.rejected, (state, action) => {
-      //   state.loading = false;
-      //   state.error = action.payload as string;
-      // })
       .addCase(applyToJob.fulfilled, (state, action) => {
-        // state.loading = false;
         state.jobPage.applications.push(action.payload);
       })
       // GET MY APPLICATIONS
@@ -154,10 +129,6 @@ export const selectJob = (state: RootState) => state.jobs.jobPage;
 export const selectJobIsLoading = (state: RootState) =>
   state.jobs.jobPageLoading;
 export const selectJobError = (state: RootState) => state.jobs.jobPageError;
-
-// Total Jobs Count
-export const selectTotalJobsCount = (state: RootState) =>
-  state.jobs.totalJobsCount;
 
 // My Applications
 export const selectMyApplications = (state: RootState) =>

@@ -4,9 +4,15 @@ export { default as statSlice } from './statSlice';
 export { LevelChart } from './components/LevelChart';
 export { EmploymentChart } from './components/EmploymentChart';
 export { DomainsChart } from './components/DomainsChart';
+export { TotalChart } from './components/TotalChart';
 
 // service
-export { getLevelStat } from './services';
+export {
+  getLevelStat,
+  getEmploymentStat,
+  getDomainsStat,
+  getTotalStat,
+} from './services';
 
 // selectors
 export {

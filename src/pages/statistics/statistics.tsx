@@ -3,18 +3,26 @@ import { useTranslation } from 'react-i18next';
 import { Box, Container, Stack, Title, rem, Grid } from '@mantine/core';
 import { useAppDispatch } from 'store/hooks';
 import {
-  // getLevelStat,
+  getLevelStat,
+  getEmploymentStat,
+  getDomainsStat,
+  getTotalStat,
   LevelChart,
   EmploymentChart,
   DomainsChart,
+  TotalChart,
 } from 'features/stat';
 
 function StatisticsPage() {
   const dispatch = useAppDispatch();
+
   const { t } = useTranslation();
 
   useEffect(() => {
-    // dispatch(getLevelStat());
+    dispatch(getLevelStat());
+    dispatch(getEmploymentStat());
+    dispatch(getDomainsStat());
+    dispatch(getTotalStat());
   }, [dispatch]);
 
   return (
@@ -23,6 +31,9 @@ function StatisticsPage() {
         <Stack gap={rem(16)} py={rem(16)}>
           <Title>{t('statistics')}</Title>
           <Grid gutter='lg'>
+            <Grid.Col span={12}>
+              <TotalChart />
+            </Grid.Col>
             <Grid.Col span={12}>
               <LevelChart />
             </Grid.Col>

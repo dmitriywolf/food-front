@@ -3,11 +3,33 @@ import { AxiosError } from 'axios';
 import { API_PATHS } from 'shared/api/paths';
 import API from 'shared/api/service';
 
+export const getTotalStat = createAsyncThunk(
+  '@@stat/getTotalStat',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await API.get(`${API_PATHS.statistics}/total`);
+      return data.stat;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        if (error.response && error.response.data) {
+          return rejectWithValue(error.response.data.message);
+        }
+      }
+
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+
+      return rejectWithValue('Failed get total statistics');
+    }
+  },
+);
+
 export const getLevelStat = createAsyncThunk(
   '@@stat/getLevelStat',
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await API.get(`${API_PATHS.statistics}/level`);
+      const { data } = await API.get(`${API_PATHS.statistics}/levels`);
       return data.stat;
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
@@ -51,7 +73,9 @@ export const getDomainsStat = createAsyncThunk(
   '@@stat/getDomainsStat',
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await API.get(`${API_PATHS.statistics}/domains`);
+      const { data } = await API.get(
+        `${API_PATHS.statistics}/not-consider-domains`,
+      );
       return data.stat;
     } catch (error: unknown) {
       if (error instanceof AxiosError) {

@@ -1,3 +1,10 @@
+interface ITotalStat {
+  key: string;
+  Vacancies: number;
+  Candidates: number;
+  Companies: number;
+}
+
 interface ILevelStat {
   level: string;
   Vacancies: number;
@@ -11,7 +18,7 @@ interface IEmploymentStat {
 }
 
 interface IDomainStat {
-  domain: string;
+  key: string;
   Adult: number;
   Gambling: number;
   Dating: number;
@@ -19,4 +26,4 @@ interface IDomainStat {
   Blockchain: number;
 }
 
-export { ILevelStat, IEmploymentStat, IDomainStat };
+export { ITotalStat, ILevelStat, IEmploymentStat, IDomainStat };

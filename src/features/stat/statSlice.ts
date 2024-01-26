@@ -1,77 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'store/appStore';
-import { getLevelStat, getDomainsStat, getEmploymentStat } from './services';
+import {
+  getTotalStat,
+  getLevelStat,
+  getDomainsStat,
+  getEmploymentStat,
+} from './services';
 
-import { ILevelStat, IEmploymentStat, IDomainStat } from './types';
+import { ITotalStat, ILevelStat, IEmploymentStat, IDomainStat } from './types';
 
-const DEMO_LEVELS = [
-  {
-    level: 'Trainee/Intern',
-    Vacancies: 2,
-    Candidates: 5,
-  },
-  {
-    level: 'Junior',
-    Vacancies: 2,
-    Candidates: 5,
-  },
-  {
-    level: 'Middle',
-    Vacancies: 2,
-    Candidates: 5,
-  },
-  {
-    level: 'Senior',
-    Vacancies: 2,
-    Candidates: 5,
-  },
-  {
-    level: 'Team Lead',
-    Vacancies: 2,
-    Candidates: 5,
-  },
-  {
-    level: 'Chief/Head of',
-    Vacancies: 2,
-    Candidates: 5,
-  },
-];
-
-const DEMO_EMPLOYMENT = [
-  {
-    employment: 'Remote',
-    Vacancies: 2,
-    Candidates: 5,
-  },
-  {
-    employment: 'Office',
-    Vacancies: 2,
-    Candidates: 5,
-  },
-  {
-    employment: 'Part-time',
-    Vacancies: 2,
-    Candidates: 5,
-  },
-  {
-    employment: 'Freelance',
-    Vacancies: 2,
-    Candidates: 5,
-  },
-];
-
-const DEMO_DOMAINS = [
-  {
-    domain: '',
-    Adult: 20,
-    Gambling: 10,
-    Dating: 8,
-    GameDev: 3,
-    Blockchain: 2,
-  },
-];
+const COLOES = ['indigo.6', 'yellow.6', 'teal.6'];
 
 interface IStatState {
+  // Total statistics
+  totalStatLoading: boolean;
+  totalStatError: string | null;
+  totalStat: ITotalStat[];
+
   // Level statistics
   levelStatLoading: boolean;
   levelStatError: string | null;
@@ -89,20 +34,25 @@ interface IStatState {
 }
 
 const initialState: IStatState = {
+  // Total statistics
+  totalStatLoading: false,
+  totalStatError: null,
+  totalStat: [],
+
   // Level statistics
   levelStatLoading: false,
   levelStatError: null,
-  levelStat: DEMO_LEVELS,
+  levelStat: [],
 
   // Employment statistics
   employmentStatLoading: false,
   employmentStatError: null,
-  employmentStat: DEMO_EMPLOYMENT,
+  employmentStat: [],
 
   // Domains statistics
   domainsStatLoading: false,
   domainsStatError: null,
-  domainsStat: DEMO_DOMAINS,
+  domainsStat: [],
 };
 
 const statSlice = createSlice({
@@ -111,6 +61,26 @@ const statSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // GET TOTAL STAT
+      .addCase(getTotalStat.pending, (state) => {
+        state.totalStatLoading = true;
+        state.totalStatError = null;
+      })
+      .addCase(getTotalStat.rejected, (state, action) => {
+        state.totalStatLoading = false;
+        state.totalStatError = action.payload as string;
+      })
+      .addCase(getTotalStat.fulfilled, (state, action) => {
+        state.totalStatLoading = false;
+        state.totalStatError = null;
+        state.totalStat = action.payload;
+        // state.totalStat = action.payload.map(
+        //   (el: { name: string; value: number }, idx: number) => ({
+        //     ...el,
+        //     color: COLOES[idx],
+        //   }),
+        // );
+      })
       // GET LEVEL STAT
       .addCase(getLevelStat.pending, (state) => {
         state.levelStatLoading = true;
@@ -159,6 +129,11 @@ const statSlice = createSlice({
 // Actions
 
 // Selectors
+export const selectTotalStat = (state: RootState) => state.stat.totalStat;
+export const selectTotalStatIsLoading = (state: RootState) =>
+  state.stat.totalStatLoading;
+export const selectTotalError = (state: RootState) => state.stat.totalStatError;
+
 // Level
 export const selectLevelStat = (state: RootState) => state.stat.levelStat;
 export const selectLevelStatIsLoading = (state: RootState) =>

@@ -1,4 +1,5 @@
-import { Card, LoadingOverlay, Loader, Title } from '@mantine/core';
+import { Card, LoadingOverlay, Loader, Title, Stack } from '@mantine/core';
+import classes from './ChartTemplate.module.scss';
 
 type ChartTemplateProps = {
   title: string;
@@ -14,8 +15,8 @@ export default function ChartTemplate({
   children,
 }: ChartTemplateProps) {
   return (
-    <Card pos='relative'>
-      <Title order={4} ta='center' c='secondary'>
+    <Card className={classes.card}>
+      <Title order={4} className={classes.title}>
         {title}
       </Title>
       {loading ? (
@@ -26,7 +27,7 @@ export default function ChartTemplate({
       ) : error ? (
         <Title order={3}>{error}</Title>
       ) : (
-        children
+        <Stack align='center'>{children}</Stack>
       )}
     </Card>
   );

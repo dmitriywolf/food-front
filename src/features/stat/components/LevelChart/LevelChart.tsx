@@ -16,7 +16,7 @@ export default function LevelChart() {
   const error = useAppSelector(selectLevelError);
 
   return (
-    <ChartTemplate title={t('level')} loading={loading} error={error}>
+    <ChartTemplate title={t('level_candidate')} loading={loading} error={error}>
       <BarChart
         h={360}
         data={data}

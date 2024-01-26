@@ -10,7 +10,6 @@ export const API_PATHS = {
   employers: '/employers', // companies
   resumes: '/resumes', // candidates
   jobs: '/jobs',
-  totalJobs: '/jobs/total',
   chats: '/chats',
   messages: '/messages',
   docs: '/docs',

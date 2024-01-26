@@ -28,6 +28,7 @@ export default function DomainsChart() {
         withLegend
         orientation='vertical'
         withYAxis={false}
+        unit='%'
         gridAxis='none'
         series={[
           { name: 'Adult', color: 'blue' },

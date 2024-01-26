@@ -1,7 +1,6 @@
 import { Container, Flex, Title, Text, Box } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import IntroLogo from 'assets/svg/intro.svg';
-import { TotalJobs } from 'features/jobs';
 
 import classes from './Home.module.scss';
 
@@ -19,7 +18,6 @@ function HomePage() {
           <Text className={classes.subtitle} c='secondary'>
             {t('searching_for_a_job')}
           </Text>
-          <TotalJobs />
         </Flex>
       </Container>
     </Box>
