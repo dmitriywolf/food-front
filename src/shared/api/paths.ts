@@ -14,4 +14,5 @@ export const API_PATHS = {
   chats: '/chats',
   messages: '/messages',
   docs: '/docs',
+  statistics: '/statistics',
 };

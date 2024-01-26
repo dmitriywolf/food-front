@@ -145,5 +145,6 @@
   "do_not_consider": "I do not consider",
   "publish_my_resume": "Publish my resume",
   "update_resume": "Update resume",
-  "create_resume": "Create resume"
+  "create_resume": "Create resume",
+  "candidates_do_not_want_to_work_with": "Candidates don't want to work with"
 }
