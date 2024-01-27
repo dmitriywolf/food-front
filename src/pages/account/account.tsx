@@ -136,7 +136,7 @@ function AccountPage() {
     <Box component='section'>
       <Container size='responsive'>
         <Stack gap={rem(16)} py={rem(16)}>
-          <Title>
+          <Title order={2}>
             {user?.firstName} {user?.lastName}
           </Title>
           {user?.role === ROLES.seeker && <SeekerTabs />}

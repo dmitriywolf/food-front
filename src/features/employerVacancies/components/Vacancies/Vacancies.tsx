@@ -54,7 +54,9 @@ export default function EmployerVacancies() {
               />
             ))
           ) : (
-            <Title order={2}>{t('you_have_no_vacancies_yet')}</Title>
+            <Title order={3} ta='center'>
+              {t('you_have_no_vacancies_yet')}
+            </Title>
           )}
         </Stack>
       )}

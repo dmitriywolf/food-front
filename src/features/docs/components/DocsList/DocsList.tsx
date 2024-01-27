@@ -40,7 +40,9 @@ export default function DocsList() {
           ) : docs?.length > 0 ? (
             docs.map((d) => <DocItem key={d._id} document={d} showControls />)
           ) : (
-            <Title order={2}>{t('you_have_no_docs_yet')}</Title>
+            <Title order={3} ta='center'>
+              {t('you_have_no_docs_yet')}
+            </Title>
           )}
         </Stack>
       )}

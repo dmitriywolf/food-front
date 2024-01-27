@@ -10,7 +10,7 @@ function NotFoundPage(): JSX.Element {
     <Container size='responsive'>
       <Stack align='center' py={rem(100)} className={classes.page}>
         <NotFoundLogo />
-        <Title order={2}>{t('not_found_page')}</Title>
+        <Title order={3}>{t('not_found_page')}</Title>
       </Stack>
     </Container>
   );

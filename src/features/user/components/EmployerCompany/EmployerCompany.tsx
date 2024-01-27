@@ -96,6 +96,7 @@ export default function EmployerCompany() {
                 src={preview || `${API_SERVER}/${employer?.companyLogo}`}
                 w='100%'
                 h='100%'
+                radius='md'
               />
             </Center>
 

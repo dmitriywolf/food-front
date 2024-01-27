@@ -107,6 +107,7 @@ export default function EmployerProfile() {
                   src={preview || `${API_SERVER}/${employer?.avatar}`}
                   w='100%'
                   h='100%'
+                  radius='md'
                 />
               </Center>
               <FileButton

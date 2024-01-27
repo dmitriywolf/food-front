@@ -1,10 +1,15 @@
 .wrap {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
   @mixin light {
     border-bottom: 1px solid var(--mantine-color-gray-4);
     background-color: var(--mantine-color-white);
   }
 
   @mixin dark {
+    background-color: var(--mantine-color-bg-5);
     border-bottom: 1px solid var(--mantine-color-dark-8);
   }
 }

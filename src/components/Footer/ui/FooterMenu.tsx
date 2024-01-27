@@ -17,10 +17,10 @@ export default function FooterMenu() {
       value: t('contacts'),
       href: ROUTES.contacts,
     },
-    {
-      value: t('conditions'),
-      href: ROUTES.conditions,
-    },
+    // {
+    //   value: t('conditions'),
+    //   href: ROUTES.conditions,
+    // },
     {
       value: t('faq'),
       href: ROUTES.faq,

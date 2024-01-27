@@ -116,6 +116,7 @@ export default function SeekerProfile() {
                   src={preview || `${API_SERVER}/${seeker?.avatar}`}
                   w='100%'
                   h='100%'
+                  radius='md'
                 />
               </Center>
 

@@ -39,7 +39,9 @@ export default function Applications() {
           ) : applications?.length > 0 ? (
             applications.map((job) => <JobCard key={job._id} job={job} />)
           ) : (
-            <Title order={2}>{t('you_have_no_applications_yet')}</Title>
+            <Title order={3} ta='center'>
+              {t('you_have_no_applications_yet')}
+            </Title>
           )}
         </SimpleGrid>
       )}
