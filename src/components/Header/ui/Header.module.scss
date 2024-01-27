@@ -22,18 +22,8 @@
   }
 }
 
-.profileWrap {
-  margin-left: auto;
-}
-
-.authCol {
+.userCol {
   @media (max-width: $mantine-breakpoint-lg) {
     order: 3;
-  }
-
-  @media (max-width: $mantine-breakpoint-xs) {
-    .authWrap {
-      display: none;
-    }
   }
 }

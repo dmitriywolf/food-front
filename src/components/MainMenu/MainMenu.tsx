@@ -1,4 +1,4 @@
-import { Anchor, Flex, Text, Box, ActionIcon, Drawer } from '@mantine/core';
+import { Flex, Text, Box, ActionIcon, Drawer } from '@mantine/core';
 import {
   IconFileCv,
   IconListCheck,
@@ -8,7 +8,6 @@ import {
 } from '@tabler/icons-react';
 import { useDisclosure } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
-import { AuthMenu } from 'features/user';
 
 import { ROUTES } from 'shared/routes';
 import { NavLink } from 'react-router-dom';
@@ -23,22 +22,22 @@ export default function MainMenu() {
     {
       key: t('companies'),
       href: ROUTES.companies,
-      icon: <IconBuilding size={20} />,
+      icon: <IconBuilding size={24} />,
     },
     {
       key: t('jobs'),
       href: ROUTES.jobs,
-      icon: <IconListCheck size={20} />,
+      icon: <IconListCheck size={24} />,
     },
     {
       key: t('candidates'),
       href: ROUTES.resumes,
-      icon: <IconFileCv size={20} />,
+      icon: <IconFileCv size={24} />,
     },
     {
       key: t('statistics'),
       href: ROUTES.statistics,
-      icon: <IconChartDots size={20} />,
+      icon: <IconChartDots size={24} />,
     },
   ];
 
@@ -64,24 +63,19 @@ export default function MainMenu() {
       <ActionIcon
         className={classes.burger}
         variant='transparent'
-        aria-label='Burger menu'
         size='xl'
         onClick={open}
       >
-        <IconMenu2 style={{ width: '100%', height: '100%' }} stroke={1.5} />
+        <IconMenu2 size={36} stroke={1.5} />
       </ActionIcon>
-
-      <Drawer opened={opened} onClose={close}>
-        <Flex className={classes.menu}>{menu}</Flex>
-
-        <Box className={classes.authWrap}>
-          <AuthMenu />
-        </Box>
-      </Drawer>
 
       <Box className={classes.desktopMenu}>
         <Flex className={classes.menu}>{menu}</Flex>
       </Box>
+
+      <Drawer opened={opened} onClose={close} size='100%'>
+        <Flex className={classes.menu}>{menu}</Flex>
+      </Drawer>
     </>
   );
 }

@@ -21,6 +21,13 @@
       color: var(--mantine-color-primary-5);
     }
   }
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    p {
+      font-size: rem(28);
+      line-height: rem(32);
+    }
+  }
 }
 
 .box {

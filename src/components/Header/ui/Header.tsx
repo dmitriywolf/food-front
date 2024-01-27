@@ -15,18 +15,15 @@ export default function Header() {
             <Logo />
           </Grid.Col>
 
-          <Grid.Col
-            span={{ base: 2, xs: 2, sm: 5, md: 4, lg: 6 }}
-            className={classes.menuCol}
-          >
+          <Grid.Col span={{ base: 4, xs: 2, sm: 5, md: 4, lg: 6 }}>
             <MainMenu />
           </Grid.Col>
 
           <Grid.Col
-            span={{ base: 6, xs: 7, sm: 5, md: 4, lg: 3 }}
-            className={classes.authCol}
+            span={{ base: 4, xs: 7, sm: 5, md: 4, lg: 3 }}
+            className={classes.userCol}
           >
-            <Flex justify='flex-end' className={classes.authWrap}>
+            <Flex justify='flex-end'>
               <AuthMenu />
             </Flex>
 

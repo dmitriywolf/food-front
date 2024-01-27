@@ -101,16 +101,13 @@ export default function ProfileMenu() {
     return (
       <Menu trigger='click-hover'>
         <Menu.Target>
-          <UnstyledButton>
-            <Flex gap={rem(8)} align='center'>
-              <Avatar src={`${API_SERVER}/${user?.avatar}`} />
-              <Text size='sm'>
-                {user?.firstName} {user?.lastName}
-              </Text>
-            </Flex>
-          </UnstyledButton>
+          <Avatar src={`${API_SERVER}/${user?.avatar}`} />
         </Menu.Target>
         <Menu.Dropdown>
+          <Text size='md' ta='center' p={rem(4)} c='primary' fw='bold'>
+            {user?.firstName} {user?.lastName}
+          </Text>
+          <Divider my={rem(4)} />
           {menuConfig?.map(({ title, icon, href }) => (
             <Menu.Item
               key={title}

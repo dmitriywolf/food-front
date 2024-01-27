@@ -1,10 +1,11 @@
-import { Button, Flex, rem } from '@mantine/core';
+import { Button, Flex, rem, Text } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { IconLogin2, IconUserPlus } from '@tabler/icons-react';
 import { ROUTES } from 'shared/routes';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from 'store/hooks';
 import { selectIsAuthorized } from '../../userSlice';
+import classes from './AuthMenu.module.scss';
 
 export default function AuthMenu() {
   const { t } = useTranslation();
@@ -15,13 +16,15 @@ export default function AuthMenu() {
     return (
       <Flex align='center' gap={rem(12)}>
         <Link to={ROUTES.signin}>
-          <Button variant='light' leftSection={<IconLogin2 size={16} />}>
-            {t('signin')}
+          <Button variant='light' className={classes.btn}>
+            <IconLogin2 size={22} />
+            <Text className={classes.text}>{t('signin')}</Text>
           </Button>
         </Link>
         <Link to={ROUTES.signup}>
-          <Button variant='outline' leftSection={<IconUserPlus size={16} />}>
-            {t('signup')}
+          <Button variant='outline' className={classes.btn}>
+            <IconUserPlus size={22} />
+            <Text className={classes.text}> {t('signup')} </Text>
           </Button>
         </Link>
       </Flex>
