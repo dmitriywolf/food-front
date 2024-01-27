@@ -7,6 +7,7 @@ import {
   UnstyledButton,
   Divider,
   rem,
+  ActionIcon,
 } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import {
@@ -54,11 +55,6 @@ export default function ProfileMenu() {
       href: ROUTES.profileApplications,
       icon: <IconListTree size={20} />,
     },
-    {
-      title: t('chats'),
-      href: ROUTES.chats,
-      icon: <IconBrandHipchat size={20} />,
-    },
   ];
 
   const employerConfig = [
@@ -87,11 +83,6 @@ export default function ProfileMenu() {
       href: ROUTES.profileAddEditVacancy,
       icon: <IconEdit size={20} />,
     },
-    {
-      title: t('chats'),
-      href: ROUTES.chats,
-      icon: <IconBrandHipchat size={20} />,
-    },
   ];
 
   const menuConfig =
@@ -99,35 +90,47 @@ export default function ProfileMenu() {
 
   if (isAuthorized) {
     return (
-      <Menu trigger='click-hover'>
-        <Menu.Target>
-          <Avatar src={`${API_SERVER}/${user?.avatar}`} />
-        </Menu.Target>
-        <Menu.Dropdown>
-          <Text size='md' ta='center' p={rem(4)} c='primary' fw='bold'>
-            {user?.firstName} {user?.lastName}
-          </Text>
-          <Divider my={rem(4)} />
-          {menuConfig?.map(({ title, icon, href }) => (
-            <Menu.Item
-              key={title}
-              leftSection={icon}
-              component={Link}
-              to={href}
-            >
-              {title}
-            </Menu.Item>
-          ))}
-          <Divider my={rem(4)} />
-          <Menu.Item
-            color='red'
-            onClick={logoutHandler}
-            leftSection={<IconLogout size={20} />}
+      <Flex gap={rem(8)} align='center'>
+        <Link to={ROUTES.chats}>
+          <ActionIcon
+            variant='transparent'
+            size={36}
+            aria-label='Chats'
+            color='primary'
           >
-            {t('logout')}
-          </Menu.Item>
-        </Menu.Dropdown>
-      </Menu>
+            <IconBrandHipchat size={32} />
+          </ActionIcon>
+        </Link>
+        <Menu trigger='click-hover'>
+          <Menu.Target>
+            <Avatar src={`${API_SERVER}/${user?.avatar}`} />
+          </Menu.Target>
+          <Menu.Dropdown>
+            <Text size='md' ta='center' p={rem(4)} c='primary' fw='bold'>
+              {user?.firstName} {user?.lastName}
+            </Text>
+            <Divider my={rem(4)} />
+            {menuConfig?.map(({ title, icon, href }) => (
+              <Menu.Item
+                key={title}
+                leftSection={icon}
+                component={Link}
+                to={href}
+              >
+                {title}
+              </Menu.Item>
+            ))}
+            <Divider my={rem(4)} />
+            <Menu.Item
+              color='red'
+              onClick={logoutHandler}
+              leftSection={<IconLogout size={20} />}
+            >
+              {t('logout')}
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
+      </Flex>
     );
   }
   return null;
