@@ -14,4 +14,5 @@ export const API_PATHS = {
   messages: '/messages',
   docs: '/docs',
   statistics: '/statistics',
+  notifications: '/notifications',
 };

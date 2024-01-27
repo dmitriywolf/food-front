@@ -15,6 +15,7 @@ import {
   Select,
   MultiSelect,
   rem,
+  Loader,
 } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { IconMapPin } from '@tabler/icons-react';
@@ -33,14 +34,18 @@ import {
   NOT_CONSIDER_DOMAINS,
   EMPLOYMENT,
 } from 'shared/constants';
-import { selectMyResumeIsLoading, selectMyResume } from '../../resumeSlice';
+import {
+  selectMyResumeUpdateIsLoading,
+  selectMyResume,
+  selectMyResumeIsLoading,
+} from '../../resumeSlice';
 import { editResume, getMyResume } from '../../services';
 
 import type { IResumeFormValues } from './types';
 import { resumeSchema } from './schema';
 import classes from './Resume.module.scss';
 
-export default function Resume() {
+function Resume() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
@@ -64,7 +69,7 @@ export default function Resume() {
     updatedAt,
     isPublished,
   } = useAppSelector(selectMyResume);
-  const isLoading = useAppSelector(selectMyResumeIsLoading);
+  const isLoading = useAppSelector(selectMyResumeUpdateIsLoading);
 
   const { getInputProps, onSubmit, values, setFieldValue } =
     useForm<IResumeFormValues>({
@@ -109,12 +114,6 @@ export default function Resume() {
   const onSummaryUpdate = (v: string) => {
     setFieldValue('summary', v);
   };
-
-  useEffect(() => {
-    if (!_id) {
-      dispatch(getMyResume());
-    }
-  }, [_id, dispatch]);
 
   return (
     <Stack gap={rem(24)}>
@@ -276,4 +275,15 @@ export default function Resume() {
       </Card>
     </Stack>
   );
+}
+
+export default function ResumeEnhancer() {
+  const dispatch = useAppDispatch();
+  const loading = useAppSelector(selectMyResumeIsLoading);
+
+  useEffect(() => {
+    dispatch(getMyResume());
+  }, [dispatch]);
+
+  return loading ? <Loader type='dots' m='16px auto' /> : <Resume />;
 }

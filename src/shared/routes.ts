@@ -12,6 +12,7 @@ export const ROUTES = {
   accountTabs: '/account/:tab',
 
   profile: '/account/profile',
+  notifications: '/account/notifications',
 
   // seeker profile
   profileResume: '/account/resume',

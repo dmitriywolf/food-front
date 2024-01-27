@@ -8,6 +8,7 @@ import { jobsSlice } from 'features/jobs';
 import { chatsSlice } from 'features/chats';
 import { docsSlice } from 'features/docs';
 import { statSlice } from 'features/stat';
+import { notificationsSlice } from 'features/notifications';
 
 export const rootReducer = combineReducers({
   user: userSlice,
@@ -18,4 +19,5 @@ export const rootReducer = combineReducers({
   chats: chatsSlice,
   docs: docsSlice,
   stat: statSlice,
+  notifications: notificationsSlice,
 });

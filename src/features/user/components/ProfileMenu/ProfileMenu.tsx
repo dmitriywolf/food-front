@@ -1,14 +1,5 @@
 import { Link } from 'react-router-dom';
-import {
-  Flex,
-  Avatar,
-  Text,
-  Menu,
-  UnstyledButton,
-  Divider,
-  rem,
-  ActionIcon,
-} from '@mantine/core';
+import { Flex, Avatar, Text, Menu, Divider, rem } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import {
   IconFileCv,
@@ -18,11 +9,11 @@ import {
   IconListTree,
   IconLogout,
   IconBuilding,
-  IconBrandHipchat,
   IconFileDots,
 } from '@tabler/icons-react';
 import { ROLES, API_SERVER } from 'shared/constants';
-
+import { ChatLink } from 'features/chats';
+import { NotificationLink } from 'features/notifications';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { ROUTES } from 'shared/routes';
 
@@ -90,23 +81,15 @@ export default function ProfileMenu() {
 
   if (isAuthorized) {
     return (
-      <Flex gap={rem(8)} align='center'>
-        <Link to={ROUTES.chats}>
-          <ActionIcon
-            variant='transparent'
-            size={36}
-            aria-label='Chats'
-            color='primary'
-          >
-            <IconBrandHipchat size={32} />
-          </ActionIcon>
-        </Link>
+      <Flex gap={{ base: rem(4), xs: rem(12) }} align='center'>
+        <NotificationLink />
+        <ChatLink />
         <Menu trigger='click-hover'>
           <Menu.Target>
             <Avatar src={`${API_SERVER}/${user?.avatar}`} />
           </Menu.Target>
           <Menu.Dropdown>
-            <Text size='md' ta='center' p={rem(4)} c='primary' fw='bold'>
+            <Text size='md' ta='center' p={rem(4)} fw='bold'>
               {user?.firstName} {user?.lastName}
             </Text>
             <Divider my={rem(4)} />

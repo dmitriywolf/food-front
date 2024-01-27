@@ -155,5 +155,7 @@
   "average_salary_expectation": "Середні очікування кандидатів, $",
   "not_found_chats": "У вас ще нема чатів",
   "type_a_message": "Напишіть повідомлення",
-  "chat_not_selected": "Чат не вибрано"
+  "chat_not_selected": "Чат не вибрано",
+  "notifications": "Сповіщення",
+  "you_have_no_notifications_yet": "У вас ще нема сповіщень"
 }

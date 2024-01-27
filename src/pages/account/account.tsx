@@ -7,19 +7,21 @@ import {
   IconListTree,
   IconBuilding,
   IconFileDots,
+  IconBellRinging2,
 } from '@tabler/icons-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'store/hooks';
 import { ROLES } from 'shared/constants';
 import { Applications } from 'features/jobs';
+import { MyNotifications } from 'features/notifications';
 import {
   SeekerProfile,
   EmployerProfile,
   EmployerCompany,
   selectUser,
 } from 'features/user';
-import { Resume, getMyResume } from 'features/resume';
+import { Resume } from 'features/resume';
 import { Vacancy, Vacancies } from 'features/employerVacancies';
 import { ROUTES } from 'shared/routes';
 import Docs from './components/Docs';
@@ -28,6 +30,7 @@ const SEEKER_TABS = {
   profile: ROUTES.profile,
   resume: ROUTES.profileResume,
   applications: ROUTES.profileApplications,
+  notifications: ROUTES.notifications,
 };
 
 function SeekerTabs() {
@@ -54,6 +57,12 @@ function SeekerTabs() {
           >
             {t('my_applications')}
           </Tabs.Tab>
+          <Tabs.Tab
+            value={SEEKER_TABS.notifications}
+            leftSection={<IconBellRinging2 />}
+          >
+            {t('notifications')}
+          </Tabs.Tab>
         </Tabs.List>
       </Tabs>
       {
@@ -61,6 +70,7 @@ function SeekerTabs() {
           [SEEKER_TABS.profile]: <SeekerProfile />,
           [SEEKER_TABS.resume]: <Resume />,
           [SEEKER_TABS.applications]: <Applications />,
+          [SEEKER_TABS.notifications]: <MyNotifications />,
         }[navTab]
       }
     </>
@@ -73,6 +83,7 @@ const EMPLOYER_TABS = {
   companyDocs: ROUTES.profileCompanyDocs,
   vacancies: ROUTES.profileVacancies,
   vacancy: ROUTES.profileAddEditVacancy,
+  notifications: ROUTES.notifications,
 };
 
 function EmployersTabs() {
@@ -114,6 +125,12 @@ function EmployersTabs() {
           <Tabs.Tab value={EMPLOYER_TABS.vacancy} leftSection={<IconEdit />}>
             {t('create_edit_vacancy')}
           </Tabs.Tab>
+          <Tabs.Tab
+            value={EMPLOYER_TABS.notifications}
+            leftSection={<IconBellRinging2 />}
+          >
+            {t('notifications')}
+          </Tabs.Tab>
         </Tabs.List>
       </Tabs>
       {
@@ -123,6 +140,7 @@ function EmployersTabs() {
           [EMPLOYER_TABS.companyDocs]: <Docs />,
           [EMPLOYER_TABS.vacancies]: <Vacancies />,
           [EMPLOYER_TABS.vacancy]: <Vacancy />,
+          [EMPLOYER_TABS.notifications]: <MyNotifications />,
         }[navTab]
       }
     </>

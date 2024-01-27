@@ -40,6 +40,8 @@ interface IResumeState {
   myResumeLoading: boolean;
   myResumeError: string | null;
   myResume: IResume;
+
+  myResumeUpdateLoading: boolean;
 }
 
 const initialState: IResumeState = {
@@ -57,6 +59,8 @@ const initialState: IResumeState = {
   myResumeLoading: false,
   myResumeError: null,
   myResume: DEFAULT_RESUME_DATA,
+
+  myResumeUpdateLoading: false,
 };
 
 const resumeSlice = createSlice({
@@ -81,15 +85,15 @@ const resumeSlice = createSlice({
       })
       // EDIT MY RESUME
       .addCase(editResume.pending, (state) => {
-        state.myResumeLoading = true;
+        state.myResumeUpdateLoading = true;
         state.myResumeError = null;
       })
       .addCase(editResume.rejected, (state, action) => {
-        state.myResumeLoading = false;
+        state.myResumeUpdateLoading = false;
         state.myResumeError = action.payload as string;
       })
       .addCase(editResume.fulfilled, (state, action) => {
-        state.myResumeLoading = false;
+        state.myResumeUpdateLoading = false;
         state.myResumeError = null;
         state.myResume = action.payload;
       })
@@ -147,6 +151,9 @@ export const selectMyResumeIsLoading = (state: RootState) =>
   state.resume.myResumeLoading;
 export const selectMyResumeError = (state: RootState) =>
   state.resume.myResumeError;
+
+export const selectMyResumeUpdateIsLoading = (state: RootState) =>
+  state.resume.myResumeUpdateLoading;
 
 // Reducer
 export default resumeSlice.reducer;
