@@ -152,5 +152,8 @@
   "required_english": "Необхідна англійська, % (Вакансії)",
   "candidates_english": "Англійська кандидатів, % (Резюме)",
   "graph_employment": "Працевлаштування, к-сть (Вакансії/Кандидати)",
-  "average_salary_expectation": "Середні очікування кандидатів, $"
+  "average_salary_expectation": "Середні очікування кандидатів, $",
+  "not_found_chats": "У вас ще нема чатів",
+  "type_a_message": "Напишіть повідомлення",
+  "chat_not_selected": "Чат не вибрано"
 }

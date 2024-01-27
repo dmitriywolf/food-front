@@ -19,4 +19,4 @@ export { EmployerCompany } from './components/EmployerCompany';
 // services
 
 // selectors
-export { selectUser } from './userSlice';
+export { selectUser, selectIsAuthorized } from './userSlice';

@@ -27,8 +27,7 @@ import {
   IconMapPin,
   IconMail,
 } from '@tabler/icons-react';
-import { MakeChatButton } from 'features/chats';
-import { selectUser } from 'features/user';
+import { ChatButton } from 'features/chats';
 import { useAppSelector } from 'store/hooks';
 import { useTranslation } from 'react-i18next';
 import {
@@ -43,7 +42,6 @@ import classes from './CompanyDetails.module.scss';
 
 export default function CompanyDetails() {
   const { data, jobs, docs } = useAppSelector(selectCompany);
-  const user = useAppSelector(selectUser);
 
   const {
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -56,7 +54,6 @@ export default function CompanyDetails() {
     phone,
     userPosition,
     email,
-    role,
     companyDescription,
     companyDouPage,
     companyEmployeesCount,
@@ -126,7 +123,7 @@ export default function CompanyDetails() {
                   </Flex>
                 )}
               </Group>
-              {user?.role !== role && <MakeChatButton id={_id} />}
+              <ChatButton recipientId={_id} />
             </Stack>
           </Card>
         </Grid.Col>

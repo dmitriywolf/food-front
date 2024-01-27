@@ -28,10 +28,10 @@ export const getMyChats = createAsyncThunk(
 
 export const createChat = createAsyncThunk(
   '@@chats/createChat',
-  async (receiverId: string, { rejectWithValue }) => {
+  async (recipientId: string, { rejectWithValue }) => {
     try {
-      const { data } = await API.post(API_PATHS.chats, { receiverId });
-      return data.chat;
+      const { data } = await API.post(API_PATHS.chats, { recipientId });
+      return data.chatId;
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         if (error.response && error.response.data) {
@@ -43,7 +43,7 @@ export const createChat = createAsyncThunk(
         return rejectWithValue(error.message);
       }
 
-      return rejectWithValue('Failed get jobs');
+      return rejectWithValue('Failed create chat');
     }
   },
 );
@@ -69,28 +69,6 @@ export const getChat = createAsyncThunk(
     }
   },
 );
-
-// export const getChatMessages = createAsyncThunk(
-//   '@@chats/getChatMessages',
-//   async (chatId: string, { rejectWithValue }) => {
-//     try {
-//       const { data } = await API.get(`${API_PATHS.messages}/${chatId}`);
-//       return data.messages;
-//     } catch (error: unknown) {
-//       if (error instanceof AxiosError) {
-//         if (error.response && error.response.data) {
-//           return rejectWithValue(error.response.data.message);
-//         }
-//       }
-
-//       if (error instanceof Error) {
-//         return rejectWithValue(error.message);
-//       }
-
-//       return rejectWithValue('Failed get chat messages');
-//     }
-//   },
-// );
 
 export const sendMessage = createAsyncThunk(
   '@@chats/createMessage',

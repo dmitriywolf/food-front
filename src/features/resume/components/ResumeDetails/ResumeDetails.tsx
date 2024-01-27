@@ -34,14 +34,12 @@ import {
 } from '@tabler/icons-react';
 import { formatDT } from 'shared/utils';
 import { useAppSelector } from 'store/hooks';
-import { MakeChatButton } from 'features/chats';
-import { selectUser } from 'features/user';
+import { ChatButton } from 'features/chats';
 import { selectResume } from '../../resumeSlice';
 import { ISeekerAccount } from '../../../types';
 import classes from './ResumeDetails.module.scss';
 
 export default function ResumeDetails() {
-  const user = useAppSelector(selectUser);
   const resume = useAppSelector(selectResume);
 
   const {
@@ -72,7 +70,6 @@ export default function ResumeDetails() {
     lastName,
     linkedin,
     phone,
-    role,
     portfolio,
     searchStatus,
     skype,
@@ -171,7 +168,7 @@ export default function ResumeDetails() {
                 )}
               </Group>
 
-              {user?.role !== role && <MakeChatButton id={_id} />}
+              <ChatButton recipientId={_id} />
             </Stack>
           </Card>
         </Grid.Col>

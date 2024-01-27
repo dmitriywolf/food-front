@@ -41,7 +41,7 @@ import {
 } from 'shared/constants';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { selectUser } from 'features/user';
-import { MakeChatButton } from 'features/chats';
+import { ChatButton } from 'features/chats';
 import { selectJob } from '../../jobsSlice';
 import { applyToJob } from '../../services';
 import { ICompany } from '../../../types';
@@ -83,7 +83,6 @@ export default function JobDetailes() {
     companyLogo,
     companyName,
     email,
-    role,
     phone,
     userPosition,
     linkedin,
@@ -137,6 +136,7 @@ export default function JobDetailes() {
                 src={`${API_SERVER}/${avatar}`}
                 w='100%'
                 h={250}
+                radius='md'
               />
 
               <Badge className={classes.badgeAvatar} color='gray'>
@@ -186,7 +186,7 @@ export default function JobDetailes() {
                 )}
               </Group>
 
-              {user?.role !== role && <MakeChatButton id={_id} />}
+              <ChatButton recipientId={_id} />
             </Stack>
           </Card>
         </Grid.Col>

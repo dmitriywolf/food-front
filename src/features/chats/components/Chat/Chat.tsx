@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   Card,
   Text,
@@ -10,7 +11,12 @@ import {
   Badge,
   Anchor,
   Group,
+  Loader,
+  Title,
+  rem,
+  ActionIcon,
 } from '@mantine/core';
+import { IconSquareRoundedArrowLeft } from '@tabler/icons-react';
 import { socket } from 'socket';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import InputEmoji from 'react-input-emoji';
@@ -20,13 +26,21 @@ import { IMessage } from 'features/types';
 import { ROUTES } from 'shared/routes';
 import { formatDT } from 'shared/utils';
 import { selectUser } from 'features/user';
-import { selectCurrentChat } from '../../chatsSlice';
-import { sendMessage } from '../../services';
+import {
+  selectActiveChat,
+  selectActiveChatLoading,
+  selectActiveChatError,
+  resetActiveChat,
+} from '../../chatsSlice';
+import { sendMessage, getChat } from '../../services';
 import classes from './Chat.module.scss';
 
-export default function Chat() {
+function Chat() {
   const [text, setText] = useState('');
   const [typingStatus, setTypingStatus] = useState();
+
+  const { t } = useTranslation();
+  const navigation = useNavigate();
 
   const lastMessageRef = useRef(null);
 
@@ -35,19 +49,24 @@ export default function Chat() {
   // const { socket } = useSocketContext();
 
   const user = useAppSelector(selectUser);
-  const chat = useAppSelector(selectCurrentChat);
+  const chat = useAppSelector(selectActiveChat);
 
-  const receiveUser = chat.members.find((member) => member._id !== user?._id);
+  const recipientUser = chat.members.find((member) => member._id !== user?._id);
 
   let link = '';
 
-  if (receiveUser?.role === ROLES.employer) {
-    link = `${ROUTES.companies}/${receiveUser?._id}`;
+  if (recipientUser?.role === ROLES.employer) {
+    link = `${ROUTES.companies}/${recipientUser?._id}`;
   } else {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    link = `${ROUTES.resumes}/${receiveUser?.resume}`;
+    link = `${ROUTES.resumes}/${recipientUser?.resume}`;
   }
+
+  const closeChatHandler = () => {
+    dispatch(resetActiveChat());
+    navigation(ROUTES.chats);
+  };
 
   const handleOnEnter = async (value: string) => {
     if (!value || !user?._id) return;
@@ -111,26 +130,39 @@ export default function Chat() {
   const isOnline = Math.random() * 10 > 5;
 
   return (
-    <Card padding='md' radius='md' h='700px' withBorder>
-      <Flex direction='column' justify='space-between' h='100%' gap={20}>
-        <Flex
-          justify='center'
-          align='center'
-          gap={12}
-          className={classes.header}
-        >
-          <Anchor component={Link} to={link} size='sm' target='_blank'>
-            <Group>
-              <Avatar src={`${API_SERVER}/${receiveUser?.avatar}`} />
-              <Text fw='bold' c='gray'>
-                {receiveUser?.firstName} {receiveUser?.lastName}
-              </Text>
-            </Group>
-          </Anchor>
+    <Card className={classes.card}>
+      <Flex direction='column' justify='space-between' h='100%' gap={rem(20)}>
+        <Flex gap={rem(12)} className={classes.header}>
+          <ActionIcon
+            variant='transparent'
+            aria-label='Close chat'
+            size={38}
+            onClick={closeChatHandler}
+          >
+            <IconSquareRoundedArrowLeft size={36} stroke={1.5} />
+          </ActionIcon>
 
-          <Badge color={isOnline ? 'green' : 'red'}>
-            {isOnline ? 'Online' : 'Offline'}
-          </Badge>
+          <Flex align='center' gap={rem(12)}>
+            <Anchor
+              component={Link}
+              to={link}
+              size='sm'
+              target='_blank'
+              underline='never'
+              className={classes.link}
+            >
+              <Group>
+                <Avatar src={`${API_SERVER}/${recipientUser?.avatar}`} />
+                <Text fw='bold'>
+                  {recipientUser?.firstName} {recipientUser?.lastName}
+                </Text>
+              </Group>
+            </Anchor>
+
+            <Badge color={isOnline ? 'green' : 'red'} className={classes.badge}>
+              {isOnline ? 'Online' : 'Offline'}
+            </Badge>
+          </Flex>
         </Flex>
 
         <ScrollArea
@@ -147,7 +179,7 @@ export default function Chat() {
                   className={`${classes.message} ${classes.messageRecepient}`}
                 >
                   <Text>{msg.content}</Text>
-                  <Text span>{formatDT(msg.createdAt)}</Text>
+                  <Text span>{formatDT(msg.createdAt, true)}</Text>
                 </Stack>
               </Flex>
             ) : (
@@ -156,7 +188,7 @@ export default function Chat() {
                   className={`${classes.message} ${classes.messageSender}`}
                 >
                   <Text>{msg.content}</Text>
-                  <Text span>{formatDT(msg.createdAt)}</Text>
+                  <Text span>{formatDT(msg.createdAt, true)}</Text>
                 </Stack>
               </Flex>
             ),
@@ -169,9 +201,38 @@ export default function Chat() {
           onChange={setText}
           cleanOnEnter
           onEnter={handleOnEnter}
-          placeholder='Type a message'
+          placeholder={t('type_a_message')}
         />
       </Flex>
     </Card>
+  );
+}
+
+export default function ChatEnhancer() {
+  const { chatId } = useParams();
+  const { t } = useTranslation();
+
+  const dispatch = useAppDispatch();
+
+  const loading = useAppSelector(selectActiveChatLoading);
+  const error = useAppSelector(selectActiveChatError);
+  const chat = useAppSelector(selectActiveChat);
+
+  useEffect(() => {
+    if (chatId) {
+      dispatch(getChat(chatId));
+    }
+  }, [dispatch, chatId]);
+
+  return loading ? (
+    <Loader type='dots' m='20px auto' />
+  ) : error ? (
+    <Title order={3}>{error}</Title>
+  ) : chat._id ? (
+    <Chat />
+  ) : (
+    <Title order={3} ta='center' c='secondary'>
+      {t('chat_not_selected')}
+    </Title>
   );
 }

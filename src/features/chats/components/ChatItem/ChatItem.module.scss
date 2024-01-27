@@ -1,8 +1,33 @@
-.active {
-  background-color: var(--mantine-color-primary-5);
+.card {
+  border-radius: 0;
 
-  p,
-  span {
+  @mixin dark {
+    background-color: var(--mantine-color-gray-9);
+  }
+
+  @mixin hover {
+    cursor: pointer;
+    box-shadow: var(--mantine-shadow-lg);
+  }
+}
+
+.active {
+  @mixin dark {
+    background-color: var(--mantine-color-cyan-9);
+  }
+
+  @mixin light {
+    background-color: var(--mantine-color-cyan-9);
+  }
+
+  p {
     color: #fff;
+    font-weight: bold;
+  }
+}
+
+.user {
+  p {
+    line-height: 1.2;
   }
 }
