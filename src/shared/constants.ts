@@ -409,3 +409,7 @@ export const SKILLS = [
   'Python',
   'Java',
 ];
+
+export const NOTIFICATION_TYPES = {
+  applyToJob: 'application-to-job',
+};

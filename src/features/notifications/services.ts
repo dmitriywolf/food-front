@@ -29,7 +29,9 @@ export const readNotification = createAsyncThunk(
   '@@notifications/readNotification',
   async (id: string, { rejectWithValue }) => {
     try {
-      const { data } = await API.get(`${API_PATHS.notifications}/read/${id}`);
+      const { data } = await API.post(`${API_PATHS.notifications}/read`, {
+        notificationId: id,
+      });
       return data;
     } catch (error: unknown) {
       if (error instanceof AxiosError) {

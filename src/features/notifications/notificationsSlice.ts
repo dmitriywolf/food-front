@@ -81,7 +81,7 @@ export const selectReadNotificationError = (state: RootState) =>
 
 // UnWatched notifications
 export const selectUnWatchedCount = (state: RootState) =>
-  state.notifications.notifications.filter((n) => !n.isWatched).length;
+  state.notifications.notifications.filter((n) => n.isWatched === false).length;
 
 // Reducer
 export default notificationsSlice.reducer;

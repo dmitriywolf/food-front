@@ -1,7 +1,9 @@
 interface INotification {
   _id: string;
   isWatched: boolean;
-  toUser: string;
+  userId: string;
+  type: string;
+  createdAt: string;
   data: any;
 }
 

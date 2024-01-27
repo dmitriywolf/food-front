@@ -15,7 +15,7 @@ export default function NotificationLink() {
         size={count ? 16 : 0}
         inline
         label={count > 0 ? count : undefined}
-        color='primary'
+        color='red'
         offset={6}
       >
         <ActionIcon variant='transparent' size={32} aria-label='Notifications'>

@@ -1,0 +1,23 @@
+.card {
+  padding: rem(10);
+
+  @mixin dark {
+    background-color: var(--mantine-color-gray-9);
+  }
+
+  // @mixin hover {
+  //   cursor: pointer;
+  //   box-shadow: var(--mantine-shadow-lg);
+
+  //   @mixin dark {
+  //     background-color: var(--mantine-color-gray-8);
+  //   }
+  // }
+}
+
+.title {
+  font-size: rem(14);
+}
+
+.unwatched {
+}
