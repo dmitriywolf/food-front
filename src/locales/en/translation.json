@@ -157,5 +157,6 @@
   "type_a_message": "Type a message",
   "chat_not_selected": "Chat not selected",
   "notifications": "Notifications",
-  "you_have_no_notifications_yet": "You have no notifications yet"
+  "you_have_no_notifications_yet": "You have no notifications yet",
+  "applied_to_your_vacancy": "applied to your vacancy"
 }

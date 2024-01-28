@@ -55,9 +55,18 @@ const notificationsSlice = createSlice({
         state.readNotificationLoading = false;
         state.readNotificationError = action.payload as string;
       })
-      .addCase(readNotification.fulfilled, (state) => {
+      .addCase(readNotification.fulfilled, (state, action) => {
         state.readNotificationLoading = false;
         state.readNotificationError = null;
+        state.notifications = state.notifications.map((n) => {
+          if (n._id === action.payload) {
+            return {
+              ...n,
+              isWatched: true,
+            };
+          }
+          return n;
+        });
       });
   },
 });

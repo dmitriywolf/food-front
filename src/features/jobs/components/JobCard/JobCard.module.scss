@@ -18,6 +18,13 @@
 .avatarBox {
   position: relative;
   min-width: rem(160);
+  width: rem(160);
+  height: rem(160);
+
+  img {
+    width: rem(160);
+    height: rem(160);
+  }
 
   @media (max-width: $mantine-breakpoint-lg) {
     display: none;
@@ -28,19 +35,32 @@
   }
 
   @media (max-width: $mantine-breakpoint-xs) {
-    display: none;
-  }
-}
+    min-width: rem(80);
+    width: rem(80);
+    height: rem(80);
+    margin: rem(10);
 
-.badge {
-  font-size: rem(10);
-  text-transform: none;
+    img {
+      border-radius: rem(10);
+      width: rem(80);
+      height: rem(80);
+    }
+  }
 }
 
 .timeBadge {
   position: absolute;
   top: rem(8);
   right: rem(8);
+  font-size: rem(10);
+  text-transform: none;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    display: none;
+  }
+}
+
+.badge {
   font-size: rem(10);
   text-transform: none;
 }

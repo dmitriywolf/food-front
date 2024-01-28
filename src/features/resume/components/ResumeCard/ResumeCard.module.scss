@@ -17,10 +17,26 @@
 
 .avatarBox {
   position: relative;
+  min-width: rem(160);
   width: rem(160);
+  height: rem(160);
+
+  img {
+    width: rem(160);
+    height: rem(160);
+  }
 
   @media (max-width: $mantine-breakpoint-xs) {
-    display: none;
+    min-width: rem(60);
+    width: rem(60);
+    height: rem(60);
+    margin: rem(10) 0 0 rem(10);
+
+    img {
+      border-radius: rem(10);
+      width: rem(60);
+      height: rem(60);
+    }
   }
 }
 
@@ -40,8 +56,12 @@
   left: rem(8);
   font-size: rem(10);
   text-transform: none;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    display: none;
+  }
 }
 
 .content {
-  padding: rem(12);
+  padding: rem(10);
 }

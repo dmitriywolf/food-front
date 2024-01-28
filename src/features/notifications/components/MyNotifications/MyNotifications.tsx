@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Box, Title, Stack } from '@mantine/core';
+import { Box, Title, Stack, rem } from '@mantine/core';
 import { CardSkeleton, ErrorBox } from 'components';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
@@ -33,7 +33,7 @@ export default function MyNotifications() {
       {error ? (
         <ErrorBox msg={error} />
       ) : (
-        <Stack>
+        <Stack gap={rem(12)}>
           {loading ? (
             skeletons
           ) : notifications?.length > 0 ? (

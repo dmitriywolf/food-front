@@ -59,12 +59,7 @@ export default function ResumeCard({ resume }: ResumeCardProps) {
     >
       <Flex className={classes.inner}>
         <Box className={classes.avatarBox}>
-          <Image
-            fallbackSrc={DEFAULT_AVATAR}
-            src={`${API_SERVER}/${avatar}`}
-            w={rem(160)}
-            h='100%'
-          />
+          <Image fallbackSrc={DEFAULT_AVATAR} src={`${API_SERVER}/${avatar}`} />
           <Badge
             className={classes.badge}
             color={searchStatus ? 'green' : 'gray'}

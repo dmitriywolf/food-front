@@ -82,9 +82,7 @@ export default function JobCard({ job }: JobCardProps) {
           <Flex gap={rem(6)}>
             <Flex gap={rem(4)} align='center'>
               <IconBuildingFortress stroke='secondary' size={18} />
-              <Text c='secondary' truncate='end'>
-                {domain}
-              </Text>
+              <Text c='secondary'>{domain}</Text>
             </Flex>
           </Flex>
 
@@ -118,15 +116,13 @@ export default function JobCard({ job }: JobCardProps) {
         </Stack>
 
         <Box className={classes.avatarBox}>
-          <Image
-            fallbackSrc={DEFAULT_COMPANY_AVATAR}
-            src={`${API_SERVER}/${companyLogo}`}
-            w={rem(160)}
-            h={rem(160)}
-          />
           <Badge className={classes.timeBadge} color='primary'>
             {formatDT(updatedAt)}
           </Badge>
+          <Image
+            fallbackSrc={DEFAULT_COMPANY_AVATAR}
+            src={`${API_SERVER}/${companyLogo}`}
+          />
         </Box>
       </Flex>
     </Card>

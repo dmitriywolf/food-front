@@ -32,7 +32,7 @@ export const readNotification = createAsyncThunk(
       const { data } = await API.post(`${API_PATHS.notifications}/read`, {
         notificationId: id,
       });
-      return data;
+      return data.watchedId;
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         if (error.response && error.response.data) {
