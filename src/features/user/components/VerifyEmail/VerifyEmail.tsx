@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { Title } from '@mantine/core';
+import { Title, rem } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
@@ -24,7 +24,6 @@ export default function VerifyEmail() {
 
     try {
       const data = await dispatch(userVerifyEmail({ code })).unwrap();
-
       notifications.show({
         color: 'green',
         title: t('verify_email'),
@@ -32,24 +31,28 @@ export default function VerifyEmail() {
       });
       navigate(ROUTES.signin);
     } catch (error: unknown) {
-      notifications.show({
-        color: 'red',
-        title: t('verify_email'),
-        message: t(error as string),
-      });
+      if (typeof error === 'string') {
+        notifications.show({
+          color: 'red',
+          title: t('verify_email'),
+          message: t(error as string),
+        });
+      }
     }
   }, [dispatch, navigate, code, t]);
 
   useEffect(() => {
     if (code) {
-      console.log('HERE');
       verifyHandler();
     }
   }, [verifyHandler, code]);
 
   if (isLoading) return <PageLoader />;
-
-  if (verifyError) return <Title>{t(verifyError)}</Title>;
-
+  if (verifyError)
+    return (
+      <Title order={3} my={rem(20)} ta='center'>
+        {t(verifyError)}
+      </Title>
+    );
   return null;
 }
