@@ -131,13 +131,15 @@ export default function JobDetailes() {
         <Grid.Col order={{ md: 2 }} span={{ md: 4, lg: 3 }}>
           <Card shadow='sm' radius={0} className={classes.card}>
             <Card.Section className={classes.avatarBox}>
-              <Image
-                fallbackSrc={DEFAULT_AVATAR}
-                src={`${API_SERVER}/${avatar}`}
-                w='100%'
-                h={250}
-                radius='md'
-              />
+              {avatar && (
+                <Image
+                  fallbackSrc={DEFAULT_AVATAR}
+                  src={`${API_SERVER}/${avatar}`}
+                  w='100%'
+                  h={250}
+                  radius='md'
+                />
+              )}
 
               <Badge className={classes.badgeAvatar} color='gray'>
                 {userPosition}
@@ -314,13 +316,16 @@ export default function JobDetailes() {
               </Stack>
 
               <Stack>
-                <Image
-                  fallbackSrc={DEFAULT_COMPANY_AVATAR}
-                  src={`${API_SERVER}/${companyLogo}`}
-                  w={rem(160)}
-                  radius='sm'
-                  className={classes.companyName}
-                />
+                {companyLogo && (
+                  <Image
+                    fallbackSrc={DEFAULT_COMPANY_AVATAR}
+                    src={`${API_SERVER}/${companyLogo}`}
+                    w={rem(160)}
+                    radius='sm'
+                    className={classes.companyName}
+                  />
+                )}
+
                 {showApplyBtn && (
                   <Button
                     onClick={applyJobHandler}

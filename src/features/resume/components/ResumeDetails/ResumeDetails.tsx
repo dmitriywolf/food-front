@@ -96,12 +96,15 @@ export default function ResumeDetails() {
         <Grid.Col order={{ md: 2 }} span={{ md: 4, xl: 3 }}>
           <Card shadow='sm' radius={0} className={classes.card}>
             <Card.Section className={classes.avatarBox}>
-              <Image
-                fallbackSrc={DEFAULT_AVATAR}
-                src={`${API_SERVER}/${avatar}`}
-                w='100%'
-                h={250}
-              />
+              {avatar && (
+                <Image
+                  fallbackSrc={DEFAULT_AVATAR}
+                  src={`${API_SERVER}/${avatar}`}
+                  w='100%'
+                  h={250}
+                />
+              )}
+
               <Badge
                 className={classes.badge}
                 color={searchStatus ? 'green' : 'gray'}

@@ -6,6 +6,7 @@ export interface BuildPaths {
   html: string;
   dist: string;
   env: string;
+  static: string;
 }
 
 export interface BuildEnv {
