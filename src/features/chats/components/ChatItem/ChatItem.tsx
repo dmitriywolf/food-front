@@ -1,4 +1,4 @@
-import { Card, Flex, Avatar, Text, rem } from '@mantine/core';
+import { Card, Flex, Avatar, Text, Indicator, rem } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { selectUser } from 'features/user';
 import { useAppSelector } from 'store/hooks';
@@ -10,9 +10,10 @@ import classes from './ChatItem.module.scss';
 
 type ChatItemProps = {
   chat: IChat;
+  onlineUsers: string[];
 };
 
-export default function ChatItem({ chat }: ChatItemProps) {
+export default function ChatItem({ chat, onlineUsers }: ChatItemProps) {
   const navigate = useNavigate();
 
   const user = useAppSelector(selectUser);
@@ -25,6 +26,7 @@ export default function ChatItem({ chat }: ChatItemProps) {
   };
 
   const isActive = activeChat._id === chat._id;
+  const isOnline = onlineUsers.includes(recipientUser?._id as string);
 
   return (
     <Card
@@ -34,7 +36,16 @@ export default function ChatItem({ chat }: ChatItemProps) {
       p='xs'
     >
       <Flex gap={rem(12)} align='center' className={classes.user}>
-        <Avatar src={`${API_SERVER}/${recipientUser?.avatar}`} />
+        <Indicator
+          inline
+          size={10}
+          offset={6}
+          position='bottom-end'
+          color={isOnline ? 'green' : 'red'}
+        >
+          <Avatar src={`${API_SERVER}/${recipientUser?.avatar}`} />
+        </Indicator>
+
         <Text>
           {recipientUser?.firstName} {recipientUser?.lastName}
         </Text>

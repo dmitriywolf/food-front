@@ -135,7 +135,6 @@ interface IMessage {
   senderId: string;
   content: string;
   createdAt: string;
-  updatedAt: string;
 }
 
 interface IChat {

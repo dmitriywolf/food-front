@@ -21,8 +21,6 @@ import { socket } from 'socket';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import InputEmoji from 'react-input-emoji';
 import { API_SERVER, ROLES } from 'shared/constants';
-// import { useSocketContext } from 'app/SocketProvider';
-import { IMessage } from 'features/types';
 import { ROUTES } from 'shared/routes';
 import { formatDT } from 'shared/utils';
 import { selectUser } from 'features/user';
@@ -31,13 +29,17 @@ import {
   selectActiveChatLoading,
   selectActiveChatError,
   resetActiveChat,
+  receiveMessage,
 } from '../../chatsSlice';
 import { sendMessage, getChat } from '../../services';
 import classes from './Chat.module.scss';
 
-function Chat() {
+type ChatProps = {
+  onlineUsers: string[];
+};
+
+function Chat({ onlineUsers }: ChatProps) {
   const [text, setText] = useState('');
-  const [typingStatus, setTypingStatus] = useState();
 
   const { t } = useTranslation();
   const navigation = useNavigate();
@@ -45,8 +47,6 @@ function Chat() {
   const lastMessageRef = useRef(null);
 
   const dispatch = useAppDispatch();
-
-  // const { socket } = useSocketContext();
 
   const user = useAppSelector(selectUser);
   const chat = useAppSelector(selectActiveChat);
@@ -71,8 +71,15 @@ function Chat() {
   const handleOnEnter = async (value: string) => {
     if (!value || !user?._id) return;
 
+    socket.emit('sendMessage', {
+      _id: Date.now(),
+      senderId: user._id,
+      receiverId: recipientUser?._id,
+      text: value,
+    });
+
     try {
-      const data = await dispatch(
+      await dispatch(
         sendMessage({
           chatId: chat._id,
           senderId: user._id,
@@ -80,54 +87,38 @@ function Chat() {
         }),
       ).unwrap();
 
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      const { _id, chatId, content, senderId, createdAt } = data;
-
-      socket.emit('message', {
-        _id,
-        chatId,
-        content,
-        senderId,
-        createdAt,
-        socketID: socket.id,
-      });
+      setText('');
     } catch (error) {
       console.log('ERROR', error);
     }
   };
 
+  const isOnline = onlineUsers.includes(recipientUser?._id as string);
+
   useEffect(() => {
-    async function onResponseMsg(msg: IMessage) {
-      console.log('MSG', msg);
-      // if (msg.senderId === user?._id) {
-      //   sendMessage({
-      //     chatId: msg.chatId,
-      //     senderId: msg.senderId,
-      //     content: msg.content,
-      //   });
-      // }
+    function getMessage(data: any) {
+      if (data.senderId === recipientUser?._id) {
+        dispatch(
+          receiveMessage({
+            _id: data._id,
+            senderId: data.senderId,
+            content: data.text,
+            createdAt: Date.now(),
+          }),
+        );
+      }
     }
-
-    // function onTyping(data: boolean) {
-    //   console.log('is Typing', data);
-    //   setTypingStatus(data);
-    // }
-
-    socket.on('messageResponse', onResponseMsg);
-    // socket.on('typingResponse', onTyping);
+    socket.on('getMessage', getMessage);
 
     return () => {
-      socket.off('messageResponse', onResponseMsg);
-      // socket.off('typingResponse', onTyping);
+      socket.off('getMessage', getMessage);
     };
-  }, []);
+  }, [dispatch, recipientUser?._id]);
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (lastMessageRef.current as any)?.scrollIntoView({ behavior: 'smooth' });
   }, [chat.messages]);
-
-  const isOnline = Math.random() * 10 > 5;
 
   return (
     <Card className={classes.card}>
@@ -208,7 +199,11 @@ function Chat() {
   );
 }
 
-export default function ChatEnhancer() {
+type ChatEnhancerProps = {
+  onlineUsers: string[];
+};
+
+export default function ChatEnhancer({ onlineUsers }: ChatEnhancerProps) {
   const { chatId } = useParams();
   const { t } = useTranslation();
 
@@ -229,7 +224,7 @@ export default function ChatEnhancer() {
   ) : error ? (
     <Title order={3}>{error}</Title>
   ) : chat._id ? (
-    <Chat />
+    <Chat onlineUsers={onlineUsers} />
   ) : (
     <Title order={3} ta='center' c='secondary'>
       {t('chat_not_selected')}

@@ -57,6 +57,9 @@ const chatsSlice = createSlice({
     resetActiveChat: (state) => {
       state.activeChat = DEFAULT_CHAT;
     },
+    receiveMessage: (state, action) => {
+      state.activeChat.messages.push(action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -119,7 +122,7 @@ const chatsSlice = createSlice({
 });
 
 // Actions
-export const { resetActiveChat } = chatsSlice.actions;
+export const { resetActiveChat, receiveMessage } = chatsSlice.actions;
 
 // Selectors
 // Chats
