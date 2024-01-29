@@ -34,6 +34,12 @@ import {
 import { sendMessage, getChat } from '../../services';
 import classes from './Chat.module.scss';
 
+type ReceivedMsgType = {
+  _id: number;
+  senderId: string;
+  content: string;
+};
+
 type ChatProps = {
   onlineUsers: string[];
 };
@@ -75,7 +81,7 @@ function Chat({ onlineUsers }: ChatProps) {
       _id: Date.now(),
       senderId: user._id,
       receiverId: recipientUser?._id,
-      text: value,
+      content: value,
     });
 
     try {
@@ -85,7 +91,7 @@ function Chat({ onlineUsers }: ChatProps) {
           senderId: user._id,
           content: value,
         }),
-      ).unwrap();
+      );
 
       setText('');
     } catch (error) {
@@ -96,18 +102,20 @@ function Chat({ onlineUsers }: ChatProps) {
   const isOnline = onlineUsers.includes(recipientUser?._id as string);
 
   useEffect(() => {
-    function getMessage(data: any) {
+    function getMessage(data: ReceivedMsgType) {
+      console.log('get message', data);
       if (data.senderId === recipientUser?._id) {
         dispatch(
           receiveMessage({
             _id: data._id,
             senderId: data.senderId,
-            content: data.text,
+            content: data.content,
             createdAt: Date.now(),
           }),
         );
       }
     }
+
     socket.on('getMessage', getMessage);
 
     return () => {

@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { useAppSelector } from 'store/hooks';
 import { selectUser } from 'features/user';
-import { socket as socketIO } from 'socket';
+// import { socket as socketIO } from 'socket';
 
 // const defaultState = {
 //   socket: socketIO,
@@ -24,20 +24,20 @@ type Props = {
 };
 
 export default function SocketProvider({ children }: Props) {
-  const user = useAppSelector(selectUser);
+  // const user = useAppSelector(selectUser);
 
-  const setIoUser = useCallback(() => {
-    socketIO.emit('newUser', {
-      user: `${user?.firstName} ${user?.lastName}`,
-      socketID: socketIO.id,
-    });
-  }, [user]);
+  // const setIoUser = useCallback(() => {
+  //   socketIO.emit('newUser', {
+  //     user: `${user?.firstName} ${user?.lastName}`,
+  //     socketID: socketIO.id,
+  //   });
+  // }, [user]);
 
-  useEffect(() => {
-    if (user) {
-      setIoUser();
-    }
-  }, [user, setIoUser]);
+  // useEffect(() => {
+  //   if (user) {
+  //     setIoUser();
+  //   }
+  // }, [user, setIoUser]);
 
   // const value = useMemo(
   //   () => ({

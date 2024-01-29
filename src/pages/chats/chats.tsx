@@ -16,6 +16,7 @@ function ChatsPage() {
 
   useEffect(() => {
     function getUsers(users: OnlineUser[]) {
+      console.log('getUsers', users);
       setOnlineUsers(users.map((e) => e.userId));
     }
 
