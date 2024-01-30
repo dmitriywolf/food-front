@@ -159,5 +159,7 @@
   "notifications": "Notifications",
   "you_have_no_notifications_yet": "You have no notifications yet",
   "applied_to_your_vacancy": "applied to your vacancy",
-  "no_messages": "No messages"
+  "no_messages": "No messages",
+  "msg": "Message",
+  "send_messsage_to_you": "sended message to you"
 }

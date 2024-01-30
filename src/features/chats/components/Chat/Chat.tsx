@@ -42,6 +42,8 @@ type ReceivedMsgType = {
   _id: number;
   senderId: string;
   content: string;
+  senderName: string;
+  chatId: string;
 };
 
 function Chat() {
@@ -83,6 +85,8 @@ function Chat() {
       senderId: user._id,
       receiverId: recipientUser?._id,
       content: value,
+      chatId: chat._id,
+      senderName: `${user.firstName} ${user.lastName}`,
     });
 
     try {

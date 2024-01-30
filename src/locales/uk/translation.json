@@ -159,5 +159,6 @@
   "notifications": "Сповіщення",
   "you_have_no_notifications_yet": "У вас ще нема сповіщень",
   "applied_to_your_vacancy": "відгукнувся на вашу вакансію",
-  "no_messages": "Нема повідомлень"
+  "no_messages": "Нема повідомлень",
+  "msg": "Повідомлення"
 }

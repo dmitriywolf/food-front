@@ -66,6 +66,26 @@ const chatsSlice = createSlice({
     receiveMessage: (state, action) => {
       state.activeChat.messages.push(action.payload);
     },
+    updateChatItemMessage: (state, { payload }) => {
+      state.chats = state.chats.map((ch) => {
+        if (ch._id === payload.chatId) {
+          return {
+            ...ch,
+            messages: [
+              {
+                chatId: payload.chatId as string,
+                senderId: payload.senderId as string,
+                content: payload.content as string,
+                _id: payload._id as string,
+                createdAt: String(new Date()),
+              },
+            ],
+          };
+        }
+
+        return ch;
+      });
+    },
     // set online users
     setOnlineUsers: (state, { payload }) => {
       state.onlineUsers = payload;
@@ -127,13 +147,26 @@ const chatsSlice = createSlice({
         state.sendMessageLoading = false;
         state.sendMessageError = null;
         state.activeChat.messages.push(action.payload);
+        state.chats = state.chats.map((ch) => {
+          if (ch._id === action.payload.chatId) {
+            return {
+              ...ch,
+              messages: [action.payload],
+            };
+          }
+          return ch;
+        });
       });
   },
 });
 
 // Actions
-export const { resetActiveChat, receiveMessage, setOnlineUsers } =
-  chatsSlice.actions;
+export const {
+  resetActiveChat,
+  receiveMessage,
+  setOnlineUsers,
+  updateChatItemMessage,
+} = chatsSlice.actions;
 
 // Selectors
 // Online users

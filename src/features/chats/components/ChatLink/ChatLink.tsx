@@ -1,12 +1,19 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ROUTES } from 'shared/routes';
+import { notifications } from '@mantine/notifications';
 import { ActionIcon, Indicator } from '@mantine/core';
-import { IconBrandHipchat } from '@tabler/icons-react';
+import { IconBrandHipchat, IconMessage } from '@tabler/icons-react';
 import { selectUser } from 'features/user';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { socket } from 'socket';
-import { setOnlineUsers } from '../../chatsSlice';
+import {
+  setOnlineUsers,
+  updateChatItemMessage,
+  selectChats,
+} from '../../chatsSlice';
+import { getMyChats } from '../../services';
 import classes from './ChatLink.module.scss';
 
 type OnlineUser = {
@@ -14,10 +21,21 @@ type OnlineUser = {
   socketId: string;
 };
 
+type ReceivedMsgType = {
+  _id: number;
+  senderId: string;
+  content: string;
+  senderName: string;
+  chatId: string;
+};
+
 export default function ChatLink() {
+  const { t } = useTranslation();
+
   const dispatch = useAppDispatch();
 
   const currentUser = useAppSelector(selectUser);
+  const chats = useAppSelector(selectChats);
 
   useEffect(() => {
     if (currentUser?._id) {
@@ -26,16 +44,35 @@ export default function ChatLink() {
   }, [currentUser?._id]);
 
   useEffect(() => {
+    function getMessage(data: ReceivedMsgType) {
+      const chatExist = chats.find((ch) => ch._id === data.chatId);
+
+      if (chatExist) {
+        dispatch(updateChatItemMessage(data));
+      } else {
+        dispatch(getMyChats());
+      }
+
+      notifications.show({
+        color: 'yellow',
+        title: t('msg'),
+        icon: <IconMessage size={18} />,
+        message: `${data.senderName}: ${data.content} `,
+      });
+    }
+
     function getUsers(users: OnlineUser[]) {
       dispatch(setOnlineUsers(users.map((e) => e.userId)));
     }
 
     socket.on('getUsers', getUsers);
+    socket.on('getMessage', getMessage);
 
     return () => {
       socket.off('getUsers', getUsers);
+      socket.off('getMessage', getMessage);
     };
-  }, [dispatch]);
+  }, [dispatch, chats, t]);
 
   return (
     <Link to={ROUTES.chats} className={classes.iconLink}>
