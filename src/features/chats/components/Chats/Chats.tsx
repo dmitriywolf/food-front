@@ -11,11 +11,7 @@ import {
 import { getMyChats } from '../../services';
 import { ChatItem } from '../ChatItem';
 
-type ChatsProps = {
-  onlineUsers: string[];
-};
-
-export default function Chats({ onlineUsers }: ChatsProps) {
+export default function Chats() {
   const dispatch = useAppDispatch();
 
   const { t } = useTranslation();
@@ -35,7 +31,7 @@ export default function Chats({ onlineUsers }: ChatsProps) {
   ) : chats.length > 0 ? (
     <Stack gap={4}>
       {chats.map((item) => (
-        <ChatItem key={item._id} chat={item} onlineUsers={onlineUsers} />
+        <ChatItem key={item._id} chat={item} />
       ))}
     </Stack>
   ) : (

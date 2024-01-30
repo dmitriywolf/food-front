@@ -13,7 +13,7 @@
     right: 0;
     bottom: 0;
     height: 100dvh;
-    z-index: 100;
+    z-index: 200;
   }
 }
 
@@ -88,5 +88,11 @@
   background-color: var(--mantine-color-cyan-7);
   span {
     text-align: right;
+  }
+}
+
+.submitIcon {
+  svg {
+    stroke: var(--mantine-color-cyan-9);
   }
 }

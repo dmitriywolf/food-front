@@ -22,6 +22,9 @@
 
   p {
     color: #fff;
+  }
+
+  .user {
     font-weight: bold;
   }
 }
@@ -30,4 +33,16 @@
   p {
     line-height: 1.2;
   }
+}
+
+.content {
+  flex: 1;
+  gap: rem(2);
+}
+
+.message {
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: rem(3);
 }

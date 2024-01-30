@@ -11,6 +11,9 @@ const DEFAULT_CHAT = {
 };
 
 interface IChatsState {
+  // Online Users
+  onlineUsers: string[];
+
   // Chats list
   chatsLoading: boolean;
   chatsError: string | null;
@@ -31,6 +34,9 @@ interface IChatsState {
 }
 
 const initialState: IChatsState = {
+  // Online Users
+  onlineUsers: [],
+
   // Chats list
   chatsLoading: false,
   chatsError: null,
@@ -59,6 +65,10 @@ const chatsSlice = createSlice({
     },
     receiveMessage: (state, action) => {
       state.activeChat.messages.push(action.payload);
+    },
+    // set online users
+    setOnlineUsers: (state, { payload }) => {
+      state.onlineUsers = payload;
     },
   },
   extraReducers: (builder) => {
@@ -122,9 +132,13 @@ const chatsSlice = createSlice({
 });
 
 // Actions
-export const { resetActiveChat, receiveMessage } = chatsSlice.actions;
+export const { resetActiveChat, receiveMessage, setOnlineUsers } =
+  chatsSlice.actions;
 
 // Selectors
+// Online users
+export const selectOnlineUsers = (state: RootState) => state.chats.onlineUsers;
+
 // Chats
 export const selectChats = (state: RootState) => state.chats.chats;
 export const selectChatsLoading = (state: RootState) =>

@@ -16,7 +16,10 @@ import {
   rem,
   ActionIcon,
 } from '@mantine/core';
-import { IconSquareRoundedArrowLeft } from '@tabler/icons-react';
+import {
+  IconSquareRoundedArrowLeft,
+  IconBrandTelegram,
+} from '@tabler/icons-react';
 import { socket } from 'socket';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import InputEmoji from 'react-input-emoji';
@@ -28,6 +31,7 @@ import {
   selectActiveChat,
   selectActiveChatLoading,
   selectActiveChatError,
+  selectOnlineUsers,
   resetActiveChat,
   receiveMessage,
 } from '../../chatsSlice';
@@ -40,11 +44,7 @@ type ReceivedMsgType = {
   content: string;
 };
 
-type ChatProps = {
-  onlineUsers: string[];
-};
-
-function Chat({ onlineUsers }: ChatProps) {
+function Chat() {
   const [text, setText] = useState('');
 
   const { t } = useTranslation();
@@ -56,6 +56,7 @@ function Chat({ onlineUsers }: ChatProps) {
 
   const user = useAppSelector(selectUser);
   const chat = useAppSelector(selectActiveChat);
+  const onlineUsers = useAppSelector(selectOnlineUsers);
 
   const recipientUser = chat.members.find((member) => member._id !== user?._id);
 
@@ -97,6 +98,10 @@ function Chat({ onlineUsers }: ChatProps) {
     } catch (error) {
       console.log('ERROR', error);
     }
+  };
+
+  const handleSubmit = async () => {
+    handleOnEnter(text);
   };
 
   const isOnline = onlineUsers.includes(recipientUser?._id as string);
@@ -195,23 +200,30 @@ function Chat({ onlineUsers }: ChatProps) {
           <div ref={lastMessageRef} />
         </ScrollArea>
 
-        <InputEmoji
-          value={text}
-          onChange={setText}
-          cleanOnEnter
-          onEnter={handleOnEnter}
-          placeholder={t('type_a_message')}
-        />
+        <Flex align='center'>
+          <InputEmoji
+            value={text}
+            onChange={setText}
+            cleanOnEnter
+            onEnter={handleOnEnter}
+            placeholder={t('type_a_message')}
+          />
+          <ActionIcon
+            className={classes.submitIcon}
+            variant='transparent'
+            aria-label='Send message'
+            size={38}
+            onClick={handleSubmit}
+          >
+            <IconBrandTelegram size={36} stroke={1.5} />
+          </ActionIcon>
+        </Flex>
       </Flex>
     </Card>
   );
 }
 
-type ChatEnhancerProps = {
-  onlineUsers: string[];
-};
-
-export default function ChatEnhancer({ onlineUsers }: ChatEnhancerProps) {
+export default function ChatEnhancer() {
   const { chatId } = useParams();
   const { t } = useTranslation();
 
@@ -232,7 +244,7 @@ export default function ChatEnhancer({ onlineUsers }: ChatEnhancerProps) {
   ) : error ? (
     <Title order={3}>{error}</Title>
   ) : chat._id ? (
-    <Chat onlineUsers={onlineUsers} />
+    <Chat />
   ) : (
     <Title order={3} ta='center' c='secondary'>
       {t('chat_not_selected')}
