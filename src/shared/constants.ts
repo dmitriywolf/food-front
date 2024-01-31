@@ -453,7 +453,6 @@ export const SKILLS = [
   'Ionic',
   'Electron',
   'React-Charts',
-  'Docker',
   'Pug',
   'Ajax',
   'Astro',
