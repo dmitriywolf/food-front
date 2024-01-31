@@ -29,7 +29,11 @@ const initialState: INotificationsState = {
 const notificationsSlice = createSlice({
   name: '@@notifications',
   initialState,
-  reducers: {},
+  reducers: {
+    receiveNotification: (state, { payload }) => {
+      state.notifications = [payload, ...state.notifications];
+    },
+  },
   extraReducers: (builder) => {
     builder
       // GET NOTIFICATIONS
@@ -72,6 +76,7 @@ const notificationsSlice = createSlice({
 });
 
 // Actions
+export const { receiveNotification } = notificationsSlice.actions;
 
 // Selectors
 // Notifications

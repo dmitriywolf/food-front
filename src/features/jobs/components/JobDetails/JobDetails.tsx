@@ -18,6 +18,7 @@ import { notifications } from '@mantine/notifications';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'shared/routes';
 import { useTranslation } from 'react-i18next';
+import { socket } from 'socket';
 import {
   IconBuilding,
   IconBrandLinkedin,
@@ -43,8 +44,9 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { selectUser } from 'features/user';
 import { ChatButton } from 'features/chats';
 import { selectJob } from '../../jobsSlice';
+
 import { applyToJob } from '../../services';
-import { ICompany } from '../../../types';
+import { ICompany, ISeekerAccount } from '../../../types';
 import classes from './JobDetails.module.scss';
 
 export default function JobDetailes() {
@@ -56,6 +58,7 @@ export default function JobDetailes() {
   const user = useAppSelector(selectUser);
 
   const {
+    _id: jobId,
     author,
     category,
     city,
@@ -95,6 +98,14 @@ export default function JobDetailes() {
     if (user?._id) {
       try {
         await dispatch(applyToJob(job._id)).unwrap();
+
+        socket.emit('applyToJob', {
+          senderId: user._id,
+          receiverId: _id,
+          senderName: `${user.firstName} ${user.lastName}`,
+          jobTitle: title,
+        });
+
         notifications.show({
           color: 'green',
           title: t('apply_to_job'),

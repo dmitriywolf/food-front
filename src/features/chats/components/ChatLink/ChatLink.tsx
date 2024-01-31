@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ROUTES } from 'shared/routes';
 import { notifications } from '@mantine/notifications';
 import { ActionIcon, Indicator } from '@mantine/core';
+import sound from 'assets/sounds/popup.mp3';
 import { IconBrandHipchat, IconMessage } from '@tabler/icons-react';
 import { selectUser } from 'features/user';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
@@ -37,6 +38,10 @@ export default function ChatLink() {
   const currentUser = useAppSelector(selectUser);
   const chats = useAppSelector(selectChats);
 
+  const play = () => {
+    new Audio(sound).play();
+  };
+
   useEffect(() => {
     if (currentUser?._id) {
       socket.emit('addUser', currentUser._id);
@@ -59,6 +64,7 @@ export default function ChatLink() {
         icon: <IconMessage size={18} />,
         message: `${data.senderName}: ${data.content} `,
       });
+      play();
     }
 
     function getUsers(users: OnlineUser[]) {

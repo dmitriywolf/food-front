@@ -49,5 +49,13 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
     },
   };
 
-  return [babelLoader, tsLoader, styleLoader, svgLoader];
+  const fileLoader = {
+    test: /\.(mp3|wav)$/,
+    type: 'asset/resource',
+    generator: {
+      filename: 'static/chunks/[path][name].[hash][ext]',
+    },
+  };
+
+  return [babelLoader, tsLoader, styleLoader, svgLoader, fileLoader];
 }
