@@ -11,6 +11,8 @@ export { ChatLink } from './components/ChatLink';
 // service
 export { getMyChats, createChat, getChat, sendMessage } from './services';
 
+console.log('wefwef');
+
 // selectors
 export {
   selectChats,
