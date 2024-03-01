@@ -9,13 +9,18 @@
 5. Axios client
 6. Redux/Toolkit
 7. Mantine UI
-8. i18next (support two languages)
+8. i18next
 9. zod
 10. Socket.io (for chats and notifications)
 11. GitHub Actions
 12. Deploy to Vercel
 
-### General available sections:
+### User types:
+
+    - Employer
+    - Job seeker
+
+### Common features:
 
     - List of companies
     - Company page with detailed information about the company
@@ -24,11 +29,8 @@
     - List of candidates
     - Candidate page with resume
     - Statistics Page
-
-### User types:
-
-    - Employer
-    - Job seeker
+    - Support two languages: Ukrainian/ English
+    - Two themes: Dark / Light
 
 ### Employer features:
 
